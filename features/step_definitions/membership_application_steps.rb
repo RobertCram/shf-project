@@ -14,8 +14,11 @@ And(/^the following applications exist:$/) do |table|
                             contact_email: hash['user_email']))
     ma.state = hash['state'].to_sym if hash.has_key?('state')
    if hash['category_name']
-     category = BusinessCategory.find_by_name(hash['category_name'])
-     ma.business_categories = [category]
+     categories = []
+     for category_name in hash['category_name'].split(/\s*,\s*/)
+       categories << BusinessCategory.find_by_name(category_name)
+     end
+     ma.business_categories = categories
    end
  end
 end
