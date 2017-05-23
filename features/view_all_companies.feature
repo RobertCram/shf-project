@@ -40,25 +40,21 @@ Feature: As a visitor,
       | JustForFun   |
 
     And the following applications exist:
-      | first_name | user_email          | company_number | category_name | state    |
-      | Emma       | emma@happymutts.com | 5560360793     | Groomer       | accepted |
-      | Emma       | emma@happymutts.com | 5560360793     | JustForFun    | accepted |
-      | Anna       | a@happymutts.com    | 2120000142     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 2120000142     | Trainer       | accepted |
-      | Anna       | a@happymutts.com    | 2120000142     | Rehab         | accepted |
-      | Emma       | emma@happymutts.com | 2120000142     | Psychologist  | accepted |
-      | Emma       | emma@happymutts.com | 2120000142     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 6613265393     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 6222279082     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 8025085252     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 6914762726     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 7661057765     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 7736362901     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 6112107039     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 3609340140     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 2965790286     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 4268582063     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 8028973322     | Groomer       | accepted |
+      | first_name | user_email          | company_number | category_name           | state    |
+      | Emma       | emma@happymutts.com | 5560360793     | Groomer, JustForFun     | accepted |
+      | Anna       | a@happymutts.com    | 2120000142     | Groomer, Trainer, Rehab | accepted |
+      | Emma       | emma@happymutts.com | 2120000142     | Psychologist, Groomer   | accepted |
+      | Anna       | a@happymutts.com    | 6613265393     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 6222279082     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 8025085252     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 6914762726     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 7661057765     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 7736362901     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 6112107039     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 3609340140     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 2965790286     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 4268582063     | Groomer                 | accepted |
+      | Anna       | a@happymutts.com    | 8028973322     | Groomer                 | accepted |
 
   @javascript
   Scenario: Visitor sees all companies

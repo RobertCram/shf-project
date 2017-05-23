@@ -22,7 +22,6 @@ Feature: So that I do not get frustrated by trying to find out more
       | NoRegion                 | 8028973322     | hello@NoRegion.se      | ThisNameWillBeDeleted |
       |                          | 5906055081     | hello@noName.se        | Stockholm             |
 
-
     And the following users exists
       | email                        | admin |
       | admin@shf.se                 | true  |
@@ -30,24 +29,18 @@ Feature: So that I do not get frustrated by trying to find out more
       | annaTrainer@bowsers.com      |       |
       | larsGroomer@noRegionOrOld.se |       |
       | larsTrainer@noRegionOrOld.se |       |
-      | oleGroomer@noOldRegion.se    |       |
-      | oleTrainer@noOldRegion.se    |       |
-      | majaGroomer@onlyNoRegion.se  |       |
-      | majaTrainer@onlyNoRegion.se  |       |
-      | kikkiGroomer@noName.se       |       |
-      | kikkiTrainer@noName.se       |       |
+      | ole@noOldRegion.se           |       |
+      | maja@onlyNoRegion.se         |       |
+      | kikki@noName.se              |       |
 
 
     And the following applications exist:
-      | first_name   | user_email                   | company_number | category_name | state    |
-      | EmmaGroomer  | emmaGroomer@happymutts.com   | 5560360793     | Groomer       | accepted |
-      | AnnaTrainer  | annaTrainer@bowsers.com      | 2120000142     | Trainer       | accepted |
-      | OleGroomer   | oleGroomer@noOldRegion.se    | 5569467466     | Groomer       | accepted |
-      | OleTrainer   | oleTrainer@noOldRegion.se    | 5569467466     | Trainer       | accepted |
-      | MajaGroomer  | majaGroomer@onlyNoRegion.se  | 8028973322     | Groomer       | accepted |
-      | MajaTrainer  | majaTrainer@onlyNoRegion.se  | 8028973322     | Trainer       | accepted |
-      | KikkiGroomer | kikkiGroomer@noName.se       | 5906055081     | Groomer       | accepted |
-      | KikkiTrainer | kikkiTrainer@noName.se       | 5906055081     | Trainer       | accepted |
+      | first_name  | user_email                 | company_number | category_name    | state    |
+      | EmmaGroomer | emmaGroomer@happymutts.com | 5560360793     | Groomer          | accepted |
+      | AnnaTrainer | annaTrainer@bowsers.com    | 2120000142     | Trainer          | accepted |
+      | Ole         | ole@noOldRegion.se         | 5569467466     | Groomer, Trainer | accepted |
+      | Maja        | maja@onlyNoRegion.se       | 8028973322     | Groomer, Trainer | accepted |
+      | Kikki       | kikki@noName.se            | 5906055081     | Groomer, Trainer | accepted |
 
     And the region for company named "NoRegion" is set to nil
 

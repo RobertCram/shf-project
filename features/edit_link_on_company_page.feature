@@ -12,14 +12,6 @@ Feature: As the owner of a company (or an admin)
       | bowser@snarkybarky.se |       | true      | 2120000142     |
       | admin@shf.se          | true  | false     |                |
 
-    And the following applications exist:
-      | first_name | user_email            | company_number | state    |
-      | Emma       | emma@happymutts.com   | 5562252998     | accepted |
-      | Lars       | lars@happymutts.com   | 5562252998     | accepted |
-      | Anna       | anna@happymutts.com   | 5562252998     | accepted |
-      | Bowser     | bowser@snarkybarky.se | 2120000142     | accepted |
-
-
   Scenario: Visitor does not see edit link for a company
     Given I am Logged out
     And I am the page for company number "5562252998"
