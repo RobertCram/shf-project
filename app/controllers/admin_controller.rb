@@ -45,6 +45,10 @@ class AdminController < ApplicationController
       out_str << t("membership_applications.state.#{m_app.state}")
       out_str << ','
 
+      # add the business categories, all surrounded by double-quotes
+      out_str << '"' + m_app.business_categories.map(&:name).join(', ') + '"'
+      out_str << ','
+
       # a company name may have commas, so surround with quotes so spreadsheets recognize it as one string and not multiple comma-separated value
       out_str << (m_app.company.nil? ?  '' : "\"#{m_app.company.name}\"")
       out_str << ','
@@ -68,6 +72,7 @@ class AdminController < ApplicationController
                           'activerecord.attributes.membership_application.last_name',
                           'activerecord.attributes.membership_application.membership_number',
                           'activerecord.attributes.membership_application.state',
+                          'activerecord.models.business_category.other',
                           'activerecord.models.company.one',
                           'activerecord.attributes.address.street',
                           'activerecord.attributes.address.post_code',
