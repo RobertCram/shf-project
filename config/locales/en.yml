@@ -306,6 +306,18 @@ en:
       success: The application has been changed to no longer needing information from the applicant.
       error: "There was an error when trying to set the application to 'no longer needing information from the applicant.'"
 
+    need_payment:
+      success: 'The application has been marked as waiting for payment. (Send email to the applicant.)'
+      error: "There was an error when trying to set the application to 'waiting for payment.'"
+
+    received_payment:
+      success: The membership has been approved.
+      error: There was an error when trying to approve the membership.
+
+    cancel_need_payment:
+      success: The application has been changed to no longer needing payment from the applicant.
+      error: "There was an error when trying to set the application to 'no longer needing payment from the applicant.'"
+
     is_ready_for_review:
       success: Your application has been submitted for another review.
       error: There was an error when trying to submit your application for another review.
@@ -313,7 +325,8 @@ en:
     state:
       new: &status_new New
       under_review: &status_under_review Under Review
-      waiting_for_applicant: &status_waiting_for_applicant  Waiting for applicant
+      waiting_for_applicant: &status_waiting_for_applicant Waiting for applicant
+      waiting_for_payment: &status_waiting_for_payment Waiting for payment
       ready_for_review: &status_ready_for_review Ready For Review
       accepted: &status_accepted Accepted
       rejected: &status_rejected Rejected
@@ -329,6 +342,10 @@ en:
     cancel_waiting_for_applicant_btn: Cancel Waiting for Applicant Info
     waiting_for_applicant: *status_waiting_for_applicant
     applicant_updated_info: &event_applicant_updated_info Applicant Updated Info
+    ask_applicant_for_payment_btn: Ask Applicant for Payment
+    cancel_waiting_for_payment_btn: Cancel Waiting for Payment
+    received_payment_btn: Received Payment
+    waiting_for_payment: *status_waiting_for_payment
     ready_for_review: *status_ready_for_review
     start_review_btn: Start Reviewing
 

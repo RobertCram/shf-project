@@ -46,6 +46,7 @@ class MembershipApplication < ApplicationRecord
     state :under_review
     state :waiting_for_applicant
     state :ready_for_review
+    state :waiting_for_payment
     state :accepted
     state :rejected
 
@@ -65,6 +66,18 @@ class MembershipApplication < ApplicationRecord
 
     event :is_ready_for_review do
       transitions from: :waiting_for_applicant, to: :ready_for_review
+    end
+
+    event :ask_for_payment do
+      transitions from: :under_review, to: :waiting_for_payment
+    end
+
+    event :cancel_waiting_for_payment do
+      transitions from: :waiting_for_payment, to: :under_review
+    end
+
+    event :received_payment do
+      transitions from: :waiting_for_payment, to: :accepted, after: :accept_membership
     end
 
     event :accept do

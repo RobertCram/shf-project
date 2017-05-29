@@ -307,6 +307,18 @@ sv:
       success: Ansökan har ändrats och behöver ej längre kompletteras av sökande.
       error: 'Det uppstod ett fel när systemet försökte ångra status: "Behöver kompletteras".'
 
+    need_payment:
+      success: 'Ansökan har markerats som: "Behöver betalning". (Skicka e-post till den sökande.)'
+      error: 'Det uppstod ett fel när systemet försökte sätta status: "Behöver betalning".'
+
+    received_payment:
+      success: Medlemsansökan har godkänts.
+      error: Det uppstod ett fel vid godkännande av medlemskap.
+
+    cancel_need_payment:
+      success: Ansökan har ändrats och behöver ej längre betalas av sökande.
+      error: 'Det uppstod ett fel när systemet försökte ångra status: "Behöver betalning".'
+
     is_ready_for_review:
       success: Din ansökan har lämnats in för omgranskning.
       error: Det uppstod ett fel när du försöker att skicka in din ansökan för omgranskning.
@@ -315,6 +327,7 @@ sv:
       new: &status_new Ny
       under_review: &status_under_review Behandlas
       waiting_for_applicant: &status_waiting_for_applicant  Väntar på sökande
+      waiting_for_payment: &status_waiting_for_payment Väntar på betalning
       ready_for_review: &status_ready_for_review Redo för granskning
       accepted: &status_accepted Godkänd
       rejected: &status_rejected Avböjd
@@ -330,6 +343,10 @@ sv:
     cancel_waiting_for_applicant_btn: Ångra Behöver kompletteras
     waiting_for_applicant: *status_waiting_for_applicant
     applicant_updated_info: &event_applicant_updated_info Sökanden har kompletterat sin ansökan
+    ask_applicant_for_payment_btn: Behöver betalning
+    cancel_waiting_for_payment_btn: Ångra Behöver betalning
+    received_payment_btn: Fick betalning
+    waiting_for_payment: *status_waiting_for_payment
     ready_for_review: *status_ready_for_review
     start_review_btn: Påbörja granskning
 

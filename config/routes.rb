@@ -34,6 +34,12 @@ Rails.application.routes.draw do
         post 'need-info', to: 'membership_applications#need_info'
         get 'cancel-need-info', to: 'membership_applications#show'
         post 'cancel-need-info', to: 'membership_applications#cancel_need_info'
+        get 'need-payment', to: 'membership_applications#show'
+        post 'need-payment', to: 'membership_applications#need_payment'
+        get 'cancel-need-payment', to: 'membership_applications#show'
+        post 'cancel-need-payment', to: 'membership_applications#cancel_need_payment'
+        get 'received-payment', to: 'membership_applications#show'
+        post 'received-payment', to: 'membership_applications#received_payment'
 
       end
 
