@@ -220,12 +220,13 @@ Feature: As an Admin
   @admin
   Scenario: Admin cannot change from 'waiting for applicant' to accepted
     Given I am on "AnnaWaiting" application page
-    Then I should not see button t("membership_applications.accepted_btn")
+    Then I should not see button t("membership_applications.accept_btn")
 
   @admin
   Scenario: Admin cannot change from 'waiting for applicant' to 'waiting for applicant'
     Given I am on "AnnaWaiting" application page
-    Then I should not see button t("membership_applications.waiting_for_applicant_btn")
+    Then I should not see t("membership_applications.ask_applicant_for_info_btn")
+
 
   @admin
   Scenario: 'Waiting for applicant' status is not changed if admin edits the application
@@ -285,7 +286,7 @@ Feature: As an Admin
   @admin
   Scenario: Admin cannot change from accepted to 'waiting for applicant'
     Given I am on "NilsAccepted" application page
-    Then I should not see button t("membership_applications.waiting_for_applicant_btn")
+    Then I should not see button t("membership_applications.ask_applicant_for_info_btn")
     Then I should not see button t("membership_applications.accept_btn")
     And I should not see button t("membership_applications.ask_applicant_for_info_btn")
     And I should not see button t("membership_applications.cancel_waiting_for_applicant_btn")
@@ -325,7 +326,7 @@ Feature: As an Admin
   @admin
   Scenario: Admin cannot change from rejected to 'waiting for applicant'
     Given I am on "LarsRejected" application page
-    Then I should not see button t("membership_applications.waiting_for_applicant_btn")
+    Then I should not see button t("membership_applications.ask_applicant_for_info_btn")
 
   @admin
   Scenario: Admin changed from rejected to accepted

@@ -206,6 +206,7 @@ en:
       last_name: *last_name
       phone_number: Phone number
       company_number: *company_number
+      org_nr_no_hyphens: &orgnr_no_hyphen  "Numbers only (no hyphens)"
       contact_email: *contact_email
 
       can_be_same_email: Can be the same that you logged in with, but need not be.
@@ -229,6 +230,7 @@ en:
       title: Edit Membership Application
       is_ready_for_review: Is Ready for Review
       submit_button_label: *save
+      org_nr_no_hyphens: *orgnr_no_hyphen
 
     update:
       success: The application was updated.
@@ -241,6 +243,7 @@ en:
       last_name: *last_name
       phone_number: Phone number
       company_number: *company_number
+      org_nr_no_hyphens: *orgnr_no_hyphen
       contact_email: *contact_email
       app_status: Application status
       change_status: Change the status

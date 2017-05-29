@@ -69,6 +69,8 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'  # needed to make better_errors work well
 
+  gem 'i18n-tasks'
+
 end
 
 group :development do
@@ -89,8 +91,4 @@ end
 
 group :test do
   gem 'poltergeist'
-end
-
-group :production do
-  gem 'rails_12factor'
 end
