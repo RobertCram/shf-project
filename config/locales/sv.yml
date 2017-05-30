@@ -348,7 +348,7 @@ sv:
     applicant_updated_info: &event_applicant_updated_info Sökanden har kompletterat sin ansökan
     ask_applicant_for_payment_btn: Behöver betalning
     cancel_waiting_for_payment_btn: Ångra Behöver betalning
-    received_payment_btn: Fick betalning
+    received_payment_btn: Betalning inkommen
     waiting_for_payment: *status_waiting_for_payment
     ready_for_review: *status_ready_for_review
     start_review_btn: Påbörja granskning
