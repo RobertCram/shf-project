@@ -41,7 +41,7 @@ Feature: So that I do not get frustrated by trying to find out more
 
 
     And the following applications exist:
-      | first_name  | user_email                 | company_number | category_name    | state    |
+      | first_name  | user_email                 | company_number | categories       | state    |
       | EmmaGroomer | emmaGroomer@happymutts.com | 5560360793     | Groomer          | accepted |
       | AnnaTrainer | annaTrainer@bowsers.com    | 2120000142     | Trainer          | accepted |
       | Ole         | ole@noOldRegion.se         | 5569467466     | Groomer, Trainer | accepted |

@@ -34,9 +34,9 @@ Feature: All companies are geocoded before being shown on the view all companies
       | Trainer      |
 
     And the following applications exist:
-      | first_name | user_email          | company_number | category_name | state    |
-      | Emma       | emma@happymutts.com | 5560360793     | Groomer       | accepted |
-      | Anna       | a@happymutts.com    | 2120000142     | Trainer       | accepted |
+      | first_name | user_email          | company_number | categories | state    |
+      | Emma       | emma@happymutts.com | 5560360793     | Groomer    | accepted |
+      | Anna       | a@happymutts.com    | 2120000142     | Trainer    | accepted |
 
 
 

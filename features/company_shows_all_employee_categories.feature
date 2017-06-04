@@ -37,7 +37,7 @@ Feature: As a visitor
       | Agility      |
 
     And the following applications exist:
-      | first_name | user_email            | company_number | category_name | state    |
+      | first_name | user_email            | company_number | categories    | state    |
       | Emma       | emma@happymutts.com   | 5562252998     | Groomer       | accepted |
       | Lars       | lars@happymutts.com   | 5562252998     | Trainer       | accepted |
       | Anna       | anna@happymutts.com   | 5562252998     | Psychologist  | accepted |

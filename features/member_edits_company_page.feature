@@ -31,8 +31,8 @@ Feature: As a member
       | Awesome      |
 
     And the following applications exist:
-      | first_name | user_email          | company_number | category_name | state    |
-      | Emma       | emma@happymutts.com | 5562252998     | Awesome       | accepted |
+      | first_name | user_email          | company_number | categories | state    |
+      | Emma       | emma@happymutts.com | 5562252998     | Awesome    | accepted |
 
   Scenario: Member goes to company page after membership approval
     Given I am logged in as "emma@happymutts.com"

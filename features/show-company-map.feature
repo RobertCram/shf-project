@@ -32,8 +32,8 @@ Feature: As a visitor
 
 
     And the following applications exist:
-      | first_name | user_email          | company_number | category_name | state    |
-      | Emma       | emma@happymutts.com | 5560360793     | Groomer       | accepted |
+      | first_name | user_email          | company_number | categories | state    |
+      | Emma       | emma@happymutts.com | 5560360793     | Groomer    | accepted |
 
 
   @javascript

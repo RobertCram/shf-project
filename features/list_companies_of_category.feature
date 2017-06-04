@@ -31,10 +31,10 @@ Feature: As any type of visitor
       | Extra   |
 
     And the following applications exist:
-      | first_name | user_email          | company_number | category_name | state    |
-      | Emma       | emma@happymutts.com | 5562252998     | Awesome       | accepted |
-      | Ernt       | ernt@mutts.com      | 5569467466     | Awesome       | accepted |
-      | Anna       | anna@sadmutts.com   | 2120000142     | Sadness       | accepted |
+      | first_name | user_email          | company_number | categories | state    |
+      | Emma       | emma@happymutts.com | 5562252998     | Awesome    | accepted |
+      | Ernt       | ernt@mutts.com      | 5569467466     | Awesome    | accepted |
+      | Anna       | anna@sadmutts.com   | 2120000142     | Sadness    | accepted |
 
   Scenario: Categories list multiple businesses
     Given I am Logged out

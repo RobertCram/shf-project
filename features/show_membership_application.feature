@@ -37,14 +37,14 @@ Feature: As an Admin
       | No More Snarky Barky | 5560360793     | snarky@snarkybarky.se |
 
     And the following applications exist:
-      | first_name         | user_email                          | company_number | state                 | category_name |
-      | Emma               | emma@random.com                     | 5562252998     | waiting_for_applicant | Psychologist  |
-      | Hans               | hans@random.com                     | 5560360793     | waiting_for_applicant | Psychologist  |
-      | Anna               | anna_needs_info@random.com          | 2120000142     | waiting_for_applicant | Psychologist  |
-      | LarsRejected       | lars_rejected@snarkybark.se         | 0000000000     | rejected              | dog crooning  |
-      | NilsApproved       | nils_member@bowwowwow.se            | 0000000000     | accepted              | Groomer       |
-      | EmmaUnderReview    | emma_under_review@happymutts.se     | 5562252998     | under_review          | rehab         |
-      | HansReadyForReview | hans_ready_for_review@happymutts.se | 5562252998     | ready_for_review      | dog grooming  |
+      | first_name         | user_email                          | company_number | state                 | categories   |
+      | Emma               | emma@random.com                     | 5562252998     | waiting_for_applicant | Psychologist |
+      | Hans               | hans@random.com                     | 5560360793     | waiting_for_applicant | Psychologist |
+      | Anna               | anna_needs_info@random.com          | 2120000142     | waiting_for_applicant | Psychologist |
+      | LarsRejected       | lars_rejected@snarkybark.se         | 0000000000     | rejected              | dog crooning |
+      | NilsApproved       | nils_member@bowwowwow.se            | 0000000000     | accepted              | Groomer      |
+      | EmmaUnderReview    | emma_under_review@happymutts.se     | 5562252998     | under_review          | rehab        |
+      | HansReadyForReview | hans_ready_for_review@happymutts.se | 5562252998     | ready_for_review      | dog grooming |
 
 
   @admin

@@ -35,11 +35,11 @@ Background:
     | We Luv Dogs | 5569467466     | alpha@weluvdogs.com  | Sweden       |             |
 
   And the following applications exist:
-    | first_name | last_name  | user_email          | company_number | state        | category_name |
-    | Fred       | Fransson   | fred@barkyboys.com  | 5560360793     | rejected     | Groomer       |
-    | John       | Johanssen  | john@happymutts.com | 2120000142     | accepted     | Psychologist  |
-    | Anna       | Anderson   | anna@dogsrus.com    | 5562252998     | new          | Trainer       |
-    | Emma       | Eriksson   | emma@weluvdogs.com  | 5569467466     | under_review | Walker        |
+    | first_name | last_name  | user_email          | company_number | state        | categories   |
+    | Fred       | Fransson   | fred@barkyboys.com  | 5560360793     | rejected     | Groomer      |
+    | John       | Johanssen  | john@happymutts.com | 2120000142     | accepted     | Psychologist |
+    | Anna       | Anderson   | anna@dogsrus.com    | 5562252998     | new          | Trainer      |
+    | Emma       | Eriksson   | emma@weluvdogs.com  | 5569467466     | under_review | Walker       |
 
   And I am logged in as "admin@shf.se"
   And I am on the "membership applications" page

@@ -29,13 +29,13 @@ Feature: As an Admin
 
 
     And the following applications exist:
-      | first_name            | user_email                             | company_number | category_name | state                 |
-      | EmmaUnderReview       | emma_under_review@happymutts.se        | 5562252998     | rehab         | under_review          |
-      | HansUnderReview       | hans_under_review@happymutts.se        | 5562252998     | dog grooming  | under_review          |
-      | AnnaWaiting           | anna_waiting_for_info@nosnarkybarky.se | 5560360793     | rehab         | waiting_for_applicant |
-      | LarsRejected          | lars_rejected@snarkybark.se            | 0000000000     | rehab         | rejected              |
-      | NilsAccepted          | nils_member@bowwowwow.se               | 0000000000     | dog crooning  | accepted              |
-      | LarsWaitingForPayment | lars_waiting_for_payment@happymutts.se | 0000000000     | dog crooning  | waiting_for_payment   |
+      | first_name            | user_email                             | company_number | categories   | state                 |
+      | EmmaUnderReview       | emma_under_review@happymutts.se        | 5562252998     | rehab        | under_review          |
+      | HansUnderReview       | hans_under_review@happymutts.se        | 5562252998     | dog grooming | under_review          |
+      | AnnaWaiting           | anna_waiting_for_info@nosnarkybarky.se | 5560360793     | rehab        | waiting_for_applicant |
+      | LarsRejected          | lars_rejected@snarkybark.se            | 0000000000     | rehab        | rejected              |
+      | NilsAccepted          | nils_member@bowwowwow.se               | 0000000000     | dog crooning | accepted              |
+      | LarsWaitingForPayment | lars_waiting_for_payment@happymutts.se | 0000000000     | dog crooning | waiting_for_payment   |
 
     And I am logged in as "admin@shf.se"
     And time is frozen at 2016-12-16

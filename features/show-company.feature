@@ -48,7 +48,7 @@ Feature: As a visitor,
       | JustForFun   |
 
     And the following applications exist:
-      | first_name | user_email          | company_number | category_name           | state    |
+      | first_name | user_email          | company_number | categories              | state    |
       | Emma       | emma@happymutts.com | 5560360793     | Groomer, JustForFun     | accepted |
       | Anna       | a@happymutts.com    | 2120000142     | Groomer, Trainer, Rehab | accepted |
       | Emma       | emma@happymutts.com | 2120000142     | Psychologist, Groomer   | accepted |

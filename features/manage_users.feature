@@ -17,10 +17,10 @@ Feature: As an admin
       | Trainer      |
 
     And the following applications exist:
-      | first_name | user_email          | company_number | category_name | state    |
-      | Emma       | emma@happymutts.com | 5562252998     | Trainer       | accepted |
-      | Anna       | anna@sadmutts.com   | 2120000142     | Psychologist  | accepted |
-      | Ernt       | ernt@mutts.com      | 2120000142     | Psychologist  | new      |
+      | first_name | user_email          | company_number | categories   | state    |
+      | Emma       | emma@happymutts.com | 5562252998     | Trainer      | accepted |
+      | Anna       | anna@sadmutts.com   | 2120000142     | Psychologist | accepted |
+      | Ernt       | ernt@mutts.com      | 2120000142     | Psychologist | new      |
 
   Scenario: Admin can view all users
     Given I am logged in as "admin@shf.se"

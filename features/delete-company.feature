@@ -66,7 +66,7 @@ Feature: As an admin
 
 
     And the following applications exist:
-      | first_name       | user_email                     | company_number | state                 | category_name |
+      | first_name       | user_email                     | company_number | state                 | categories    |
       | Emma             | emma@happymutts.com            | 2120000142     | accepted              | grooming      |
       | Hans             | hans@happymutts.com            | 2120000142     | accepted              | training      |
       | Sam              | sam@snarkybarky.com            | 5560360793     | rejected              | senior-play   |

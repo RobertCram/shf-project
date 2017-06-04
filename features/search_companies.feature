@@ -41,11 +41,11 @@ Background:
     | We Luv Dogs | 5569467466     | alpha@weluvdogs.com  | Sweden       | Laxå      |
 
   And the following applications exist:
-    | first_name | user_email          | company_number | state    | category_name |
-    | Fred       | fred@barkyboys.com  | 5560360793     | accepted | Groomer       |
-    | John       | john@happymutts.com | 2120000142     | accepted | Psychologist  |
-    | Anna       | anna@dogsrus.com    | 5562252998     | accepted | Trainer       |
-    | Emma       | emma@weluvdogs.com  | 5569467466     | accepted | Groomer       |
+    | first_name | user_email          | company_number | state    | categories   |
+    | Fred       | fred@barkyboys.com  | 5560360793     | accepted | Groomer      |
+    | John       | john@happymutts.com | 2120000142     | accepted | Psychologist |
+    | Anna       | anna@dogsrus.com    | 5562252998     | accepted | Trainer      |
+    | Emma       | emma@weluvdogs.com  | 5569467466     | accepted | Groomer      |
 
 @javascript
 Scenario: View all companies, sort by columns
