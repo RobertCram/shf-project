@@ -1,6 +1,6 @@
 And(/^the following applications exist:$/) do |table|
  table.hashes.each do |hash|
-   attributes = hash.except('user_email')
+   attributes = hash.except('user_email', 'categories')
    user = User.find_by(email: hash[:user_email])
     if hash['state'] == 'accepted' || hash['state'] == 'rejected'
      company = Company.find_by(company_number: hash['company_number'])
@@ -12,10 +12,10 @@ And(/^the following applications exist:$/) do |table|
                             attributes.merge(user: user,
                             company: company,
                             contact_email: hash['user_email']))
-    ma.state = hash['state'].to_sym if hash.has_key?('state')
-   if hash['category_name']
+   ma.state = hash['state'].to_sym if hash.has_key?('state')
+   if hash['categories']
      categories = []
-     for category_name in hash['category_name'].split(/\s*,\s*/)
+     for category_name in hash['categories'].split(/\s*,\s*/)
        categories << BusinessCategory.find_by_name(category_name)
      end
      ma.business_categories = categories
