@@ -3,8 +3,8 @@ require 'active_support/logger'
 
 namespace :shf do
 
-  ACCEPTED_STATE = 'accepted'
-  LOG_FILE = 'log/shf_tasks'
+  ACCEPTED_STATE = 'accepted' unless defined?(ACCEPTED_STATE)
+  LOG_FILE = 'log/shf_tasks' unless defined?(LOG_FILE)
 
   desc 'recreate db (current env): drop, setup, migrate, seed the db.'
   task :db_recreate => [:environment] do
