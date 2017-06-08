@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'load admin.email and admin.password from ENV in production' do
+RSpec.describe 'load admin.email, admin.password, business categories, regions and kommuns from ENV in production' do
 
   env_shf_email = 'SHF_ADMIN_EMAIL'
   env_shf_pwd = 'SHF_ADMIN_PWD'
@@ -12,11 +12,13 @@ RSpec.describe 'load admin.email and admin.password from ENV in production' do
 
   describe 'happy path - all is valid' do
 
-    before(:each) do
-      allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
-      stub_const('ENV', {env_shf_email => admin_email, env_shf_pwd => admin_pwd})
-      SHFProject::Application.load_tasks
-      SHFProject::Application.load_seed
+    before(:all) do
+      RSpec::Mocks.with_temporary_scope do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
+        stub_const('ENV', {env_shf_email => admin_email, env_shf_pwd => admin_pwd})
+        SHFProject::Application.load_tasks
+        SHFProject::Application.load_seed
+      end
     end
 
     let(:admin_in_db) { User.find_by_email(admin_email) }
@@ -36,6 +38,34 @@ RSpec.describe 'load admin.email and admin.password from ENV in production' do
     it "admin email is = ENV['SHF_ADMIN_PWD']" do
       # User.find(1).valid_password?('password123')
       expect(admin_in_db.valid_password?(admin_pwd)).to be_truthy
+    end
+
+    it "admin is the only user in the db" do
+      expect(User.all.size).to eq(1)
+    end
+
+    it "business categories are in the db" do
+      expect(BusinessCategory.all.size).to eq(11)
+    end
+
+    it "regions are in the db" do
+      expect(Region.all.size).to eq(23)
+    end
+
+    it "kommuns are in the db" do
+      expect(Kommun.all.size).to eq(290)
+    end
+
+    it "adresses are not in the db" do
+      expect(Address.all.size).to eq(0)
+    end
+
+    it "companies are not in the db" do
+      expect(Company.all.size).to eq(0)
+    end
+
+    it "memberships applications are not in the db" do
+      expect(MembershipApplication.all.size).to eq(0)
     end
 
   end
