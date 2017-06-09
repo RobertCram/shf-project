@@ -47,12 +47,12 @@ end
 
 if Region.all.empty?
   puts 'Loading regions'
-  Rake::Task['shf:load_regions'].execute
+  Rake::Task['shf:load_regions'].invoke
 end
 
 if Kommun.all.empty?
   puts 'Loading kommuns'
-  Rake::Task['shf:load_kommuns'].execute
+  Rake::Task['shf:load_kommuns'].invoke
 end
 
 puts 'Creating business categories'
