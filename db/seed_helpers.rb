@@ -8,8 +8,6 @@ module SeedHelper
 
   MA_ACCEPTED_STATE = :accepted unless defined?(MA_ACCEPTED_STATE)
 
-  MAX_APPS_PER_USER = 4 unless defined?(MAX_APPS_PER_USER)
-
   FIRST_MEMBERSHIP_NUMBER = 100 unless defined?(FIRST_MEMBERSHIP_NUMBER)
 
   class SeedAdminENVError < StandardError
@@ -40,62 +38,56 @@ module SeedHelper
   end
 
 
-  #---
-  # Create some number of membership applications for a user.
-  #
-  # for 10% users, do not make any applications (they are just registered Users)
-  # for 60% users, just make 1 application with a status chosen randomly
-  # for 30% users, make multiple applications
-  #   randomly select some number, and randomly select a state for each application
-  #     Note that if there is an accepted application, it must be the LAST one
-  #      because the code currently assumes that if a member has a company, that
-  #       company can be accessed via the LAST membership application (user.membership_applications.last)
-  #
-  def make_applications_for(user)
+  def get_next_membership_number
 
-    num_apps = Random.new.rand(1..10)
-
-    case num_apps
-      when 1..6
-        make_n_save_multiple_apps(user, MAX_APPS_PER_USER) # multiple applications
-      when 7..9
-        make_n_save_accepted_app(user)
-      else # no app; do nothing.
-    end
-
-    user
+    MembershipApplication.last.nil? ? FIRST_MEMBERSHIP_NUMBER : MembershipApplication.last.id + FIRST_MEMBERSHIP_NUMBER
   end
 
 
-  # make 'num_apps' number of applications for a user, ensure that if there is
-  # an accepted application, it is the LAST one
-  def make_n_save_multiple_apps(user, max_apps)
+  #---
+  # Create a fixed number of membership applications.
+  #
+  # for about 30%, make an accepted application
+  # for about 70%, make an application with a status chosen randomly (but not yet accepted)
+  #
 
-    append_accepted_app = false
+  def make_applications(users, users_with_application)
 
-    company_number = get_company_number(Random.new)
+    return if users_with_application == 0
 
-    states = MembershipApplication.aasm.states.map(&:name)
+    users[0..users_with_application-1].each do |user|
 
-    chosen_states = FFaker.fetch_sample( states, { count: (max_apps < states.count ? max_apps : states.count) } )
+      if Random.new.rand(1.0) < 0.3 then
+        # set the state to accepted for about 30% of the applications
+        state = MA_ACCEPTED_STATE
+      else
+        # set a random state (except accepted) for the rest of the applications
+        states = MembershipApplication.aasm.states.map(&:name) - [MA_ACCEPTED_STATE]
+        state = FFaker.fetch_sample( states )
+      end
 
-    if chosen_states.include? MA_ACCEPTED_STATE
-      chosen_states = chosen_states - [MA_ACCEPTED_STATE]
-      append_accepted_app = true
+      make_n_save_app(user, state)
+
     end
 
-    chosen_states.each do | app_state |
-      ma = make_app(user, company_number)
-      ma.state = app_state
-      user.membership_applications << ma
-    end
+  end
 
-    user.save
 
-    if append_accepted_app
-      make_n_save_accepted_app(user, company_number)
-    end
+  def make_n_save_app(user, state, co_number = get_company_number(Random.new))
+    # create a basic app
+    ma = make_app(user, co_number )
 
+    ma.state = state
+
+    # make a full company object (instance) for the accepted membership application
+    ma.company = make_new_company(ma.company_number)
+
+    ma.membership_number = get_next_membership_number
+
+    # ensure that this is the *last* application for the user
+    user.membership_applications << ma
+
+    user.save!
     user
   end
 
@@ -131,61 +123,15 @@ module SeedHelper
   end
 
 
-  def get_next_membership_number
-
-    MembershipApplication.last.nil? ? FIRST_MEMBERSHIP_NUMBER : MembershipApplication.last.id + FIRST_MEMBERSHIP_NUMBER
-  end
-
-
-  def make_n_save_accepted_app(user, co_number = get_company_number(Random.new))
-
-    # create a basic app
-    ma = make_app(user, co_number )
-
-    # set the state to accepted
-    ma.state = MA_ACCEPTED_STATE
-
-    # make a full company object (instance) for the accepted membership application
-    ma.company = make_new_company(ma.company_number)
-
-    ma.membership_number = get_next_membership_number
-
-    # ensure that this is the *last* application for the user
-    user.membership_applications << ma
-
-    user.save
-    user
-  end
-
-
-  #  If the user already has a membership application, use the same names.
-  # (They would only use different name if they made a mistake and submitted
-  #   a whole new application.  We won't worry about that case here.)
-  def get_app_names(u)
-
-    if (m = MembershipApplication.find_by(user_id: u.id))
-      first_n = m.first_name
-      last_n = m.last_name
-    else
-      first_n = FFaker::NameSE.first_name
-      last_n = FFaker::NameSE.last_name
-    end
-
-    return first_n, last_n
-  end
-
-
   def make_app(u, company_number)
 
     r = Random.new
 
     business_categories = BusinessCategory.all.to_a
 
-    first_n, last_n = get_app_names(u)
-
     # for 1 in 8 apps, use a different contact email than the user's email
-    ma = MembershipApplication.new(first_name: first_n,
-                                   last_name: last_n,
+    ma = MembershipApplication.new(first_name: FFaker::NameSE.first_name,
+                                   last_name: FFaker::NameSE.last_name,
                                    contact_email: ( (Random.new.rand(1..8)) == 0 ? FFaker::InternetSE.free_email : u.email),
                                    company_number: company_number,
                                    user: u)
