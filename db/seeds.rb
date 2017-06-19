@@ -29,12 +29,12 @@ end
 
 puts ">>> SEEDING ENVIRONMENT: #{Rails.env}"
 
-if Region.all.empty?
+if !Region.exists?
   puts 'Loading regions'
   Rake::Task['shf:load_regions'].invoke
 end
 
-if Kommun.all.empty?
+if !Kommun.exists?
   puts 'Loading kommuns'
   Rake::Task['shf:load_kommuns'].invoke
 end
@@ -73,7 +73,7 @@ unless Rails.env.production? || Rails.env.test?
     users[email] = User.create!(email: email, password: DEFAULT_PASSWORD) unless users.key?(email)
   end
 
-  puts "Users created: #{User.all.length}"
+  puts "Users created: #{User.count}"
 
   puts "\nCreating membership applications ..."
   puts "  As companies are created for accepted applications, their address has to be geocoded/located."
@@ -81,7 +81,7 @@ unless Rails.env.production? || Rails.env.test?
 
   make_applications(users.values, NUM_USERS_WITH_ONE_APPLICATION)
 
-  puts "\n  Membership applications created: #{MembershipApplication.all.length}"
+  puts "\n  Membership applications created: #{MembershipApplication.count}"
   puts "  Membership Applications by state:"
   states = MembershipApplication.aasm.states.map(&:name)
   states.sort.each do | state |
