@@ -26,7 +26,6 @@ RSpec.describe Ckeditor::Picture, type: :model do
     it { is_expected.to have_attached_file :data }
     it { is_expected.to validate_attachment_presence :data }
     it { is_expected.to validate_attachment_size(:data).in(0..2.megabytes) }
-    it { is_expected.to validate_presence_of :company }
   end
 
   describe 'class and instance methods - company images' do
