@@ -16,7 +16,8 @@ SEED_COMPLETE_MSG = '<<< SEEDING COMPLETED' unless defined?(SEED_COMPLETE_MSG)
 
 NUM_USERS = 100 unless defined?(NUM_USERS)
 
-NUM_USERS_WITH_ONE_APPLICATION =  90 unless defined?(NUM_USERS_WITH_ONE_APPLICATION)
+NUM_USERS_WITH_SINGLE_APPLICATION =  80 unless defined?(NUM_USERS_WITH_SINGLE_APPLICATION)
+NUM_USERS_WITH_DOUBLE_APPLICATION = 10 unless defined?(NUM_USERS_WITH_DOUBLE_APPLICATION)
 
 DEFAULT_PASSWORD = 'whatever' unless defined?(DEFAULT_PASSWORD)
 
@@ -79,7 +80,7 @@ unless Rails.env.production? || Rails.env.test?
   puts "  As companies are created for accepted applications, their address has to be geocoded/located."
   puts "  This takes time to do. Be patient. (You can look at the /log/development.log to be sure that things are happening and this is not stuck.)"
 
-  make_applications(users.values, NUM_USERS_WITH_ONE_APPLICATION)
+  make_applications(users.values, NUM_USERS_WITH_SINGLE_APPLICATION, NUM_USERS_WITH_DOUBLE_APPLICATION)
 
   puts "\n  Membership applications created: #{MembershipApplication.count}"
   puts "  Membership Applications by state:"
