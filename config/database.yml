@@ -9,6 +9,9 @@ default: &default
 development:
   <<: *default
   database: shf_project_development
+  host: db
+  username: shf_project
+  password: password
 
 test: &test
   <<: *default
