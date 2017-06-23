@@ -5,13 +5,13 @@ default: &default
   ctype: sv_SE.UTF-8
   template: template0
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: shf_project
+  password: <%= ENV['SHF_PROJECT_DATABASE_PASSWORD'] %>
+  host: <%= ENV['SHF_PROJECT_DATABASE_HOST'] %>
 
 development:
   <<: *default
   database: shf_project_development
-  host: db
-  username: shf_project
-  password: password
 
 test: &test
   <<: *default
@@ -20,7 +20,6 @@ test: &test
 production:
   <<: *default
   database: shf_project_production
-  username: shf_project
   password: <%= ENV['SHF_PROJECT_DATABASE_PASSWORD'] %>
 
 cucumber:
