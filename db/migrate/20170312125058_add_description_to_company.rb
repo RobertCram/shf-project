@@ -1,4 +1,4 @@
-class AddDescriptionToCompany < ActiveRecord::Migration[5.0]
+class AddDescriptionToCompany < ActiveRecord::Migration[5.1]
   def change
     add_column :companies, :description, :text
   end

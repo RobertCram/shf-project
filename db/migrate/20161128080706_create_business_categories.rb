@@ -1,4 +1,4 @@
-class CreateBusinessCategories < ActiveRecord::Migration[5.0]
+class CreateBusinessCategories < ActiveRecord::Migration[5.1]
   def change
     create_table :business_categories do |t|
       t.string :name

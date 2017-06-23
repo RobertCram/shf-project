@@ -1,4 +1,4 @@
-class AddKommunRefToAddresses < ActiveRecord::Migration[5.0]
+class AddKommunRefToAddresses < ActiveRecord::Migration[5.1]
   def change
     add_reference :addresses, :kommun, foreign_key: true
     remove_column :addresses, :kommun, :string

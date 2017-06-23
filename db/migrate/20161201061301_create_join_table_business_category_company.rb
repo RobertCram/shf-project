@@ -1,4 +1,4 @@
-class CreateJoinTableBusinessCategoryCompany < ActiveRecord::Migration[5.0]
+class CreateJoinTableBusinessCategoryCompany < ActiveRecord::Migration[5.1]
   def change
     create_table :business_categories_companies do |t|
       t.belongs_to :company, index: {name: 'index_on_companies'}

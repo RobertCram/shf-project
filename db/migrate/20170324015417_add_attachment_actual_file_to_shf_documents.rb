@@ -1,4 +1,4 @@
-class AddAttachmentActualFileToShfDocuments < ActiveRecord::Migration[5.0]
+class AddAttachmentActualFileToShfDocuments < ActiveRecord::Migration[5.1]
 
   def self.up
     change_table :shf_documents do |t|

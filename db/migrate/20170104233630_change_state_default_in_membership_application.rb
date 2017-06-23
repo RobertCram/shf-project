@@ -1,4 +1,4 @@
-class ChangeStateDefaultInMembershipApplication < ActiveRecord::Migration[5.0]
+class ChangeStateDefaultInMembershipApplication < ActiveRecord::Migration[5.1]
   def change
 
     change_column_default :membership_applications, :state, from: 'Pending', to: 'new'

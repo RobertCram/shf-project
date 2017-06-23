@@ -1,4 +1,4 @@
-class AddLatitudeLongitudeToAddress < ActiveRecord::Migration[5.0]
+class AddLatitudeLongitudeToAddress < ActiveRecord::Migration[5.1]
 
   def change
     add_column :addresses, :latitude, :float

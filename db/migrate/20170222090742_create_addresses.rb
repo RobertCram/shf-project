@@ -1,4 +1,4 @@
-class CreateAddresses < ActiveRecord::Migration[5.0]
+class CreateAddresses < ActiveRecord::Migration[5.1]
 
   def up
 

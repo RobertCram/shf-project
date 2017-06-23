@@ -1,4 +1,4 @@
-class CreateMembershipApplications < ActiveRecord::Migration[5.0]
+class CreateMembershipApplications < ActiveRecord::Migration[5.1]
   def change
     create_table :membership_applications do |t|
       t.string :company_name
