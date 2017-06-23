@@ -12,7 +12,6 @@ Given(/^the following users exist(?:s|)$/) do |table|
         if ! user['company_number'].nil?
           FactoryGirl.create(:user_with_membership_app, user, company_number: user['company_number'])
         else
-          debugger
           FactoryGirl.create(:user, user)
         end
       end
