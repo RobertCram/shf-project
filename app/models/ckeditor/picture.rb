@@ -11,14 +11,7 @@ class Ckeditor::Picture < Ckeditor::Asset
   validates_attachment_content_type :data, content_type: /\Aimage/
 
   belongs_to :company, optional: true
-  # validates_presence_of :company, if: lambda { /company/.match(@@category) }
-
-  ## For Rails 5.1, the validation immediately above failed in that it
-  ## validated the presence of "company" even for instances where
-  ## @@category == "member_pages".  As a result,
-  ## 1) commented out the validation, and,
-  ## 2) added "optional: true" to the belongs_to association.
-  ## We can come back later and see if this is fixed in later Rails release.
+  validates_presence_of :company, :if => lambda { /company/.match(@@category) }
 
   @@category = nil
   @@company_id = nil
