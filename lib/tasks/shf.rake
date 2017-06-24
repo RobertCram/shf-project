@@ -13,14 +13,6 @@ namespace :shf do
     tasks.each { |t| Rake::Task["#{t}"].invoke }
   end
 
-  desc 'create db (current env): setup, migrate, seed the db.'
-  task :db_create => [:environment] do
-    tasks = ['db:create', 'db:migrate',
-             'shf:load_regions', 'shf:load_kommuns', 'db:seed']
-    tasks.each { |t| Rake::Task["#{t}"].invoke }
-  end
-
-
   desc "import membership apps from csv file. Provide the full filename (with path)"
   task :import_membership_apps, [:csv_filename] => [:environment] do |t, args|
 
