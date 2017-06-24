@@ -5,7 +5,7 @@ default: &default
   ctype: sv_SE.UTF-8
   template: template0
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV['SHF_PROJECT_DATABASE_HOST'] %>
+  host: <%= ENV['SHF_PROJECT_DATABASE_HOST'] %>  #host is needed for dockerization (database runs in a separate container)
 
 development:
   <<: *default
