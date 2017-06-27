@@ -14,6 +14,11 @@ And(/^I should see "([^"]*)"$/) do |content|
 end
 
 And(/^I should not see "([^"]*)"$/) do |content|
+  if Capybara.current_driver == :poltergeist then
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.evaluate_script('jQuery.active').zero?
+    end
+  end
   expect(page).not_to have_content content
 end
 
