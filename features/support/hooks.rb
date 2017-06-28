@@ -8,6 +8,10 @@ Before('@selenium') do
 end
 
 After('@javascript, @poltergeist, @selenium') do
+  Timeout.timeout(Capybara.default_wait_time) do
+    loop until page.evaluate_script('jQuery.active').zero?
+  end
+
   Capybara.reset_sessions!
   Capybara.current_driver = :rack_test
 end
