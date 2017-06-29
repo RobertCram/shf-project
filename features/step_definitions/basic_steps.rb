@@ -115,7 +115,7 @@ end
 
 And /^I wait for all ajax requests to complete$/ do
   Timeout.timeout(Capybara.default_max_wait_time) do
-    loop until page.evaluate_script('window.jQuery ? jQuery.active : false').zero?
+    loop until page.evaluate_script('window.jQuery ? jQuery.active : 0').zero?
   end
 end
 

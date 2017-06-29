@@ -175,6 +175,7 @@ Feature: As an admin
 
   @poltergeist
   Scenario: Admin cannot delete a company with 1 accepted and 1 rejected membership application
+    Given I am logged in as "admin@shf.se"
 
 
   @poltergeist
