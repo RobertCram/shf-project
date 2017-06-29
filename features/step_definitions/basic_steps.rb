@@ -113,7 +113,7 @@ Then(/^I wait(?: for)? (\d+) second(?:s)?$/) do |seconds|
   sleep seconds.to_i.seconds
 end
 
-And  /^I wait for all ajax requests to complete$/ do
+And /^I wait for all ajax requests to complete$/ do
   Timeout.timeout(Capybara.default_max_wait_time) do
     loop until page.evaluate_script('window.jQuery ? jQuery.active : false').zero?
   end
