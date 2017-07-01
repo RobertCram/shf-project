@@ -122,8 +122,15 @@ Then(/^I wait(?: for)? (\d+) second(?:s)?$/) do |seconds|
   sleep seconds.to_i.seconds
 end
 
+And (/^I wait for ajax$/) do
+  Timeout.timeout(Capybara.default_max_wait_time) do
+    loop until page.evaluate_script('window.jQuery ? jQuery.active : 0').zero?
+  end
+end
 
 When(/^(?:I|they) select t\("([^"]*)"\) in select list "([^"]*)"$/) do |item, lst|
   selected = i18n_content("#{item}")
   find(:select, lst).find(:option, selected).select_option
 end
+
+

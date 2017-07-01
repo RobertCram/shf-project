@@ -94,6 +94,7 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
     And I set "member_app_waiting_reasons" to "need doc"
     # change back so the custom reason field shows. it should be blank
     And I set "member_app_waiting_reasons" to t("admin_only.member_app_waiting_reasons.other_custom_reason")
+    And I wait for ajax
     Then I should not see "This is my reason"
 
 
