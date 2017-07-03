@@ -1,7 +1,7 @@
 And(/^the following applications exist:$/) do |table|
  table.hashes.each do |hash|
    attributes = hash.except('user_email', 'categories')
-   user = User.find_by(email: hash[:user_email])
+   user = User.find_by(email: hash[:user_email].downcase)
     if hash['state'] == 'accepted' || hash['state'] == 'rejected'
      company = Company.find_by(company_number: hash['company_number'])
      unless company

@@ -19,13 +19,13 @@ class Company < ApplicationRecord
 
   before_save :sanitize_website
 
-  has_many :business_categories, through: :membership_applications
-
   has_many :membership_applications, dependent: :destroy, inverse_of: :company
+
+  has_many :business_categories, through: :membership_applications
 
   has_many :addresses, as: :addressable, dependent: :destroy
 
-  has_many :pictures, class_name: Ckeditor::Picture, dependent: :destroy
+  has_many :pictures, class_name: 'Ckeditor::Picture', dependent: :destroy
 
   accepts_nested_attributes_for :addresses, allow_destroy: true
 

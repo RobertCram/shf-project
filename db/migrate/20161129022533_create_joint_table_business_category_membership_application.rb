@@ -1,4 +1,4 @@
-class CreateJointTableBusinessCategoryMembershipApplication < ActiveRecord::Migration[5.0]
+class CreateJointTableBusinessCategoryMembershipApplication < ActiveRecord::Migration[5.1]
   def change
     create_table :business_categories_membership_applications do |t|
       t.belongs_to :membership_application, index: {name: 'index_on_applications'}

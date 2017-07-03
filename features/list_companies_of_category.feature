@@ -17,11 +17,17 @@ Feature: As any type of visitor
       | Västerbotten |
       | Norrbotten   |
 
+    And the following kommuns exist:
+      | name      |
+      | Alingsås  |
+      | Bromölla  |
+      | Laxå      |
+
     And the following companies exist:
-      | name                 | company_number | email               | region       |
-      | No More Snarky Barky | 5562252998     | emma@happymutts.com | Stockholm    |
-      | WOOF                 | 5569467466     | ernt@mutts.com      | Västerbotten |
-      | Sad Sad Snarky Barky | 2120000142     | anna@sadmutts.com   | Norrbotten   |
+      | name                 | company_number | email               | region       | kommun   |
+      | No More Snarky Barky | 5562252998     | emma@happymutts.com | Stockholm    | Alingsås |
+      | WOOF                 | 5569467466     | ernt@mutts.com      | Västerbotten | Bromölla |
+      | Sad Sad Snarky Barky | 2120000142     | anna@sadmutts.com   | Norrbotten   | Laxå     |
 
     And the following business categories exist
       | name    |

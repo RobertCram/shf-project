@@ -7,7 +7,7 @@
 
 class ShfDocument < ApplicationRecord
 
-  belongs_to :uploader, class_name: User
+  belongs_to :uploader, class_name: 'User'
 
   has_attached_file :actual_file
   validates_attachment :actual_file, content_type: {content_type: ['image/jpeg',

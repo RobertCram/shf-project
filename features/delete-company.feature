@@ -14,20 +14,21 @@ Feature: As an admin
 
   Background:
     Given the following users exists
-      | email                       | admin |
-      | emma@happymutts.com         |       |
-      | hans@happymutts.com         |       |
-      | wils@woof.com               |       |
-      | sam@snarkybarky.com         |       |
-      | lars@snarkybarky.com        |       |
-      | bob@bowsers.com             |       |
-      | kitty@kitties.com           |       |
-      | meow@kitties.com            |       |
-      | under_review@kats.com       |       |
-      | ready_for_review@kats.com   |       |
-      | waiting_for_review@kats.com |       |
-      | new@kats.com                |       |
-      | admin@shf.se                | true  |
+      | email                          | admin |
+      | emma@happymutts.com            |       |
+      | hans@happymutts.com            |       |
+      | wils@woof.com                  |       |
+      | sam@snarkybarky.com            |       |
+      | lars@snarkybarky.com           |       |
+      | bob@bowsers.com                |       |
+      | kitty@kitties.com              |       |
+      | meow@kitties.com               |       |
+      | under_review@kats.com          |       |
+      | ready_for_review@kats.com      |       |
+      | waiting_for_review@kats.com    |       |
+      | new@kats.com                   |       |
+      | waiting_for_applicant@kats.com |       |
+      | admin@shf.se                   | true  |
 
     And the following business categories exist
       | name        | description                     |
@@ -175,6 +176,7 @@ Feature: As an admin
 
   @poltergeist
   Scenario: Admin cannot delete a company with 1 accepted and 1 rejected membership application
+    Given I am logged in as "admin@shf.se"
 
 
   @poltergeist

@@ -2,7 +2,7 @@ class Address < ApplicationRecord
 
   belongs_to :addressable, polymorphic: true
 
-  belongs_to :region
+  belongs_to :region, optional: true
 
   belongs_to :kommun
 

@@ -1,4 +1,4 @@
-class CreateShfDocuments < ActiveRecord::Migration[5.0]
+class CreateShfDocuments < ActiveRecord::Migration[5.1]
 
   def change
 

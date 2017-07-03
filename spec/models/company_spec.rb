@@ -13,7 +13,9 @@ RSpec.describe Company, type: :model do
     nil_co = create(:company, name: 'Nil Region',
                     company_number: '6112107039')
 
-    no_region = create(:company_address, addressable: nil_co, region: nil)
+    no_region = build(:company_address, addressable: nil_co, region: nil)
+
+    no_region.save(validate: false)
 
     nil_co
   end

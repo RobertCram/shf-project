@@ -40,7 +40,7 @@ RSpec.describe Address, type: :model do
     let(:addr_has_region) { co_has_regions.main_address }
 
     let(:no_region) { addr_no_region = co_missing_region.main_address
-                      addr_no_region.update(region: nil)
+                      addr_no_region.update_columns(region_id: nil)
                       addr_no_region
     }
 

@@ -10,9 +10,8 @@ class Ckeditor::Picture < Ckeditor::Asset
   validates_attachment_size :data, in: 0..2.megabytes
   validates_attachment_content_type :data, content_type: /\Aimage/
 
-  belongs_to :company
-  validates_presence_of :company,
-                        if: lambda { /company/.match(@@category) }
+  belongs_to :company, optional: true
+  validates_presence_of :company, :if => lambda { /company/.match(@@category) }
 
   @@category = nil
   @@company_id = nil

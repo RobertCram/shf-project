@@ -1,4 +1,4 @@
-class AddRegionIdToCompany < ActiveRecord::Migration[5.0]
+class AddRegionIdToCompany < ActiveRecord::Migration[5.1]
   def self.up
     add_reference :companies, :region, foreign_key: true
   end
