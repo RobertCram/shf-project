@@ -3,8 +3,6 @@ FactoryGirl.define do
   sequence(:cat_name_seq, "Business Category", 1) { |name, num| "#{name} #{num}" }
 
   factory :membership_application do
-    first_name 'Firstname'
-    last_name 'Lastname'
     company_number '5562252998'
     phone_number 'MyString'
     contact_email 'MyString@email.com'

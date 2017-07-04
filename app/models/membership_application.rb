@@ -19,6 +19,10 @@ class MembershipApplication < ApplicationRecord
   #
   belongs_to :company, optional: true, inverse_of: :membership_applications
 
+  delegate :first_name, to: :user, allow_nil: true, prefix: false
+  delegate :last_name, to: :user, allow_nil: true, prefix: false
+  delegate :first_name=, to: :user, allow_nil: true, prefix: false
+  delegate :last_name=, to: :user, allow_nil: true, prefix: false
 
   has_and_belongs_to_many :business_categories
   has_many :uploaded_files
@@ -28,9 +32,7 @@ class MembershipApplication < ApplicationRecord
              class_name: 'AdminOnly::MemberAppWaitingReason'
 
 
-  validates_presence_of :first_name,
-                        :last_name,
-                        :company_number,
+  validates_presence_of :company_number,
                         :contact_email,
                         :state
 

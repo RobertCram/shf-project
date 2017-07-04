@@ -41,8 +41,6 @@ RSpec.describe MembershipApplication, type: :model do
 
   describe 'DB Table' do
     it {is_expected.to have_db_column :id}
-    it {is_expected.to have_db_column :first_name}
-    it {is_expected.to have_db_column :last_name}
     it {is_expected.to have_db_column :company_number}
     it {is_expected.to have_db_column :phone_number}
     it {is_expected.to have_db_column :contact_email}
@@ -52,10 +50,8 @@ RSpec.describe MembershipApplication, type: :model do
   end
 
   describe 'Validations' do
-    it {is_expected.to validate_presence_of :first_name}
     it {is_expected.to validate_presence_of :contact_email}
     it {is_expected.to validate_presence_of :company_number}
-    it {is_expected.to validate_presence_of :last_name}
     it {is_expected.to validate_presence_of :state}
 
     it {is_expected.to allow_value('user@example.com').for(:contact_email)}
