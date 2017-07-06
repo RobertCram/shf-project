@@ -108,8 +108,9 @@ end
 
 
 When(/^I am on the application page for "([^"]*)"$/) do |first_name|
-    membership_application = MembershipApplication.find_by(first_name: first_name)
-    visit path_with_locale(membership_application_path(membership_application))
+  user = User.find_by(first_name: first_name)
+  membership_application = user.membership_application
+  visit path_with_locale(membership_application_path(membership_application))
 end
 
 
