@@ -12,8 +12,8 @@ Feature: As a user
 
   Background:
     Given the following users exists
-      | email                  |
-      | applicant_1@random.com |
+      | first_name | last_name | email                  |
+      |            |           | applicant_1@random.com |
 
     And the following business categories exist
       | name         |

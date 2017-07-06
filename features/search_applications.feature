@@ -6,12 +6,12 @@ I want to search for applications by various criteria
 
 Background:
   Given the following users exists
-    | email                | admin |
-    | fred@barkyboys.com   |       |
-    | john@happymutts.com  |       |
-    | anna@dogsrus.com     |       |
-    | emma@weluvdogs.com   |       |
-    | admin@shf.se         | true  |
+    | first_name | last_name  | email                | admin |
+    | Fred       | Fransson   | fred@barkyboys.com   |       |
+    | John       | Johanssen  | john@happymutts.com  |       |
+    | Anna       | Anderson   | anna@dogsrus.com     |       |
+    | Emma       | Eriksson   | emma@weluvdogs.com   |       |
+    |            |            | admin@shf.se         | true  |
 
   And the following business categories exist
     | name         |
@@ -35,11 +35,11 @@ Background:
     | We Luv Dogs | 5569467466     | alpha@weluvdogs.com  | Sweden       |             |
 
   And the following applications exist:
-    | first_name | last_name  | user_email          | company_number | state        | categories   |
-    | Fred       | Fransson   | fred@barkyboys.com  | 5560360793     | rejected     | Groomer      |
-    | John       | Johanssen  | john@happymutts.com | 2120000142     | accepted     | Psychologist |
-    | Anna       | Anderson   | anna@dogsrus.com    | 5562252998     | new          | Trainer      |
-    | Emma       | Eriksson   | emma@weluvdogs.com  | 5569467466     | under_review | Walker       |
+    | user_email          | company_number | state        | categories   |
+    | fred@barkyboys.com  | 5560360793     | rejected     | Groomer      |
+    | john@happymutts.com | 2120000142     | accepted     | Psychologist |
+    | anna@dogsrus.com    | 5562252998     | new          | Trainer      |
+    | emma@weluvdogs.com  | 5569467466     | under_review | Walker       |
 
   And I am logged in as "admin@shf.se"
   And I am on the "membership applications" page

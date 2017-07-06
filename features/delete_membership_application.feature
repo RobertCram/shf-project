@@ -9,15 +9,13 @@ Feature: As an admin
 
   Background:
     Given the following users exists
-      | email            | admin |
-      | emma@random.com  |       |
-      | hans@bowsers.com |       |
-      | nils@bowsers.com |       |
-      | admin@shf.se     | true  |
-      | wils@woof.com    |       |
-      | bob@bowsers.com  |       |
-
-
+      | first_name | email            | admin |
+      | Emma       | emma@random.com  |       |
+      | Hans       | hans@bowsers.com |       |
+      | Nils       | nils@bowsers.com |       |
+      | Wils       | wils@woof.com    |       |
+      |            | admin@shf.se     | true  |
+      |            | bob@bowsers.com  |       |
 
     And the following regions exist:
       | name         |
@@ -39,11 +37,11 @@ Feature: As an admin
 
 
     And the following applications exist:
-      | first_name | user_email       | company_number | state        |
-      | Emma       | emma@random.com  | 5560360793     | under_review |
-      | Hans       | hans@bowsers.com | 2120000142     | under_review |
-      | Nils       | nils@bowsers.com | 2120000142     | accepted     |
-      | Wils       | wils@woof.com    | 5569467466     | accepted     |
+      | user_email       | company_number | state        |
+      | emma@random.com  | 5560360793     | under_review |
+      | hans@bowsers.com | 2120000142     | under_review |
+      | nils@bowsers.com | 2120000142     | accepted     |
+      | wils@woof.com    | 5569467466     | accepted     |
 
 
   Scenario: Admin should see the 'delete' button

@@ -7,12 +7,12 @@ Feature: As an applicant
 
   Background:
     Given the following users exists
-      | email             | is_member | admin |
-      | emma@random.com   | false     |       |
-      | hans@random.com   | false     |       |
-      | nils@random.com   | true      |       |
-      | bob@barkybobs.com | true      |       |
-      | admin@shf.se      | true      | true  |
+      | first_name | email             | is_member | admin |
+      | Emma       | emma@random.com   | false     |       |
+      | Hans       | hans@random.com   | false     |       |
+      | Nils       | nils@random.com   | true      |       |
+      | Bob        | bob@barkybobs.com | true      |       |
+      |            | admin@shf.se      | true      | true  |
 
     And the following applications exist:
       | first_name | user_email        | company_number | state                 |

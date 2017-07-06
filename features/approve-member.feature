@@ -9,11 +9,11 @@ Feature: As an admin
 
   Background:
     Given the following users exists
-      | email                 | admin |
-      | emma@happymutts.se    |       |
-      | hans@happymutts.se    |       |
-      | anna@nosnarkybarky.se |       |
-      | admin@shf.com         | true  |
+      | first_name | email                 | admin |
+      | Emma       | emma@happymutts.se    |       |
+      | Hans       | hans@happymutts.se    |       |
+      | Anna       | anna@nosnarkybarky.se |       |
+      |            |admin@shf.com          | true  |
 
     Given the following business categories exist
       | name         | description                     |
@@ -30,10 +30,10 @@ Feature: As an admin
       | No More Snarky Barky | 5560360793     | snarky@snarkybarky.se | Stockholm |
 
     And the following applications exist:
-      | first_name | user_email            | company_number | categories   | state        |
-      | Emma       | emma@happymutts.se    | 5562252998     | rehab        | under_review |
-      | Hans       | hans@happymutts.se    | 5562252998     | dog grooming | under_review |
-      | Anna       | anna@nosnarkybarky.se | 5560360793     | rehab        | under_review |
+      | user_email            | company_number | categories   | state        |
+      | emma@happymutts.se    | 5562252998     | rehab        | under_review |
+      | hans@happymutts.se    | 5562252998     | dog grooming | under_review |
+      | anna@nosnarkybarky.se | 5560360793     | rehab        | under_review |
 
     And I am logged in as "admin@shf.com"
 
