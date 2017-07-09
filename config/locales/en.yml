@@ -99,6 +99,8 @@ en:
     attributes:
 
       user:
+        first_name: &first_name First name
+        last_name: &last_name Last name
         email: &email Email
         password: *password
         password_confirmation: Password confirmation
@@ -114,8 +116,8 @@ en:
 
       membership_application:
         company_number: &company_number Company number
-        first_name: &first_name First name
-        last_name: &last_name Last name
+        first_name: *first_name
+        last_name: *last_name
         contact_email: &contact_email Email
         state: &state Status
         phone_number: Phone number
@@ -513,6 +515,8 @@ en:
   users:
     index:
       title: All Users
+      first_name: *first_name
+      last_name: *last_name
       email: *email
       created: *created
       last_login: *user_last_login

@@ -302,9 +302,9 @@ end
 
 
 # Tests that an input or button with the given label is disabled.
-Then /^the "([^\"]*)" field should( not)? be set to "([^\"]*)"$/ do |label, negate, text_value|
+Then /^the t\("([^"]*)"\) field should( not)? be set to "([^\"]*)"$/ do |i18n_key, negate, text_value|
 
-  element = find_field(label)
+  element = find_field(I18n.t(i18n_key))
 
   expect(["false", "", nil]).send(negate ? :to : :not_to,  have_content(text_value) )
 

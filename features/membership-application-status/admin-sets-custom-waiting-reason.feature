@@ -70,7 +70,7 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
     And I am on "AnnaWaiting" application page
 
     And I should see t("membership_applications.need_info.other_reason_label")
-    And the "custom_reason_text" field should be set to "This is my reason"
+    And the t("membership_applications.need_info.other_reason_label") field should be set to "This is my reason"
     And "member_app_waiting_reasons" should have t("admin_only.member_app_waiting_reasons.other_custom_reason") selected
 
 
