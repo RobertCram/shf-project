@@ -28,6 +28,10 @@ And(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field, value|
   fill_in field, with: value
 end
 
+And(/^I press enter in "([^"]*)"$/) do |field|
+  find_field(field).send_keys :enter
+end
+
 And(/^I fill in t\("([^"]*)"\) with "([^"]*)"$/) do |field, value|
   fill_in i18n_content(field), with: value
 end
@@ -109,10 +113,20 @@ When(/^(?:I|they) select "([^"]*)" in select list t\("([^"]*)"\)$/) do |item, ls
   find(:select, lst).find(:option, item).select_option
 end
 
+
+When(/^(?:I|they) select "([^"]*)" in select list "([^"]*)"$/) do |item, lst|
+  find(:select, lst).find(:option, item).select_option
+end
+
 Then(/^I wait(?: for)? (\d+) second(?:s)?$/) do |seconds|
   sleep seconds.to_i.seconds
 end
 
+And /^I wait for all ajax requests to complete$/ do
+  Timeout.timeout(Capybara.default_max_wait_time) do
+    loop until page.evaluate_script('window.jQuery ? jQuery.active : 0').zero?
+  end
+end
 
 When(/^(?:I|they) select t\("([^"]*)"\) in select list "([^"]*)"$/) do |item, lst|
   selected = i18n_content("#{item}")

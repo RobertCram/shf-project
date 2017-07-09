@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525201944) do
+ActiveRecord::Schema.define(version: 20170615091313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,19 +98,22 @@ ActiveRecord::Schema.define(version: 20170525201944) do
   end
 
   create_table "membership_applications", force: :cascade do |t|
-    t.string "company_number"
-    t.string "phone_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "contact_email"
-    t.bigint "company_id"
-    t.string "membership_number"
-    t.string "state", default: "new"
-    t.index ["company_id"], name: "index_membership_applications_on_company_id"
-    t.index ["user_id"], name: "index_membership_applications_on_user_id"
+    t.string   "company_number"
+    t.string   "phone_number"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.integer  "user_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "contact_email"
+    t.integer  "company_id"
+    t.string   "membership_number"
+    t.string   "state",                         default: "new"
+    t.integer  "member_app_waiting_reasons_id"
+    t.string   "custom_reason_text"
+    t.index ["company_id"], name: "index_membership_applications_on_company_id", using: :btree
+    t.index ["member_app_waiting_reasons_id"], name: "index_membership_applications_on_member_app_waiting_reasons_id", using: :btree
+    t.index ["user_id"], name: "index_membership_applications_on_user_id", using: :btree
   end
 
   create_table "regions", force: :cascade do |t|
@@ -165,6 +168,7 @@ ActiveRecord::Schema.define(version: 20170525201944) do
   add_foreign_key "addresses", "kommuns"
   add_foreign_key "addresses", "regions"
   add_foreign_key "ckeditor_assets", "companies"
+  add_foreign_key "membership_applications", "member_app_waiting_reasons", column: "member_app_waiting_reasons_id"
   add_foreign_key "membership_applications", "users"
   add_foreign_key "shf_documents", "users", column: "uploader_id"
   add_foreign_key "uploaded_files", "membership_applications"

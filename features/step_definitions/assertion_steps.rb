@@ -420,8 +420,7 @@ end
 
 
 # Checks that a certain option is selected for a text field (from https://github.com/makandra/spreewald)
-Then /^"([^"]*)" should( not)? have (t\()?"([^"]*)"(?:\))? selected$/ do |select_list,
-  negate, translate_start, expected_string|
+Then /^"([^"]*)" should( not)? have t\("([^"]*)"\) selected$/ do |select_list, negate, expected_string |
 
     field = find_field(select_list)
 
@@ -438,11 +437,47 @@ Then /^"([^"]*)" should( not)? have (t\()?"([^"]*)"(?:\))? selected$/ do |select
                       field.value
                   end
 
-  if translate_start
-     expect(field_value).send( (negate ? :not_to : :to),  eq(i18n_content(expected_string)) )
-  else
-    expect(field_value).send( (negate ? :not_to : :to),  eq(expected_string) )
-  end
+
+    expect(field_value).send( (negate ? :not_to : :to),  eq(i18n_content(expected_string)) )
+
+end
+
+
+
+# Checks that a certain option is selected for a text field (from https://github.com/makandra/spreewald)
+Then /^"([^"]*)" should( not)? have "([^"]*)" selected$/ do | select_list, negate, expected_string |
+
+  field = find_field(select_list)
+
+  field_value = case field.tag_name
+                  when 'select'
+                    options = field.all('option')
+                    selected_option = options.detect(&:selected?) || options.first
+                    if selected_option && selected_option.text.present?
+                      selected_option.text.strip
+                    else
+                      ''
+                    end
+                  else
+                    field.value
+                end
+
+  expect(field_value).send( (negate ? :not_to : :to),  eq(expected_string) )
+
+end
+
+
+
+# Checks that a certain option does or does not exist in a select list
+Then /^"([^"]*)" should( not)? have t\("([^"]*)"\) as an option/ do | select_list, negate, expected_string |
+
+  field = find_field(select_list)
+
+  select_options= case field.tag_name
+                  when 'select'
+                    options = field.all('option')
+                end
+  expect(select_options.map(&:text)).send( (negate ? :not_to : :to),  include( i18n_content expected_string) )
 
 end
 
