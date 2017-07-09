@@ -92,6 +92,34 @@ RSpec.describe MembershipApplication, type: :model do
 
   end
 
+  describe 'User attributes nesting' do
+
+    let(:user) {create(:user, first_name: '', last_name: '')}
+    let!(:member_app) {create(:membership_application, user: user, user_attributes: {first_name: 'Firstname', last_name: 'Lastname'})}
+
+    it 'sets first_name on user' do
+      expect(user.first_name).to eq('Firstname')
+    end
+
+    it 'sets last_name on user' do
+      expect(user.last_name).to eq('Lastname')
+    end
+
+    it 'validates the presence of first_name' do
+      expect {
+        member_app.first_name = ''
+        member_app.save!
+      }.to raise_exception /#{I18n.t('activerecord.attributes.membership_application.first_name')} #{I18n.t('errors.messages.blank')}/
+    end
+
+    it 'validates the presence of last_name' do
+      expect {
+        member_app.last_name = ''
+        member_app.save!
+      }.to raise_exception /#{I18n.t('activerecord.attributes.membership_application.last_name')} #{I18n.t('errors.messages.blank')}/
+    end
+
+  end
 
   describe '#is_accepted?' do
     let!(:states) {MembershipApplication.aasm.states.map(&:name)}

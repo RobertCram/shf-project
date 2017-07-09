@@ -3,7 +3,7 @@ class AdminController < ApplicationController
 
 
   def index
-    @membership_applications = MembershipApplication.all
+    @membership_applications = MembershipApplication.includes(:user).all
   end
 
 
@@ -11,7 +11,7 @@ class AdminController < ApplicationController
   def export_ansokan_csv
 
     begin
-      @membership_applications = MembershipApplication.all
+      @membership_applications = MembershipApplication.includes(:user).all
 
       export_name = "shf-ankosan-#{Time.now.strftime('%Y-%m-%d--%H-%M-%S')}.csv"
 

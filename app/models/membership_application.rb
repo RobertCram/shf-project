@@ -42,6 +42,7 @@ class MembershipApplication < ApplicationRecord
   validate :swedish_organisationsnummer
 
   accepts_nested_attributes_for :uploaded_files, allow_destroy: true
+  accepts_nested_attributes_for :user, update_only: true
 
   scope :open, -> { where.not(state: [:accepted, :rejected]) }
 
