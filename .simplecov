@@ -1,7 +1,10 @@
 require 'simplecov'
 require 'coveralls'
 
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-SimpleCov.start do
+SimpleCov.start 'rails' do
    add_filter 'lib/tasks'
+end
+
+SimpleCov.at_exit do
+  SimpleCov.result.format!
 end

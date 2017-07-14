@@ -8,10 +8,12 @@ And(/^the following applications exist:$/) do |table|
        company = FactoryGirl.create(:company, company_number: hash['company_number'])
      end
    end
+   contact_email = hash['contact_email'] && ! hash['contact_email'].empty? ? 
+                   hash['contact_email'] : hash[:user_email]
    ma = FactoryGirl.create(:membership_application,
                             attributes.merge(user: user,
                             company: company,
-                            contact_email: hash['user_email']))
+                            contact_email: contact_email))
    ma.state = hash['state'].to_sym if hash.has_key?('state')
    if hash['categories']
      categories = []

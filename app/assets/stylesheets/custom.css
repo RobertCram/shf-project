@@ -192,6 +192,10 @@ select {
   align-items: center;
 }
 
+.standard-label {
+  font-weight: bold;
+}
+
 /*!
  *nicelabel JQuery Plugin
  *

@@ -10,7 +10,13 @@
 
     = render 'membership_number'
 
-    %p= mail_to @membership_application.contact_email, @membership_application.contact_email
+    %p= field_or_none("#{t('activerecord.attributes.user.email')}",
+                      mail_to(@membership_application.user.email),
+                      label_class: 'standard-label')
+
+    %p= field_or_none("#{t('.contact_email')}",
+                      mail_to(@membership_application.contact_email),
+                      label_class: 'standard-label')
 
     - if @membership_application.phone_number
       %p #{t('.phone_number')}: #{@membership_application.phone_number}

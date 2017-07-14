@@ -106,4 +106,7 @@ end
 
 group :test do
   gem 'poltergeist'
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
+  # ^^ https://docs.codeclimate.com/docs/test-coverage-ruby
+  gem 'simplecov'
 end

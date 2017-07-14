@@ -13,7 +13,7 @@ Feature: As an Admin
   Background:
     Given the following users exists
       | email                               | admin |
-      | emma@random.com                     |       |
+      | emma@personal.com                   |       |
       | hans@random.com                     |       |
       | anna_needs_info@random.com          |       |
       | lars_rejected@snarkybark.se         |       |
@@ -37,14 +37,14 @@ Feature: As an Admin
       | No More Snarky Barky | 5560360793     | snarky@snarkybarky.se |
 
     And the following applications exist:
-      | first_name         | user_email                          | company_number | state                 | categories   |
-      | Emma               | emma@random.com                     | 5562252998     | waiting_for_applicant | Psychologist |
-      | Hans               | hans@random.com                     | 5560360793     | waiting_for_applicant | Psychologist |
-      | Anna               | anna_needs_info@random.com          | 2120000142     | waiting_for_applicant | Psychologist |
-      | LarsRejected       | lars_rejected@snarkybark.se         | 0000000000     | rejected              | dog crooning |
-      | NilsApproved       | nils_member@bowwowwow.se            | 0000000000     | accepted              | Groomer      |
-      | EmmaUnderReview    | emma_under_review@happymutts.se     | 5562252998     | under_review          | rehab        |
-      | HansReadyForReview | hans_ready_for_review@happymutts.se | 5562252998     | ready_for_review      | dog grooming |
+      | first_name         | user_email                          | contact_email   | company_number | state                 | categories   |
+      | Emma               | emma@personal.com                   | emma@cmpy.com   | 5562252998     | waiting_for_applicant | Psychologist |
+      | Hans               | hans@random.com                     |                 | 5560360793     | waiting_for_applicant | Psychologist |
+      | Anna               | anna_needs_info@random.com          |                 | 2120000142     | waiting_for_applicant | Psychologist |
+      | LarsRejected       | lars_rejected@snarkybark.se         |                 | 0000000000     | rejected              | dog crooning |
+      | NilsApproved       | nils_member@bowwowwow.se            |                 | 0000000000     | accepted              | Groomer      |
+      | EmmaUnderReview    | emma_under_review@happymutts.se     |                 | 5562252998     | under_review          | rehab        |
+      | HansReadyForReview | hans_ready_for_review@happymutts.se |                 | 5562252998     | ready_for_review      | dog grooming |
 
 
   @admin
@@ -65,12 +65,6 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin can see an application with one business categories given
-  #  Given I am logged in as "hans@random.com"
-  #  And I am on the "landing" page
-  #  And I click on t("menus.nav.users.my_application")
-  #  And I select "Groomer" Category
-  #  And I click on t("membership_applications.edit.submit_button_label")
-  #  And I am Logged out
     Given I am logged in as "admin@shf.com"
     And I am on the list applications page
     Then I should see "7" applications
@@ -85,7 +79,7 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin can see an application with multiple business categories given
-    Given I am logged in as "emma@random.com"
+    Given I am logged in as "emma@personal.com"
     And I am on the "landing" page
     And I click on t("menus.nav.members.my_application")
     And I select "Trainer" Category
@@ -102,6 +96,8 @@ Feature: As an Admin
     And I should see "Trainer"
     And I should see "Psychologist"
     And I should not see "Groomer"
+    And I should see "emma@personal.com"
+    And I should see "emma@cmpy.com"
 
   @member
   Scenario: Approved member should see membership number

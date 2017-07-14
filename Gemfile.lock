@@ -116,6 +116,8 @@ GEM
     cliver (0.3.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+    codeclimate-test-reporter (1.0.8)
+      simplecov (<= 0.13)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     coveralls (0.8.21)
@@ -453,6 +455,7 @@ DEPENDENCIES
   capistrano-ssh-doctor (~> 1.0)
   city-state
   ckeditor!
+  codeclimate-test-reporter (~> 1.0.0)
   coveralls
   cucumber-rails
   cucumber-timecop
@@ -493,6 +496,7 @@ DEPENDENCIES
   sanitize
   sass-rails (~> 5.0)
   shoulda-matchers
+  simplecov
   smarter_csv
   spring
   spring-watcher-listen (~> 2.0.0)

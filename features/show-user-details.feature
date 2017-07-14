@@ -7,27 +7,34 @@ Feature: As an admin
   Background:
 
     Given the following users exists
-      | email                  | admin |
-      | emma@happymutts.com    |       |
-      | lars@happymutts.com    |       |
-      | hannah@happymutts.com  |       |
-      | nils@bowsers.se        |       |
-      | anna@bowsers.se        |       |
-      | sam@bowsers.se         |       |
-      | admin@shf.se           | true  |
-      | yesterday_admin@shf.se | true  |
-      | lazy_admin@shf.se      | true  |
+      | email                   | admin |
+      | emma@personal.com       |       |
+      | lars@personal.com       |       |
+      | hannah@personal.com     |       |
+      | nils@personal.se        |       |
+      | anna@personal.se        |       |
+      | sam@personal.se         |       |
+      | admin@shf.se            | true  |
+      | yesterday_admin@shf.se  | true  |
+      | lazy_admin@shf.se       | true  |
 
+    And the following regions exist:
+      | name         |
+      | Stockholm    |
+      | Västerbotten |
 
     And the following companies exist:
-      | Happy Mutts | 5560360793 | woof@happymutts.com | Stockholm |
+      | name        | company_number | email               | region       |
+      | Happy Mutts | 5560360793     | woof@happymutts.com | Stockholm    |
+      | Bowsers     | 2120000142     | bark@bowsers.com    | Västerbotten |
 
 
     And the following applications exist:
-      | first_name | user_email            | company_number | state    |
-      | Emma       | emma@happymutts.com   | 5560360793     | accepted |
-      | Lars       | lars@happymutts.com   | 5560360793     | accepted |
-      | Hannah     | hannah@happymutts.com | 5560360793     | accepted |
+      | first_name | user_email          | contact_email         | company_number | state    |
+      | Emma       | emma@personal.com   | emma@happymutts.com   | 5560360793     | accepted |
+      | Lars       | lars@personal.com   | lars@happymutts.com   | 5560360793     | accepted |
+      | Hannah     | hannah@personal.com | hannah@happymutts.com | 5560360793     | accepted |
+      | Emma       | emma@personal.com   | emma@bowsers.com      | 2120000142     | new      |
 
 
 
@@ -60,31 +67,31 @@ Feature: As an admin
 
   @member
   Scenario: Show a member who has never logged in
-    When I am on the "user details" page for "hannah@happymutts.com"
+    When I am on the "user details" page for "hannah@personal.com"
     Then I should not see t("users.show.is_an_admin")
     And I should see t("users.show.user_has_never_signed_in")
     And I should not see t("users.show.last_login")
 
   @member
   Scenario: Show a member that is currently logged in
-    Given The user "emma@happymutts.com" is currently signed in
-    When I am on the "user details" page for "emma@happymutts.com"
+    Given The user "emma@personal.com" is currently signed in
+    When I am on the "user details" page for "emma@personal.com"
     Then I should not see t("users.show.is_an_admin")
     And I should not see t("users.show.user_has_never_signed_in")
     And I should see t("users.show.last_login")
 
   @member
   Scenario: Show a member that logged 3 days ago
-    Given The user "lars@happymutts.com" last logged in 3 days ago
-    When I am on the "user details" page for "lars@happymutts.com"
+    Given The user "lars@personal.com" last logged in 3 days ago
+    When I am on the "user details" page for "lars@personal.com"
     Then I should not see t("users.show.is_an_admin")
     And I should not see t("users.show.user_has_never_signed_in")
     And I should see t("users.show.last_login")
 
   @member
   Scenario: Show a member that has logged in 42 times
-    Given The user "lars@happymutts.com" has logged in 42 times
-    When I am on the "user details" page for "lars@happymutts.com"
+    Given The user "lars@personal.com" has logged in 42 times
+    When I am on the "user details" page for "lars@personal.com"
     Then I should see t("users.show.logged_in_count")
     And I should see "42"
     And I should see t("users.show.last_login")
@@ -92,35 +99,44 @@ Feature: As an admin
 
   @member
   Scenario: Show a member that has had her password reset
-    Given The user "emma@happymutts.com" has had her password reset now
-    When I am on the "user details" page for "emma@happymutts.com"
+    Given The user "emma@personal.com" has had her password reset now
+    When I am on the "user details" page for "emma@personal.com"
     Then I should see t("users.show.reset_password_sent_at")
 
   @member
   Scenario: Show a member that has never had her password reset
-    When I am on the "user details" page for "emma@happymutts.com"
+    When I am on the "user details" page for "emma@personal.com"
     Then I should see t("users.show.password_never_reset")
 
 
   @user
   Scenario: Show an user who has never logged in
-    When I am on the "user details" page for "nils@bowsers.se"
+    When I am on the "user details" page for "nils@personal.se"
     Then I should not see t("users.show.is_an_admin")
     And I should see t("users.show.user_has_never_signed_in")
     And I should not see t("users.show.last_login")
 
   @user
   Scenario: Show an user that is currently logged in
-    Given The user "anna@bowsers.se" is currently signed in
-    When I am on the "user details" page for "anna@bowsers.se"
+    Given The user "anna@personal.se" is currently signed in
+    When I am on the "user details" page for "anna@personal.se"
     Then I should not see t("users.show.is_an_admin")
     And I should not see t("users.show.user_has_never_signed_in")
     And I should see t("users.show.last_login")
 
   @user
   Scenario: Show an user that logged in 100 days ago
-    Given The user "sam@bowsers.se" last logged in 100 days ago
-    When I am on the "user details" page for "sam@bowsers.se"
+    Given The user "sam@personal.se" last logged in 100 days ago
+    When I am on the "user details" page for "sam@personal.se"
     Then I should not see t("users.show.is_an_admin")
     And I should not see t("users.show.user_has_never_signed_in")
     And I should see t("users.show.last_login")
+
+  @user
+  Scenario: Show all emails and applications for a user
+    When I am on the "user details" page for "emma@personal.com"
+    Then I should see "emma@personal.com"
+    And I should see "emma@happymutts.com"
+    And I should see "emma@bowsers.com"
+    And I should see "5560360793"
+    And I should see "2120000142"

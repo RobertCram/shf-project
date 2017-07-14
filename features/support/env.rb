@@ -1,5 +1,6 @@
-require 'coveralls'
-Coveralls.wear_merged!('rails')
+require 'simplecov'
+# ^^ https://github.com/colszowka/simplecov#using-simplecov-for-centralized-config
+
 require 'cucumber/rails'
 require 'cucumber/timecop'
 require 'cucumber/rspec/doubles'
