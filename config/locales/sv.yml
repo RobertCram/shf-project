@@ -710,6 +710,7 @@ sv:
         forgot_password: Glömt lösenord
         confirm_password: &confirm_password Bekräfta lösenord
         submit_button_label: Skapa användare
+        success: Ett nytt konto har skapats
       edit:
         title: Redigera användare
         unconfirmed_email_for: 'Obekräftad mailadress för: %{unconfirmed_email}'
@@ -722,6 +723,7 @@ sv:
         unregister: Avregistrera dig
         confirm_are_you_sure: *are_you_sure_confirm
         back: *back
+        success: Ditt konto har uppdaterats
     sessions:
       new:
         log_in: &log_in Logga In
