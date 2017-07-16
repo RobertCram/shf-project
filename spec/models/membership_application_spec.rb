@@ -94,15 +94,15 @@ RSpec.describe MembershipApplication, type: :model do
 
   describe 'User attributes nesting' do
 
-    let(:user) {create(:user, first_name: '', last_name: '')}
-    let!(:member_app) {create(:membership_application, user: user, user_attributes: {first_name: 'Firstname', last_name: 'Lastname'})}
+    let(:user) {create(:user, first_name: 'Firstname', last_name: 'Lastname')}
+    let!(:member_app) {create(:membership_application, user: user, user_attributes: {first_name: 'New Firstname', last_name: 'New Lastname'})}
 
     it 'sets first_name on user' do
-      expect(user.first_name).to eq('Firstname')
+      expect(user.first_name).to eq('New Firstname')
     end
 
     it 'sets last_name on user' do
-      expect(user.last_name).to eq('Lastname')
+      expect(user.last_name).to eq('New Lastname')
     end
 
     it 'validates the presence of first_name' do

@@ -14,10 +14,14 @@ Feature: As a registered user
     Then the t("activerecord.attributes.user.first_name") field should be set to "emma"
     And the t("activerecord.attributes.user.last_name") field should be set to "andersson"
     And the t("activerecord.attributes.user.email") field should be set to "emma@andersson.com"
-    When I fill in t("activerecord.attributes.user.last_name") with "svensson"
+    When I fill in t("activerecord.attributes.user.first_name") with "emma (changed)"
+    When I fill in t("activerecord.attributes.user.last_name") with "andersson (changed)"
     And I fill in t("devise.registrations.edit.current_password") with "password"
     And I click on t("devise.registrations.edit.submit_button_label")
     Then I should see t("devise.registrations.edit.success")
+    When I am on the "edit registration for a user" page
+    Then the t("activerecord.attributes.user.first_name") field should be set to "emma (changed)"
+    And the t("activerecord.attributes.user.last_name") field should be set to "andersson (changed)"
 
   Scenario: Sad path: Missing first name
     Given I am on the "edit registration for a user" page
@@ -29,6 +33,8 @@ Feature: As a registered user
     And I click on t("devise.registrations.edit.submit_button_label")
     Then I should see translated error activerecord.attributes.user.first_name errors.messages.blank
     And I should not see t("devise.registrations.edit.success")
+    When I am on the "edit registration for a user" page
+    Then the t("activerecord.attributes.user.first_name") field should be set to "emma"
 
   Scenario: Sad path: Missing last name
     Given I am on the "edit registration for a user" page
@@ -40,3 +46,5 @@ Feature: As a registered user
     And I click on t("devise.registrations.edit.submit_button_label")
     Then I should see translated error activerecord.attributes.user.last_name errors.messages.blank
     And I should not see t("devise.registrations.edit.success")
+    When I am on the "edit registration for a user" page
+    Then the t("activerecord.attributes.user.last_name") field should be set to "andersson"

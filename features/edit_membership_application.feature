@@ -12,7 +12,7 @@ Feature: As an applicant
       | Hans       | hans@random.com   | false     |       |
       | Nils       | nils@random.com   | true      |       |
       | Bob        | bob@barkybobs.com | true      |       |
-      |            | admin@shf.se      | true      | true  |
+      | admin      | admin@shf.se      | true      | true  |
 
     And the following applications exist:
       | first_name | user_email        | company_number | state                 |
