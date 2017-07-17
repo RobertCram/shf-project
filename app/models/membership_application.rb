@@ -110,7 +110,7 @@ class MembershipApplication < ApplicationRecord
 
 
   def swedish_organisationsnummer
-    errors.add(:company_number, "#{self.company_number} är inte ett svenskt organisationsnummer") unless Orgnummer.new(self.company_number).valid?
+    errors.add(:company_number, :invalid, company_number: self.company_number) unless errors.include?(:company_number) || Orgnummer.new(self.company_number).valid?
   end
 
 

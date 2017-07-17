@@ -198,6 +198,11 @@ en:
             actual_file:
               file_too_large: 'The uploaded file size must be smaller than %{max}. (Your file is %{value} bytes.)'
 
+        membership_application:
+          attributes:
+            company_number:
+              invalid: "%{company_number} is not a valid Swedish company number"
+
 
       messages:
         record_invalid: "Validation failed: %{errors}"

@@ -200,6 +200,10 @@ sv:
             actual_file:
               file_too_large: 'Filen måste vara mindre än %{max}. (Filen är %{value} byte.)'
 
+        membership_application:
+          attributes:
+            company_number:
+              invalid: "%{company_number} är inte ett svenskt organisationsnummer"
 
       messages:
         record_invalid: 'Ett fel uppstod: %{errors}'
