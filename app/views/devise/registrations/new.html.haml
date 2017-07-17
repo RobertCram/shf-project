@@ -4,7 +4,12 @@
   %span
 .entry-content.wpcf7
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-    = devise_error_messages!
+    - if resource.errors.any?
+      .wpcf7-response-output
+        - resource.errors.full_messages.each do |msg|
+          = msg
+          %br/
+      %br/
     .field
       = f.label :first_name, class: 'required'
       %br/
