@@ -90,13 +90,14 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
   @javascript @admin
   Scenario: When selected reason is not 'custom other,' the custom text is saved as blank (empty string)
     Given I am on "AnnaWaiting" application page
-
     When I set "member_app_waiting_reasons" to t("admin_only.member_app_waiting_reasons.other_custom_reason")
     And I fill in "custom_reason_text" with "This is my reason"
     And I press enter in "custom_reason_text"
     And I set "member_app_waiting_reasons" to "need doc"
+    And I wait for all ajax requests to complete
     # change back so the custom reason field shows. it should be blank
     And I set "member_app_waiting_reasons" to t("admin_only.member_app_waiting_reasons.other_custom_reason")
+    And I wait for all ajax requests to complete
     Then I should not see "This is my reason"
 
 
