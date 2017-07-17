@@ -28,7 +28,7 @@ sv:
   send: &send Skicka
   new: &new Nytt
   change: &change Byt
-  save: &save Save
+  save: &save Spara
   back: &back Tillbaks
   search: &search Sök
   'yes': &yes Ja
