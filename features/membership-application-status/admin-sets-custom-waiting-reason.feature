@@ -9,9 +9,9 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
 
   Background:
     Given the following users exists
-      | email                                  | admin |
-      | anna_waiting_for_info@nosnarkybarky.se |       |
-      | admin@shf.com                          | true  |
+      | first_name  | email                                  | admin |
+      | AnnaWaiting | anna_waiting_for_info@nosnarkybarky.se |       |
+      | admin       | admin@shf.com                          | true  |
 
     Given the following business categories exist
       | name  | description           |
@@ -27,8 +27,8 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
 
 
     And the following applications exist:
-      | first_name  | user_email                             | company_number | category_name | state                 |
-      | AnnaWaiting | anna_waiting_for_info@nosnarkybarky.se | 5560360793     | rehab         | waiting_for_applicant |
+      | user_email                             | company_number | category_name | state                 |
+      | anna_waiting_for_info@nosnarkybarky.se | 5560360793     | rehab         | waiting_for_applicant |
 
 
     And the following member app waiting reasons exist
