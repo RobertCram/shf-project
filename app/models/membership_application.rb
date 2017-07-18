@@ -19,10 +19,10 @@ class MembershipApplication < ApplicationRecord
   #
   belongs_to :company, optional: true, inverse_of: :membership_applications
 
-  delegate :first_name, to: :user, allow_nil: true, prefix: false
-  delegate :last_name, to: :user, allow_nil: true, prefix: false
-  delegate :first_name=, to: :user, allow_nil: true, prefix: false
-  delegate :last_name=, to: :user, allow_nil: true, prefix: false
+  #delegate :first_name, to: :user, allow_nil: true, prefix: false
+  #delegate :last_name, to: :user, allow_nil: true, prefix: false
+  #delegate :first_name=, to: :user, allow_nil: true, prefix: false
+  #delegate :last_name=, to: :user, allow_nil: true, prefix: false
 
   has_and_belongs_to_many :business_categories
   has_many :uploaded_files

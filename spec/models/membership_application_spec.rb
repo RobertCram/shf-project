@@ -107,14 +107,14 @@ RSpec.describe MembershipApplication, type: :model do
 
     it 'validates the presence of first_name' do
       expect {
-        member_app.first_name = ''
+        user.first_name = ''
         member_app.save!
       }.to raise_exception(/#{I18n.t('activerecord.attributes.membership_application.first_name')} #{I18n.t('errors.messages.blank')}/)
     end
 
     it 'validates the presence of last_name' do
       expect {
-        member_app.last_name = ''
+        user.last_name = ''
         member_app.save!
       }.to raise_exception(/#{I18n.t('activerecord.attributes.membership_application.last_name')} #{I18n.t('errors.messages.blank')}/)
     end
