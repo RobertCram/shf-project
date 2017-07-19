@@ -38,9 +38,11 @@ Feature: As an applicant
     And I click on t("menus.nav.users.my_application")
     Then I should be on "Edit My Application" page
     And I fill in t("membership_applications.show.contact_email") with "sussimmi.nu"
+    And I fill in t("membership_applications.show.company_number") with ""
     And I click on t("membership_applications.edit.submit_button_label")
     Then I should see t("membership_applications.update.error")
-    And I should be on "Edit My Application" page
+    And I should see translated error membership_applications.show.company_number errors.messages.blank
+    And I should see button t("membership_applications.edit.submit_button_label")
 
   Scenario: Applicant can not edit applications not created by him
     Given I am logged in as "emma@random.com"

@@ -257,7 +257,7 @@ class MembershipApplicationsController < ApplicationController
       render json: @membership_application.errors.full_messages, status: :unprocessable_entity if request.xhr?
     else
       helpers.flash_message(:alert, error_message)
-      redirect_to edit_membership_application_path(@membership_application)
+      render :edit
     end
 
   end
