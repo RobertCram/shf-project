@@ -109,3 +109,5 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
     Given I am logged in as "anna_waiting_for_info@nosnarkybarky.se"
     And I am on the application page for "AnnaWaiting"
     Then I should not see t("membership_applications.need_info.reason_title")
+
+    
