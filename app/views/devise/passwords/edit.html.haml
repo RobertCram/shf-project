@@ -6,17 +6,15 @@
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
 
     != model_errors_helper(resource)
+    %br/
 
     = f.hidden_field :reset_password_token
     .field
       = f.label :password, "#{t('.new_password')}", class: 'required'
-      %br/
       = render 'devise/shared/min_password_length_info'
-      %br/
       = f.password_field :password, autofocus: true, autocomplete: 'off', class: 'wpcf7-form-control'
     .field
       = f.label :password_confirmation, "#{t('.confirm_password')}", class: 'required'
-      %br/
       = f.password_field :password_confirmation, autocomplete: 'off', class: 'wpcf7-form-control'
     .actions
       = f.submit "#{t('.submit_button_label')}"
