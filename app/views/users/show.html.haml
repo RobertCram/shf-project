@@ -10,36 +10,62 @@
 
 
 .entry-content
-  %p
-    %b #{t('.email')}:
-    = @user.email
+  = field_or_none("#{t('.email')}", mail_to(@user.email), label_class: 'standard-label')
 
-  - if @user.last_sign_in_at.blank? && @user.current_sign_in_at.blank?
-    %p #{@user.email} #{t('.user_has_never_signed_in')}
-
+  - unless @user.membership_applications.exists?
+    = field_or_none("#{t('applications')}", t('none'), label_class: 'standard-label')
   - else
+    -# .col-sm-3{ style: 'margin-left: -15px;' }
+    %span.standard-label #{t('applications')}:
+
+    .row
+      %table.table.table-hover
+        %thead
+          %tr
+            %th
+              = t('activerecord.attributes.membership_application.contact_email')
+            %th
+              = t('activerecord.attributes.membership_application.state')
+            %th
+              = t('activerecord.attributes.membership_application.company_number')
+            %th
+              = t('activerecord.attributes.company.name')
+        %tbody
+          - @user.membership_applications.includes(:company).each do |app|
+            %tr.membership_application
+              %td= mail_to(app.contact_email)
+              %td
+                - if app.accepted?
+                  %span.yes= app.state
+                - else
+                  %span.no= app.state
+              %td= link_to(app.company_number, membership_application_path(app))
+              %td= app.company&.name
+
+  %span.standard-label #{t('user_activity')}:
+
+  .row
+    Account #{t('.created')} #{i18n_time_ago_in_words(@user.created_at)}
+
     %p
-      %b #{t('.last_login')}:
+    - if @user.last_sign_in_at.blank? && @user.current_sign_in_at.blank?
+      #{@user.email} #{t('.user_has_never_signed_in')}
+
+    - else
+      = "#{t('.last_login')}:"
       #{ most_recent_login_time @user}
       (#{i18n_time_ago_in_words(most_recent_login_time @user)})
-
-    %p
-      %b #{t('.logged_in_count')}:
+      %br
+      #{t('.logged_in_count')}:
       = @user.sign_in_count
 
-  %p
+    %p
     - if @user.reset_password_sent_at.blank?
       = t('.password_never_reset')
     - else
       %b #{t('.reset_password_sent_at')}:
       #{@user.reset_password_sent_at}
       #{i18n_time_ago_in_words(@user.reset_password_sent_at)})
-
-
-  %p
-    %b #{t('.created')}:
-    = @user.created_at
-    (#{i18n_time_ago_in_words(@user.created_at)})
 
   %hr
 

@@ -28,11 +28,14 @@ sv:
   send: &send Skicka
   new: &new Nytt
   change: &change Byt
-  save: &save Save
+  save: &save Spara
   back: &back Tillbaks
   search: &search Sök
   'yes': &yes Ja
   'no': &no Nej
+  applications: &applications Ansökningar
+  user_activity: Användaraktivitet
+  none: &none Ingen
 
   time_ago: '%{amount_of_time} sedan'
 
@@ -76,6 +79,10 @@ sv:
         delete: *delete
         next: 'Nästa'
 
+  model_errors:
+    one: Vänligen åtgärda det här felet
+    other: Snälla fixa dessa %{count} fel
+
   # Automatisk och manuell sökning för Active Records
   activerecord:
     models:
@@ -99,7 +106,9 @@ sv:
     attributes:
 
       user:
-        email: &email E-post
+        first_name: &first_name Förnamn
+        last_name: &last_name Efternamn
+        email: &email Profil E-post
         password: *password
         password_confirmation: Lösenordsbekräftelse
         created: &created Skapad
@@ -114,8 +123,8 @@ sv:
 
       membership_application:
         company_number: &company_number Organisationsnummer
-        first_name: &first_name Förnamn
-        last_name: &last_name Efternamn
+        first_name: *first_name
+        last_name: *last_name
         contact_email: &contact_email Kontakt e-post
         state: &state Status
         phone_number: Telefonnummer
@@ -191,6 +200,10 @@ sv:
             actual_file:
               file_too_large: 'Filen måste vara mindre än %{max}. (Filen är %{value} byte.)'
 
+        membership_application:
+          attributes:
+            company_number:
+              invalid: "%{company_number} är inte ett svenskt organisationsnummer"
 
       messages:
         record_invalid: 'Ett fel uppstod: %{errors}'
@@ -203,7 +216,7 @@ sv:
     post_code: *post_code
     city: *city
     kommun: *kommun
-    none: Ingen
+    none: *none
 
   # Automatisk och manuell sökning för views:
   membership_applications:
@@ -514,12 +527,14 @@ sv:
   users:
     index:
       title: Alla Användare
+      first_name: *first_name
+      last_name: *last_name
       email: *email
       created: *created
       last_login: *user_last_login
       logged_in_count: *sign_in_count
       member: Medlem
-      applications: Ansökningar
+      applications: *applications
       applications_tooltip: Antal öppna ansökningar
       'yes': *yes  # https://coderwall.com/p/ld65tq/rails-i18n-yes-no-translation
       'no': *no
@@ -695,6 +710,7 @@ sv:
         forgot_password: Glömt lösenord
         confirm_password: &confirm_password Bekräfta lösenord
         submit_button_label: Skapa användare
+        success: Ett nytt konto har skapats
       edit:
         title: Redigera användare
         unconfirmed_email_for: 'Obekräftad mailadress för: %{unconfirmed_email}'
@@ -707,6 +723,7 @@ sv:
         unregister: Avregistrera dig
         confirm_are_you_sure: *are_you_sure_confirm
         back: *back
+        success: Ditt konto har uppdaterats
     sessions:
       new:
         log_in: &log_in Logga In

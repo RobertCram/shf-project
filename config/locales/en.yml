@@ -33,6 +33,9 @@ en:
   search: &search Search
   'yes': &yes 'Yes'
   'no': &no 'No'
+  applications: &applications Applications
+  user_activity: User Activity
+  none: &none None
 
   time_ago: '%{amount_of_time} ago'
 
@@ -76,6 +79,10 @@ en:
       delete: *delete
       next: 'Next'
 
+  model_errors:
+    one: Please fix this error
+    other: Please fix these %{count} errors
+
  # Automatic and manual lookup for ActiveRecords:
   activerecord:
     models:
@@ -99,7 +106,9 @@ en:
     attributes:
 
       user:
-        email: &email Email
+        first_name: &first_name First name
+        last_name: &last_name Last name
+        email: &email Profile Email
         password: *password
         password_confirmation: Password confirmation
         created: &created Created
@@ -114,9 +123,9 @@ en:
 
       membership_application:
         company_number: &company_number Company number
-        first_name: &first_name First name
-        last_name: &last_name Last name
-        contact_email: &contact_email Email
+        first_name: *first_name
+        last_name: *last_name
+        contact_email: &contact_email Contact Email
         state: &state Status
         phone_number: Phone number
         membership_number: Membership number
@@ -189,6 +198,11 @@ en:
             actual_file:
               file_too_large: 'The uploaded file size must be smaller than %{max}. (Your file is %{value} bytes.)'
 
+        membership_application:
+          attributes:
+            company_number:
+              invalid: "%{company_number} is not a valid Swedish company number"
+
 
       messages:
         record_invalid: "Validation failed: %{errors}"
@@ -201,7 +215,7 @@ en:
     post_code: *post_code
     city: *city
     kommun: *kommun
-    none: None
+    none: *none
 
  # Automatic and manual lookup for views:
   membership_applications:
@@ -513,12 +527,14 @@ en:
   users:
     index:
       title: All Users
+      first_name: *first_name
+      last_name: *last_name
       email: *email
       created: *created
       last_login: *user_last_login
       logged_in_count: *sign_in_count
       member: Member
-      applications: Applications
+      applications: *applications
       applications_tooltip: Number of open applications
       'yes': *yes  # https://coderwall.com/p/ld65tq/rails-i18n-yes-no-translation
       'no': *no
@@ -691,6 +707,7 @@ en:
         confirm_password: &confirm_password Confirm password
         forgot_password: Forgot password
         submit_button_label: Sign up
+        success: You have signed up successfully
       edit:
         title: Edit your login information
         unconfirmed_email_for: 'Unconfirmed email address for: %{unconfirmed_email}'
@@ -703,6 +720,7 @@ en:
         unregister: Unregister
         confirm_are_you_sure: *are_you_sure_confirm
         back: *back
+        success: Your account has been updated successfully
     sessions:
       new:
         log_in: &log_in Log In

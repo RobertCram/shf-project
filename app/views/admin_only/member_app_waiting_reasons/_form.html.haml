@@ -1,10 +1,6 @@
 = form_for @member_app_waiting_reason do |f|
 
-  - if @member_app_waiting_reason.errors.any?
-    .wpcf7-response-output
-      - @member_app_waiting_reason.errors.full_messages.each do |msg|
-        = msg
-
+  != model_errors_helper(@member_app_waiting_reason)
 
   = f.label :name_sv, t('activerecord.attributes.member_app_waiting_reason.name_sv'), class: 'required'
   - name_sv_required = t('activerecord.attributes.member_app_waiting_reason.name_sv') + ' ' + t('errors.messages.blank')

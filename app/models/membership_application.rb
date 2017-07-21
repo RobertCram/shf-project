@@ -19,7 +19,6 @@ class MembershipApplication < ApplicationRecord
   #
   belongs_to :company, optional: true, inverse_of: :membership_applications
 
-
   has_and_belongs_to_many :business_categories
   has_many :uploaded_files
 
@@ -28,9 +27,7 @@ class MembershipApplication < ApplicationRecord
              class_name: 'AdminOnly::MemberAppWaitingReason'
 
 
-  validates_presence_of :first_name,
-                        :last_name,
-                        :company_number,
+  validates_presence_of :company_number,
                         :contact_email,
                         :state
 
@@ -40,6 +37,7 @@ class MembershipApplication < ApplicationRecord
   validate :swedish_organisationsnummer
 
   accepts_nested_attributes_for :uploaded_files, allow_destroy: true
+  accepts_nested_attributes_for :user, update_only: true
 
   scope :open, -> { where.not(state: [:accepted, :rejected]) }
 
@@ -107,7 +105,7 @@ class MembershipApplication < ApplicationRecord
 
 
   def swedish_organisationsnummer
-    errors.add(:company_number, "#{self.company_number} är inte ett svenskt organisationsnummer") unless Orgnummer.new(self.company_number).valid?
+    errors.add(:company_number, :invalid, company_number: self.company_number) unless errors.include?(:company_number) || Orgnummer.new(self.company_number).valid?
   end
 
 

@@ -2,12 +2,12 @@
                                   class: 'form-horizontal' do |f|
   .form-group
     .col-sm-5
-      = f.label :last_name_in,
+      = f.label :user_last_name_in,
                 "#{t('activerecord.attributes.membership_application.last_name')}",
                 class: 'control-label',
                 style: 'text-align: left; font-size: 12px;'
-      = f.collection_select :last_name_in,
-                      MembershipApplication.distinct.order(:last_name).pluck(:last_name),
+      = f.collection_select :user_last_name_in,
+                      User.distinct.order(:last_name).pluck(:last_name).reject(&:blank?),
                       :to_s, :to_s, { include_blank: false },
                       { multiple: true, size: 5, style: 'width: 100%;',
                         class: 'form-control search_field',

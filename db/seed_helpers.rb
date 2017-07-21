@@ -51,10 +51,8 @@ module SeedHelper
     return if users_with_application == 0
 
     users[0..users_with_application-1].each.with_index do |user, i|
-      firstname = FFaker::NameSE.first_name
-      lastname = FFaker::NameSE.last_name
-      make_application(user, firstname, lastname)
-      make_application(user, firstname, lastname) unless i >= users_with_double_application
+      make_application(user)
+      make_application(user) unless i >= users_with_double_application
     end
 
   end
@@ -66,7 +64,7 @@ module SeedHelper
   # with about a 70% chance, make an application with a status chosen randomly (but not yet accepted)
   #
 
-  def make_application(user, firstname, lastname)
+  def make_application(user)
 
     if Random.new.rand(1.0) < 0.3 then
       # set the state to accepted for about 30% of the applications
@@ -77,14 +75,14 @@ module SeedHelper
       state = FFaker.fetch_sample( states )
     end
 
-    make_n_save_app(user, firstname, lastname, state)
+    make_n_save_app(user, state)
 
   end
 
 
-  def make_n_save_app(user, firstname, lastname, state, co_number = get_company_number(Random.new))
+  def make_n_save_app(user, state, co_number = get_company_number(Random.new))
     # create a basic app
-    ma = make_app(user,firstname, lastname, co_number )
+    ma = make_app(user, co_number )
 
     ma.state = state
 
@@ -132,16 +130,14 @@ module SeedHelper
   end
 
 
-  def make_app(u, firstname, lastname, company_number)
+  def make_app(u, company_number)
 
     r = Random.new
 
     business_categories = BusinessCategory.all.to_a
 
     # for 1 in 8 apps, use a different contact email than the user's email
-    ma = MembershipApplication.new(first_name: firstname,
-                                   last_name: lastname,
-                                   contact_email: ( (Random.new.rand(1..8)) == 0 ? FFaker::InternetSE.free_email : u.email),
+    ma = MembershipApplication.new(contact_email: ( (Random.new.rand(1..8)) == 0 ? FFaker::InternetSE.free_email : u.email),
                                    company_number: company_number,
                                    user: u)
 

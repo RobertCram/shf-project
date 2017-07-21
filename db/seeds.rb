@@ -17,7 +17,7 @@ SEED_COMPLETE_MSG = '<<< SEEDING COMPLETED' unless defined?(SEED_COMPLETE_MSG)
 NUM_USERS = 100 unless defined?(NUM_USERS)
 
 NUM_USERS_WITH_SINGLE_APPLICATION =  80 unless defined?(NUM_USERS_WITH_SINGLE_APPLICATION)
-NUM_USERS_WITH_DOUBLE_APPLICATION = 10 unless defined?(NUM_USERS_WITH_DOUBLE_APPLICATION)
+NUM_USERS_WITH_DOUBLE_APPLICATION = 20 unless defined?(NUM_USERS_WITH_DOUBLE_APPLICATION)
 
 DEFAULT_PASSWORD = 'whatever' unless defined?(DEFAULT_PASSWORD)
 
@@ -52,7 +52,8 @@ if Rails.env.production?
     email = env_invalid_blank('SHF_ADMIN_EMAIL')
     pwd = env_invalid_blank('SHF_ADMIN_PWD')
 
-    User.create!(email: email, password: pwd, admin: true)
+    User.create!(email: email, password: pwd, admin: true,
+                 first_name: 'SHF', last_name: 'Admin')
   rescue => e
     puts e.inspect
     puts SEED_STOP_MSG
@@ -61,17 +62,22 @@ if Rails.env.production?
 else
   email = 'admin@sverigeshundforetagare.se'
   pwd = 'hundapor'
-  User.create(email: email, password: pwd, admin: true)
+  User.create(email: email, password: pwd, admin: true,
+              first_name: 'SHF', last_name: 'Admin')
 end
 
-unless Rails.env.production? || Rails.env.test?
+if Rails.env.development? || Rails.env.staging? || ENV['HEROKU_STAGING']
 
   puts 'Creating additional users ...'
 
   users = {}
   while users.length < NUM_USERS-1 do
     email = FFaker::InternetSE.free_email
-    users[email] = User.create!(email: email, password: DEFAULT_PASSWORD) unless users.key?(email)
+    first_name = FFaker::NameSE.first_name
+    last_name = FFaker::NameSE.last_name
+    users[email] = User.create!(email: email, password: DEFAULT_PASSWORD,
+                                first_name: first_name,
+                                last_name: last_name) unless users.key?(email)
   end
 
   puts "Users created: #{User.count}"

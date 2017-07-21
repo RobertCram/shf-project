@@ -7,7 +7,7 @@ class MembershipApplicationsController < ApplicationController
 
 
   def new
-    @membership_application = MembershipApplication.new
+    @membership_application = MembershipApplication.new(user: current_user)
     @all_business_categories = BusinessCategory.all
     @uploaded_file = @membership_application.uploaded_files.build
   end
@@ -19,11 +19,12 @@ class MembershipApplicationsController < ApplicationController
     action_params, @items_count, items_per_page =
       process_pagination_params('membership_application')
 
-    @search_params = MembershipApplication.ransack(action_params)
+    @search_params = MembershipApplication.includes(:user).ransack(action_params )
 
     @membership_applications = @search_params
                                    .result
                                    .includes(:business_categories)
+                                   .includes(:user)
                                    .page(params[:page]).per_page(items_per_page)
 
     render partial: 'membership_applications_list' if request.xhr?
@@ -41,7 +42,8 @@ class MembershipApplicationsController < ApplicationController
 
 
   def create
-    @membership_application = current_user.membership_applications.build(membership_application_params)
+    @membership_application = MembershipApplication.new(user: current_user)
+    @membership_application.update(membership_application_params)
     if @membership_application.save
 
       if new_file_uploaded(params)
@@ -255,7 +257,7 @@ class MembershipApplicationsController < ApplicationController
       render json: @membership_application.errors.full_messages, status: :unprocessable_entity if request.xhr?
     else
       helpers.flash_message(:alert, error_message)
-      redirect_to edit_membership_application_path(@membership_application)
+      render :edit
     end
 
   end

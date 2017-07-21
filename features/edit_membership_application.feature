@@ -7,19 +7,19 @@ Feature: As an applicant
 
   Background:
     Given the following users exists
-      | email             | is_member | admin |
-      | emma@random.com   | false     |       |
-      | hans@random.com   | false     |       |
-      | nils@random.com   | true      |       |
-      | bob@barkybobs.com | true      |       |
-      | admin@shf.se      | true      | true  |
+      | first_name | email             | is_member | admin |
+      | Emma       | emma@random.com   | false     |       |
+      | Hans       | hans@random.com   | false     |       |
+      | Nils       | nils@random.com   | true      |       |
+      | Bob        | bob@barkybobs.com | true      |       |
+      | admin      | admin@shf.se      | true      | true  |
 
     And the following applications exist:
-      | first_name | user_email        | company_number | state                 |
-      | Emma       | emma@random.com   | 5560360793     | waiting_for_applicant |
-      | Hans       | hans@random.com   | 2120000142     | under_review          |
-      | Nils       | nils@random.com   | 2120000142     | accepted              |
-      | Bob        | bob@barkybobs.com | 5560360793     | rejected              |
+      | user_email        | company_number | state                 |
+      | emma@random.com   | 5560360793     | waiting_for_applicant |
+      | hans@random.com   | 2120000142     | under_review          |
+      | nils@random.com   | 2120000142     | accepted              |
+      | bob@barkybobs.com | 5560360793     | rejected              |
 
   Scenario: Applicant wants to edit his own application
     Given I am logged in as "emma@random.com"
@@ -38,9 +38,11 @@ Feature: As an applicant
     And I click on t("menus.nav.users.my_application")
     Then I should be on "Edit My Application" page
     And I fill in t("membership_applications.show.contact_email") with "sussimmi.nu"
+    And I fill in t("membership_applications.show.company_number") with ""
     And I click on t("membership_applications.edit.submit_button_label")
     Then I should see t("membership_applications.update.error")
-    And I should be on "Edit My Application" page
+    And I should see translated error membership_applications.show.company_number errors.messages.blank
+    And I should see button t("membership_applications.edit.submit_button_label")
 
   Scenario: Applicant can not edit applications not created by him
     Given I am logged in as "emma@random.com"

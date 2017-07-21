@@ -1,9 +1,11 @@
-require 'coveralls'
-Coveralls.wear_merged!('rails')
+require 'simplecov'
+# ^^ https://github.com/colszowka/simplecov#using-simplecov-for-centralized-config
+
 require 'cucumber/rails'
 require 'cucumber/timecop'
 require 'cucumber/rspec/doubles'
 require 'capybara/poltergeist'
+require 'email_spec/cucumber'
 
 # Put the Geocoder into test mode so no actual API calls are made and stub with fake data
 require_relative '../../spec/support/geocoder'

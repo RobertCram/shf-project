@@ -8,10 +8,7 @@
 
   .entry-content.wpcf7
     = form_for @membership_application, html: {multipart: true}, url: membership_applications_path do |f|
-      - if @membership_application.errors.any?
-        - @membership_application.errors.full_messages.each do |msg|
-          .wpcf7-response-output
-            = msg
+      != model_errors_helper(@membership_application)
       = render partial: 'membership_application_fields', locals: {f: f}
       = render 'application/required_fields'
 

@@ -128,6 +128,12 @@ Then(/^I should be on (?:the )*"([^"]*)" page$/) do |page|
       path = admin_only_member_app_waiting_reasons_path
     when 'new waiting for info reason'
       path = new_admin_only_member_app_waiting_reason_path
+    when 'new waiting for info reason'
+      path = new_admin_only_member_app_waiting_reason_path
+    when 'register as a new user'
+      path = new_user_registration_path
+    when 'edit registration for a user'
+      path = edit_user_registration_path
   end
 
   expect(current_path_without_locale(current_path)).to eq path
@@ -154,12 +160,14 @@ end
 
 
 Then(/^I should be on the application page for "([^"]*)"$/) do |first_name|
-  membership_application = MembershipApplication.find_by(first_name: first_name)
+  user = User.find_by(first_name: first_name)
+  membership_application = user.membership_application
   expect(current_path_without_locale(current_path)).to eq membership_application_path(membership_application)
 end
 
 Then(/^I should be on the edit application page for "([^"]*)"$/) do |first_name|
-  membership_application = MembershipApplication.find_by(first_name: first_name)
+  user = User.find_by(first_name: first_name)
+  membership_application = user.membership_application
   expect(current_path_without_locale(current_path)).to eq edit_membership_application_path(membership_application)
 end
 
@@ -299,12 +307,12 @@ Then /^the "([^\"]*)" (field|button|item) should( not)? be disabled$/ do |label,
 end
 
 
-# Tests that an input or button with the given label is disabled.
-Then /^the "([^\"]*)" field should( not)? be set to "([^\"]*)"$/ do |label, negate, text_value|
+# Tests that an input has a given value
+Then /^the t\("([^"]*)"\) field should be set to "([^\"]*)"$/ do |i18n_key, text_value|
 
-  element = find_field(label)
+  element = find_field(I18n.t(i18n_key))
 
-  expect(["false", "", nil]).send(negate ? :to : :not_to,  have_content(text_value) )
+  expect(element.value).to eq(text_value)
 
 end
 

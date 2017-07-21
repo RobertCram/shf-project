@@ -1,8 +1,6 @@
 = form_for @business_category do |f|
-  - if @business_category.errors.any?
-    .wpcf7-response-output
-      - @business_category.errors.full_messages.each do |msg|
-        = msg
+
+  != model_errors_helper(@business_category)
 
   = f.label :name, t('activerecord.attributes.business_category.name') , class: 'required'
   = f.text_field :name, class: 'wpcf7-form-control'

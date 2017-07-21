@@ -72,16 +72,17 @@ RSpec.describe AdminController, type: :controller do
           # create 1 application in each state
           MembershipApplication.aasm.states.each do |app_state|
 
-            u = FactoryGirl.create(:user, email: "#{app_state.name}@example.com")
-
-            m = FactoryGirl.create :membership_application,
+            u = FactoryGirl.create(:user,
                                    first_name:    "First#{app_state.name}",
                                    last_name:     "Last#{app_state.name}",
+                                   email: "#{app_state.name}@example.com")
+
+            m = FactoryGirl.create :membership_application,
                                    contact_email: "#{app_state.name}@example.com",
                                    state:         app_state.name,
                                    user:          u
 
-            member1_info = "#{m.contact_email},#{m.first_name},#{m.last_name},#{m.membership_number},"+ I18n.t("membership_applications.state.#{app_state.name}")
+            member1_info = "#{m.contact_email},#{u.first_name},#{u.last_name},#{m.membership_number},"+ I18n.t("membership_applications.state.#{app_state.name}")
 
             result_str << member1_info + ','
             result_str << '"",'  # no business categories
@@ -109,11 +110,13 @@ RSpec.describe AdminController, type: :controller do
         end
 
 
-        let(:u1) { FactoryGirl.create(:user, email: "user1@example.com") }
+        let(:u1) { FactoryGirl.create(:user,
+                                      first_name:     "u1",
+                                      email: "user1@example.com") }
+
         let(:c1) { FactoryGirl.create(:company) }
 
         let(:member1) { m1 = FactoryGirl.create :membership_application,
-                                                      first_name:     "u1",
                                                       contact_email:  "u1@example.com",
                                                       state:          :accepted,
                                                       company_number: c1.company_number,
@@ -133,7 +136,7 @@ RSpec.describe AdminController, type: :controller do
 
           result_str = csv_header
 
-          member1_info = "#{member1.contact_email},#{member1.first_name},#{member1.last_name},#{member1.membership_number},"+ I18n.t("membership_applications.state.#{member1.state}")
+          member1_info = "#{member1.contact_email},#{u1.first_name},#{u1.last_name},#{member1.membership_number},"+ I18n.t("membership_applications.state.#{member1.state}")
 
           result_str << member1_info + ','
           result_str << '"",'  # no business categories
@@ -151,11 +154,13 @@ RSpec.describe AdminController, type: :controller do
       describe 'with business categories (surrounded by double quotes)' do
 
 
-        let(:u1) { FactoryGirl.create(:user, email: "user1@example.com") }
+        let(:u1) { FactoryGirl.create(:user,
+                                      first_name:     "u1",
+                                      email: "user1@example.com") }
+
         let(:c1) { FactoryGirl.create(:company) }
 
         let(:member1) { m1 = FactoryGirl.create :membership_application,
-                                                first_name:     "u1",
                                                 contact_email:  "u1@example.com",
                                                 state:          :accepted,
                                                 company_number: c1.company_number,
@@ -169,7 +174,7 @@ RSpec.describe AdminController, type: :controller do
                              response.body
                            }
 
-        let(:member1_info) {  "#{member1.contact_email},#{member1.first_name},#{member1.last_name},#{member1.membership_number},"+ I18n.t("membership_applications.state.#{member1.state}") }
+        let(:member1_info) {  "#{member1.contact_email},#{u1.first_name},#{u1.last_name},#{member1.membership_number},"+ I18n.t("membership_applications.state.#{member1.state}") }
 
 
         it 'zero/nil business categories' do

@@ -1,8 +1,6 @@
 = form_for @company do |f|
-  - if @company.errors.any?
-    .wpcf7-response-output
-      - @company.errors.full_messages.each do |msg|
-        = msg
+
+  != model_errors_helper(@company)
 
   = f.label :name, "#{t('companies.company_name')}", class: 'required'
   = f.text_field :name, class: 'wpcf7-form-control'

@@ -77,8 +77,7 @@ class MembershipApplicationPolicy < ApplicationPolicy
 
 
   def user_owner_attributes
-    [:first_name,
-     :last_name,
+    [
      :company_number,
      :contact_email,
      :phone_number,
@@ -91,8 +90,10 @@ class MembershipApplicationPolicy < ApplicationPolicy
                                  :actual_file_file_size,
                                  :actual_file_content_type,
                                  :actual_file_updated_at,
-                                 :_destroy]
-    ]
+                                 :_destroy],
+     user_attributes: [:first_name,
+                       :last_name]
+     ]
   end
 
 
@@ -120,7 +121,7 @@ class MembershipApplicationPolicy < ApplicationPolicy
 
 
   def owner?
-    @record.respond_to?(:user) && @record.user == user
+    record.respond_to?(:user) && record.user == user
   end
 
   def not_a_visitor

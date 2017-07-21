@@ -3,7 +3,7 @@ class AdminController < ApplicationController
 
 
   def index
-    @membership_applications = MembershipApplication.all
+    @membership_applications = MembershipApplication.includes(:user).all
   end
 
 
@@ -11,7 +11,7 @@ class AdminController < ApplicationController
   def export_ansokan_csv
 
     begin
-      @membership_applications = MembershipApplication.all
+      @membership_applications = MembershipApplication.includes(:user).all
 
       export_name = "shf-ankosan-#{Time.now.strftime('%Y-%m-%d--%H-%M-%S')}.csv"
 
@@ -41,7 +41,7 @@ class AdminController < ApplicationController
     out_str = export_header_str
 
     membership_apps.each do |m_app|
-      out_str << "#{m_app.contact_email},#{m_app.first_name},#{m_app.last_name},#{m_app.membership_number},"
+      out_str << "#{m_app.contact_email},#{m_app.user.first_name},#{m_app.user.last_name},#{m_app.membership_number},"
       out_str << t("membership_applications.state.#{m_app.state}")
       out_str << ','
 

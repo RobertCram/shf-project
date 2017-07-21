@@ -220,5 +220,60 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
+  describe '#model_errors_helper' do
+
+    let(:good_ma) { FactoryGirl.create(:membership_application) }
+
+    let(:user)    { FactoryGirl.create(:user) }
+
+    let(:errors_html_sv)  do
+      I18n.locale = :sv
+      ma = MembershipApplication.new(user: user)
+      ma.valid?
+      model_errors_helper(ma)
+    end
+
+    let(:errors_html_en)  do
+      I18n.locale = :en
+      ma = MembershipApplication.new(user: user)
+      ma.valid?
+      model_errors_helper(ma)
+    end
+
+    it 'returns nil if no errors' do
+      expect(model_errors_helper(good_ma)).to be_nil
+    end
+
+    it 'adds a count of errors' do
+      expect(errors_html_sv).to match(/#{t('model_errors', count: 4)}/)
+
+      expect(errors_html_en).to match(/#{t('model_errors', count: 4)}/)
+    end
+
+    it 'returns all model errors - swedish' do
+      expect(errors_html_sv).to match(/Organisationsnummer måste anges/)
+
+      expect(errors_html_sv).
+        to match(/Organisationsnummer har fel längd \(ska vara 10 tecken\)/)
+
+      expect(errors_html_sv).to match(/Kontakt e-post måste anges/)
+
+      expect(errors_html_sv).to match(/Kontakt e-post har fel format/)
+
+    end
+
+    it 'returns all model errors - english' do
+      expect(errors_html_en).to match(/Company number cannot be blank/)
+
+      expect(errors_html_en).
+        to match(/Company number is the wrong length \(should be 10 characters\)/)
+
+      expect(errors_html_en).to match(/Contact Email cannot be blank/)
+
+      expect(errors_html_en).to match(/Contact Email is invalid/)
+
+    end
+  end
+
 
 end

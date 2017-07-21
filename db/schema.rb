@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615091313) do
+ActiveRecord::Schema.define(version: 20170704095534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,22 +98,20 @@ ActiveRecord::Schema.define(version: 20170615091313) do
   end
 
   create_table "membership_applications", force: :cascade do |t|
-    t.string   "company_number"
-    t.string   "phone_number"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
-    t.integer  "user_id"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "contact_email"
-    t.integer  "company_id"
-    t.string   "membership_number"
-    t.string   "state",                         default: "new"
-    t.integer  "member_app_waiting_reasons_id"
-    t.string   "custom_reason_text"
-    t.index ["company_id"], name: "index_membership_applications_on_company_id", using: :btree
-    t.index ["member_app_waiting_reasons_id"], name: "index_membership_applications_on_member_app_waiting_reasons_id", using: :btree
-    t.index ["user_id"], name: "index_membership_applications_on_user_id", using: :btree
+    t.string "company_number"
+    t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.string "contact_email"
+    t.bigint "company_id"
+    t.string "membership_number"
+    t.string "state", default: "new"
+    t.integer "member_app_waiting_reasons_id"
+    t.string "custom_reason_text"
+    t.index ["company_id"], name: "index_membership_applications_on_company_id"
+    t.index ["member_app_waiting_reasons_id"], name: "index_membership_applications_on_member_app_waiting_reasons_id"
+    t.index ["user_id"], name: "index_membership_applications_on_user_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -161,6 +159,8 @@ ActiveRecord::Schema.define(version: 20170615091313) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

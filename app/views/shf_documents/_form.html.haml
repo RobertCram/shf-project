@@ -1,11 +1,6 @@
 = form_for @shf_document do |f|
 
-  - if @shf_document.errors.any?
-    .wpcf7-response-output
-      #error_explanation
-        - @shf_document.errors.full_messages.each do |msg|
-          = msg
-
+  != model_errors_helper(@shf_document)
 
   = f.label :title
   = f.text_field :title

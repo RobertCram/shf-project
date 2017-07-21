@@ -6,9 +6,13 @@ RSpec.describe 'companies/index' do
 
   let(:admin)   { FactoryGirl.create(:user, admin: true) }
 
+  let(:user)    { FactoryGirl.create(:user_with_membership_app) }
+
   let(:cmpy_id) { member.membership_applications[0].company.id }
 
   let(:app_id)  { member.membership_applications[0].id }
+
+  let(:user_app_id) { user.membership_applications[0].id }
 
   let(:shf_site) { Regexp.escape('http://sverigeshundforetagare.se/') }
 
@@ -21,6 +25,7 @@ RSpec.describe 'companies/index' do
 
     before(:each) do
       allow(view).to receive(:current_user) { member }
+      allow(view).to receive(:user_signed_in?) { true }
 
       assign(:all_visible_companies, [])
       assign(:search_params, Company.ransack(nil))
@@ -31,8 +36,7 @@ RSpec.describe 'companies/index' do
 
     it 'renders link to main site' do
       text = t('menus.nav.shf_main_site')
-      expect(rendered)
-        .to match %r{<a href=\"#{shf_site}\">#{text}}
+      expect(rendered).to match %r{<a href=\"#{shf_site}\">#{text}}
     end
 
     it 'renders link to companies index view' do
@@ -80,10 +84,41 @@ RSpec.describe 'companies/index' do
     end
   end
 
+  describe 'user with application' do
+
+    before(:each) do
+      allow(view).to receive(:current_user) { user }
+      allow(view).to receive(:user_signed_in?) { true }
+
+      assign(:all_visible_companies, [])
+      assign(:search_params, Company.ransack(nil))
+      assign(:companies, Company.ransack(nil).result.page(params[:page]).per_page(10))
+
+      render 'application/navigation'
+    end
+
+    it 'renders link to main site' do
+      text = t('menus.nav.shf_main_site')
+      expect(rendered).to match %r{<a href=\"#{shf_site}\">#{text}}
+    end
+
+    it 'renders link to companies index view' do
+      text = t('menus.nav.members.shf_companies')
+      expect(rendered).to match %r{<a href=\"\/\">#{text}}
+    end
+
+    it 'renders link to edit my application' do
+      text = t('menus.nav.users.my_application')
+      expect(rendered).to match %r{<a href=\"\/ansokan\/#{user_app_id}\/redigera\">#{text}}
+    end
+  end
+
+
   describe 'admin' do
 
     before(:each) do
       allow(view).to receive(:current_user) { admin }
+      allow(view).to receive(:user_signed_in?) { true }
 
       render 'application/navigation'
     end
@@ -103,8 +138,7 @@ RSpec.describe 'companies/index' do
 
     it 'renders link to main site' do
       text = t('menus.nav.shf_main_site')
-      expect(rendered)
-        .to match %r{<a href=\"#{shf_site}\">#{text}}
+      expect(rendered).to match %r{<a href=\"#{shf_site}\">#{text}}
     end
 
     it 'renders link to manage applications' do

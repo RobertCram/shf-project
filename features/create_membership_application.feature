@@ -33,6 +33,9 @@ Feature: As a user
     And I click on t("membership_applications.new.submit_button_label")
     Then I should be on the landing page
     And I should see t("membership_applications.create.success")
+    When I click on t("menus.nav.users.my_application")
+    Then the t("membership_applications.new.first_name") field should be set to "Kicki"
+    And the t("membership_applications.new.last_name") field should be set to "Andersson"
 
 
   Scenario: A user can submit a new Membership Application with multiple categories
