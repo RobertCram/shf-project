@@ -55,6 +55,7 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
   Scenario: Admin selects 'waiting for payment' as the reason SHF is waiting_for_applicant
     Given I am on "AnnaWaiting" application page
     When I set "member_app_waiting_reasons" to "waiting for payment"
+    And I wait for all ajax requests to complete
     And I am on the list applications page
     And I am on "AnnaWaiting" application page
     And "member_app_waiting_reasons" should have "waiting for payment" selected
