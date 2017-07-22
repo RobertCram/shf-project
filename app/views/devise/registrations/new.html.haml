@@ -6,7 +6,6 @@
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
 
     != model_errors_helper(resource)
-    %br/
 
     .field
       = f.label :first_name, class: 'required'

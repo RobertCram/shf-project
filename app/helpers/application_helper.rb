@@ -144,7 +144,7 @@ module ApplicationHelper
       end
     end
 
-    html.empty? ? nil : html
+    html.empty? ? nil : html + tag(:br)
   end
 
 end
