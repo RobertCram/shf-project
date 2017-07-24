@@ -54,7 +54,6 @@ class MembershipApplicationsController < ApplicationController
       end
 
     else
-      @language_change_allowed = false
       create_error(t('.error'))
     end
   end
@@ -248,6 +247,7 @@ class MembershipApplicationsController < ApplicationController
   def create_error(error_message)
     helpers.flash_message(:alert, error_message)
     current_user.membership_applications.reload
+    @language_change_allowed = false
     render :new
   end
 
@@ -258,6 +258,7 @@ class MembershipApplicationsController < ApplicationController
       render json: @membership_application.errors.full_messages, status: :unprocessable_entity if request.xhr?
     else
       helpers.flash_message(:alert, error_message)
+      @language_change_allowed = false
       render :edit
     end
 
