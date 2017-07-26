@@ -5,7 +5,6 @@ Feature: As an Admin
 
   Background:
     Given the following users exists
-      #TODO-Robert keep names!
       | first_name            | email                                  | admin |
       | EmmaUnderReview       | emma_under_review@happymutts.se        |       |
       | HansUnderReview       | hans_under_review@happymutts.se        |       |

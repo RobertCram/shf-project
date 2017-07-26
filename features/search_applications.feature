@@ -6,7 +6,6 @@ I want to search for applications by various criteria
 
 Background:
   Given the following users exists
-    #TODO-Robert keep names!
     | first_name | last_name  | email                | admin |
     | Fred       | Fransson   | fred@barkyboys.com   |       |
     | John       | Johanssen  | john@happymutts.com  |       |

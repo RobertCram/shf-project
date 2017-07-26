@@ -4,7 +4,6 @@ Feature: As a registered user
 
   Background:
     Given the following users exists
-      #TODO-Robert keep names!
       | first_name | last_name | email              | password | admin |
       | emma       | andersson | emma@andersson.com | password | false |
 
