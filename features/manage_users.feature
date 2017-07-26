@@ -4,11 +4,11 @@ Feature: As an admin
 
   Background:
     Given the following users exist
-      | first_name | email               | admin |
-      | Emma       | emma@happymutts.com |       |
-      | Anna       | anna@sadmutts.com   |       |
-      | Ernt       | ernt@mutts.com      |       |
-      | admin      | admin@shf.se        | true  |
+      | email               | admin |
+      | emma@happymutts.com |       |
+      | anna@sadmutts.com   |       |
+      | ernt@mutts.com      |       |
+      | admin@shf.se        | true  |
 
     And the following business categories exist
       | name         |

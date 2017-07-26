@@ -9,13 +9,13 @@ Feature: As an admin
 
   Background:
     Given the following users exists
-      | first_name | email            | admin |
-      | Emma       | emma@random.com  |       |
-      | Hans       | hans@bowsers.com |       |
-      | Nils       | nils@bowsers.com |       |
-      | Wils       | wils@woof.com    |       |
-      | Bob        | bob@bowsers.com  |       |
-      | admin      | admin@shf.se     | true  |
+      | email            | admin |
+      | emma@random.com  |       |
+      | hans@bowsers.com |       |
+      | nils@bowsers.com |       |
+      | wils@woof.com    |       |
+      | bob@bowsers.com  |       |
+      | admin@shf.se     | true  |
 
     And the following regions exist:
       | name         |

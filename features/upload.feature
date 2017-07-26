@@ -5,10 +5,10 @@ Feature: As an applicant
 
   Background:
     Given the following users exists
-      | first_name | email                  | admin |
-      | Emma       | applicant_1@random.com |       |
-      | Applicant2 | applicant_2@random.com |       |
-      | admin      | admin@shf.com          | true  |
+      | email                  | admin |
+      | applicant_1@random.com |       |
+      | applicant_2@random.com |       |
+      | admin@shf.com          | true  |
 
 
     And the following applications exist:

@@ -14,21 +14,21 @@ Feature: As an admin
 
   Background:
     Given the following users exists
-      | first_name       | email                          | admin |
-      | Emma             | emma@happymutts.com            |       |
-      | Hans             | hans@happymutts.com            |       |
-      | Wils             | wils@woof.com                  |       |
-      | Sam              | sam@snarkybarky.com            |       |
-      | Lars             | lars@snarkybarky.com           |       |
-      | Kitty            | kitty@kitties.com              |       |
-      | Meow             | meow@kitties.com               |       |
-      | Under_Review     | under_review@kats.com          |       |
-      | Ready for Review | ready_for_review@kats.com      |       |
-      | Waiting for A    | waiting_for_applicant@kats.com |       |
-      | New              | new@kats.com                   |       |
-      | Waiting for R    | waiting_for_review@kats.com    |       |
-      | Bob              | bob@bowsers.com                |       |
-      | admin            | admin@shf.se                   | true  |
+      | email                          | admin |
+      | emma@happymutts.com            |       |
+      | hans@happymutts.com            |       |
+      | wils@woof.com                  |       |
+      | sam@snarkybarky.com            |       |
+      | lars@snarkybarky.com           |       |
+      | kitty@kitties.com              |       |
+      | meow@kitties.com               |       |
+      | under_review@kats.com          |       |
+      | ready_for_review@kats.com      |       |
+      | waiting_for_applicant@kats.com |       |
+      | new@kats.com                   |       |
+      | waiting_for_review@kats.com    |       |
+      | bob@bowsers.com                |       |
+      | admin@shf.se                   | true  |
 
     And the following business categories exist
       | name        | description                     |

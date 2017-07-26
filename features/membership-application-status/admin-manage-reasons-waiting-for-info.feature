@@ -12,10 +12,10 @@ Feature: Admin manages the list of reasons why SHF is waiting for info from an a
 
   Background:
     Given the following users exists
-      | first_name   | email                                  | admin |
-      | AnnaWaiting  | anna_waiting_for_info@nosnarkybarky.se |       |
-      | EmmaAccepted | emma@happymutts.se                     |       |
-      | admin        | admin@shf.se                           | true  |
+      | email                                  | admin |
+      | anna_waiting_for_info@nosnarkybarky.se |       |
+      | emma@happymutts.se                     |       |
+      | admin@shf.se                           | true  |
 
     Given the following business categories exist
       | name  | description           |

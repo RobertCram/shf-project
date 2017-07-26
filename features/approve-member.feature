@@ -9,11 +9,11 @@ Feature: As an admin
 
   Background:
     Given the following users exists
-      | first_name | email                 | admin |
-      | Emma       | emma@happymutts.se    |       |
-      | Hans       | hans@happymutts.se    |       |
-      | Anna       | anna@nosnarkybarky.se |       |
-      | admin      | admin@shf.com         | true  |
+      | email                 | admin |
+      | emma@happymutts.se    |       |
+      | hans@happymutts.se    |       |
+      | anna@nosnarkybarky.se |       |
+      | admin@shf.com         | true  |
 
     Given the following business categories exist
       | name         | description                     |

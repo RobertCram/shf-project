@@ -9,9 +9,9 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
 
   Background:
     Given the following users exists
-      | first_name  | email                                  | admin |
-      | AnnaWaiting | anna_waiting_for_info@nosnarkybarky.se |       |
-      | admin       | admin@shf.com                          | true  |
+      | email                                  | admin |
+      | anna_waiting_for_info@nosnarkybarky.se |       |
+      | admin@shf.com                          | true  |
 
     Given the following business categories exist
       | name  | description           |

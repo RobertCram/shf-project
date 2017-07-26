@@ -6,9 +6,9 @@ Feature: As a member
 
   Background:
     Given the following users exists
-      | first_name | email               | admin | is_member |
-      | Emma       | emma@happymutts.com |       | true      |
-      | admin      | admin@shf.se        | true  | true      |
+      | email               | admin | is_member |
+      | emma@happymutts.com |       | true      |
+      | admin@shf.se        | true  | true      |
 
     Given the following regions exist:
       | name         |

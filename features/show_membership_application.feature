@@ -12,6 +12,7 @@ Feature: As an Admin
 
   Background:
     Given the following users exists
+      #TODO-Robert keep names!
       | first_name         | email                               | admin |
       | Emma               | emma@personal.com                   |       |
       | Emma               | emma@random.com                     |       |

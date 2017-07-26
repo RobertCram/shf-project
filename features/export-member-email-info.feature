@@ -6,10 +6,10 @@ Feature: export member information to a CSV file so I can use it in other system
 
   Background:
     Given the following users exists
-      | first_name | last_name   | email                       | admin |
-      | Emma       | Emmasdottir | emma@happymutts.com         |       |
-      | Wils       | Wilson      | wils@woof.com               |       |
-      | admin      | admin       | admin@shf.se                | true  |
+      | last_name   | email                       | admin |
+      | Emmasdottir | emma@happymutts.com         |       |
+      | Wilson      | wils@woof.com               |       |
+      | admin       | admin@shf.se                | true  |
 
 
     And the following regions exist:
