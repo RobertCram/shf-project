@@ -37,14 +37,14 @@ end
 
 
 
-And(/^I navigate to the edit page for "([^"]*)"$/) do |first_name|
-  user = User.find_by(first_name: first_name)
+And(/^I navigate to the edit page for "([^"]*)"$/) do |email|
+  user = User.find_by(email: email)
   membership_application = user.membership_application
   visit path_with_locale(edit_membership_application_path(membership_application))
 end
 
-Given(/^I am on "([^"]*)" application page$/) do |first_name|
-  user = User.find_by(first_name: first_name)
+Given(/^I am on "([^"]*)" application page$/) do |email|
+  user = User.find_by(email: email)
   membership_application = user.membership_application
   visit path_with_locale(membership_application_path(membership_application))
 end

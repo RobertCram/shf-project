@@ -159,14 +159,14 @@ And(/^t\("([^"]*)"\) should be set in "([^"]*)"$/) do |status, list|
 end
 
 
-Then(/^I should be on the application page for "([^"]*)"$/) do |first_name|
-  user = User.find_by(first_name: first_name)
+Then(/^I should be on the application page for "([^"]*)"$/) do |email|
+  user = User.find_by(email: email)
   membership_application = user.membership_application
   expect(current_path_without_locale(current_path)).to eq membership_application_path(membership_application)
 end
 
-Then(/^I should be on the edit application page for "([^"]*)"$/) do |first_name|
-  user = User.find_by(first_name: first_name)
+Then(/^I should be on the edit application page for "([^"]*)"$/) do |email|
+  user = User.find_by(email: email)
   membership_application = user.membership_application
   expect(current_path_without_locale(current_path)).to eq edit_membership_application_path(membership_application)
 end

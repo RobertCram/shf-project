@@ -107,8 +107,8 @@ When(/^I fail to visit the "([^"]*)" page$/) do |page|
 end
 
 
-When(/^I am on the application page for "([^"]*)"$/) do |first_name|
-  user = User.find_by(first_name: first_name)
+When(/^I am on the application page for "([^"]*)"$/) do |email|
+  user = User.find_by(email: email)
   membership_application = user.membership_application
   visit path_with_locale(membership_application_path(membership_application))
 end
