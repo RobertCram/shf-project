@@ -51,7 +51,7 @@ Feature: As an applicant
     And I click on t("membership_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.com"
-    And I am on "Emma" application page
+    And I am on "applicant_1@random.com" application page
     Then I click on t("membership_applications.ask_applicant_for_info_btn")
     And  I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
@@ -91,7 +91,7 @@ Feature: As an applicant
     And I click on t("membership_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.com"
-    And I am on "Emma" application page
+    And I am on "applicant_1@random.com" application page
     Then I click on t("membership_applications.ask_applicant_for_info_btn")
     And  I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page

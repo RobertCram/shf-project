@@ -45,7 +45,7 @@ Feature: As an Admin
   Scenario: Application submitter can see but not update the Application status
     Given I am Logged out
     And I am logged in as "emma_under_review@happymutts.se"
-    Given I am on "EmmaUnderReview" application page
+    Given I am on "emma_under_review@happymutts.se" application page
     And I should see status line with status t("membership_applications.under_review")
     And I should not see button t("membership_applications.accept_btn")
     And I should not see button t("membership_applications.reject_btn")
@@ -55,7 +55,7 @@ Feature: As an Admin
 
   @admin @user
   Scenario: Admin requests more info from user (from under_review to 'waiting for applicant')
-    Given I am on "EmmaUnderReview" application page
+    Given I am on "emma_under_review@happymutts.se" application page
     Then I should see "rehab"
     When I click on t("membership_applications.ask_applicant_for_info_btn")
     Then I should see t("membership_applications.need_info.success")
@@ -74,7 +74,7 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin changed from under_review to accepted
-    Given I am on "EmmaUnderReview" application page
+    Given I am on "emma_under_review@happymutts.se" application page
     Then I should see "rehab"
     When I click on t("membership_applications.accept_btn")
     Then I should see t("membership_applications.accept.success")
@@ -88,7 +88,7 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin changed from under_review to rejected
-    Given I am on "EmmaUnderReview" application page
+    Given I am on "emma_under_review@happymutts.se" application page
     Then I should see "rehab"
     When I click on t("membership_applications.reject_btn")
     Then I should see t("membership_applications.reject.success")
@@ -103,12 +103,12 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin cannot change from under_review to 'cancel waiting for applicant'
-    Given I am on "EmmaUnderReview" application page
+    Given I am on "emma_under_review@happymutts.se" application page
     Then I should not see button t("membership_applications.cancel_waiting_for_applicant_btn")
 
   @admin
   Scenario: Admin rejects an application (under_review to rejected)
-    Given I am on "EmmaUnderReview" application page
+    Given I am on "emma_under_review@happymutts.se" application page
     Then I should see "rehab"
     When I click on t("membership_applications.reject_btn")
     Then I should see t("membership_applications.reject.success")
@@ -129,7 +129,7 @@ Feature: As an Admin
     And I click on t("membership_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.se"
-    And I am on "AnnaWaiting" application page
+    And I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     And I should see "rehab"
     Then I click on t("membership_applications.ask_applicant_for_info_btn")
     And  I am logged in as "anna_waiting_for_info@nosnarkybarky.se"
@@ -138,7 +138,7 @@ Feature: As an Admin
     And I click on t("membership_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.se"
-    And I am on "AnnaWaiting" application page
+    And I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     When I click on t("membership_applications.reject_btn")
     Then I should see t("membership_applications.reject.success")
     And I should see status line with status t("membership_applications.rejected")
@@ -149,7 +149,7 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin changed from under_review to waiting_for_payment
-    Given I am on "EmmaUnderReview" application page
+    Given I am on "emma_under_review@happymutts.se" application page
     Then I should see "rehab"
     When I click on t("membership_applications.ask_applicant_for_payment_btn")
     Then I should see t("membership_applications.need_payment.success")
@@ -187,7 +187,7 @@ Feature: As an Admin
     And I should see status line with status t("membership_applications.ready_for_review")
     And I am Logged out
     And I am logged in as "admin@shf.se"
-    And I am on "AnnaWaiting" application page
+    And I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     Then I should see status line with status t("membership_applications.ready_for_review")
     And I should see "rehab"
     And I am on the "landing" page
@@ -198,7 +198,7 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin changed from 'waiting for applicant' to 'under review'
-    Given I am on "AnnaWaiting" application page
+    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     And I should see "rehab"
     When I click on t("membership_applications.cancel_waiting_for_applicant_btn")
     Then I should see t("membership_applications.cancel_need_info.success")
@@ -214,23 +214,23 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin cannot change from 'waiting for applicant' to rejected
-    Given I am on "AnnaWaiting" application page
+    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     Then I should not see button t("membership_applications.reject_btn")
 
   @admin
   Scenario: Admin cannot change from 'waiting for applicant' to accepted
-    Given I am on "AnnaWaiting" application page
+    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     Then I should not see button t("membership_applications.accept_btn")
 
   @admin
   Scenario: Admin cannot change from 'waiting for applicant' to 'waiting for applicant'
-    Given I am on "AnnaWaiting" application page
+    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     Then I should not see t("membership_applications.ask_applicant_for_info_btn")
 
 
   @admin
   Scenario: 'Waiting for applicant' status is not changed if admin edits the application
-    Given I am on "AnnaWaiting" application page
+    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     And I click on t("membership_applications.edit_membership_application")
     And I fill in t("membership_applications.show.last_name") with "AdminUpdated"
     And I click on t("membership_applications.edit.submit_button_label")
@@ -241,7 +241,7 @@ Feature: As an Admin
 
   # From waiting_for_payment to...
   Scenario: Admin changed waiting_for_payment to under_review
-    Given I am on "LarsWaitingForPayment" application page
+    Given I am on "lars_waiting_for_payment@happymutts.se" application page
     And I click on t("membership_applications.cancel_waiting_for_payment_btn")
     Then I should see t("membership_applications.cancel_need_payment.success")
     And I should see status line with status t("membership_applications.under_review")
@@ -252,7 +252,7 @@ Feature: As an Admin
     And I should see 1 t("membership_applications.accepted")
 
   Scenario: Admin changed waiting_for_payment to accepted
-    Given I am on "LarsWaitingForPayment" application page
+    Given I am on "lars_waiting_for_payment@happymutts.se" application page
     And I click on t("membership_applications.received_payment_btn")
     Then I should see t("membership_applications.received_payment.success")
     And I should see status line with status t("membership_applications.accepted")
@@ -266,7 +266,7 @@ Feature: As an Admin
   # From accepted to...
   @admin
   Scenario: Admin changed from accepted to rejected
-    Given I am on "NilsAccepted" application page
+    Given I am on "nils_member@bowwowwow.se" application page
     And I should see "dog crooning"
     When I click on t("membership_applications.reject_btn")
     Then I should see t("membership_applications.reject.success")
@@ -280,12 +280,12 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin cannot change from accepted to accepted
-    Given I am on "NilsAccepted" application page
+    Given I am on "nils_member@bowwowwow.se" application page
     Then I should not see button t("membership_applications.accept_btn")
 
   @admin
   Scenario: Admin cannot change from accepted to 'waiting for applicant'
-    Given I am on "NilsAccepted" application page
+    Given I am on "nils_member@bowwowwow.se" application page
     Then I should not see button t("membership_applications.ask_applicant_for_info_btn")
     Then I should not see button t("membership_applications.accept_btn")
     And I should not see button t("membership_applications.ask_applicant_for_info_btn")
@@ -294,7 +294,7 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin cannot change from accepted to cancel waiting for applicant
-    Given I am on "NilsAccepted" application page
+    Given I am on "nils_member@bowwowwow.se" application page
     Then I should not see button t("membership_applications.cancel_waiting_for_applicant_btn")
 
 
@@ -302,14 +302,14 @@ Feature: As an Admin
   @user
   Scenario: User can only view application if it's rejected, they cannot edit it
     Given I am logged in as "lars_rejected@snarkybark.se"
-    And I am on "LarsRejected" application page
+    And I am on "lars_rejected@snarkybark.se" application page
     Then I should see t("membership_applications.show.title", member_full_name: "LarsRejected Lastname")
     And I should not see t("membership_applications.edit.title")
     And I should see "rehab"
 
   @admin
   Scenario: Admin cannot edit an application if it is rejected
-    Given I am on "LarsRejected" application page
+    Given I am on "lars_rejected@snarkybark.se" application page
     And I should see "rehab"
     When I click on t("membership_applications.edit_membership_application")
     And I fill in t("membership_applications.show.last_name") with "BadBadLars"
@@ -325,12 +325,12 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin cannot change from rejected to 'waiting for applicant'
-    Given I am on "LarsRejected" application page
+    Given I am on "lars_rejected@snarkybark.se" application page
     Then I should not see button t("membership_applications.ask_applicant_for_info_btn")
 
   @admin
   Scenario: Admin changed from rejected to accepted
-    Given I am on "LarsRejected" application page
+    Given I am on "lars_rejected@snarkybark.se" application page
     And I should see "rehab"
     When I click on t("membership_applications.accept_btn")
     Then I should see t("membership_applications.accept.success")
@@ -344,10 +344,10 @@ Feature: As an Admin
 
   @admin
   Scenario: Admin cannot change from rejected to rejected
-    Given I am on "LarsRejected" application page
+    Given I am on "lars_rejected@snarkybark.se" application page
     Then I should not see button t("membership_applications.reject_btn")
 
   @admin
   Scenario: Admin cannot change from rejected to cancel needs info
-    Given I am on "LarsRejected" application page
+    Given I am on "lars_rejected@snarkybark.se" application page
     Then I should not see button t("membership_applications.cancel_waiting_for_applicant_btn")
