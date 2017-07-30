@@ -15,8 +15,8 @@ Feature: As a visitor
     Given I set the locale to "sv"
     And I am on the "all companies" page
     Then I should see t("companies.index.title")
-    And I should not see "Swedish flag" image
-    And I should see "English flag" image
+    And I should not see t("show_in_swedish") image
+    And I should see t("show_in_english") image
     And I should see t("theme_copyright", locale: :sv)
 
 
@@ -26,8 +26,8 @@ Feature: As a visitor
     When I click on "change-lang-to-english"
     When I click on "change-lang-to-svenska"
     Then I should see t("companies.index.title")
-    And I should not see "Swedish flag" image
-    And I should see "English flag" image
+    And I should not see t("show_in_swedish") image
+    And I should see t("show_in_english") image
     And I should see t("theme_copyright", locale: :sv)
 
 
@@ -35,7 +35,7 @@ Feature: As a visitor
     Given I set the locale to "sv"
     And I am on the "all companies" page
     When I click on "change-lang-to-english"
-    Then I should see "Swedish flag" image
-    And I should not see "English flag" image
+    Then I should see t("show_in_swedish") image
+    And I should not see t("show_in_english") image
     And I should see t("theme_copyright", locale: :en)
 
