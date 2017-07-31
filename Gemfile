@@ -106,13 +106,13 @@ end
 
 group :test do
 
-  gem 'codeclimate-test-reporter', '~> 1.0.0'
-  # ^^ https://docs.codeclimate.com/docs/test-coverage-ruby
-
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 
   gem 'poltergeist'
+
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
+  # ^^ https://docs.codeclimate.com/docs/test-coverage-ruby
 
   gem 'simplecov'
   gem 'email_spec'
