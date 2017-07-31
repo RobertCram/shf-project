@@ -29,15 +29,15 @@ Feature: So that I do not get frustrated by trying to find out more
       |              | 5906055081     | hello@noName.se        | Stockholm             | Alingsås |
 
     And the following users exists
-      | first_name  | email                        | admin |
-      | EmmaGroomer | emmaGroomer@happymutts.com   |       |
-      | AnnaTrainer | annaTrainer@bowsers.com      |       |
-      | Ole         | ole@noOldRegion.se           |       |
-      | Maja        | maja@onlyNoRegion.se         |       |
-      | Kikki       | kikki@noName.se              |       |
-      | LarsGroomer | larsGroomer@noRegionOrOld.se |       |
-      | LarsTrainer | larsTrainer@noRegionOrOld.se |       |
-      | admin       | admin@shf.se                 | true  |
+      | email                        | admin |
+      | emmaGroomer@happymutts.com   |       |
+      | annaTrainer@bowsers.com      |       |
+      | ole@noOldRegion.se           |       |
+      | maja@onlyNoRegion.se         |       |
+      | kikki@noName.se              |       |
+      | larsGroomer@noRegionOrOld.se |       |
+      | larsTrainer@noRegionOrOld.se |       |
+      | admin@shf.se                 | true  |
 
 
     And the following applications exist:

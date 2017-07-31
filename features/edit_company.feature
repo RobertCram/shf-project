@@ -4,10 +4,10 @@ Feature: As a member
 
   Background:
     Given the following users exists
-      | first_name | email                      | admin | is_member |
-      | Emma       | applicant_1@happymutts.com |       | true      |
-      | Anna       | applicant_3@happymutts.com |       | false     |
-      | admin      | admin@shf.se               | true  | true      |
+      | email                      | admin | is_member |
+      | applicant_1@happymutts.com |       | true      |
+      | applicant_3@happymutts.com |       | false     |
+      | admin@shf.se               | true  | true      |
 
     And the following companies exist:
       | name                 | company_number | email                  |

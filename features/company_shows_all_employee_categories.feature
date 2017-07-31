@@ -15,12 +15,12 @@ Feature: As a visitor
   Background:
 
     Given the following users exists
-      | first_name | email                 | admin |
-      | Emma       | emma@happymutts.com   |       |
-      | Lars       | lars@happymutts.com   |       |
-      | Anna       | anna@happymutts.com   |       |
-      | Bowser     | bowser@snarkybarky.se |       |
-      | admin      | admin@shf.se          | true  |
+      | email                 | admin |
+      | emma@happymutts.com   |       |
+      | lars@happymutts.com   |       |
+      | anna@happymutts.com   |       |
+      | bowser@snarkybarky.se |       |
+      | admin@shf.se          | true  |
 
     And the following companies exist:
       | name                 | company_number | email                  |

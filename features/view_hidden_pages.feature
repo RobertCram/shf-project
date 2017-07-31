@@ -3,10 +3,10 @@ Feature: Only members and admins can see members only (hidden) pages
   Background:
 
     Given the following users exists
-      | first_name | email                    | admin | is_member |
-      | Emma       | emma@happymutts.com      |       | true      |
-      | NoMember   | not_a_member@bowsers.com |       | false     |
-      | admin      | admin@shf.se             | true  | true      |
+      | email                    | admin | is_member |
+      | emma@happymutts.com      |       | true      |
+      | not_a_member@bowsers.com |       | false     |
+      | admin@shf.se             | true  | true      |
 
     And the following business categories exist
       | name  |

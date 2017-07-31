@@ -7,16 +7,16 @@ Feature: As an admin
   Background:
 
     Given the following users exists
-      | first_name | email                   | admin |
-      | Emma       | emma@personal.com       |       |
-      | Lars       | lars@personal.com       |       |
-      | Hannah     | hannah@personal.com     |       |
-      | Nils       | nils@personal.se        |       |
-      | Anna       | anna@personal.se        |       |
-      | Sam        | sam@personal.se         |       |
-      | admin      | admin@shf.se            | true  |
-      | admin      | yesterday_admin@shf.se  | true  |
-      | admin      | lazy_admin@shf.se       | true  |
+      | email                   | admin |
+      | emma@personal.com       |       |
+      | lars@personal.com       |       |
+      | hannah@personal.com     |       |
+      | nils@personal.se        |       |
+      | anna@personal.se        |       |
+      | sam@personal.se         |       |
+      | admin@shf.se            | true  |
+      | yesterday_admin@shf.se  | true  |
+      | lazy_admin@shf.se       | true  |
 
     And the following regions exist:
       | name         |

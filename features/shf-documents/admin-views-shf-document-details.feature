@@ -9,10 +9,10 @@ Feature: Admin can edit details about an uploaded SHF Document
 
 
     Given the following users exists
-      | first_name | email               | admin |
-      | Emma       | emma@happymutts.se  |       |
-      | Bob        | bob@snarkybarky.se  |       |
-      | admin      | admin@shf.se        | true  |
+      | email               | admin |
+      | emma@happymutts.se  |       |
+      | bob@snarkybarky.se  |       |
+      | admin@shf.se        | true  |
 
     And the following companies exist:
       | name        | company_number | email               |

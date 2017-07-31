@@ -5,9 +5,9 @@ Feature: As an applicant
 
   Background:
     Given the following users exists
-      | first_name | email                 | admin |
-      | Hans       | hans@new_applicant.se |       |
-      | Emma       | emma@happymutts.se    |       |
+      | email                 | admin |
+      | hans@new_applicant.se |       |
+      | emma@happymutts.se    |       |
 
     And the following applications exist:
       | user_email         | company_number | state        |

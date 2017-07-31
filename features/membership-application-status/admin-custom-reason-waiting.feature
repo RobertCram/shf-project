@@ -20,11 +20,11 @@ Feature: "Other/Custom" waiting reason comes from locale file and Admin cannot e
 
 
     Given the following users exists
-      | first_name      | email                                  | admin |
-      | AnnaWaiting     | anna_waiting_for_info@nosnarkybarky.se |       |
-      | AnnaUnderReview | anna_under_review@nosnarkybarky.se     |       |
-      | EmmaAccepted    | emma@happymutts.se                     |       |
-      | admin           | admin@shf.se                           | true  |
+      | email                                  | admin |
+      | anna_waiting_for_info@nosnarkybarky.se |       |
+      | anna_under_review@nosnarkybarky.se     |       |
+      | emma@happymutts.se                     |       |
+      | admin@shf.se                           | true  |
 
     Given the following business categories exist
       | name  | description           |
@@ -58,18 +58,18 @@ Feature: "Other/Custom" waiting reason comes from locale file and Admin cannot e
 
   @admin @javascript
   Scenario: The "other/custom" reason is listed as a reason for the 'waiting for...' status
-    Given I am on "AnnaWaiting" application page
+    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     Then "member_app_waiting_reasons" should have t("admin_only.member_app_waiting_reasons.other_custom_reason") as an option
 
   @admin @javascript
   Scenario: "other/custom" reason is listed when the state is changed TO 'waiting for applicant'
-    Given I am on "AnnaUnderReview" application page
+    Given I am on "anna_under_review@nosnarkybarky.se" application page
     When I click on t("membership_applications.ask_applicant_for_info_btn")
     Then "member_app_waiting_reasons" should have t("admin_only.member_app_waiting_reasons.other_custom_reason") as an option
 
   @admin @javascript
   Scenario: "other/custom" reason is listed when the language is changed
-    Given I am on "AnnaWaiting" application page
+    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
     Then "member_app_waiting_reasons" should have t("admin_only.member_app_waiting_reasons.other_custom_reason") as an option
 
 

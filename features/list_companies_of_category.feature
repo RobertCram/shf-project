@@ -5,11 +5,11 @@ Feature: As any type of visitor
 
   Background:
     Given the following users exists
-      | first_name | email               | admin | is_member |
-      | Emma       | emma@happymutts.com |       | true      |
-      | Ernt       | ernt@mutts.com      |       | true      |
-      | Anna       | anna@sadmutts.com   |       | true      |
-      | admin      | admin@shf.se        | true  | true      |
+      | email               | admin | is_member |
+      | emma@happymutts.com |       | true      |
+      | ernt@mutts.com      |       | true      |
+      | anna@sadmutts.com   |       | true      |
+      | admin@shf.se        | true  | true      |
 
     Given the following regions exist:
       | name         |

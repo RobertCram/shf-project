@@ -7,12 +7,12 @@ Feature: As an applicant
 
   Background:
     Given the following users exists
-      | first_name | email             | is_member | admin |
-      | Emma       | emma@random.com   | false     |       |
-      | Hans       | hans@random.com   | false     |       |
-      | Nils       | nils@random.com   | true      |       |
-      | Bob        | bob@barkybobs.com | true      |       |
-      | admin      | admin@shf.se      | true      | true  |
+      | email             | is_member | admin |
+      | emma@random.com   | false     |       |
+      | hans@random.com   | false     |       |
+      | nils@random.com   | true      |       |
+      | bob@barkybobs.com | true      |       |
+      | admin@shf.se      | true      | true  |
 
     And the following applications exist:
       | user_email        | company_number | state                 |
@@ -29,7 +29,7 @@ Feature: As an applicant
     And I fill in t("membership_applications.show.first_name") with "Anna"
     And I click on t("membership_applications.edit.submit_button_label")
     Then I should see t("membership_applications.update.success")
-    And I should be on the application page for "Anna"
+    And I should be on the application page for "emma@random.com"
     And I should see "Anna Lastname"
 
   Scenario: Applicant makes mistake when editing his own application
@@ -46,7 +46,7 @@ Feature: As an applicant
 
   Scenario: Applicant can not edit applications not created by him
     Given I am logged in as "emma@random.com"
-    And I navigate to the edit page for "Hans"
+    And I navigate to the edit page for "hans@random.com"
     Then I should see t("errors.not_permitted")
 
   Scenario: Member wants to view their own application
@@ -57,11 +57,11 @@ Feature: As an applicant
 
   Scenario: Admin should be able to edit membership number
     Given I am logged in as "admin@shf.se"
-    And I navigate to the edit page for "Nils"
+    And I navigate to the edit page for "nils@random.com"
     Then I should see t("membership_applications.show.membership_number")
 
   Scenario: Admin can't edit membership number for a rejected application
     Given I am logged in as "admin@shf.se"
-    And I navigate to the edit page for "Bob"
+    And I navigate to the edit page for "bob@barkybobs.com"
     Then I should not see t("membership_applications.show.membership_number")
 

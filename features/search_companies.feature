@@ -6,11 +6,11 @@ I want to search for available companies by various criteria
 
 Background:
   Given the following users exists
-    | first_name | email                | admin |
-    | Fred       | fred@barkyboys.com   |       |
-    | John       | john@happymutts.com  |       |
-    | Anna       | anna@dogsrus.com     |       |
-    | Emma       | emma@weluvdogs.com   |       |
+    | email                | admin |
+    | fred@barkyboys.com   |       |
+    | john@happymutts.com  |       |
+    | anna@dogsrus.com     |       |
+    | emma@weluvdogs.com   |       |
 
   And the following business categories exist
     | name         |

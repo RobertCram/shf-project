@@ -66,10 +66,10 @@ Rails.application.configure do
   # (as a controller does) and thus the full URL will be required to create
   # links in the email.  This setting defines the host (domain) for the URL.
   config.action_mailer.default_url_options = { :host => ENV['DEFAULT_HOST'] ||
-                                                        'sverigeshundforetagare.se'}
+                                                        'hitta.sverigeshundforetagare.se'}
 
   config.action_mailer.delivery_method = :mailgun
-  
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true

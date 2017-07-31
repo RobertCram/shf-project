@@ -8,8 +8,8 @@ Feature: As a visitor
   Background:
 
     Given the following users exist
-      | first_name | email               | admin |
-      | Emma       | emma@happymutts.com |       |
+      | email               | admin |
+      | emma@happymutts.com |       |
 
 
     And the following regions exist:

@@ -6,10 +6,10 @@ Feature: As an admin
   Background:
 
     Given the following users exists
-      | first_name | email               | admin |
-      | Emma       | emma@happymutts.com |       |
-      | Bob        | bob@snarkybarky.se  |       |
-      | admin      | admin@shf.se        | true  |
+      | email               | admin |
+      | emma@happymutts.com |       |
+      | bob@snarkybarky.se  |       |
+      | admin@shf.se        | true  |
 
     And the following companies exist:
       | name        | company_number | email               |
