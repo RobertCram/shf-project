@@ -151,9 +151,11 @@ class MembershipApplication < ApplicationRecord
   end
 
 
-  # if this is the only application associated with a company, delete the company
   def before_destroy_checks
 
+    delete_uploaded_files
+
+    # if this is the only application associated with a company, delete the company
     unless company.nil?
       company.membership_applications.reload
       company.delete if (company.membership_applications.count == 1)
