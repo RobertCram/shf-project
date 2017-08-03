@@ -121,6 +121,24 @@ RSpec.describe MembershipApplication, type: :model do
 
   end
 
+  describe "#destroy" do
+
+    let(:application_owner) {create(:user, email: 'user_1@random.com')}
+    let(:uploaded_file) {create(:uploaded_file, actual_file: (File.new(File.join(FIXTURE_DIR, 'image.jpg'))))}
+    let(:membership_application) {create(:membership_application, user: application_owner, uploaded_files: [uploaded_file])}
+
+    it 'destroys a membershipapplication' do
+      membership_application.destroy
+      expect(membership_application.destroyed?).to be_truthy
+    end
+
+    it 'destroys the uploaded file' do
+      membership_application.destroy
+      expect(uploaded_file.destroyed?).to be_truthy
+    end
+
+  end
+
   describe '#is_accepted?' do
     let!(:states) {MembershipApplication.aasm.states.map(&:name)}
     let(:states_not_accepted) {states.reject {|s| s == :accepted}}
