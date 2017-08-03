@@ -128,7 +128,8 @@ RSpec.describe MembershipApplication, type: :model do
     let(:membership_application) {create(:membership_application, user: application_owner, uploaded_files: [uploaded_file])}
 
     it 'destroys a membershipapplication' do
-      expect {membership_application.destroy}.not_to raise_exception
+      membership_application.destroy
+      expect(membership_application.destroyed?).to be_truthy
     end
 
     it 'destroys the uploaded file' do
