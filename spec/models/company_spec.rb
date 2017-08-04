@@ -141,9 +141,9 @@ RSpec.describe Company, type: :model do
     end
 
     before(:all) do
-      Company.delete_all
-      MembershipApplication.delete_all
-      User.delete_all
+      expect(Company.count).to eq(0)
+      expect(MembershipApplication.count).to eq(0)
+      expect(User.count).to eq(0)
     end
 
     it '3 employees, each with 1 unique category' do

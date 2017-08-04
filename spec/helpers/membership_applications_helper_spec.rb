@@ -4,7 +4,7 @@ RSpec.describe MembershipApplicationsHelper, type: :helper do
 
   before(:all) do
     # ensure MembershipAppWaitingReason.all is empty
-    AdminOnly::MemberAppWaitingReason.delete_all
+    expect(AdminOnly::MemberAppWaitingReason.count).to be(0)
   end
 
 

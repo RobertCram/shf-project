@@ -13,12 +13,19 @@ RSpec.describe 'load admin.email, admin.password, business categories, regions a
   describe 'happy path - all is valid' do
 
     before(:all) do
+      DatabaseCleaner.start
       RSpec::Mocks.with_temporary_scope do
         allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
         stub_const('ENV', {env_shf_email => admin_email, env_shf_pwd => admin_pwd})
         SHFProject::Application.load_tasks
         SHFProject::Application.load_seed
       end
+    end
+
+    after(:all) do
+      DatabaseCleaner.clean
+      Rake::Task['shf:load_regions'].reenable
+      Rake::Task['shf:load_kommuns'].reenable
     end
 
     let(:admin_in_db) { User.find_by_email(admin_email) }

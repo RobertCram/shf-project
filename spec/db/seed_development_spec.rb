@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'load admin.email, admin.password, business categories, regions and kommuns from ENV in production' do
+RSpec.describe 'load business categories, regions, kommuns, users and membershipapplications from ENV in production' do
 
   env_seed_users = 'SEED_USERS'
 
@@ -8,12 +8,19 @@ RSpec.describe 'load admin.email, admin.password, business categories, regions a
   seed_users = 4
 
   before(:all) do
+    DatabaseCleaner.start
     RSpec::Mocks.with_temporary_scope do
       allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
       stub_const('ENV', {env_seed_users => seed_users.to_s})
       SHFProject::Application.load_tasks
       SHFProject::Application.load_seed
     end
+  end
+
+  after(:all) do
+    DatabaseCleaner.clean
+    Rake::Task['shf:load_regions'].reenable
+    Rake::Task['shf:load_kommuns'].reenable
   end
 
   it "business categories are in the db" do
