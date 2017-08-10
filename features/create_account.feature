@@ -6,6 +6,7 @@ Feature: As a visitor
     Given I am on the "login" page
     And I click on t("devise.registrations.new.create_account")
     Then I should be on the "register as a new user" page
+    And I should see t("show_in_english") image
     When I fill in t("activerecord.attributes.user.first_name") with "emma"
     And I fill in t("activerecord.attributes.user.last_name") with "andersson"
     And I fill in t("activerecord.attributes.user.email") with "emma@andersson.com"
@@ -26,6 +27,7 @@ Feature: As a visitor
     And I click on t("devise.registrations.new.submit_button_label")
     Then I should see translated error activerecord.attributes.user.first_name errors.messages.blank
     And I should not see t("devise.registrations.new.success")
+    And I should see t("cannot_change_language") image
     When I am on the "edit registration for a user" page
     Then I should be on the "login" page
 
@@ -38,5 +40,6 @@ Feature: As a visitor
     And I click on t("devise.registrations.new.submit_button_label")
     Then I should see translated error activerecord.attributes.user.last_name errors.messages.blank
     And I should not see t("devise.registrations.new.success")
+    And I should see t("cannot_change_language") image
     When I am on the "edit registration for a user" page
     Then I should be on the "login" page

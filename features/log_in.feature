@@ -32,6 +32,7 @@ Feature: As a registered user
     And I fill in t("activerecord.attributes.user.password") with "password"
     And I click on t("devise.sessions.new.log_in") button
     Then I should see t("devise.failure.invalid", authentication_keys: 'Email')
+    And I should see t("show_in_english") image
 
   Scenario: No input of email
     Given I am on the "login" page

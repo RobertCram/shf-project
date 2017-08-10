@@ -38,3 +38,12 @@ Feature: As a user
     And I click on t("devise.passwords.new.submit_button_label")
     Then I should see t("errors.messages.not_found")
     And "emma@happymutts.com" should receive no email
+
+  @user
+  Scenario: Cannot change locale if there are errors in the reset password screen
+    Given I am on the "login" page
+    And I click on t("devise.registrations.new.forgot_password") link
+    And I should see t("devise.passwords.new.title")
+    And I fill in t("activerecord.attributes.user.email") with "nonesuch@gmail.com"
+    And I click on t("devise.passwords.new.submit_button_label")
+    And I should see t("cannot_change_language") image
