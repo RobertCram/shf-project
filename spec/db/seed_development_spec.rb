@@ -39,7 +39,7 @@ RSpec.describe 'load business categories, regions, kommuns, users and membership
     expect(User.all.size).to eq(seed_users)
   end
 
-  it "adresses are in the db" do
+  it "addresses are in the db" do
     expect(Address.all.size).to eq(seed_users-1)
   end
 
