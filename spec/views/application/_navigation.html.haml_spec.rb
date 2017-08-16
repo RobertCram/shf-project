@@ -66,8 +66,7 @@ RSpec.describe 'companies/index' do
 
       it 'renders default menu link == view-my-company' do
         text = t('menus.nav.members.manage_company.submenu_title')
-        expect(rendered)
-          .to match %r{<a href=\"\/hundforetag\/#{cmpy_id}\">#{text}}
+        expect(rendered).to match %r{<a href=\"\/hundforetag\/#{cmpy_id}\">#{text}}
       end
 
       it 'renders view-my-company link' do
@@ -80,6 +79,20 @@ RSpec.describe 'companies/index' do
         text = t('menus.nav.members.manage_company.edit_company')
         expect(rendered)
           .to match %r{<a href=\"\/hundforetag\/#{cmpy_id}\/redigera\">#{text}}
+      end
+    end
+
+    context 'logged-in menu' do
+      it 'renders logged-in greeting' do
+        expect(rendered).to match %r{#{t('hello', name: member.first_name)}}
+      end
+
+      it 'renders log-off link' do
+        expect(rendered).to match %r{#{t('devise.sessions.destroy.log_out')}}
+      end
+
+      it 'renders edit-profile link' do
+        expect(rendered).to match %r{#{t('devise.registrations.edit.title')}}
       end
     end
   end
@@ -111,6 +124,22 @@ RSpec.describe 'companies/index' do
       text = t('menus.nav.users.my_application')
       expect(rendered).to match %r{<a href=\"\/ansokan\/#{user_app_id}\/redigera\">#{text}}
     end
+
+    context 'logged-in menu' do
+      it 'renders logged-in greeting' do
+        expect(rendered).to match %r{#{t('hello', name: user.first_name)}}
+      end
+
+      it 'renders log-off link' do
+        text = t('devise.sessions.destroy.log_out')
+        expect(rendered).to match %r{<a.*href=\"\/users\/sign_out\">#{text}}
+      end
+
+      it 'renders edit-profile link' do
+        text = t('devise.registrations.edit.title')
+        expect(rendered).to match %r{<a.*href=\"\/users\/edit\">#{text}}
+      end
+    end
   end
 
 
@@ -141,20 +170,34 @@ RSpec.describe 'companies/index' do
       expect(rendered).to match %r{<a href=\"#{shf_site}\">#{text}}
     end
 
-    it 'renders link to manage applications' do
-      text = t('menus.nav.admin.manage_applications')
-      expect(rendered).to match %r{<a href=\"\/ansokan\">#{text}}
+    context 'membership applications' do
+
+      it 'renders submenu title' do
+        text = t('menus.nav.admin.applications.submenu_title')
+        expect(rendered).to match %r{#{text}}
+      end
+
+      it 'renders manage-applications link' do
+        text = t('menus.nav.admin.applications.manage_applications')
+        expect(rendered).to match %r{<a href=\"\/ansokan\">#{text}}
+      end
+
+      it 'renders waiting-reasons link' do
+        text = t('menus.nav.admin.applications.waiting_reasons')
+        expect(rendered).to match %r{<a href=\"\/admin\/member_app_waiting_reasons\">#{text}}
+      end
+
     end
 
     context 'business categories' do
 
-      it 'renders default menu link == list categories' do
+      it 'renders submenu title' do
         text = t('menus.nav.admin.categories.submenu_title')
-        expect(rendered).to match %r{<a href=\"\/kategori\">#{text}}
+        expect(rendered).to match %r{#{text}}
       end
 
-      it 'renders list-categories link' do
-        text = t('menus.nav.admin.categories.list_categories')
+      it 'renders manage-categories link' do
+        text = t('menus.nav.admin.categories.manage_categories')
         expect(rendered).to match %r{<a href=\"\/kategori\">#{text}}
       end
 
@@ -166,13 +209,13 @@ RSpec.describe 'companies/index' do
 
     context 'companies' do
 
-      it 'renders default menu link == list companies' do
+      it 'renders submenu title' do
         text = t('menus.nav.admin.companies.submenu_title')
-        expect(rendered).to match %r{<a href=\"\/hundforetag\">#{text}}
+        expect(rendered).to match %r{#{text}}
       end
 
-      it 'renders list-companies link' do
-        text = t('menus.nav.admin.companies.list_companies')
+      it 'renders manage-companies link' do
+        text = t('menus.nav.admin.companies.manage_companies')
         expect(rendered).to match %r{<a href=\"\/hundforetag\">#{text}}
       end
 
@@ -187,26 +230,20 @@ RSpec.describe 'companies/index' do
       expect(rendered).to match %r{<a href=\"\/anvandare\">#{text}}
     end
 
-    context 'waiting-for-info-reasons menu' do
-
-      it 'renders default menu link == all-reasons list' do
-        text = t('menus.nav.admin.member_app_waiting_reasons.submenu_title')
-        expect(rendered)
-          .to match %r{<a href=\"\/admin\/member_app_waiting_reasons">#{text}}
+    context 'logged-in menu' do
+      it 'renders logged-in greeting' do
+        expect(rendered).to match %r{#{t('hello', name: admin.first_name)}}
       end
 
-      it 'renders all-reasons link' do
-        text = t('menus.nav.admin.member_app_waiting_reasons.list_member_app_waiting_reasons')
-        expect(rendered)
-          .to match %r{<a href=\"\/admin\/member_app_waiting_reasons">#{text}}
+      it 'renders log-off link' do
+        expect(rendered).to match %r{#{t('devise.sessions.destroy.log_out')}}
       end
 
-      it 'renders new-reason link' do
-        text = t('menus.nav.admin.member_app_waiting_reasons.new_member_app_waiting_reasons')
-        expect(rendered)
-          .to match %r{<a href=\"\/admin\/member_app_waiting_reasons\/new">#{text}}
+      it 'renders edit-profile link' do
+        expect(rendered).to match %r{#{t('devise.registrations.edit.title')}}
       end
     end
+
   end
 
   describe 'visitor' do
@@ -265,9 +302,8 @@ RSpec.describe 'companies/index' do
       end
 
       it 'renders being-dog-owners link' do
-        text = t('menus.nav.visitor.dog_owners.being_dog_owners')
-        expect(rendered)
-          .to match %r{<a href=\"#{shf_site}agare\/att-vara-hundagare\/\">#{text}}
+        text = t('menus.nav.visitor.find_dog_businesses')
+        expect(rendered).to match %r{<a href=\"\/">#{text}}
       end
     end
 
@@ -325,7 +361,7 @@ RSpec.describe 'companies/index' do
 
       it 'renders menu link to empty anchor' do
         text = t('menus.nav.visitor.knowledge_bank.submenu_title')
-        expect(rendered).to match %r{<a href=\"\#\">#{text}}
+        expect(rendered).to match %r{<a.*href=\'\#\'>#{text}}
       end
 
       it 'renders Bloggar link' do
@@ -369,9 +405,9 @@ RSpec.describe 'companies/index' do
       expect(rendered).to match %r{<a href=\"#{shf_site}kontakt\/\">#{text}}
     end
 
-    it 'renders find-dog-company link' do
-      text = t('menus.nav.visitor.find_dog_businesses')
-      expect(rendered).to match %r{<a href=\"\/\">#{text}}
+    it 'renders log-in link' do
+      text = t('devise.sessions.new.log_in')
+      expect(rendered).to match %r{<a .* href=\"\/users\/sign_in">#{text}}
     end
   end
 end

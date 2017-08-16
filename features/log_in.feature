@@ -71,7 +71,6 @@ Feature: As a registered user
     And I fill in t("activerecord.attributes.user.password") with "password"
     And I click on t("devise.sessions.new.log_in") button
     Then I should see t("devise.sessions.signed_in")
-    And I should see t("info.logged_in_as_admin")
 
 
   Scenario: Logging in as a member

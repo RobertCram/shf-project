@@ -82,11 +82,11 @@ And(/^I click the t\("([^"]*)"\) action for the row with "([^"]*)"$/) do |action
   find(:xpath, "//tr[contains(.,'#{row_content}')]/td/a", :text => "#{i18n_content(action)}").click
 end
 
-When(/^I click on "([^"]*)" link$/) do |element|
+When(/^I click on(?: the)? "([^"]*)" link$/) do |element|
   click_link element
 end
 
-And(/^I click on t\("([^"]*)"\) link$/) do |element|
+And(/^I click on(?: the)? t\("([^"]*)"\) link$/) do |element|
   click_link i18n_content("#{element}")
 end
 

@@ -2,25 +2,28 @@
   %a{ href: '#' }
     = icon('angle-up')
 .container-fluid.hfeed.site
-  %header.site-header#masthead{role: 'banner'}
-    %a.skip-link.screen-reader-text{href: '#content'} Skip to content
+  %header.site-header#masthead{ role: 'banner' }
+    %a.skip-link.screen-reader-text{ href: '#content' } Skip to content
     / main navigation
-    %nav.main-navigation.fixed-nav#site-navigation{role: 'navigation'}
-      .nav-wrapper
-        %a.menu-toggle{href: '#'}
-          %span.bars
-            %span.bar.bar-1
-            %span.bar.bar-2
-            %span.bar.bar-3
+    %nav.main-navigation.fixed-nav#site-navigation{ role: 'navigation' }
+      %a.menu-toggle{ href: '#' }
+        %span.bars
+          %span.bar.bar-1
+          %span.bar.bar-2
+          %span.bar.bar-3
 
-        = render 'login_nav'
+      .nav-wrapper
 
         - if user_signed_in?
 
           - if current_user.admin?
 
             .menu#menu-menu-3-container
+
               %ul.menu#menu-menu-3
+                %li.menu-item
+                  = link_to t('menus.nav.shf_main_site'), 'http://sverigeshundforetagare.se/'
+
                 = render 'navigation_member_pages'
 
                 = render 'navigation_admin'
@@ -28,6 +31,7 @@
           - else
 
             .menu#menu-menu-2-container
+
               %ul.menu#menu-menu-2
                 %li.menu-item
                   = link_to t('menus.nav.shf_main_site'), 'http://sverigeshundforetagare.se/'
@@ -67,3 +71,5 @@
           -# Visitor navigation
           .menu#menu-menu-1-container
             = render 'navigation_visitor'
+
+        = render 'login_nav'
