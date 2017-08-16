@@ -67,7 +67,7 @@ if Rails.env.development? || Rails.env.staging? || ENV['HEROKU_STAGING']
 
   puts 'Creating additional users ...'
 
-  number_of_users = (ENV['SEED_USERS'] || SEED_USERS).to_i
+  number_of_users = (ENV['SHF_SEED_USERS'] || SEED_USERS).to_i
 
   users = {}
   while users.length < number_of_users-1 do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'load business categories, regions, kommuns, users and membershipapplications from ENV in production' do
 
-  env_seed_users = 'SEED_USERS'
+  env_seed_users = 'SHF_SEED_USERS'
 
   # seed with a minimum of 4 users to cover: admin, no application, single application, double application
   seed_users = 4
