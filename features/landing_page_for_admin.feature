@@ -17,7 +17,6 @@ Feature: As an Admin
     Given I am logged in as "admin@shf.se"
     When I am on the "landing" page
     Then I should see t("admin.index.title")
-    And I should see t("info.logged_in_as_admin")
 
   Scenario: After login, User sees instructions about applying for membership
     Given I am logged in as "hans@bowsers.com"
@@ -37,4 +36,3 @@ Feature: As an Admin
     When I am on the "landing" page
     Then I should not see t("admin.index.title")
     And I should not see t("info.logged_in_as_admin")
-

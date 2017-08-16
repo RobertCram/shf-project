@@ -20,6 +20,8 @@
         = link_to t('menus.nav.visitor.dog_owners.become_supporter'), 'http://sverigeshundforetagare.se/agare/bli-stodmedlem/'
       %li.menu-item
         = link_to t('menus.nav.visitor.dog_owners.being_dog_owners'), 'http://sverigeshundforetagare.se/agare/att-vara-hundagare/'
+      %li.menu-item
+        = link_to t('menus.nav.visitor.find_dog_businesses'), root_path
 
   %li.menu-item.menu-item-has-children
     = link_to t('menus.nav.visitor.entrepreneurs.submenu_title'), 'http://sverigeshundforetagare.se/foretag/'
@@ -40,7 +42,7 @@
         = link_to t('menus.nav.visitor.entrepreneurs.knowledge_bank'), 'http://sverigeshundforetagare.se/category/kunskapsbank-foretagare/'
 
   %li.menu-item.menu-item-has-children
-    = link_to t('menus.nav.visitor.knowledge_bank.submenu_title'), '#'
+    %a.link-no-styling{ href: '#' }= t('menus.nav.visitor.knowledge_bank.submenu_title')
     %ul.sub-menu
       %li.menu-item
         = link_to 'Bloggar', 'http://sverigeshundforetagare.se/category/bloggar/'
@@ -57,6 +59,3 @@
 
   %li.menu-item
     = link_to t('menus.nav.visitor.contact'), 'http://sverigeshundforetagare.se/kontakt/'
-
-  %li.menu-item
-    = link_to t('menus.nav.visitor.find_dog_businesses'), root_path
