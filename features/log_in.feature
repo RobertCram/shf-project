@@ -35,13 +35,13 @@ Feature: As a registered user
 
   Scenario: No input of email
     Given I am on the "login" page
-    When I leave the t("activerecord.attributes.user.password") field empty
+    And I fill in t("activerecord.attributes.user.password") with "password"
     And I click on t("devise.sessions.new.log_in") button
     Then I should see t("devise.failure.invalid", authentication_keys: 'Email')
 
   Scenario: No input of password
     Given I am on the "login" page
-    When I leave the t("activerecord.attributes.user.password") field empty
+    When I fill in t("activerecord.attributes.user.email") with "emma@random.com"
     And I click on t("devise.sessions.new.log_in") button
     Then I should see t("devise.failure.invalid", authentication_keys: 'Email')
 
