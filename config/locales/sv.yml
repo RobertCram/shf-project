@@ -434,6 +434,8 @@ sv:
       phone_number: *company_phone
       email: &company_email Företagets e-postadress
       address: &address Adress
+      main_address: Huvudadress
+      other_addresses: Andra adresser
       street: *street
       post_code: *post_code
       city: *city

@@ -44,7 +44,14 @@ module SeedHelper
   end
 
 
-  def make_applications(users, users_with_single_application, users_with_double_application)
+  def make_applications(users)
+
+    small_number_of_users = users.count < 3 ? 0 : [1, (0.1 * users.count).round].max
+
+    users_with_no_application = small_number_of_users
+    users_with_double_application = small_number_of_users
+
+    users_with_single_application = users.count - users_with_no_application - users_with_double_application
 
     users_with_application = users_with_single_application + users_with_double_application
 

@@ -75,7 +75,12 @@ class Company < ApplicationRecord
 
   end
 
+
   def main_address
+    if addresses.empty?
+      addresses << Address.new
+    end
+
     addresses.first
   end
 

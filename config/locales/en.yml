@@ -433,6 +433,8 @@ en:
       name: *name
       phone_number: Phone Number
       email: Company email
+      main_address: Main Address
+      other_addresses: Other Addresses
       address: Address
       street: *street
       post_code: *post_code

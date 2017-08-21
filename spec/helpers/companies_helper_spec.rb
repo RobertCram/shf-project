@@ -31,9 +31,9 @@ RSpec.describe CompaniesHelper, type: :helper do
     end
 
     before(:all) do
-      Company.delete_all
-      MembershipApplication.delete_all
-      User.delete_all
+      expect(Company.count).to eq(0)
+      expect(MembershipApplication.count).to eq(0)
+      expect(User.count).to eq(0)
     end
 
     it '#last_category_name' do
