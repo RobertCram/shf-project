@@ -1,7 +1,7 @@
 
 CAPTURE_STRING = '((?:t\(".*\)|"[^"]*"))'
 
-Transform /^#{CAPTURE_STRING}$/ do | content |
+Transform (/^#{CAPTURE_STRING}$/) do | content |
   needs_translation = content[0] == 't'
   unless needs_translation
     content[1..-2]

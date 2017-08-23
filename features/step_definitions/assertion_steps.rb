@@ -55,6 +55,7 @@ module PathHelpers
       else
         fail("no path defined for \"#{pagename}\"")
     end
+    path
   end
 end
 
