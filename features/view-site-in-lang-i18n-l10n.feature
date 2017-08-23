@@ -17,7 +17,7 @@ Feature: As a visitor
     Then I should see t("companies.index.title")
     And I should not see t("show_in_swedish") image
     And I should see t("show_in_english") image
-    And I should see t("theme_copyright"), locale: :sv
+    And I should see t("theme_copyright", locale: :sv)
 
 
   Scenario: Visitor switches the site language from English to Swedish
@@ -28,7 +28,7 @@ Feature: As a visitor
     Then I should see t("companies.index.title")
     And I should not see t("show_in_swedish") image
     And I should see t("show_in_english") image
-    And I should see t("theme_copyright"), locale: :sv
+    And I should see t("theme_copyright", locale: :sv)
 
 
   Scenario: Visitor switches the site language from Swedish to English
@@ -37,5 +37,5 @@ Feature: As a visitor
     When I click on "change-lang-to-english"
     Then I should see t("show_in_swedish") image
     And I should not see t("show_in_english") image
-    And I should see t("theme_copyright"), locale: :en
+    And I should see t("theme_copyright", locale: :en)
 

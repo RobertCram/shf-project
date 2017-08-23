@@ -1,12 +1,64 @@
-module PathHelper
+module PathHelpers
   # remove any leading locale path info
   def current_path_without_locale(path)
     locale_pattern =  /^(\/)(en|sv)?(\/)?(.*)$/
     path.gsub(locale_pattern, '\1\4')
   end
+
+  def get_path(pagename, user = @user)
+    case pagename.downcase
+      when  'login'
+        path = new_user_session_path
+      when 'landing'
+        path = root_path
+      when 'edit application', 'edit my application'
+        user.membership_applications.reload
+        path = edit_membership_application_path(user.membership_application)
+      when 'application', 'show my application'
+        path = membership_application_path(user.membership_application)
+      when 'user instructions'
+        path = information_path
+      when 'member instructions'
+        path = information_path
+      when 'all waiting for info reasons'
+        path = admin_only_member_app_waiting_reasons_path
+      when 'new waiting for info reason'
+        path = new_admin_only_member_app_waiting_reason_path
+      when 'register as a new user'
+        path = new_user_registration_path
+      when 'edit registration for a user'
+        path = edit_user_registration_path
+      when 'new password'
+        path = new_user_password_path
+      when 'all member app waiting reasons'
+        path = admin_only_member_app_waiting_reasons_path
+      when 'business categories'
+        path = business_categories_path
+      when 'membership applications'
+        path = membership_applications_path
+      when 'all companies'
+        path = companies_path
+      when 'create a new company'
+        path = new_company_path
+      when 'submit new membership application'
+        path = new_membership_application_path
+      when 'edit my company'
+        path = edit_company_path(user.membership_application.company)
+      when 'all users'
+        path = users_path
+      when 'all shf documents'
+        path = shf_documents_path
+      when 'new shf document'
+        path = new_shf_document_path
+      when 'user details'
+        path = user_path(user)
+      else
+        fail("no path defined for \"#{pagename}\"")
+    end
+  end
 end
 
-World(PathHelper)
+World(PathHelpers)
 
 
 Then(/^I should( not)? see #{CAPTURE_STRING}$/) do |negate, content|
@@ -36,34 +88,7 @@ end
 
 Then(/^I should be on (?:the )*"([^"]*)" page(?: for "([^"]*)")?$/) do |page, email|
   user = email == nil ? @user :  User.find_by(email: email)
-  case page.downcase
-    when  'login'
-      path = new_user_session_path
-    when 'landing'
-      path = root_path
-    when 'edit application', 'edit my application'
-      path = edit_membership_application_path(user.membership_application)
-    when 'application', 'show my application'
-      path = membership_application_path(user.membership_application)
-    when 'user instructions'
-      path = information_path
-    when 'member instructions'
-      path = information_path
-    when 'all waiting for info reasons'
-      path = admin_only_member_app_waiting_reasons_path
-    when 'new waiting for info reason'
-      path = new_admin_only_member_app_waiting_reason_path
-    when 'new waiting for info reason'
-      path = new_admin_only_member_app_waiting_reason_path
-    when 'register as a new user'
-      path = new_user_registration_path
-    when 'edit registration for a user'
-      path = edit_user_registration_path
-    when 'all member app waiting reasons'
-      path = admin_only_member_app_waiting_reasons_path
-  end
-
-  expect(current_path_without_locale(current_path)).to eq path
+  expect(current_path_without_locale(current_path)).to eq get_path(page, user)
 end
 
 
@@ -173,7 +198,7 @@ end
 
 
 Then(/^I should be on the SHF document page for "([^"]*)"$/)  do | doc_title |
-    shf_doc = ShfDocument.find_by_title(doc_title)
+  shf_doc = ShfDocument.find_by_title(doc_title)
   expect(current_path_without_locale(current_path)).to eq shf_document_path(shf_doc)
 end
 
