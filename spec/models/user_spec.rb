@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   before(:all) do
-    BusinessCategory.delete_all
-    Company.delete_all
-    MembershipApplication.delete_all
-    User.delete_all
+    expect(BusinessCategory.count).to eq(0)
+    expect(Company.count).to eq(0)
+    expect(MembershipApplication.count).to eq(0)
+    expect(User.count).to eq(0)
   end
 
   describe 'Factory' do

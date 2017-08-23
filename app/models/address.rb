@@ -2,10 +2,11 @@ class Address < ApplicationRecord
 
   belongs_to :addressable, polymorphic: true
 
+  # When an address is initially created, it may not have a kommun or region assigned,
+  # for example when an admin creates a company but doesn't have all of the info for the main address.
   belongs_to :region, optional: true
 
-  belongs_to :kommun
-
+  belongs_to :kommun, optional: true
 
   validates_presence_of :addressable
 
@@ -21,7 +22,6 @@ class Address < ApplicationRecord
 
   after_validation :geocode_best_possible,
                    :if => lambda { |obj| obj.changed? }
-
 
   # geocode all of the addresses that need it
   #
@@ -44,6 +44,7 @@ class Address < ApplicationRecord
 
   end
 
+
   def address_array
     # This should only be called for address associated with a company
 
@@ -63,18 +64,20 @@ class Address < ApplicationRecord
     return [] unless start_index
 
     if kommun
-      ary = [ street_address, post_code, city, kommun.name,
-              sverige_if_nil][start_index..pattern_length ]
+      ary = [street_address, post_code, city, kommun.name,
+             sverige_if_nil][start_index..pattern_length]
     else
-      ary = [ street_address, post_code, city,
-              sverige_if_nil][start_index..(pattern_length-1) ]
+      ary = [street_address, post_code, city,
+             sverige_if_nil][start_index..(pattern_length-1)]
     end
-    ary.delete_if {|f| f.blank?}
+    ary.delete_if { |f| f.blank? }
   end
+
 
   def entire_address
     address_array.compact.join(', ')
   end
+
 
   # Geocode the address, starting with all of the data.
   #  If we don't get a geocoded result, then keep trying,

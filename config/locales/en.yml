@@ -265,7 +265,7 @@ en:
       enter_member_number: Please enter the member number and save.
 
     show:
-      title: Application from %{member_full_name}
+      title: Application from %{user_full_name}
       first_name: *first_name
       last_name: *last_name
       phone_number: Phone number
@@ -433,6 +433,8 @@ en:
       name: *name
       phone_number: Phone Number
       email: Company email
+      main_address: Main Address
+      other_addresses: Other Addresses
       address: Address
       street: *street
       post_code: *post_code

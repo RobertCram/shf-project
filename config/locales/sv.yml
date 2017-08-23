@@ -267,7 +267,7 @@ sv:
       enter_member_number: Var god ange medlemsnummer och spara.
 
     show:
-      title: Ansökan från %{member_full_name}
+      title: Ansökan från %{user_full_name}
       first_name: *first_name
       last_name: *last_name
       phone_number: *phone_number
@@ -434,6 +434,8 @@ sv:
       phone_number: *company_phone
       email: &company_email Företagets e-postadress
       address: &address Adress
+      main_address: Huvudadress
+      other_addresses: Andra adresser
       street: *street
       post_code: *post_code
       city: *city

@@ -4,16 +4,7 @@ RSpec.describe MembershipApplicationsHelper, type: :helper do
 
   before(:all) do
     # ensure MembershipAppWaitingReason.all is empty
-    AdminOnly::MemberAppWaitingReason.delete_all
-  end
-
-
-  describe '#member_full_name' do
-    it 'appends first and last with a space inbetween' do
-      assign(:membership_application, create(:membership_application, user: create(:user, first_name: 'Kitty', last_name: 'Kat')))
-      expect(helper.member_full_name).to eq('Kitty Kat')
-    end
-
+    expect(AdminOnly::MemberAppWaitingReason.count).to be(0)
   end
 
 

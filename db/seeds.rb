@@ -14,10 +14,7 @@ SEED_STOP_MSG = '<<< SEEDING STOPPED' unless defined?(SEED_STOP_MSG)
 
 SEED_COMPLETE_MSG = '<<< SEEDING COMPLETED' unless defined?(SEED_COMPLETE_MSG)
 
-NUM_USERS = 100 unless defined?(NUM_USERS)
-
-NUM_USERS_WITH_SINGLE_APPLICATION =  80 unless defined?(NUM_USERS_WITH_SINGLE_APPLICATION)
-NUM_USERS_WITH_DOUBLE_APPLICATION = 20 unless defined?(NUM_USERS_WITH_DOUBLE_APPLICATION)
+SEED_USERS = 100 unless defined?(SEED_USERS)
 
 DEFAULT_PASSWORD = 'whatever' unless defined?(DEFAULT_PASSWORD)
 
@@ -70,8 +67,10 @@ if Rails.env.development? || Rails.env.staging? || ENV['HEROKU_STAGING']
 
   puts 'Creating additional users ...'
 
+  number_of_users = (ENV['SHF_SEED_USERS'] || SEED_USERS).to_i
+
   users = {}
-  while users.length < NUM_USERS-1 do
+  while users.length < number_of_users-1 do
     email = FFaker::InternetSE.free_email
     first_name = FFaker::NameSE.first_name
     last_name = FFaker::NameSE.last_name
@@ -86,7 +85,7 @@ if Rails.env.development? || Rails.env.staging? || ENV['HEROKU_STAGING']
   puts "  As companies are created for accepted applications, their address has to be geocoded/located."
   puts "  This takes time to do. Be patient. (You can look at the /log/development.log to be sure that things are happening and this is not stuck.)"
 
-  make_applications(users.values, NUM_USERS_WITH_SINGLE_APPLICATION, NUM_USERS_WITH_DOUBLE_APPLICATION)
+  make_applications(users.values)
 
   puts "\n  Membership applications created: #{MembershipApplication.count}"
   puts "  Membership Applications by state:"
