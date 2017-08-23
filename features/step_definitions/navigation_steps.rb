@@ -1,12 +1,13 @@
-Given(/^I am on the "([^"]*)" page$/) do |page|
+Given(/^I am on the "([^"]*)" page(?: for "([^"]*)")?$/) do |page, email|
+  user = email == nil ? @user :  User.find_by(email: email)
   case page.downcase
     when 'landing'
       path = root_path
     when 'login'
       path = new_user_session_path
     when 'edit my application'
-      user = User.find_by_email @user.email if @user
-      path = edit_membership_application_path(user.membership_applications.last)
+      user.membership_applications.reload
+      path = edit_membership_application_path(user.membership_application)
     when 'business categories'
       path = business_categories_path
     when 'membership applications'
@@ -18,13 +19,7 @@ Given(/^I am on the "([^"]*)" page$/) do |page|
     when 'submit new membership application'
       path = new_membership_application_path
     when 'edit my company'
-      if @user
-        user = User.find_by_email @user.email
-        if user.membership_applications.last &&
-            user.membership_applications.last.company
-          path = edit_company_path(user.membership_applications.last.company)
-        end
-      end
+      path = edit_company_path(user.membership_application.company)
     when 'user instructions'
       path = information_path
     when 'member instructions'
@@ -45,55 +40,16 @@ Given(/^I am on the "([^"]*)" page$/) do |page|
       path = admin_only_member_app_waiting_reasons_path
     when 'new waiting for info reason'
       path = new_admin_only_member_app_waiting_reason_path
-
-    else
-      path = 'no path set'
-  end
-  visit path_with_locale(path)
-end
-
-
-And(/^I am on the "([^"]*)" page for "([^"]*)"$/) do |page, user_email|
-  user_from_email = User.find_by_email user_email
-
-  case page.downcase
-    when 'landing'
-      path = root_path
-    when 'login'
-      path = new_user_session_path
-    when 'edit my application'
-      if user_from_email
-        path = edit_membership_application_path(user_from_email.membership_applications.last)
-      end
-    when 'business categories'
-      path = business_categories_path
-    when 'all companies'
-      path = companies_path
-    when 'create a new company'
-      path = new_company_path
-    when 'submit new membership application'
-      path = new_membership_application_path
-    when 'edit my company'
-      if user_from_email
-        if user_from_email.membership_applications.last &&
-            user_from_email.membership_applications.last.company
-          path = edit_company_path(user_from_email.membership_applications.last.company)
-        end
-      end
-    when 'user instructions'
-      path = information_path
-    when 'application' || 'show application'
-      path = membership_application_path(user_from_email.membership_applications.last)
-    when 'member instructions'
-      path = information_path
+    when 'application', 'show application'
+      path = membership_application_path(user.membership_application)
     when 'user details'
-      path = user_path(user_from_email)
+      path = user_path(user)
     else
-      path = 'no path set'
+      fail("no path defined for \"#{page}\"")
   end
   visit path_with_locale(path)
-
 end
+
 
 When(/^I fail to visit the "([^"]*)" page$/) do |page|
   case page.downcase
@@ -107,18 +63,12 @@ When(/^I fail to visit the "([^"]*)" page$/) do |page|
 end
 
 
-When(/^I am on the application page for "([^"]*)"$/) do |email|
-  user = User.find_by(email: email)
-  membership_application = user.membership_application
-  visit path_with_locale(membership_application_path(membership_application))
-end
-
-
-And(/^I am on the static workgroups page$/) do
+When(/^I am on the static workgroups page$/) do
   visit page_path('yrkesrad')
 end
 
-And(/^I am on the test member page$/) do
+
+When(/^I am on the test member page$/) do
   path = File.join(Rails.root, 'spec', 'fixtures',
                    'member_pages', 'testfile.html')
 

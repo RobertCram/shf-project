@@ -109,6 +109,6 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
   @javascript @member
   Scenario: owner cannot see the fields for changing the reason
     Given I am logged in as "anna_waiting_for_info@nosnarkybarky.se"
-    And I am on the application page for "anna_waiting_for_info@nosnarkybarky.se"
+    And I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     Then I should not see t("membership_applications.need_info.reason_title")
 
