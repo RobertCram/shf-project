@@ -70,7 +70,7 @@ group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'rake'
-  gem 'coveralls', require: false
+  gem 'coveralls', '>= 0.8.21', require: false
   gem 'launchy'
   gem 'cucumber-timecop', require: false
 
