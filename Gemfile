@@ -28,7 +28,7 @@ gem 'rubyzip', '>= 1.2.1'  # security vulnerability with earlier versions CVE-20
 gem 'i18n-js', '>= 3.0.0.rc11'
 
 gem 'will_paginate'
-gem 'will_paginate-bootstrap'
+gem 'bootstrap-will_paginate'
 
 # Loading `ckeditor` directly from github due to problem in production
 # environment where assets cannot be found.
@@ -108,6 +108,6 @@ group :test do
   gem 'poltergeist'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
   # ^^ https://docs.codeclimate.com/docs/test-coverage-ruby
-  gem 'simplecov'
+  gem 'simplecov', '>= 0.13.0'
   gem 'email_spec'
 end
