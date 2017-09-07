@@ -5,7 +5,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates_presence_of :first_name, :last_name
+  validates_presence_of :first_name, :last_name, on: :create
+  validates_presence_of :first_name, :last_name, on: :update, unless: :password_change?
+
+
+  def password_change?
+    encrypted_password != encrypted_password_was
+  end
 
   def has_membership_application?
     membership_applications.size > 0
