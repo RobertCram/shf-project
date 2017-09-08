@@ -5,8 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates_presence_of :first_name, :last_name, on: :create
-  validates_presence_of :first_name, :last_name, on: :update, unless: Proc.new {encrypted_password != encrypted_password_was}
+  validates_presence_of :first_name, :last_name, unless: Proc.new {!new_record? && !(first_name_changed? || last_name_changed?)}
 
 
   def has_membership_application?
