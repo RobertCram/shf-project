@@ -6,12 +6,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :last_name, on: :create
-  validates_presence_of :first_name, :last_name, on: :update, unless: :password_change?
+  validates_presence_of :first_name, :last_name, on: :update, unless: Proc.new {encrypted_password != encrypted_password_was}
 
-
-  def password_change?
-    encrypted_password != encrypted_password_was
-  end
 
   def has_membership_application?
     membership_applications.size > 0
