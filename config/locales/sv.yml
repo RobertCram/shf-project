@@ -575,11 +575,6 @@ sv:
 
   admin:
     index:
-      title: 'Admin: Alla inkomna ansökningar'
-      name: *name
-      org_nr: *org_nr
-      manage: *manage
-      state: *state
       export: Exportera ansökningar som CSV
 
     all_applications_received: Alla inkomna ansökningar

@@ -575,11 +575,6 @@ en:
 
   admin:
     index:
-      title: 'Admin: All incoming applications'
-      name: *name
-      org_nr: *org_nr
-      manage: *manage
-      state: *state
       export: Export all applications to a CSV file
 
     all_applications_received: All applications received

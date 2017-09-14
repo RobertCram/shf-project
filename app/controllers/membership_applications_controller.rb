@@ -16,6 +16,8 @@ class MembershipApplicationsController < ApplicationController
   def index
     authorize MembershipApplication
 
+    session[:membership_application_items_selection] ||= 'All' if current_user.admin?
+
     action_params, @items_count, items_per_page =
       process_pagination_params('membership_application')
 

@@ -3,6 +3,9 @@
 .post-title-divider
   %span
 .entry-content
+
+  = render partial: 'administration_panel' if @current_user.admin?
+
   %p{ style: 'margin-bottom: 30px;' }
     %button.btn.btn-success.btn-xs.pull-right{ id: 'toggle_search_form',
                                       href: '#application_search_form',

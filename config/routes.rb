@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
       get 'admin', to: 'admin#index'
 
-      root to: 'admin#index', as: :admin_root
+      root to: 'membership_applications#index', as: :admin_root
     end
   end
 

@@ -1,12 +1,6 @@
 class AdminController < ApplicationController
   before_action :authorize_admin
 
-
-  def index
-    @membership_applications = MembershipApplication.includes(:user).all
-  end
-
-
   # export membership_appplications
   def export_ansokan_csv
 
