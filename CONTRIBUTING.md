@@ -224,6 +224,3 @@ To maximize flexibility, any contributor should be able to push changes to your 
 
 ### Remove [WIP] and merge
 Once your WIP PR is working and you believe it's ready to be merged into the project, edit the PR title and remove "[WIP]".  Removing "[WIP]" is a signal that your PR is ready for a final review.  (Others will know that you have finished working on it; that it's no longer in flux.)  Make any changes as needed from the review(s).  Once the reviewers are happy and your code is passing all integration checks, your PR will be merged into the `develop` branch and be closed!   
-
-
- 

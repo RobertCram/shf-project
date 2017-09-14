@@ -12,6 +12,15 @@ FactoryGirl.define do
       company_number 5712213304
     end
 
+    factory :user_without_first_and_lastname do
+
+      after(:create) do |user|
+        user.first_name = nil
+        user.last_name = nil
+        user.save(validate: false)
+      end
+    end
+
     factory :user_with_membership_app do
 
       after(:create) do |user, evaluator|

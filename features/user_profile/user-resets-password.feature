@@ -6,8 +6,8 @@ Feature: As a user
   Background:
 
     Given the following users exists
-      | email               |
-      | emma@happymutts.com |
+      | email               | is_legacy |
+      | emma@happymutts.com | true      |
 
   @user
   Scenario: User resets password
