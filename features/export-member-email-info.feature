@@ -33,19 +33,19 @@ Feature: export member information to a CSV file so I can use it in other system
 
   Scenario: Visitor can't export
     Given I am Logged out
-    When I am on the list applications page
+    When I am on the "membership applications" page
     Then I should see t("errors.not_permitted")
 
 
   Scenario: User can't export
     Given I am logged in as "new@kats.com"
-    When I am on the list applications page
+    When I am on the "membership applications" page
     Then I should see t("errors.not_permitted")
 
 
   Scenario: Member can't export
     Given I am logged in as "emma@happymutts.com"
-    When I am on the list applications page
+    When I am on the "membership applications" page
     Then I should see t("errors.not_permitted")
 
   Scenario: Admin can export
@@ -54,9 +54,3 @@ Feature: export member information to a CSV file so I can use it in other system
     When I click on t("admin.index.export") button
     And I am on the "landing" page
     Then I should see t("admin.export_ansokan_csv.success")
-
-
-  Scenario: Export is on the admin page, not list all applications page
-    Given I am logged in as "admin@shf.se"
-    And I am on the list applications page
-    Then I should not see button t("admin.index.export")

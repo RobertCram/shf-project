@@ -58,18 +58,18 @@ Feature: "Other/Custom" waiting reason comes from locale file and Admin cannot e
 
   @admin @javascript
   Scenario: The "other/custom" reason is listed as a reason for the 'waiting for...' status
-    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    Given I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     Then "member_app_waiting_reasons" should have t("admin_only.member_app_waiting_reasons.other_custom_reason") as an option
 
   @admin @javascript
   Scenario: "other/custom" reason is listed when the state is changed TO 'waiting for applicant'
-    Given I am on "anna_under_review@nosnarkybarky.se" application page
+    Given I am on the "application" page for "anna_under_review@nosnarkybarky.se"
     When I click on t("membership_applications.ask_applicant_for_info_btn")
     Then "member_app_waiting_reasons" should have t("admin_only.member_app_waiting_reasons.other_custom_reason") as an option
 
   @admin @javascript
   Scenario: "other/custom" reason is listed when the language is changed
-    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    Given I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     Then "member_app_waiting_reasons" should have t("admin_only.member_app_waiting_reasons.other_custom_reason") as an option
 
 

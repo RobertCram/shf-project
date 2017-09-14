@@ -23,7 +23,7 @@ Feature: As an Admin
 
   Scenario: Showing state in the application listing
     Given I am logged in as "admin@sgf.com"
-    And I am on the list applications page
+    And I am on the "membership applications" page
     Then I should see "4" applications
     And I should see t("membership_applications.index.state")
     And I should see t("membership_applications.under_review")

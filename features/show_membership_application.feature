@@ -51,7 +51,7 @@ Feature: As an Admin
   @admin
   Scenario: Listing incoming Applications open for Admin
     Given I am logged in as "admin@shf.com"
-    And I am on the list applications page
+    And I am on the "membership applications" page
     Then I should see "7" applications
     And I should see 1 t("membership_applications.under_review")
     And I should see 1 t("membership_applications.accepted")
@@ -67,7 +67,7 @@ Feature: As an Admin
   @admin
   Scenario: Admin can see an application with one business categories given
     Given I am logged in as "admin@shf.com"
-    And I am on the list applications page
+    And I am on the "membership applications" page
     Then I should see "7" applications
     And I click on "Lastname, Hans"
     Then I should be on the "application" page for "hans@random.com"
@@ -88,7 +88,7 @@ Feature: As an Admin
     And I click on t("membership_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.com"
-    And I am on the list applications page
+    And I am on the "membership applications" page
     Then I should see "7" applications
     And I click on "Lastname, Emma"
     Then I should be on the "application" page for "emma@personal.com"
@@ -110,7 +110,7 @@ Feature: As an Admin
   @user
   Scenario: Listing incoming Applications restricted for Non-admins
     Given I am logged in as "hans@random.com"
-    And I am on the list applications page
+    And I am on the "membership applications" page
     Then I should see t("errors.not_permitted")
 
 

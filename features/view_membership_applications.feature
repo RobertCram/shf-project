@@ -47,6 +47,7 @@ Feature: As an admin,
 
   @javascript
   Scenario: Pagination
+    And I select "10" in select list "items_count"
     And I should see "0000000010"
     And I should not see "0000000011"
     Then I click on t("will_paginate.next_label") link
@@ -59,17 +60,17 @@ Feature: As an admin,
 
   @javascript
   Scenario: Pagination: Set number of items per page
-    Then "items_count" should have "10" selected
-    And I should see "10" applications
-    And I should see "0000000010"
-    And I should not see "0000000025"
+    Then "items_count" should have "All" selected
+    And I should see "28" applications
+    And I should see "0000000026"
+    And I should see "0000000028"
     Then I select "25" in select list "items_count"
     And I should see "25" applications
     And "items_count" should have "25" selected
     And I should see "0000000010"
     And I should see "0000000025"
     And I should not see "0000000026"
-    Then I select "All" in select list "items_count"
-    And I should see "28" applications
-    And I should see "0000000026"
-    And I should see "0000000028"
+    Then I select "10" in select list "items_count"
+    And I should see "10" applications
+    And I should see "0000000010"
+    And I should not see "0000000025"

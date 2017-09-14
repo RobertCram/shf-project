@@ -44,32 +44,32 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
 
   @javascript @admin
   Scenario: Admin selects 'need more documentation' as the reason SHF is waiting_for_applicant
-    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    Given I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     When I select "need doc" in select list "member_app_waiting_reasons"
     Then "member_app_waiting_reasons" should have "need doc" selected
-    And I am on the list applications page
-    And I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    And I am on the "membership applications" page
+    And I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     Then "member_app_waiting_reasons" should have "need doc" selected
 
   @javascript @admin
   Scenario: Admin selects 'waiting for payment' as the reason SHF is waiting_for_applicant
-    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    Given I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     When I select "waiting for payment" in select list "member_app_waiting_reasons"
     And I wait for all ajax requests to complete
-    And I am on the list applications page
-    And I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    And I am on the "membership applications" page
+    And I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     And "member_app_waiting_reasons" should have "waiting for payment" selected
 
 
   @selenium @admin
   Scenario: Admin selects 'other' and enters text as the reason SHF is waiting_for_applicant
-    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    Given I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     When I select t("admin_only.member_app_waiting_reasons.other_custom_reason") in select list "member_app_waiting_reasons"
     And I wait for all ajax requests to complete
     When I fill in "custom_reason_text" with "This is my reason"
     And I press enter in "custom_reason_text"
-    And I am on the list applications page
-    And I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    And I am on the "membership applications" page
+    And I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
 
     And I should see t("membership_applications.need_info.other_reason_label")
     And the t("membership_applications.need_info.other_reason_label") field should be set to "This is my reason"
@@ -78,7 +78,7 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
 
   @selenium @admin
   Scenario: Admin selects 'other' and fills in custom text but then changes reason to something else
-    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    Given I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     When I select t("admin_only.member_app_waiting_reasons.other_custom_reason") in select list "member_app_waiting_reasons"
     And I wait for all ajax requests to complete
     And I fill in "custom_reason_text" with "This is my reason"
@@ -86,14 +86,14 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
     And I wait for all ajax requests to complete
     And I select "waiting for payment" in select list "member_app_waiting_reasons"
     And I wait for all ajax requests to complete
-    And I am on the list applications page
-    And I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    And I am on the "membership applications" page
+    And I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     And "member_app_waiting_reasons" should have "waiting for payment" selected
 
 
   @selenium @admin
   Scenario: When selected reason is not 'custom other,' the custom text is saved as blank (empty string)
-    Given I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    Given I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     When I select t("admin_only.member_app_waiting_reasons.other_custom_reason") in select list "member_app_waiting_reasons"
     And I wait for all ajax requests to complete
     And I fill in "custom_reason_text" with "This is my reason"
@@ -116,7 +116,7 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
   @selenium_browser @admin
   Scenario: Press `back` button before saving custom reason
     Given I am on the "landing" page
-    Then I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    Then I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     When I select t("admin_only.member_app_waiting_reasons.other_custom_reason") in select list "member_app_waiting_reasons"
     And I wait for all ajax requests to complete
     And I fill in "custom_reason_text" with "This is my reason"
@@ -125,5 +125,5 @@ Feature: Admin sets or enters the reason they are waiting for info from a user
     And I fill in "custom_reason_text" with "This is my reason"
     Then I click the browser back button and "accept" the prompt
     And I should be on the "landing" page
-    Then I am on "anna_waiting_for_info@nosnarkybarky.se" application page
+    Then I am on the "application" page for "anna_waiting_for_info@nosnarkybarky.se"
     And I should not see "This is my reason"

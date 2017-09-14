@@ -38,7 +38,7 @@ Feature: As an admin
     And I am logged in as "admin@shf.com"
 
   Scenario: Admin approves, no company exists so one is created
-    Given I am on "emma@happymutts.se" application page
+    Given I am on the "application" page for "emma@happymutts.se"
     When I click on t("membership_applications.accept_btn")
     And I should be on the "edit application" page for "emma@happymutts.se"
     And I should see t("membership_applications.accept.success")
@@ -52,7 +52,7 @@ Feature: As an admin
 
 
   Scenario: Admin approves, member is added to existing company
-    Given I am on "anna@nosnarkybarky.se" application page
+    Given I am on the "application" page for "anna@nosnarkybarky.se"
     When I click on t("membership_applications.accept_btn")
     And I should be on the "edit application" page for "anna@nosnarkybarky.se"
     And I should see t("membership_applications.update.enter_member_number")
@@ -77,7 +77,7 @@ Feature: As an admin
     Then I should see "No More Snarky Barky"
 
   Scenario: Admin approves, but then rejects it
-    Given I am on "emma@happymutts.se" application page
+    Given I am on the "application" page for "emma@happymutts.se"
     When I click on t("membership_applications.accept_btn")
     And I should be on the "edit application" page for "emma@happymutts.se"
     And I should see t("membership_applications.update.enter_member_number")
@@ -86,20 +86,20 @@ Feature: As an admin
     Then I should see t("membership_applications.update.success")
     And I should see t("membership_applications.accepted")
     And I should see "901"
-    When I am on "emma@happymutts.se" application page
+    When I am on the "application" page for "emma@happymutts.se"
     And I click on t("membership_applications.reject_btn")
     Then I should see status line with status t("membership_applications.rejected")
     And I am Logged out
     And I am on the "landing" page
     Then I should not see "5562252998"
     And I am logged in as "emma@happymutts.se"
-    And I navigate to the edit page for "emma@happymutts.se"
+    And I am on the "edit application" page for "emma@happymutts.se"
     Then I should be on "Edit My Application" page
     And I should not see t("membership_applications.show.membership_number")
 
 
   Scenario: Member owes money so Admin cannot approve
-    Given I am on "emma@happymutts.se" application page
+    Given I am on the "application" page for "emma@happymutts.se"
 
 
   Scenario: things go wrong

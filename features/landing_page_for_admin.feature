@@ -1,6 +1,6 @@
 Feature: As an Admin
   So that I can deal with member applications
-  Show me a specific landing page with member applications that need attention
+  Show me a landing page with member applications that need attention
 
   PT: https://www.pivotaltracker.com/story/show/135683887
 
@@ -16,7 +16,7 @@ Feature: As an Admin
   Scenario: After login, Admin sees new memberships on their landing page
     Given I am logged in as "admin@shf.se"
     When I am on the "landing" page
-    Then I should see t("admin.index.title")
+    Then I should see t("membership_applications.index.title")
 
   Scenario: After login, User sees instructions about applying for membership
     Given I am logged in as "hans@bowsers.com"
@@ -27,12 +27,10 @@ Feature: As an Admin
   Scenario: After login, Member sees instructions about using their badge, etc
     Given I am logged in as "emma@happymutts.se"
     When I am on the "landing" page
-    Then I should not see t("admin.index.title")
-    And I should not see t("info.logged_in_as_admin")
+    Then I should not see t("info.logged_in_as_admin")
 
 
   Scenario: Visitor does not see instructions
     Given I am Logged out
     When I am on the "landing" page
-    Then I should not see t("admin.index.title")
-    And I should not see t("info.logged_in_as_admin")
+    Then I should not see t("info.logged_in_as_admin")

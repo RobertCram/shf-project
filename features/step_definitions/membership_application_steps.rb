@@ -34,22 +34,3 @@ And(/^the following simple applications exist:$/) do |table|
     ma.save(validate: false)
   end
 end
-
-
-
-And(/^I navigate to the edit page for "([^"]*)"$/) do |email|
-  user = User.find_by(email: email)
-  membership_application = user.membership_application
-  visit path_with_locale(edit_membership_application_path(membership_application))
-end
-
-Given(/^I am on "([^"]*)" application page$/) do |email|
-  user = User.find_by(email: email)
-  membership_application = user.membership_application
-  visit path_with_locale(membership_application_path(membership_application))
-end
-
-Given(/^I am on the list applications page$/) do
-  locale_path = path_with_locale(membership_applications_path)
-  visit locale_path
-end
