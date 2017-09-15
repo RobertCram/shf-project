@@ -47,3 +47,4 @@ exclude_paths:
 - "vendor/"
 - "public/javascripts/"
 - "javascripts/ckeditor/"
+- "docs/"
