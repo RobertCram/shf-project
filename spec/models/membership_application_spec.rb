@@ -58,6 +58,8 @@ RSpec.describe MembershipApplication, type: :model do
     it {is_expected.not_to allow_value('userexample.com').for(:contact_email)}
 
     it {is_expected.to validate_length_of(:company_number).is_equal_to(10)}
+
+    it {is_expected.to validate_uniqueness_of :membership_number}
   end
 
   describe 'Validate Swedish Orgnr' do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704095534) do
+ActiveRecord::Schema.define(version: 20170918123414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20170704095534) do
     t.string "custom_reason_text"
     t.index ["company_id"], name: "index_membership_applications_on_company_id"
     t.index ["member_app_waiting_reasons_id"], name: "index_membership_applications_on_member_app_waiting_reasons_id"
+    t.index ["membership_number"], name: "index_membership_applications_on_membership_number", unique: true
     t.index ["user_id"], name: "index_membership_applications_on_user_id"
   end
 
