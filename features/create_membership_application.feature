@@ -14,6 +14,7 @@ Feature: As a user
     Given the following users exists
       | email                  |
       | applicant_1@random.com |
+      | applicant_2@random.com |
 
     And the following business categories exist
       | name         |
@@ -77,6 +78,25 @@ Feature: As a user
     And the field t("membership_applications.new.contact_email") should have a required field indicator
     And the field t("membership_applications.new.phone_number") should not have a required field indicator
     And I should see t("is_required_field")
+
+
+  Scenario: Two users can submit a new Membership Application (with empty membershipnumbers)
+    Given I am logged in as "applicant_1@random.com"
+    And I am on the "landing" page
+    And I click on t("menus.nav.users.apply_for_membership")
+    And I fill in the translated form with data:
+      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
+      | Applicant1                             | Andersson                             | 5562252998                                 | 031-1234567                              | applicant_1@random.com                    |
+    And I click on t("membership_applications.new.submit_button_label")
+    Then I should see t("membership_applications.create.success")
+    Given I am logged in as "applicant_2@random.com"
+    And I am on the "landing" page
+    And I click on t("menus.nav.users.apply_for_membership")
+    And I fill in the translated form with data:
+      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
+      | Applicant2                             | Andersson                             | 2120000142                                 | 031-1234567                              | applicant_2@random.com                    |
+    And I click on t("membership_applications.new.submit_button_label")
+    Then I should see t("membership_applications.create.success")
 
 
   Scenario Outline: Apply for membership - when things go wrong
