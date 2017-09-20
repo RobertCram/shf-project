@@ -1,7 +1,6 @@
 FactoryGirl.define do
 
   sequence(:cat_name_seq, "Business Category", 1) { |name, num| "#{name} #{num}" }
-  sequence(:membership_number_seq, 1) { |num| "#{num}" }
 
   factory :membership_application do
     company_number '5562252998'
@@ -25,8 +24,6 @@ FactoryGirl.define do
     end
 
     after(:build) do |membership_app, evaluator|
-
-      membership_app.membership_number = generate :membership_number_seq
 
       if evaluator.num_categories == 1
         membership_app.business_categories << build(:business_category, name: evaluator.category_name)

@@ -34,7 +34,7 @@ class MembershipApplication < ApplicationRecord
   validates_length_of :company_number, is: 10
   validates_format_of :contact_email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: [:create, :update]
   validates_uniqueness_of :user_id, scope: :company_number
-  validates_uniqueness_of :membership_number
+  validates_uniqueness_of :membership_number, allow_blank: true
   validate :swedish_organisationsnummer
 
   accepts_nested_attributes_for :uploaded_files, allow_destroy: true
