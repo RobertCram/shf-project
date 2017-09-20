@@ -308,14 +308,15 @@ sv:
 
       user:
         title: Hej, kul att du är intresserad
-        how_to_apply: "För att skicka in din medlemsansökan går du
-                       %{link} och fyller i alla nödvändiga uppgifter,
-                        markerar vilken eller vilka
+        how_to_apply: "För att skicka in din medlemsansökan klickar du på länken nedan
+                        och fyller i alla nödvändiga uppgifter.
+                        Glöm inte markera vilken eller vilka
                         kategorier du vill ansöka om medlemskap i."
-        once_it_is_submitted: "När din ansökan är inskickat hamnar den hos oss för behandling, detta
+        once_it_is_submitted: "När din ansökan är inskickad hamnar den hos oss för behandling, detta
                                tar en stund, så var inte orolig om du inte hör något från oss."
-        when_we_decide: "När din ansökan sedan är godkänd får du ett mail, med en länk till
-                         att skapa din företagssida här."
+        when_we_decide: "När din ansökan sedan är godkänd får du ett mail, med betalningsinformation. När
+                         du betalt får du ett nytt mail med information om hur
+                         du skapar din sökbara företagssida."
 
 
     start_review:

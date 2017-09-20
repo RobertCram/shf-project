@@ -1,20 +1,41 @@
 graph:
   graph_style:
     bgcolor: white
+
+  title_node_style:
+      shape: plaintext
+      fontcolor: black
+      fontsize: 14
+
   node_style:
     fontname: Verdana
     fontsize: 11
     fontcolor: blue
     #color: blue
     penwidth: 2
+
+  node_enter_label_style: 
+    fontname: Arial:italic
+    fontsize: 10
+    fontcolor: gray20
+    color: gray40
+
+  node_exit_label_style: 
+    fontname: Arial:italic
+    fontsize: 10
+    fontcolor: gray20
+    color: gray40
+
   edge_style:
     fontname: Arial
-    fontsize: 10
+    fontsize: 11
+
   start_node_style:
     fontsize: 7
     fontname: Ariel
     fillcolor: green
     style: filled
+
   end_node_style:
     fontsize: 7
     fontname: Ariel

@@ -53,14 +53,15 @@ Now start asking questions and talking on Slack, reading about what needs to be 
 ---
   
 ## Code Style
-We recommend the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide)
+We recommend the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide).  
   
 ---  
 
 ## Workflow: Working on Code, coordinating with GitHub
 
-Here is an overview of the general process for contributing (working on a new feature or fixing a bug): 
-   
+Here is an overview of the general process for contributing (working on a new feature or fixing a bug):
+ 
+- Once you have chosen something to work on _and_ discussed it in a team scrum meeting:   
     
     -> checkout 'develop' branch  (fast foward so you're up to date)
     -> create a branch for your work in your repo 
@@ -68,7 +69,8 @@ Here is an overview of the general process for contributing (working on a new fe
     -> get your tests passing 
     -> create a WIP PR 
     -> discuss, revise as needed 
-    -> remove 'WIP' when your PR is ready to be merged 
+    -> remove 'WIP' when your PR is ready to be reviewed
+    -> PR is reviewed and approved by at least 2 SHF developers 
     -> PR is merged by a project manager 
     -> Yay!
       
@@ -97,12 +99,17 @@ Here is an overview of the general process for contributing (working on a new fe
 
 We use [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/1904891) to manage our work on features, chores and bugfixes.
   
-Work is defined in Pivotal Tracker.  Discussions take place there, in Slack, and in live conversations in scrums and pair programming (currently uses Google Hangouts). 
+Work is defined in Pivotal Tracker.  Discussions take place there, in Slack, and in live conversations in scrums and pair programming (currently we mostly use Google Hangouts). 
 
 ### Features
 Any feature should include Cucumber acceptance tests and RSpec tests where appropriate.
-
-We try to avoid view and controller specs, and focus purely on unit tests at the model and service level where possible.  
+ 
+ Generally we do not use unit-level tests for views. Views should be thoroughly tested and exercised with feature (cucumber) tests.
+ But we do unit tests for situations that require those - for instance:
+   1. confirming that menu views are rendered consistent with our menu structure design, and 
+   2. confirming the presence of hidden elements, HTML attributes, etc. that
+    could not be easily tested (if at all) in a cucumber test.
+   
 
 
 ### Bug fixes
@@ -115,7 +122,7 @@ A bugfix may include an acceptance test depending on where the bug occurred.
 
 _TODO_  _where should this user story go in the code?  as a cucumber acceptance test or as a documentation block?  in the github issue?_
 
-Where possible please include a user story in the following form to indicate the higher level issue that is being addressed:
+Where possible please include a user story or stories in the following form to indicate the higher level issue that is being addressed:
 
 ```gherkin
 As an administrator
@@ -150,7 +157,7 @@ Our default working branch is currently `develop`.  We do work by creating branc
 ### Fork the repo if you haven't already  
 Each developer will usually work with a [fork](https://help.github.com/articles/fork-a-repo/) of the [main repository on Agile Ventures](https://github.com/AgileVentures/shf-project).
  
-#### ...or sync your fork before starting on a new task
+#### ...or sync your fork before starting on a new story
 Before starting work on a new feature or bugfix, please ensure you have [synced your fork to upstream/develop](https://help.github.com/articles/syncing-a-fork/):
 
 ```
@@ -162,15 +169,18 @@ Note that you should be re-syncing daily (even hourly at very active times) on y
  
 ### Create a new branch for your work
  
-When you create a branch to work on your feature or bug-fix, please name your branch so that others can understand the purpose for it. At least use a shortened version of the task name with words separated by hyphens.  (You can also prefix the branch with the date [YYMMDD-], which will help to give a quick visual sort.) 
+When you create a branch to work on your feature or bug-fix, please name your branch so that others can understand the context, purpose, and intent for it.
+ 
+This is our naming convention:  `[sprintNN or target_release]-[Pivotal Tracker ID number]-[short-story-description] `
 
   
-For example, if you are working on a feature on 2 Nov 2016 and the title of that issue is "Add the CONTRIBUTING.md file", you can create and check out your branch like this:
+For example, if you are working on a feature in _sprint 24,_  the ID for that story in PivotalTracker is _1059872,_ and the title of that story is _"Add the CONTRIBUTING.md file",_ you can create and check out your branch like this:
 
 ```
-git checkout -b 161102-add_contributing_md
+git checkout -b sprint24-#1059872-add-contributing-md
 ```
 
+Note that it's ok to include the `#` in the branch name.  You can leave it in there or not; it's optional.
 
 Once you have your tests passing (or if you're stuck and need help), you're ready to submit a pull request.
 
@@ -189,19 +199,27 @@ git pull upstream develop
 
 Be sure to create your PR against the **develop** branch!
 
-Put a link to the PivotTracker story this addresses so that we keep the connection between the two systems (PivotalTracker and GitHub).  
+We connect the PR in GitHub to the PivotalTracker story manually (simple, but quick and explicit):
+- put a link to the PivotalTracker story in the PR description, _and_
+- update the name of the story in PivotalTracker story so that it starts with the PR number. (You have to save the PR first to get the number.)
+    Ex:  If the PR number that GitHub assigns is _357_ and the original story name in Pivotal Tracker is _"Add the CONTRIBUTING.md file,"_ then edit the story name to be _"357 - Add the CONTRIBUTING.md file"_
+    
+   **This makes it quick and easy for someone scanning the stories in PivotalTracker to see if there's a PR for a story.**
+     
+  
       
 
 Whatever you are working on, **please open a "Work in Progress" (WIP)** [pull request](https://help.github.com/articles/creating-a-pull-request/) (just start your PR title with "[WIP]" ) so that others in the team can comment on your approach.  Even if you hate your horrible code. :-) Please throw it up there and we'll help guide your code to fit in with the rest of the project.
 
 Team members can review and give you feedback as you work. This helps ensure that you don't go too far down a path that isn't going to work out.
 
-Here is [more information on creating (submitting) pull requests](how_to_submit_a_pull_request_on_github.md).
+[This flow chart shows how our PR process works with our main branches.](./docs/dev-workflow/github-flow.png).
+
 
 
 #### One change per PR
 
-Please ensure that each commit in your pull request makes a _single_ coherent change and that the overall pull request only includes commits related to the specific Pivotal Tracker task (feature, chore, bug) that the pull request is addressing.
+Please ensure that each commit in your pull request makes a _single_ coherent change and that the overall pull request only includes commits related to the specific Pivotal Tracker story (feature, chore, bug) that the pull request is addressing.
 This helps the project managers understand the PRs and merge them more quickly.
 
 If your PR is addressing a GitHub issue (which doesn't happen much in this project), please include a sensible description of your code and a tag `fixes #<issue-id>` e.g. :

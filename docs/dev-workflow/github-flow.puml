@@ -1,0 +1,69 @@
+@startuml
+!include plantuml-ae-style.iuml
+
+'skinparam ActivityDiamondBackgroundColor white
+
+title Github workflow for the SHF Project\n
+
+|master|
+
+:The current version of the project  \n\n**in PRODUCTION**\n.;
+
+
+-[dashed]->\n\nThe automatic\ndeployment\nprocess\nkeeps **""master""** \nand **""develop""**\nin sync\n\n.;
+
+  |develop|
+
+
+  :This is where all reviewed and approved work goes.\nThis is the most up-to-date version of the project\n\n//in **DEVELOPMENT**//\n//(not yet deployed to production).//;
+
+    :**Start work on a task**;
+
+    ->\n""Fork"", ""sync"", or ""pull""\nthe project when you're ready\nto work on a task.\n;
+
+    |#LightCyan|your_repo/sfh-project|
+
+
+    :Create a branch to do your work:
+    ""sprint24-#1059872-add-contributing-md"";
+
+
+    floating note: This is where you do **YOUR** work.
+
+
+    :Create acceptance and/or unit tests;
+
+    while (<B>All tests pass?</B>) is (\nNot yet)
+      :Create a PR against the develop branch.
+
+       PR title = **[WIP] Add CONTRIBUTING.md**
+       reference the PivotalTracker ID # in the description;
+      :Get input from team members;
+      :Revise based on team input;
+    endwhile (             all tests pass\nincluding your new ones)
+
+    :Edit the PR name to remove "[WIP]"\nsince it's not longer a Work In Progress;
+    :Edit the task name in PivotalTracker:
+     prepend the PR number
+     Ex: the task name now becomes:
+      **357 - Add CONTRIBUTING.md**;
+
+    :At least 2 team members
+     approve the PR in GitHub;
+    :Another team member (not you) does a
+     ""Squash and Merge"" in GitHub
+     to merge your PR into the
+      ""develop"" branch;
+
+    |develop|
+
+    :Your PR is now part of the \ncurrent development version.;
+
+
+'  |master|
+'  :Project manager **deploys to PRODUCTION,**\nwhich automatically pulls in (""merges"")\n the current ""develop"" branch.;
+
+caption : \n\n**An example for working on Pivotal Tracker task #1059872  in sprint 24, PR #357 "Add CONTRIBUTING.md"** \nGenerated with PlantUML on %date%
+
+
+@enduml

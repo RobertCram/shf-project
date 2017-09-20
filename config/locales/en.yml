@@ -309,7 +309,7 @@ en:
       user:
         title: "Hey -- we're glad you're interested!"
         how_to_apply: "To submit your membership application, go to
-                       %{link} and fill in all the necessary details,
+                       the link below and fill in all the necessary details,
                         including the categories that apply to you."
         once_it_is_submitted: "Once your application is submitted, we will review it.
                         This takes a while, so do not worry if you do not hear from us for a bit."

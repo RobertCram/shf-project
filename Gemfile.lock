@@ -8,11 +8,11 @@ GIT
 
 GIT
   remote: git://github.com/weedySeaDragon/aasm_statecharts.git
-  revision: e36d1a4442cf95ccfed42a3d246b929e51b37f69
+  revision: 0a74ab466575fc4b08c9866139ba5ea8e4e0f010
   specs:
-    aasm_statecharts (1.1.5)
+    aasm_statecharts (1.1.7)
       aasm (>= 4.0)
-      psych
+      psych (>= 2.0)
       rails (>= 4.0)
       ruby-graphviz (>= 1.0)
 
@@ -462,7 +462,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm (~> 4.11.1)
-  aasm_statecharts!
+  aasm_statecharts (~> 1.1.7)!
   bcrypt (~> 3.1.7)
   better_errors
   binding_of_caller

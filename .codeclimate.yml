@@ -48,3 +48,4 @@ exclude_paths:
 - "public/javascripts/"
 - "javascripts/ckeditor/"
 - "docs/"
+- "lib/tasks/cucumber.rake"
