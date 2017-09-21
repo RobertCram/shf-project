@@ -136,11 +136,13 @@ class MembershipApplication < ApplicationRecord
   def accept_membership
     begin
 
+      membership_number = self.class.connection.execute("SELECT nextval('membership_number_seq')")
+
       company = Company.find_or_create_by!(company_number: company_number) do |co|
         co.email = contact_email
       end
 
-      update(company: company)
+      update(company: company, membership_number: membership_number)
 
     rescue => e
       puts "ERROR: could not accept_membership.  error: #{e.inspect}"
