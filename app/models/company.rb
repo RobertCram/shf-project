@@ -13,17 +13,19 @@ class Company < ApplicationRecord
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: [:create, :update]
   validate :swedish_organisationsnummer
 
-  ADDRESS_VISIBILITY = %w(street_address post_code city kommun none)
-
-  validates :address_visibility, inclusion: ADDRESS_VISIBILITY
-
   before_save :sanitize_website
 
   has_many :membership_applications, dependent: :destroy, inverse_of: :company
 
   has_many :business_categories, through: :membership_applications
 
-  has_many :addresses, as: :addressable, dependent: :destroy
+  has_many :addresses, as: :addressable, dependent: :destroy,
+           inverse_of: :addressable
+  # ^^ we add the "inverse_of" option because we are validating the presence of
+  # a company parent instance when we save the associated address(es).
+  # See section "Validating the presence of a parent model" here:
+  # https://apidock.com/rails/ActiveRecord/NestedAttributes/
+  #     ClassMethods#971-Validating-presence-of-parent-in-child
 
   has_many :pictures, class_name: 'Ckeditor::Picture', dependent: :destroy
 
@@ -50,8 +52,11 @@ class Company < ApplicationRecord
 
   end
 
-  scope :address_visible, -> { where('address_visibility != ?', 'none') }
-
+  def self.address_visible
+    # Return ActiveRecord::Relation object for all companies with at
+    # least one visible address
+    joins(:addresses).where.not('addresses.visibility = ?', 'none').distinct
+  end
 
   def destroy_checks
 

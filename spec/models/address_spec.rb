@@ -18,11 +18,14 @@ RSpec.describe Address, type: :model do
     it { is_expected.to have_db_column :addressable_type }
     it { is_expected.to have_db_column :latitude }
     it { is_expected.to have_db_column :longitude }
+    it { is_expected.to have_db_column :visibility }
   end
 
   describe 'Validations' do
     it { is_expected.to validate_presence_of :country }
     it { is_expected.to validate_presence_of :addressable }
+    it { is_expected.to validate_inclusion_of(:visibility)
+                            .in_array(Address::ADDRESS_VISIBILITY) }
   end
 
   describe 'Associations' do
@@ -39,14 +42,29 @@ RSpec.describe Address, type: :model do
 
     let(:addr_has_region) { co_has_regions.main_address }
 
-    let(:no_region) { addr_no_region = co_missing_region.main_address
-                      addr_no_region.update_columns(region_id: nil)
-                      addr_no_region
-    }
+    let(:no_region) do
+      addr_no_region = co_missing_region.main_address
+      addr_no_region.update_columns(region_id: nil)
+      addr_no_region
+    end
 
     let!(:has_regions) { [addr_has_region] }
     let!(:lacking_regions) { [no_region] }
 
+    let(:not_visible_addr) do
+      create(:address, visibility: 'none', addressable: co_has_regions)
+    end
+
+    let(:visible_addr) do
+      create(:address, visibility: 'city', addressable: co_has_regions)
+    end
+
+    describe 'visible' do
+      it 'only returns addresses that are visible' do
+        expect(co_has_regions.addresses.visible).
+          to contain_exactly(addr_has_region, visible_addr)
+      end
+    end
 
     describe 'has_region' do
 
@@ -102,25 +120,23 @@ RSpec.describe Address, type: :model do
     end
 
     context '#address_array' do
-
-      let!(:company)         { create(:company, num_addresses: 1) }
+      let(:company) { FactoryGirl.create(:company) }
+      let(:address) { FactoryGirl.create(:address, addressable: company) }
       let(:address_pattern) do
-        address = company.main_address
         [ address.street_address, address.post_code,
           address.city, address.kommun.name, 'Sverige' ]
       end
 
-      it 'returns array consistent with address visibility for associated company' do
+      it 'returns array consistent with address visibility' do
 
-        (0..Company::ADDRESS_VISIBILITY.length-1).each do |idx|
+        (0..Address::ADDRESS_VISIBILITY.length-1).each do |idx|
 
-          company.address_visibility = Company::ADDRESS_VISIBILITY[idx]
-          company.save
-          company.main_address.reload
+          address.visibility = Address::ADDRESS_VISIBILITY[idx]
+          address.save
 
-          address_fields = company.main_address.address_array
+          address_fields = address.address_array
 
-          case company.address_visibility
+          case address.visibility
           when 'none'
             expect(address_fields).to be_empty
           else
