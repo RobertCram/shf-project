@@ -265,7 +265,7 @@ sv:
     update:
       success: Ansökan har uppdaterats.
       error: Ett eller flera problem hindrade din ansökan från att sparas.
-      enter_member_number: Var god ange medlemsnummer och spara.
+      enter_member_number: Var god granska medlemsnummer och spara.
 
     show:
       title: Ansökan från %{user_full_name}

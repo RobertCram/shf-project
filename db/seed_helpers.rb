@@ -38,13 +38,12 @@ module SeedHelper
   end
 
 
-  def get_next_membership_number
-
-    MembershipApplication.last.nil? ? FIRST_MEMBERSHIP_NUMBER : MembershipApplication.last.id + FIRST_MEMBERSHIP_NUMBER
-  end
-
-
   def make_applications(users)
+
+    # make at least one accepted membership application
+    user = users.delete_at(0)
+    return if user == nil
+    make_n_save_app(user, MA_ACCEPTED_STATE)
 
     small_number_of_users = users.count < 3 ? 0 : [1, (0.1 * users.count).round].max
 
@@ -93,10 +92,13 @@ module SeedHelper
 
     ma.state = state
 
-    # make a full company object (instance) for the accepted membership application
-    ma.company = make_new_company(ma.company_number)
+    if state == MA_ACCEPTED_STATE then
+      # make a full company object (instance) for the accepted membership application
+      ma.company = make_new_company(ma.company_number)
 
-    ma.membership_number = get_next_membership_number
+      ma.membership_number = MembershipApplication.get_next_membership_number
+    end
+
 
     # ensure that this is the *last* application for the user
     user.membership_applications << ma
