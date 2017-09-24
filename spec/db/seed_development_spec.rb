@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'load business categories, regions, kommuns, users and membershipapplications from ENV in production' do
 
-  env_seed_users = 'SHF_SEED_USERS'
-
   # seed with a minimum of 4 users to cover: admin, no application, single application, double application
   seed_users = 4
 
@@ -11,7 +9,7 @@ RSpec.describe 'load business categories, regions, kommuns, users and membership
     DatabaseCleaner.start
     RSpec::Mocks.with_temporary_scope do
       allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
-      stub_const('ENV', {env_seed_users => seed_users.to_s})
+      stub_const('ENV', {'SHF_SEED_USERS' => seed_users.to_s})
       SHFProject::Application.load_tasks
       SHFProject::Application.load_seed
     end
