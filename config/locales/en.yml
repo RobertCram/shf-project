@@ -141,7 +141,7 @@ en:
         contact_email: &contact_email Contact Email
         state: &state Status
         phone_number: Phone number
-        membership_number: Membership number
+        membership_number: &membership_number Membership number
 
       address:
         street: &street Street
@@ -285,7 +285,7 @@ en:
       contact_email: *contact_email
       app_status: Application status
       change_status: Change the status
-      membership_number: Membership number
+      membership_number: *membership_number
       with_categories: Categories
       delete: *delete
       confirm_are_you_sure: *are_you_sure_confirm
@@ -295,6 +295,7 @@ en:
     index:
       title: All incoming applications
       name: Name
+      membership_number: *membership_number
       org_nr: *org_nr
       state: *state
       manage: *manage
