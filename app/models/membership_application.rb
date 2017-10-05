@@ -137,7 +137,7 @@ class MembershipApplication < ApplicationRecord
     begin
 
       user.issue_membership_number
-      user.update(membership_number: membership_number)
+      user.save
 
       company = Company.find_or_create_by!(company_number: company_number) do |co|
         co.email = contact_email
