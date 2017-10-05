@@ -42,6 +42,7 @@ class MembershipApplication < ApplicationRecord
   scope :open, -> { where.not(state: [:accepted, :rejected]) }
 
   delegate :full_name, to: :user, prefix: true
+  delegate :membership_number, :membership_number=, to: :user, prefix: false
 
   include AASM
 
