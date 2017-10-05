@@ -136,7 +136,7 @@ class MembershipApplication < ApplicationRecord
   def accept_membership
     begin
 
-      membership_number = user.membership_number.blank? ? self.class.get_next_membership_number : user.membership_number
+      user.issue_membership_number
       user.update(membership_number: membership_number)
 
       company = Company.find_or_create_by!(company_number: company_number) do |co|
@@ -172,11 +172,6 @@ class MembershipApplication < ApplicationRecord
 
   def se_mailing_csv_str
      company.nil? ?  AddressExporter.se_mailing_csv_str(nil) : company.se_mailing_csv_str
-  end
-
-
-  def self.get_next_membership_number
-    connection.execute("SELECT nextval('membership_number_seq')").getvalue(0,0).to_s
   end
 
 

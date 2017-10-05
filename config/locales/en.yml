@@ -124,6 +124,7 @@ en:
         email: &email Profile Email
         password: *password
         password_confirmation: Password confirmation
+        membership_number: Membership number
         created: &created Created
         current_sign_in_at: &user_current_signed_in_time Currently signed in at
         current_sign_in_ip: &user_current_ip Currently signed in from IP address
@@ -133,7 +134,6 @@ en:
         created: *created
         reset_password_sent_at: &user_reset_password_sent_at Password reset info sent
 
-
       membership_application:
         company_number: &company_number Company number
         first_name: *first_name
@@ -141,7 +141,6 @@ en:
         contact_email: &contact_email Contact Email
         state: &state Status
         phone_number: Phone number
-        membership_number: Membership number
 
       address:
         street: &street Street

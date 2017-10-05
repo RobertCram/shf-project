@@ -44,7 +44,7 @@ CREATE TABLE addresses (
     latitude double precision,
     longitude double precision,
     visibility character varying DEFAULT 'street_address'::character varying,
-    mail boolean
+    mail boolean DEFAULT false
 );
 
 

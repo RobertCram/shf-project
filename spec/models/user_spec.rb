@@ -25,6 +25,8 @@ RSpec.describe User, type: :model do
   end
 
   describe 'Validations' do
+    it { is_expected.to(validate_presence_of :first_name) }
+    it { is_expected.to(validate_presence_of :last_name) }
     it {is_expected.to validate_uniqueness_of :membership_number}
   end
 
@@ -380,8 +382,27 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'Validations' do
-    it { is_expected.to(validate_presence_of :first_name) }
-    it { is_expected.to(validate_presence_of :last_name) }
+
+  describe '#issue_membership_number' do
+
+    it 'does not overwrite an existing membership_number' do
+      existing_number = 'SHF00042'
+      subject.membership_number = existing_number
+      subject.issue_membership_number
+      expect(subject.membership_number).to eq(existing_number)
+    end
+
+    it 'generates sequential membership_numbers' do
+      subject.issue_membership_number
+      first_number = subject.membership_number.to_i
+
+      subject.membership_number = nil
+      subject.issue_membership_number
+      second_number = subject.membership_number.to_i
+
+      expect(second_number).to eq(first_number+1)
+    end
+
   end
+
 end

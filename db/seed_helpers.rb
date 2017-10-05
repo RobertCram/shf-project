@@ -96,7 +96,7 @@ module SeedHelper
       # make a full company object (instance) for the accepted membership application
       ma.company = make_new_company(ma.company_number)
 
-      user.membership_number = MembershipApplication.get_next_membership_number
+      user.issue_membership_number
     end
 
 
