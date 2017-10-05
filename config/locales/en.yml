@@ -295,7 +295,7 @@ en:
     index:
       title: All incoming applications
       name: Name
-      membership_number: *membership_number
+      membership_number: No.
       org_nr: *org_nr
       state: *state
       manage: *manage
