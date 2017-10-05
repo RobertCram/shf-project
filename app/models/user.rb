@@ -74,14 +74,13 @@ class User < ApplicationRecord
 
 
   def issue_membership_number
-    self.membership_number = self.membership_number.blank? ? self.class.get_next_membership_number : self.membership_number
+    self.membership_number = self.membership_number.blank? ? get_next_membership_number : self.membership_number
   end
-
 
   private
 
-  def self.get_next_membership_number
-    connection.execute("SELECT nextval('membership_number_seq')").getvalue(0,0).to_s
+  def get_next_membership_number
+    self.class.connection.execute("SELECT nextval('membership_number_seq')").getvalue(0,0).to_s
   end
 
 
