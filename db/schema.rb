@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170922144510) do
+ActiveRecord::Schema.define(version: 20171005113112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,13 +106,11 @@ ActiveRecord::Schema.define(version: 20170922144510) do
     t.bigint "user_id"
     t.string "contact_email"
     t.bigint "company_id"
-    t.string "membership_number"
     t.string "state", default: "new"
     t.integer "member_app_waiting_reasons_id"
     t.string "custom_reason_text"
     t.index ["company_id"], name: "index_membership_applications_on_company_id"
     t.index ["member_app_waiting_reasons_id"], name: "index_membership_applications_on_member_app_waiting_reasons_id"
-    t.index ["membership_number"], name: "index_membership_applications_on_membership_number", unique: true
     t.index ["user_id"], name: "index_membership_applications_on_user_id"
   end
 
@@ -163,6 +161,7 @@ ActiveRecord::Schema.define(version: 20170922144510) do
     t.boolean "admin", default: false
     t.string "first_name"
     t.string "last_name"
+    t.string "membership_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
