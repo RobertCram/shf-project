@@ -82,7 +82,7 @@ RSpec.describe AdminController, type: :controller do
                                    state:         app_state.name,
                                    user:          u
 
-            member1_info = "#{m.contact_email},#{u.first_name},#{u.last_name},#{m.membership_number},"+ I18n.t("membership_applications.state.#{app_state.name}")
+            member1_info = "#{m.contact_email},#{u.first_name},#{u.last_name},#{u.membership_number},"+ I18n.t("membership_applications.state.#{app_state.name}")
 
             result_str << member1_info + ','
             result_str << '"",'  # no business categories
@@ -112,7 +112,9 @@ RSpec.describe AdminController, type: :controller do
 
         let(:u1) { FactoryGirl.create(:user,
                                       first_name:     "u1",
-                                      email: "user1@example.com") }
+                                      email: "user1@example.com",
+                                      membership_number: '1234567890')
+        }
 
         let(:c1) { FactoryGirl.create(:company) }
 
@@ -121,10 +123,7 @@ RSpec.describe AdminController, type: :controller do
                                                       state:          :accepted,
                                                       company_number: c1.company_number,
                                                       user:           u1
-
-                        m1.update(membership_number: '1234567890')
-                        m1
-                      }
+        }
 
 
         let(:csv_response) { post :export_ansokan_csv
@@ -136,7 +135,7 @@ RSpec.describe AdminController, type: :controller do
 
           result_str = csv_header
 
-          member1_info = "#{member1.contact_email},#{u1.first_name},#{u1.last_name},#{member1.membership_number},"+ I18n.t("membership_applications.state.#{member1.state}")
+          member1_info = "#{member1.contact_email},#{u1.first_name},#{u1.last_name},#{u1.membership_number},"+ I18n.t("membership_applications.state.#{member1.state}")
 
           result_str << member1_info + ','
           result_str << '"",'  # no business categories
@@ -156,7 +155,9 @@ RSpec.describe AdminController, type: :controller do
 
         let(:u1) { FactoryGirl.create(:user,
                                       first_name:     "u1",
-                                      email: "user1@example.com") }
+                                      email: "user1@example.com",
+                                      membership_number: '1234567890')
+        }
 
         let(:c1) { FactoryGirl.create(:company) }
 
@@ -165,16 +166,13 @@ RSpec.describe AdminController, type: :controller do
                                                 state:          :accepted,
                                                 company_number: c1.company_number,
                                                 user:           u1
-
-                        m1.update(membership_number: '1234567890')
-                        m1
                       }
 
         let(:csv_response) { post :export_ansokan_csv
                              response.body
                            }
 
-        let(:member1_info) {  "#{member1.contact_email},#{u1.first_name},#{u1.last_name},#{member1.membership_number},"+ I18n.t("membership_applications.state.#{member1.state}") }
+        let(:member1_info) {  "#{member1.contact_email},#{u1.first_name},#{u1.last_name},#{u1.membership_number},"+ I18n.t("membership_applications.state.#{member1.state}") }
 
 
         it 'zero/nil business categories' do

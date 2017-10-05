@@ -34,7 +34,6 @@ class MembershipApplication < ApplicationRecord
   validates_length_of :company_number, is: 10
   validates_format_of :contact_email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: [:create, :update]
   validates_uniqueness_of :user_id, scope: :company_number
-  validates_uniqueness_of :membership_number, allow_blank: true
   validate :swedish_organisationsnummer
 
   accepts_nested_attributes_for :uploaded_files, allow_destroy: true
@@ -136,13 +135,14 @@ class MembershipApplication < ApplicationRecord
   def accept_membership
     begin
 
-      membership_number = self.membership_number.blank? ? self.class.get_next_membership_number : self.membership_number
+      membership_number = user.membership_number.blank? ? self.class.get_next_membership_number : user.membership_number
+      user.update(membership_number: membership_number)
 
       company = Company.find_or_create_by!(company_number: company_number) do |co|
         co.email = contact_email
       end
 
-      update(company: company, membership_number: membership_number)
+      update(company: company)
 
     rescue => e
       puts "ERROR: could not accept_membership.  error: #{e.inspect}"
@@ -152,7 +152,7 @@ class MembershipApplication < ApplicationRecord
 
 
   def reject_membership
-    update(membership_number: nil)
+    user.update(membership_number: nil)
     delete_uploaded_files
   end
 

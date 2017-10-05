@@ -19,8 +19,13 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :id }
     it {is_expected.to have_db_column :first_name}
     it {is_expected.to have_db_column :last_name}
+    it {is_expected.to have_db_column :membership_number}
     it { is_expected.to have_db_column :email }
     it { is_expected.to have_db_column :admin }
+  end
+
+  describe 'Validations' do
+    it {is_expected.to validate_uniqueness_of :membership_number}
   end
 
   describe 'Associations' do

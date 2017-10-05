@@ -44,7 +44,6 @@ RSpec.describe MembershipApplication, type: :model do
     it {is_expected.to have_db_column :company_number}
     it {is_expected.to have_db_column :phone_number}
     it {is_expected.to have_db_column :contact_email}
-    it {is_expected.to have_db_column :membership_number}
     it {is_expected.to have_db_column :state}
     it {is_expected.to have_db_column :custom_reason_text}
   end
@@ -58,8 +57,6 @@ RSpec.describe MembershipApplication, type: :model do
     it {is_expected.not_to allow_value('userexample.com').for(:contact_email)}
 
     it {is_expected.to validate_length_of(:company_number).is_equal_to(10)}
-
-    it {is_expected.to validate_uniqueness_of :membership_number}
   end
 
   describe 'Validate Swedish Orgnr' do
@@ -342,34 +339,34 @@ RSpec.describe MembershipApplication, type: :model do
     end
 
     it 'does not generate a membership_number for a new application' do
-      expect(new_app.membership_number).to be_nil
+      expect(new_app.user.membership_number).to be_nil
     end
 
     it 'generates a membership_number when an application is accepted' do
       new_app.accept
-      expect(new_app.membership_number).not_to be_blank
+      expect(new_app.user.membership_number).not_to be_blank
     end
 
     it 'does not overwrite an existing membership_number when an application is accepted' do
       existing_number = 'SHF00042'
-      new_app.membership_number = existing_number
+      new_app.user.membership_number = existing_number
       new_app.accept
-      expect(new_app.membership_number).to eq(existing_number)
+      expect(new_app.user.membership_number).to eq(existing_number)
     end
 
     it 'removes the membership_number when an application is rejected' do
       new_app.accept
       new_app.reject
-      expect(new_app.membership_number).to be_nil
+      expect(new_app.user.membership_number).to be_nil
     end
 
     it 'generates sequential membership_numbers' do
       new_app.accept
-      first_number = new_app.membership_number.to_i
+      first_number = new_app.user.membership_number.to_i
 
       new_app.reject
       new_app.accept
-      second_number = new_app.membership_number.to_i
+      second_number = new_app.user.membership_number.to_i
 
       expect(second_number).to eq(first_number+1)
     end

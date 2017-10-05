@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :last_name, unless: Proc.new {!new_record? && !(first_name_changed? || last_name_changed?)}
-
+  validates_uniqueness_of :membership_number, allow_blank: true
 
   scope :are_members, lambda {
     User.all.select { | user | user.is_member? }
