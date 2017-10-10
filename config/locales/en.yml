@@ -124,7 +124,7 @@ en:
         email: &email Profile Email
         password: *password
         password_confirmation: Password confirmation
-        membership_number: Membership number
+        membership_number: &membership_number Membership number
         created: &created Created
         current_sign_in_at: &user_current_signed_in_time Currently signed in at
         current_sign_in_ip: &user_current_ip Currently signed in from IP address
