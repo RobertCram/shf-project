@@ -4,6 +4,7 @@ the Sveriges Hundföretagare
 ======================================================================================
 
 This is a membership system for Sveriges Hundföretagare, a nation-wide organization in Sweden for ethical dog-associates.
+[http://hitta.sverigeshundforetagare.se/](http://hitta.sverigeshundforetagare.se/)
 
 The main project documentation is on the [page for this project at the AgileVentures site.](http://www.agileventures.org/projects/shf-project)
 

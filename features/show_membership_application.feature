@@ -49,6 +49,16 @@ Feature: As an Admin
 
 
   @admin
+  Scenario: Listing shows the necessary columns for Admin
+    Given I am logged in as "admin@shf.com"
+    And I am on the "membership applications" page
+    Then I should see t("membership_applications.index.membership_number")
+    And I should see t("membership_applications.index.name")
+    And I should see t("membership_applications.index.org_nr")
+    And I should see t("membership_applications.index.state")
+    And I should see t("manage")
+
+  @admin
   Scenario: Listing incoming Applications open for Admin
     Given I am logged in as "admin@shf.com"
     And I am on the "membership applications" page
@@ -62,7 +72,6 @@ Feature: As an Admin
     And I should see "Emma Lastname"
     And I should see "5562252998"
     And I should see status line with status t("membership_applications.waiting_for_applicant")
-
 
   @admin
   Scenario: Admin can see an application with one business categories given

@@ -297,6 +297,7 @@ sv:
     index:
       title: Alla inkomna ansökningar
       name: Namn
+      membership_number: Nr.
       org_nr: *org_nr
       manage: *manage
       state: *state

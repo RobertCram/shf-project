@@ -1,7 +1,7 @@
-#Deploying to the Deployment and Production Servers
+# Deploying to the Deployment and Production Servers
 
-This is how SHF-Project gets deployed to the **development server** on [Heroku](https://heroku.com) (a place where recently merged changes to the `develop` branch can be seen)
- and the **production server** on [DigitalOcean](https://digitalocean.com) (the real system in use).
+This is how SHF-Project gets deployed to the **development server** on [Heroku:  http://shf-project.herokuapp.com/](http://shf-project.herokuapp.com/) (a place where recently merged changes to the `develop` branch can be seen)
+ and the **production server** on [DigitalOcean: http://hitta.sverigeshundforetagare.se/](http://hitta.sverigeshundforetagare.se/) (the real system in use).
 
 Note that there is no staging server.  This is a relatively small scale project with a small team.  Right now there's not enough value in keeping a separate staging server up and running and coordinated.
 
