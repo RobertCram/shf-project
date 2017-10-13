@@ -78,7 +78,7 @@ class User < ApplicationRecord
   end
 
   ransacker :padded_membership_number do
-    Arel.sql("lpad(membership_number, 20)")
+    Arel.sql("lpad(membership_number, 20, '0')")
   end
 
   private
