@@ -6,12 +6,12 @@ I want to search for applications by various criteria
 
 Background:
   Given the following users exists
-    | first_name | last_name  | email                | admin |
-    | Fred       | Fransson   | fred@barkyboys.com   |       |
-    | John       | Johanssen  | john@happymutts.com  |       |
-    | Anna       | Anderson   | anna@dogsrus.com     |       |
-    | Emma       | Eriksson   | emma@weluvdogs.com   |       |
-    | admin      | admin      | admin@shf.se         | true  |
+    | first_name | last_name  | email                | admin | membership_number |
+    | Fred       | Fransson   | fred@barkyboys.com   |       | 3                 |
+    | John       | Johanssen  | john@happymutts.com  |       | 14                |
+    | Anna       | Anderson   | anna@dogsrus.com     |       | 1                 |
+    | Emma       | Eriksson   | emma@weluvdogs.com   |       | 2                 |
+    | admin      | admin      | admin@shf.se         | true  |                   |
 
   And the following business categories exist
     | name         |
@@ -111,3 +111,16 @@ Scenario: Can sort by user lastname
   And I should see "Johanssen" before "Fransson"
   And I should see "Fransson" before "Eriksson"
   And I should see "Eriksson" before "Anderson"
+
+@javascript
+Scenario: Can sort by user membership number
+  Then I click on t("membership_applications.index.membership_number") link
+  And I should see "Anderson" before "Eriksson"
+  And I should see "Eriksson" before "Fransson"
+  And I should see "Fransson" before "Johanssen"
+  Then I click on t("membership_applications.index.membership_number") link
+  And I should see "Johanssen" before "Fransson"
+  And I should see "Fransson" before "Eriksson"
+  And I should see "Eriksson" before "Anderson"
+
+

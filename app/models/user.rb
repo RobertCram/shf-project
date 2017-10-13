@@ -79,6 +79,10 @@ class User < ApplicationRecord
 
   private
 
+  ransacker :padded_membership_number do
+    Arel.sql("lpad(membership_number, 20)")
+  end
+
   def get_next_membership_number
     self.class.connection.execute("SELECT nextval('membership_number_seq')").getvalue(0,0).to_s
   end
