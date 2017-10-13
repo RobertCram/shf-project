@@ -102,6 +102,18 @@ Scenario: Search by status and company number
   And I should not see "Fred"
 
 @javascript
+Scenario: Search by membership number
+  Then I select "1" in select list t("membership_applications.index.membership_number")
+  And I click on t("search")
+  Then I should see "Anderson, Anna"
+  And I should not see "John"
+  And I should not see "Emma"
+  And I should not see "Fred"
+  Then I select "14" in select list t("membership_applications.index.membership_number")
+  And I click on t("search")
+  Then I should see "Johanssen, John"
+
+@javascript
 Scenario: Can sort by user lastname
   Then I click on t("membership_applications.index.name") link
   And I should see "Anderson" before "Eriksson"
