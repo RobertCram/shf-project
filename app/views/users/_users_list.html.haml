@@ -2,6 +2,7 @@
   %table.table
     %thead.panel-heading
       %tr
+        %th= sort_link(q, :padded_membership_number, t('users.users_list.membership_number'), {}, { remote: true } )
         %th= sort_link(q, :email, t('.email'), { default_order: { email: :asc } }, { remote: true } )
         %th= t('.created')
         %th= t('.last_login')

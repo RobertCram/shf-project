@@ -7,11 +7,11 @@ Feature:
 
   Background:
     Given the following users exist
-      | first_name | last_name | email                               | admin |
-      | John       | Adams     | ja@hotmail.com                      | false |
-      | Sarah      | Connor    | sconnor@example.com                 | false |
-      | Luke       | Skywalker | luke@force.net                      | false |
-      | admin      | admin     | admin@sverigeshundforetagare.se     | true  |
+      | first_name | last_name | email                               | admin | membership_number |
+      | John       | Adams     | ja@hotmail.com                      | false | 1                 |
+      | Sarah      | Connor    | sconnor@example.com                 | false | 2                 |
+      | Luke       | Skywalker | luke@force.net                      | false | 14                |
+      | admin      | admin     | admin@sverigeshundforetagare.se     | true  | 3                 |
     And the following applications exist:
       | user_email          | state                 | company_number |
       | ja@hotmail.com      | waiting_for_applicant | 0000000000     |
@@ -33,10 +33,28 @@ Feature:
     Then I should not see "admin@sverigeshundforetagare.se"
     And I should see t("users.index.no_search_results")
 
+  Scenario: Admin searches for membership number
+    Given I am on the "all users" page
+    And I select "1" in select list t("users.search_form.membership_number")
+    And I click on t("search")
+    Then I should see "ja@hotmail.com"
+    And I should not see "luke@force.net"
+
   Scenario: Admin sorts users by email
     Given I am on the "all users" page
     When I click on t("users.users_list.email")
     Then I should see "luke@force.net" before "sconnor@example.com"
+
+  Scenario: Admin sorts users by membership number
+    Given I am on the "all users" page
+    When I click on t("users.users_list.membership_number")
+    Then I should see "ja@hotmail.com" before "sconnor@example.com"
+    Then I should see "sconnor@example.com" before "admin@sverigeshundforetagare.se"
+    Then I should see "admin@sverigeshundforetagare.se" before "luke@force.net"
+    When I click on t("users.users_list.membership_number")
+    Then I should see "luke@force.net" before "admin@sverigeshundforetagare.se"
+    Then I should see "admin@sverigeshundforetagare.se" before "sconnor@example.com"
+    Then I should see "sconnor@example.com" before "ja@hotmail.com"
 
   Scenario: Admin filters users by membership status
     Given I am on the "all users" page

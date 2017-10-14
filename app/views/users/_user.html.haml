@@ -1,4 +1,5 @@
 %tr
+  %td.membership_number= link_to user.membership_number, user unless user.membership_number.blank?
   %td.email{ id: "user-#{user.id}" }= link_to user.email, user
   %td.created-at
     %small= i18n_time_ago_in_words(user.created_at)

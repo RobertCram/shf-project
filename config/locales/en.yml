@@ -596,6 +596,7 @@ en:
       error: A problem kept the user from being updated.
 
     search_form:
+      membership_number: &membership_number_short No.
       profile_email: 'Profile Email'
       search: 'Search'
       are_members: 'Are members'
@@ -608,6 +609,7 @@ en:
       'no': *no
 
     users_list:
+      membership_number: *membership_number_short
       first_name: *first_name
       last_name: *last_name
       email: *email

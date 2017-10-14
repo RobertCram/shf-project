@@ -597,6 +597,7 @@ sv:
       error: Ett problem hindrade användarinformationen från att uppdateras.
 
     search_form:
+      membership_number: &membership_number_short Nr.
       profile_email: Profil e-post
       search: Sök
       are_members: Är medlemmar
@@ -609,6 +610,7 @@ sv:
       'no': *no
 
     users_list:
+      membership_number: *membership_number_short
       first_name: *first_name
       last_name: *last_name
       email: *email
