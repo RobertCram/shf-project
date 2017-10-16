@@ -4,6 +4,8 @@ Given(/^the following users exist(?:s|)$/) do |table|
     is_member = user.delete('is_member')
     is_legacy = user.delete('is_legacy')
 
+    user['membership_number'] = nil if user['membership_number'].blank?
+
     if user['admin'] == 'true'
       FactoryGirl.create(:user, user)
     else

@@ -571,6 +571,7 @@ sv:
       no_search_results: Din sökning gav inget resultat, prova att ta bort något av dina val.
 
     show:
+      membership_number: *membership_number
       email: *email
       current_sign_in_at: *user_current_signed_in_time
       current_sign_in_ip: *user_current_ip

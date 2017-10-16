@@ -570,6 +570,7 @@ en:
       no_search_results: No records matched your search criteria.
 
     show:
+      membership_numer: *membership_number
       email: *email
       current_sign_in_at: *user_current_signed_in_time
       current_sign_in_ip: *user_current_ip
