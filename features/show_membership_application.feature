@@ -17,10 +17,10 @@ Feature: As an Admin
       | Emma               | emma@random.com                     |       |
       | Hans               | hans@random.com                     |       |
       | Anna               | anna_needs_info@random.com          |       |
-      | LarsRejected       | lars_rejected@snarkybark.se         |       |
-      | NilsApproved       | nils_member@bowwowwow.se            |       |
-      | EmmaUnderReview    | emma_under_review@happymutts.se     |       |
-      | HansReadyForReview | hans_ready_for_review@happymutts.se |       |
+      | RejectedLars       | lars_rejected@snarkybark.se         |       |
+      | ApprovedNils       | nils_member@bowwowwow.se            |       |
+      | UnderReviewEmma    | emma_under_review@happymutts.se     |       |
+      | ReadyForReviewHans | hans_ready_for_review@happymutts.se |       |
       | admin              | admin@shf.com                       | true  |
 
 
@@ -67,7 +67,7 @@ Feature: As an Admin
     And I should see 1 t("membership_applications.accepted")
     And I should see 3 t("membership_applications.waiting_for_applicant")
     And I should see 1 t("membership_applications.rejected")
-    And I click on "Lastname, Emma"
+    And I click the t("membership_applications.index.manage") action for the row with "Lastname, Emma"
     Then I should be on the "application" page for "emma@personal.com"
     And I should see "Emma Lastname"
     And I should see "5562252998"
@@ -78,11 +78,11 @@ Feature: As an Admin
     Given I am logged in as "admin@shf.com"
     And I am on the "membership applications" page
     Then I should see "7" applications
-    And I click on "Lastname, Hans"
+    And I click the t("membership_applications.index.manage") action for the row with "Lastname, Hans"
     Then I should be on the "application" page for "hans@random.com"
     And I should see "Hans Lastname"
     And I should see "5560360793"
-    And I should see t("membership_applications.new_status")
+    And I should see t("membership_applications.waiting_for_applicant")
     And I should see "Psychologist"
     And I should not see "Trainer"
     And I should not see "Groomer"
@@ -99,7 +99,7 @@ Feature: As an Admin
     And I am logged in as "admin@shf.com"
     And I am on the "membership applications" page
     Then I should see "7" applications
-    And I click on "Lastname, Emma"
+    And I click the t("membership_applications.index.manage") action for the row with "Lastname, Emma"
     Then I should be on the "application" page for "emma@personal.com"
     And I should see "Emma Lastname"
     And I should see "5562252998"
