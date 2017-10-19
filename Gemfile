@@ -115,4 +115,8 @@ group :test do
   gem 'email_spec'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
+
+  gem 'webmock'  # to mock web (HTTP) interactions.  Required by the vcr gem
+  gem 'vcr'      # to record and 'playback' (mock) http requests
+
 end

@@ -3,7 +3,9 @@ require 'rails_helper'
 require 'email_spec'
 require 'email_spec/rspec'
 
-#  shared examples for RSpec below
+require File.join(__dir__, 'shared_email_tests')
+
+
 
 shared_examples 'delivery is OK' do
 
@@ -62,7 +64,7 @@ RSpec.describe ApplicationMailer, type: :mailer do
 
   describe '#domain' do
 
-    it 'can be nil (which should then rightly mean an error response from Mailgun)' do
+    it 'can be nil (which would then rightly mean an error response from Mailgun)' do
 
       stub_const('ENV', ENV.to_hash)
       ENV.delete('MAILGUN_DOMAIN')
@@ -91,7 +93,7 @@ RSpec.describe ApplicationMailer, type: :mailer do
     end
 
     it "should have the correct subject" do
-      expect(@email).to have_subject( I18n.t('application_mailer.greeting', greeting_name: @test_user.full_name))
+      expect(@email).to have_subject(I18n.t('application_mailer.greeting', greeting_name: @test_user.full_name))
     end
 
     it "default from address is ENV['SHF_NOREPLY_EMAIL']" do
@@ -169,6 +171,75 @@ RSpec.describe ApplicationMailer, type: :mailer do
 
     end
 
+
+  end
+
+
+  describe 'logs Mailgun errors', vcr: { cassette_name: 'mailgun', record: :none } do
+
+    # do not actually hit the net; mock the responses from the vcr file instead
+    before(:all) do
+
+      @orig_delivery_method = ApplicationMailer.delivery_method
+      ApplicationMailer.delivery_method = :mailgun
+
+      WebMock.disable_net_connect!(allow_localhost: true)
+    end
+
+    after(:all) do
+      ApplicationMailer.delivery_method = @orig_delivery_method
+      WebMock.allow_net_connect!(allow_localhost: true)
+    end
+
+
+    # return the number of matches in the file.
+    # Don't read the entire file into memory;
+    # read it only (num_lines_per_batch) lines at a time
+    def num_matches_in_file(fname, match_regexp)
+
+      num_lines_per_batch = 5000
+
+      num_matched = 0
+
+      if File.exist? fname
+        File.open(fname, "r") do |f|
+
+          # use an enumerator to read just (num_lines_per_batch) lines at a time
+          f.lazy.each_slice(num_lines_per_batch) do |lines|
+
+            num_matched += lines.select { |line| line.match(match_regexp) }.count
+
+          end
+
+        end
+      else
+        num_matched = 0
+      end
+
+      num_matched
+    end
+
+
+    it 'will write to the Mailgun log file if there was a problem sending info to Mailgun' do
+
+      test_user = create(:user)
+      mail_to_send = ApplicationMailer.test_email(test_user)
+
+      log_fname = ApplicationMailer::LOG_FILE
+
+      mailgun_error_regexp = /\s+Could not send email via mailgun at/
+
+      before_mailgun_errors = num_matches_in_file(log_fname, mailgun_error_regexp)
+
+      # this is a mocked post and response that will return an error from the vcr cassette file
+      mail_to_send.deliver
+
+      after_mailgun_errors = num_matches_in_file(log_fname, mailgun_error_regexp)
+      expect(after_mailgun_errors - before_mailgun_errors).to eq 1
+
+      expect(num_matches_in_file(log_fname, /An HTTP request has been made that VCR does not know how to handle/)).to eq 0
+
+    end
 
   end
 
