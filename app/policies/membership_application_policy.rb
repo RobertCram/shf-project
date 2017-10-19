@@ -47,6 +47,11 @@ class MembershipApplicationPolicy < ApplicationPolicy
   end
 
 
+  def update?
+    record.editable_by?(user)
+  end
+
+
   def information?
     not_a_visitor
   end
