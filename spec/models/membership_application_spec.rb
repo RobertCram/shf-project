@@ -329,6 +329,60 @@ RSpec.describe MembershipApplication, type: :model do
 
   end
 
+  describe '#editable_by?' do
+    let(:user) { create(:user) }
+    let(:admin) { create(:user, admin: true) }
+    let(:applicant) { create(:user) }
+    let(:application) { create(:membership_application, user: applicant) }
+
+    before(:each) do
+      application.start_review
+    end
+
+    it 'returns false for a non-applicant editing a new application' do
+      expect(application.editable_by? user).to be_falsey
+    end
+
+    it 'returns true for the applicant editing a new application' do
+      expect(application.editable_by? applicant).to be_truthy
+    end
+
+    it 'returns true for an admin editing a new application' do
+      expect(application.editable_by? admin).to be_truthy
+    end
+
+    it 'returns false for a non-applicant editing an accepted application' do
+      application.accept
+      expect(application.editable_by? user).to be_falsey
+    end
+
+    it 'returns false for the applicant editing an accepted application' do
+      application.accept
+      expect(application.editable_by? applicant).to be_falsey
+    end
+
+    it 'returns true for an admin editing an accepted application' do
+      application.accept
+      expect(application.editable_by? admin).to be_truthy
+    end
+
+    it 'returns false for a non-applicant editing a rejected application' do
+      application.reject
+      expect(application.editable_by? user).to be_falsey
+    end
+
+    it 'returns false for the applicant editing a rejected application' do
+      application.reject
+      expect(application.editable_by? applicant).to be_falsey
+    end
+
+    it 'returns true for an admin editing a rejected application' do
+      application.reject
+      expect(application.editable_by? admin).to be_truthy
+    end
+
+  end
+
 
   describe 'membership number generator' do
 
