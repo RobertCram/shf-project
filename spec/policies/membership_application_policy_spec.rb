@@ -11,7 +11,8 @@ describe MembershipApplicationPolicy do
     let(:not_the_owner) { create(:user, email: 'user_2@random.com') }
 
     let(:application) { create(:membership_application,
-                               user: application_owner) }
+                               user: application_owner,
+                               state: :under_review)    }
 
 
     describe 'For the MembershipApplication creator' do
@@ -126,7 +127,8 @@ describe MembershipApplicationPolicy do
     let(:admin)  { create(:user, email: 'admin@sgf.com', admin: true) }
     let(:visitor) { build(:visitor) }
     let(:application) { create(:membership_application,
-                               user: user_1) }
+                               user: user_1,
+                               state: :under_review) }
 
     describe 'For visitors (not logged in)' do
       subject { described_class.new(visitor, application) }
@@ -233,11 +235,20 @@ describe MembershipApplicationPolicy do
         is_expected.to forbid_action :index
       end
 
-      it 'permits edit' do
+      it 'permits edit when not accepted or rejected' do
         is_expected.to permit_action :edit
       end
       it 'permits update' do
         is_expected.to permit_action :update
+      end
+
+      it 'forbids edit for accepted' do
+        application.accept
+        is_expected.to forbid_action :edit
+      end
+      it 'forbids edit for rejected' do
+        application.reject
+        is_expected.to forbid_action :edit
       end
 
       it 'forbids destroy' do

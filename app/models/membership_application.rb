@@ -133,14 +133,6 @@ class MembershipApplication < ApplicationRecord
   end
 
 
-  def editable_by?(user)
-    return true if user.admin?
-
-    editable_states_for_applicant = Set.new [:new, :initial, :ready_for_review, :under_review, :waiting_for_applicant]
-    user == self.user && editable_states_for_applicant.include?(state.to_sym)
-  end
-
-
   def accept_membership
     begin
 

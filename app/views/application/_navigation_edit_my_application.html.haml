@@ -1,5 +1,5 @@
 %li.menu-item
-  - if membership_app.editable_by? current_user
+  - if MembershipApplicationPolicy.new(current_user, membership_app).update?
     = link_to t('menus.nav.users.my_application'), edit_membership_application_path(membership_app)
   - else
     = link_to t('menus.nav.users.my_application'), membership_application_path(membership_app)
