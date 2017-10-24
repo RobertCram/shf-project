@@ -3,7 +3,9 @@
     %thead
       %tr
         %th
-          = t('membership_applications.index.membership_number')
+          = sort_link(@search_params, :user_padded_membership_number,
+                      t('membership_applications.index.membership_number'), {},
+                      { class: 'applications_pagination', remote: true })
         %th
           = sort_link(@search_params, :user_last_name,
                       t('membership_applications.index.name'), {},
@@ -21,8 +23,8 @@
       - @membership_applications.each do |membership_application|
         %tr.applicant
           %td.membership_number= membership_application.membership_number
-          %td.name= link_to "#{membership_application.user.last_name + ', ' + membership_application.user.first_name}", membership_application_path(membership_application.id)
-          %td.company_number= membership_application.company_number
+          %td.name= link_to "#{membership_application.user.last_name + ', ' + membership_application.user.first_name}", user_path(membership_application.user)
+          %td.company_number= membership_application.company_id == nil ? membership_application.company_number : link_to(membership_application.company_number, company_path(membership_application.company_id))
           %td.state= t("membership_applications.state.#{membership_application.state}")
           %td.action= link_to "#{t('manage')}", membership_application_path(membership_application.id)
 

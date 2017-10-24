@@ -1,0 +1,102 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.mailgun.net/v3/sverigeshundforetagare.se/messages
+    body:
+      encoding: UTF-8
+      string: from[hello@example.com]=noreply%40sverigeshundforetagare.se&subject[]=Hej+Firstname+Lastname&text[]=Hej+Firstname+Lastname%0A%0A%0AHej+Firstname+Lastname%0A%0A%0A%0A----------%0ASVERIGES+HUNDF%C3%96RETAGARE%0AKOMPETENS+%E2%80%93+GLA%CC%88DJE+%E2%80%93+OMTANKE%0Ahttp%3A%2F%2Fwww.sverigeshundforetagare.se%0Ahttp%3A%2F%2Fwww.facebook.com%2Fsverigeshundforetagare%0Ahttp%3A%2F%2Finstagram.com%2Fsverigeshundforetagare%0A%0ADet+h%C3%A4r+mailet+skickades+till+email_6%40random.com%0ADu+f%C3%A5r+detta+e-postmeddelande+eftersom+du+%C3%A4r+intresserad+av+medlemsskap+i+SVERIGES+HUNDF%C3%96RETAGARE+eller+du+%C3%A4r+medlem.%0A%0A&to[]=email_6%40random.com
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin15.6.0 x86_64) ruby/2.4.2p198
+      Content-Length:
+      - '13032'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic YXBpOmtleS03NDZkZjExNjU0MzYxYjM5MGIxYjUwMThiMDU4NTlhYw==
+  response:
+    status:
+      code: 404
+      message: NOT FOUND
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 02 Nov 2016 19:42:44 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '52'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+           "message": "Domain not found: not-our-doma.in"
+        }
+    http_version:
+  recorded_at: Thu, 12 Oct 2017 21:53:28 GMT
+- request:
+    method: post
+    uri: https://api.mailgun.net/v3/sverigeshundforetagare.se/messages
+    body:
+      encoding: UTF-8
+      string: from[]=noreply%40sverigeshundforetagare.se&subject[]=Hej+Firstname+Lastname&to[]=email_1%40random.com
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin15.6.0 x86_64) ruby/2.4.2p198
+      Content-Length:
+      - '13032'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Host:
+      - api.mailgun.net
+      Authorization:
+      - Basic YXBpOmtleS03NDZkZjExNjU0MzYxYjM5MGIxYjUwMThiMDU4NTlhYw==
+  response:
+    status:
+      code: 500
+      message: REQUEST FAILED
+    headers:
+      Access-Control-Allow-Headers:
+      - Content-Type, x-requested-with
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '600'
+      Content-Disposition:
+      - inline
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 12 Oct 2017 22:31:06 GMT
+      Server:
+      - nginx
+      Content-Length:
+      - '115'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "id": "<20171012223106.106709.094B6904BF5D87E7@sverigeshundforetagare.se>",
+          "message": "The request failed."
+        }
+    http_version:
+  recorded_at: Thu, 12 Oct 2017 22:31:06 GMT
+recorded_with: VCR 3.0.3

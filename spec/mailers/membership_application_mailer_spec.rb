@@ -4,7 +4,7 @@ require 'email_spec/rspec'
 
 require File.join(__dir__, 'shared_email_tests')
 
-
+require_relative './previews/membership_application_mailer_preview'
 
 # Ensure that the mail can be created
 #  and the subject, recipient, and greeting are correct
@@ -19,7 +19,7 @@ RSpec.describe MembershipApplicationMailer, type: :mailer do
 
   describe '#accepted' do
 
-    let(:accepted_app) { create(:membership_application, :accepted, user: test_user)  }
+    let(:accepted_app) { create(:membership_application, :accepted, user: test_user) }
     let(:email_sent) { MembershipApplicationMailer.accepted(accepted_app) }
 
     it_behaves_like 'a successfully created email',
@@ -34,7 +34,7 @@ RSpec.describe MembershipApplicationMailer, type: :mailer do
 
   describe '#acknowledge_received' do
 
-    let(:received_app) { create(:membership_application, user: test_user)  }
+    let(:received_app) { create(:membership_application, user: test_user) }
     let(:email_sent) { MembershipApplicationMailer.acknowledge_received(received_app) }
 
     it_behaves_like 'a successfully created email',
@@ -44,6 +44,11 @@ RSpec.describe MembershipApplicationMailer, type: :mailer do
       let(:email_created) { email_sent }
     end
 
+  end
+
+
+  it 'has a previewer' do
+    expect(MembershipApplicationMailerPreview).to be
   end
 
 end

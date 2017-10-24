@@ -77,6 +77,10 @@ class User < ApplicationRecord
     self.membership_number = self.membership_number.blank? ? get_next_membership_number : self.membership_number
   end
 
+  ransacker :padded_membership_number do
+    Arel.sql("lpad(membership_number, 20, '0')")
+  end
+
   private
 
   def get_next_membership_number

@@ -1,6 +1,17 @@
 = search_form_for @search_params, method: :get, url: membership_applications_path,
                                   class: 'form-horizontal' do |f|
   .form-group
+    .col-sm-2
+      = f.label :user_membership_number_in,
+                "#{t('membership_applications.index.membership_number')}",
+                class: 'control-label',
+                style: 'text-align: left; font-size: 12px;'
+      = f.collection_select :user_membership_number_in,
+                      User.distinct.order(:membership_number).pluck(:membership_number).reject(&:blank?),
+                      :to_s, :to_s, { include_blank: false },
+                      { multiple: true, size: 5, style: 'width: 100%;',
+                        class: 'form-control search_field',
+                        data: {language: "#{@locale}" } }
     .col-sm-5
       = f.label :user_last_name_in,
                 "#{t('activerecord.attributes.membership_application.last_name')}",
@@ -12,7 +23,7 @@
                       { multiple: true, size: 5, style: 'width: 100%;',
                         class: 'form-control search_field',
                         data: {language: "#{@locale}" } }
-    .col-sm-3
+    .col-sm-2
       = f.label :company_number_in,
                 "#{t('membership_applications.index.org_nr')}",
                 class: 'control-label',
@@ -24,7 +35,7 @@
                         class: 'form-control search_field',
                         data: {language: "#{@locale}" } }
 
-    .col-sm-4
+    .col-sm-3
       = f.label :state_in,
                 "#{t('membership_applications.index.state')}",
                class: 'control-label',
@@ -35,7 +46,6 @@
                      { multiple: true, size: 5, style: 'width: 100%;',
                        class: 'form-control search_field',
                        data: {language: "#{@locale}" } }
-
     .col-sm-12
       %br
       = submit_tag "#{t('search')}", class: 'btn btn-primary pull-right'
