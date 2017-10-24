@@ -21,7 +21,7 @@ class MembershipApplicationsController < ApplicationController
     action_params, @items_count, items_per_page =
       process_pagination_params('membership_application')
 
-    @search_params = MembershipApplication.includes(:user).ransack(action_params )
+    @search_params = MembershipApplication.includes(:user).ransack(action_params)
 
     @membership_applications = @search_params
                                    .result
@@ -49,11 +49,14 @@ class MembershipApplicationsController < ApplicationController
     if @membership_application.save
 
       if new_file_uploaded(params)
-        helpers.flash_message(:notice, t('.success'))
+        helpers.flash_message(:notice, t('.success', email_address: @membership_application.contact_email))
         redirect_to root_path
       else
         create_error(t('.error'))
       end
+
+
+      MembershipApplicationMailer.acknowledge_received(@membership_application).deliver
 
     else
       create_error(t('.error'))
@@ -66,8 +69,8 @@ class MembershipApplicationsController < ApplicationController
 
       if params[:member_app_waiting_reasons] && params[:member_app_waiting_reasons] != "#{@other_waiting_reason_value}"
         @membership_application
-          .update(member_app_waiting_reasons_id: params[:member_app_waiting_reasons],
-                  custom_reason_text: nil)
+            .update(member_app_waiting_reasons_id: params[:member_app_waiting_reasons],
+                    custom_reason_text: nil)
         head :ok
       else
         render plain: "#{@other_waiting_reason_value}"
@@ -87,7 +90,7 @@ class MembershipApplicationsController < ApplicationController
 
         respond_to do |format|
           format.js do
-            head :ok   # just let the receiver know everything is OK. no need to render anything
+            head :ok # just let the receiver know everything is OK. no need to render anything
           end
 
           format.html do

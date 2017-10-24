@@ -1,4 +1,5 @@
-Feature: As an applicant
+Feature: Applicant uploads too large a file for their application
+  As an applicant
   if I upload a too large file
   I need to get an understandable error-message
   PT: https://www.pivotaltracker.com/story/show/136316233
@@ -35,7 +36,7 @@ Feature: As an applicant
     And I choose a file named "upload-just-under-limit.pdf" to upload
     When I click on t("membership_applications.new.submit_button_label")
     Then I should not see t("activerecord.errors.models.uploaded_file.attributes.actual_file_file_size.file_too_large")
-    And I should see t("membership_applications.create.success")
+    And I should see t("membership_applications.create.success", email_address: applicant_2@random.com)
 
 
   Scenario: Existing application - Uploads a file that is too large

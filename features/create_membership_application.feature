@@ -1,4 +1,6 @@
-Feature: As a user
+Feature: Create a new membership application
+
+  As a user
   In order to get a membership with SHF (which makes my business more valuable )
   I need to be able to submit a Membership Application
   PT: https://www.pivotaltracker.com/story/show/133940725
@@ -33,7 +35,7 @@ Feature: As a user
     And I select "Groomer" Category
     And I click on t("membership_applications.new.submit_button_label")
     Then I should be on the "landing" page
-    And I should see t("membership_applications.create.success")
+    And I should see t("membership_applications.create.success", email_address: info@craft.se)
     When I click on t("menus.nav.users.my_application")
     Then the t("membership_applications.new.first_name") field should be set to "Kicki"
     And the t("membership_applications.new.last_name") field should be set to "Andersson"
@@ -49,7 +51,7 @@ Feature: As a user
     And I select "Psychologist" Category
     And I click on t("membership_applications.new.submit_button_label")
     Then I should be on the "landing" page
-    And I should see t("membership_applications.create.success")
+    And I should see t("membership_applications.create.success", email_address: info@craft.se)
 
 
   Scenario: A user can submit a new Membership Application with no categories
@@ -60,7 +62,7 @@ Feature: As a user
       | Kicki                                  | Andersson                             | 5562252998                                 | 031-1234567                              | info@craft.se                             |
     And I click on t("membership_applications.new.submit_button_label")
     Then I should be on the "landing" page
-    And I should see t("membership_applications.create.success")
+    And I should see t("membership_applications.create.success", email_address: info@craft.se)
 
 
   Scenario: Applicant not see membership number when submitting
@@ -88,7 +90,7 @@ Feature: As a user
       | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
       | Applicant1                             | Andersson                             | 5562252998                                 | 031-1234567                              | applicant_1@random.com                    |
     And I click on t("membership_applications.new.submit_button_label")
-    Then I should see t("membership_applications.create.success")
+    Then I should see t("membership_applications.create.success", email_address: applicant_1@random.com)
     Given I am logged in as "applicant_2@random.com"
     And I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
@@ -96,7 +98,7 @@ Feature: As a user
       | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
       | Applicant2                             | Andersson                             | 2120000142                                 | 031-1234567                              | applicant_2@random.com                    |
     And I click on t("membership_applications.new.submit_button_label")
-    Then I should see t("membership_applications.create.success")
+    Then I should see t("membership_applications.create.success", email_address: applicant_2@random.com)
 
 
   Scenario Outline: Apply for membership - when things go wrong

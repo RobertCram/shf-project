@@ -7,16 +7,16 @@ Feature: As an admin
   Background:
 
     Given the following users exists
-      | email                   | admin |
-      | emma@personal.com       |       |
-      | lars@personal.com       |       |
-      | hannah@personal.com     |       |
-      | nils@personal.se        |       |
-      | anna@personal.se        |       |
-      | sam@personal.se         |       |
-      | admin@shf.se            | true  |
-      | yesterday_admin@shf.se  | true  |
-      | lazy_admin@shf.se       | true  |
+      | email                   | admin | membership_number |
+      | emma@personal.com       |       | 100               |
+      | lars@personal.com       |       | 101               |
+      | hannah@personal.com     |       | 102               |
+      | nils@personal.se        |       |                   |
+      | anna@personal.se        |       |                   |
+      | sam@personal.se         |       |                   |
+      | admin@shf.se            | true  |                   |
+      | yesterday_admin@shf.se  | true  |                   |
+      | lazy_admin@shf.se       | true  |                   |
 
     And the following regions exist:
       | name         |
@@ -108,6 +108,12 @@ Feature: As an admin
     When I am on the "user details" page for "emma@personal.com"
     Then I should see t("users.show.password_never_reset")
 
+  @member
+  Scenario: Show the membership number for a member
+    When I am on the "user details" page for "emma@personal.com"
+    Then I should see t("users.show.membership_number")
+    And I should see "100"
+
 
   @user
   Scenario: Show an user who has never logged in
@@ -140,3 +146,9 @@ Feature: As an admin
     And I should see "emma@bowsers.com"
     And I should see "5560360793"
     And I should see "2120000142"
+
+  @user
+  Scenario: Do not show the membership number when there is none
+    When I am on the "user details" page for "nils@personal.se"
+    Then I should not see t("users.show.membership_number")
+
