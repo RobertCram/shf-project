@@ -120,7 +120,7 @@ class MembershipApplicationPolicy < ApplicationPolicy
     if user.admin?
       all_attributes
     elsif owner?
-      owner_attributes
+      [:accepted, :rejected].include?(record.state.to_sym) ? [] : owner_attributes
     elsif not_a_visitor
       user_owner_attributes
     else

@@ -27,12 +27,32 @@ describe MembershipApplicationPolicy do
         is_expected.to permit_mass_assignment_of(:state).for_action(:create)
       end
 
-      it 'permits edit' do
+      it 'permits edit when not accepted or rejected' do
         is_expected.to permit_mass_assignment_of(:state).for_action(:edit)
       end
 
-      it 'permits update' do
+      it 'forbids edit when accepted' do
+        application.accept
+        is_expected.to forbid_mass_assignment_of(:state).for_action(:edit)
+      end
+
+      it 'forbids edit when rejected' do
+        application.reject
+        is_expected.to forbid_mass_assignment_of(:state).for_action(:edit)
+      end
+
+      it 'permits update when not accepted or rejected' do
         is_expected.to permit_mass_assignment_of(:state).for_action(:update)
+      end
+
+      it 'forbids update when accepted' do
+        application.accept
+        is_expected.to forbid_mass_assignment_of(:state).for_action(:update)
+      end
+
+      it 'forbids update when rejected' do
+        application.reject
+        is_expected.to forbid_mass_assignment_of(:state).for_action(:update)
       end
 
       it 'forbids destroy' do
@@ -238,17 +258,29 @@ describe MembershipApplicationPolicy do
       it 'permits edit when not accepted or rejected' do
         is_expected.to permit_action :edit
       end
-      it 'permits update' do
-        is_expected.to permit_action :update
-      end
 
       it 'forbids edit for accepted' do
         application.accept
         is_expected.to forbid_action :edit
       end
+
       it 'forbids edit for rejected' do
         application.reject
         is_expected.to forbid_action :edit
+      end
+
+      it 'permits update when not accepted or rejected' do
+        is_expected.to permit_action :update
+      end
+
+      it 'forbids update for accepted' do
+        application.accept
+        is_expected.to forbid_action :update
+      end
+
+      it 'forbids update for rejected' do
+        application.reject
+        is_expected.to forbid_action :update
       end
 
       it 'forbids destroy' do
