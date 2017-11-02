@@ -12,6 +12,8 @@
 .entry-content
   = field_or_none("#{t('.email')}", mail_to(@user.email), label_class: 'standard-label')
 
+  = field_or_none("#{t('.membership_number')}", @user.membership_number, label_class: 'standard-label')
+
   - unless @user.membership_applications.exists?
     = field_or_none("#{t('applications')}", t('none'), label_class: 'standard-label')
   - else

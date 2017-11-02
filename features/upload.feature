@@ -1,4 +1,5 @@
-Feature: As an applicant
+Feature: Applicant uploads a file for their application
+  As an applicant
   In order to show my credentials
   I need to be able to upload files
   PT: https://www.pivotaltracker.com/story/show/133109591
@@ -24,7 +25,7 @@ Feature: As an applicant
       | Hans                                   | Newfoundland                          | 5560360793                                 | 031-1234567                              | applicant_2@random.com                    |
     And I choose a file named "diploma.pdf" to upload
     When I click on t("membership_applications.new.submit_button_label")
-    Then I should see t("membership_applications.create.success")
+    Then I should see t("membership_applications.create.success", email_address: applicant_2@random.com)
     And I should see t("membership_applications.uploads.file_was_uploaded", filename: 'diploma.pdf')
     And I am on the "edit my application" page
     Then I should see t("membership_applications.uploads.files_uploaded")

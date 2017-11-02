@@ -33,7 +33,7 @@ Feature: Whole process of a new user creating a login, applying, being approved,
     And I select "Groomer" Category
     And I click on t("membership_applications.new.submit_button_label")
     Then I should be on the "landing" page
-    And I should see t("membership_applications.create.success")
+    And I should see t("membership_applications.create.success", email_address: new_user@example.com)
     And I am logged out
     And I am logged in as "admin@shf.se"
     And I am on the "landing" page
