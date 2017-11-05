@@ -1,0 +1,17 @@
+%header.entry-header
+  %h1.entry-title
+    - payment_type = t("payment.payment_type.#{@payment.payment_type}")
+    = t('.title', payment_type: payment_type, user_name: @payment.user.full_name)
+
+  .post-title-divider
+    %span
+
+:javascript
+  Hips.checkout({
+          token: "#{@hips_id}",
+          style: {
+            'mainColor': "#{HIPS_FORM_MAIN_COLOR}",
+            'secondColor': "#{HIPS_FORM_SECONDARY_COLOR}",
+            'font': "#{HIPS_FORM_FONT}"
+          }
+         });

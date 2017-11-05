@@ -115,6 +115,9 @@ sv:
         one: Dokument
         other: Dokument
 
+      payment:
+        one: Betalning
+        other: Betalningar
 
     attributes:
 
@@ -134,6 +137,8 @@ sv:
         created: *created
         reset_password_sent_at: &user_reset_password_sent_at Information angående återställning av lösenord sändes
 
+      payment:
+        payment_type: Betalningstyp
 
       membership_application:
         company_number: &company_number Organisationsnummer
@@ -231,6 +236,11 @@ sv:
     city: *city
     kommun: *kommun
     none: *none
+
+  payment:
+    payment_type:
+      member_fee: Medlemsavgift
+      branding_fee: H-märkesavgift
 
   # Automatisk och manuell sökning för views:
   membership_applications:
@@ -622,6 +632,18 @@ sv:
       applications: *applications
       applications_tooltip: Antal öppna ansökningar
 
+  payments:
+    create:
+      page_title: &page_title '%{payment_type} Betalning genom: %{user_name}'
+      title: *page_title
+      something_wrong: Något gick fel - kontakta systemadministratören på medlem@sverigeshundforetagare.se
+
+    success:
+      success: Betalning framgångsrikt genomförd - tack!
+
+    error:
+      error: Det uppstod ett fel vid behandlingen av din betalning
+
   admin:
     index:
       export: Exportera ansökningar som CSV
@@ -904,6 +926,7 @@ sv:
           view_company: Visa företagssida
           edit_company: Redigera företag
         my_application: *my_application
+        pay_membership: Betala medlemsavgift
 
       admin:
         shf_main_site: *shf_main_site
