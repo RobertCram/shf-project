@@ -22,6 +22,10 @@ class ApplicationPolicy
     update?
   end
 
+  def create?
+    admin_or_owner?
+  end
+
 
   def destroy?
     user.admin?

@@ -16,7 +16,7 @@ RSpec.describe HipsService do
   end
 
   let(:invalid_key) do
-    HIPS_PRIVATE_KEY = '123'
+    HIPS_PRIVATE_KEY = '123' unless defined?(HIPS_PRIVATE_KEY)
   end
 
   let(:fetched_order) do
