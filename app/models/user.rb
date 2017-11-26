@@ -76,18 +76,13 @@ class User < ApplicationRecord
   end
 
 
-  def is_member?
-    member?
-  end
-
-
   def is_member_or_admin?
-    admin? || is_member?
+    admin? || member?
   end
 
 
   def is_in_company_numbered?(company_num)
-    is_member? && !(companies.detect { |c| c.company_number == company_num }).nil?
+    member? && !(companies.detect { |c| c.company_number == company_num }).nil?
   end
 
 

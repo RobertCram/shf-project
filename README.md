@@ -11,7 +11,7 @@ The main project documentation is on the [page for this project at the AgileVent
 _This is a project of [AgileVentures](http://www.agileventures.org), a non-profit organization dedicated to crowdsourced learning and project development._  
 
 
-Sempahore status: [![Build Status](https://semaphoreci.com/api/v1/lollypop27/shf-project/branches/develop/badge.svg)](https://semaphoreci.com/lollypop27/shf-project)
+Sempahore status: [![Semaphore Status](https://semaphoreci.com/api/v1/shf-project/shf-project/branches/develop/shields_badge.svg)](https://semaphoreci.com/shf-project/shf-project)
 
 Codeclimate: [![Code Climate](https://codeclimate.com/github/AgileVentures/shf-project/badges/gpa.svg)](https://codeclimate.com/github/AgileVentures/shf-project)
 
