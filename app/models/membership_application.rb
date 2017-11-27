@@ -112,11 +112,6 @@ class MembershipApplication < ApplicationRecord
   end
 
 
-  def is_accepted?
-    accepted?
-  end
-
-
   def paid?
     true
     #(total_outstanding_charges <= 0)

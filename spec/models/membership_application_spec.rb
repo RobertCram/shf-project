@@ -138,27 +138,6 @@ RSpec.describe MembershipApplication, type: :model do
 
   end
 
-  describe '#is_accepted?' do
-    let!(:states) {MembershipApplication.aasm.states.map(&:name)}
-    let(:states_not_accepted) {states.reject {|s| s == :accepted}}
-
-    it "state :accepted == is_accepted" do
-      subject.state = :accepted
-      expect(subject.is_accepted?).to be_truthy
-    end
-
-    it "these states should not be #is_accepted" do
-      not_accepted_states = MembershipApplication.aasm.states.map(&:name).reject {|s| s == :accepted}
-
-      not_accepted_states.each do |state|
-        subject.state = state
-        expect(subject.is_accepted?).to be_falsey
-      end
-    end
-
-  end
-
-
   describe 'test factories' do
 
     it '1 category with default category name' do
