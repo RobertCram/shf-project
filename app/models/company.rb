@@ -70,7 +70,7 @@ class Company < ApplicationRecord
 
     membership_applications.reload
 
-    if membership_applications.select(&:accepted?).count != 0
+    if membership_applications.where(state: 'accepted').any?
       errors.add(:base, 'activerecord.errors.models.company.company_has_active_memberships')
       # Rails 5: must throw
       throw(:abort)
@@ -82,7 +82,10 @@ class Company < ApplicationRecord
 
 
   def main_address
-    return addresses.includes(:region).first unless addresses.empty?
+
+    return addresses.mail_address.includes(:region)[0] if addresses.mail_address.exists?
+
+    return addresses.includes(:region).first if addresses.exists?
 
     new_address = Address.new(addressable: self)
     addresses << new_address

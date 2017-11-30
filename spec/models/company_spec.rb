@@ -136,12 +136,6 @@ RSpec.describe Company, type: :model do
              company_number: company.company_number)
     end
 
-    before(:all) do
-      expect(Company.count).to eq(0)
-      expect(MembershipApplication.count).to eq(0)
-      expect(User.count).to eq(0)
-    end
-
     it '3 employees, each with 1 unique category' do
       m1.business_categories << cat1
       m2.business_categories << cat2
@@ -178,7 +172,13 @@ RSpec.describe Company, type: :model do
 
     end
 
-    it 'returns the first address for the company' do
+    it 'returns mail address for company' do
+      company = create(:company, num_addresses: 3)
+      company.addresses[1].update(mail: true)
+      expect(company.main_address).to eq(company.addresses.second)
+    end
+
+    it 'returns the first address for the company if no mail address' do
       company = create(:company, num_addresses: 3)
       expect(company.addresses.count).to eq 3
       expect(company.main_address).to eq(company.addresses.first)
