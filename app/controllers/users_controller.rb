@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def index
     authorize User
-    action_params, @items_count, items_per_page = process_pagination_params('company')
+    action_params, @items_count, items_per_page = process_pagination_params('user')
 
     if action_params then
       @filter_are_members = action_params[:membership_filter] == '1'
