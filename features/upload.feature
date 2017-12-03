@@ -64,6 +64,7 @@ Feature: Applicant uploads a file for their application
     And I should see 2 uploaded files listed
 
 
+  @selenium
   Scenario: Upload multiple files at one time (multiple select)
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
@@ -74,6 +75,18 @@ Feature: Applicant uploads a file for their application
     And I should see "picture.jpg" uploaded for this membership application
     And I should see "picture.png" uploaded for this membership application
     And I should see 3 uploaded files listed
+
+
+  @selenium
+  Scenario: Use the upload button multiple times
+    Given I am logged in as "applicant_1@random.com"
+    And I am on the "edit my application" page
+    When I choose a file named "picture.jpg" to upload
+    And I choose a file named "picture.png" to upload
+    And I choose a file named "diploma.pdf" to upload
+    Then I should see "diploma.pdf"
+    And I should not see "picture.jpg"
+    And I should not see "picture.png"
 
 
   Scenario: Try to upload a file with unacceptable content type

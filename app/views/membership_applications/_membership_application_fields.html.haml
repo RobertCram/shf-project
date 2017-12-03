@@ -78,7 +78,8 @@
     var upload_table = document.getElementById("files-to-upload");
 
     var filesUploadButton = document.getElementById("upload-button");
-    var txt = "";
+
+    $(upload_table).find("tr>td").remove();
 
     if ('files' in filesUploadButton) {
 
