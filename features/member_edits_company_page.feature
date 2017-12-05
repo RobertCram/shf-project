@@ -6,9 +6,9 @@ Feature: As a member
 
   Background:
     Given the following users exists
-      | email               | admin | is_member |
-      | emma@happymutts.com |       | true      |
-      | admin@shf.se        | true  | true      |
+      | email               | admin | member |
+      | emma@happymutts.com |       | true   |
+      | admin@shf.se        | true  | false  |
 
     Given the following regions exist:
       | name         |
@@ -22,6 +22,7 @@ Feature: As a member
     And the following companies exist:
       | name                 | company_number | email                  |
       | No More Snarky Barky | 2120000142     | snarky@snarkybarky.com |
+      | Woof Woof            | 5560360793     | emma@happymutts.com    |
 
     And the following business categories exist
       | name         |
@@ -32,6 +33,7 @@ Feature: As a member
 
     And the following applications exist:
       | user_email          | company_number | categories | state    |
+      | emma@happymutts.com | 5560360793     |            | accepted |
       | emma@happymutts.com | 5562252998     | Awesome    | accepted |
 
     And the following payments exist

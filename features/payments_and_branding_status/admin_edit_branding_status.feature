@@ -4,9 +4,9 @@ Feature: As an admin
 
   Background:
     Given the following users exist
-      | email          | admin | is_member | membership_number |
-      | admin@shf.se   | true  | true      | 1                 |
-      | emma@mutts.com |       | true      | 1001              |
+      | email          | admin | member | membership_number |
+      | admin@shf.se   | true  | false  |                   |
+      | emma@mutts.com |       | true   | 1001              |
 
     Given the following companies exist:
       | name       | company_number | email                 | region    |

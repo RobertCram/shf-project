@@ -1,26 +1,12 @@
 Given(/^the following users exist(?:s|)$/) do |table|
   table.hashes.each do |user|
 
-    is_member = user.delete('is_member')
-    is_legacy = user.delete('is_legacy')
-
     user['membership_number'] = nil if user['membership_number'].blank?
 
-    if user['admin'] == 'true'
-      FactoryGirl.create(:user, user)
-    else
-      if is_legacy == 'true'
-        FactoryGirl.create(:user_without_first_and_lastname, user)
-      elsif is_member == 'true'
-        FactoryGirl.create(:member_with_membership_app, user)
-      else
-        if ! user['company_number'].nil?
-          FactoryGirl.create(:user_with_membership_app, user, company_number: user['company_number'])
-        else
-          FactoryGirl.create(:user, user)
-        end
-      end
-    end
+    is_legacy = user.delete('is_legacy')
+
+    is_legacy == 'true' ? FactoryGirl.create(:user_without_first_and_lastname, user) : FactoryGirl.create(:user, user)
+
   end
 end
 

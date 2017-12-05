@@ -3,9 +3,9 @@ Feature: Whole process of a new user creating a login, applying, being approved,
 
   Background:
     Given the following users exists
-      | email                | admin | is_member |
-      | new_user@example.com |       | false     |
-      | admin@shf.se         | true  | true      |
+      | email                | admin |
+      | new_user@example.com |       |
+      | admin@shf.se         | true  |
 
     Given the following regions exist:
       | name         |

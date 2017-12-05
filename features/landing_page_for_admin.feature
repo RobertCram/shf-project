@@ -6,10 +6,10 @@ Feature: As an Admin
 
   Background:
     Given the following users exists
-      | email              | is_member | admin |
-      | emma@happymutts.se | true      |       |
-      | hans@bowsers.com   | false     |       |
-      | admin@shf.se       | true      | true  |
+      | email              | admin | member |
+      | emma@happymutts.se |       | true   |
+      | hans@bowsers.com   |       | false  |
+      | admin@shf.se       | true  | false  |
 
 
 

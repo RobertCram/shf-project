@@ -10,8 +10,8 @@ Feature: As a non-swedish speaking potential member
 
   Background:
     Given the following users exists
-      | email                | password | admin | is_member |
-      | emma@random.com      | password | false | false     |
+      | email                |
+      | emma@random.com      |
 
 
   Scenario: Devise new session view is translated

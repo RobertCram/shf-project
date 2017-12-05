@@ -4,9 +4,13 @@ Feature: As a member
 
   Background:
     Given the following users exist
-      | email          | admin | is_member | membership_number |
+      | email          | admin | member    | membership_number |
       | emma@mutts.com |       | true      | 1001              |
-      | admin@shf.se   | true  | true      | 1                 |
+      | admin@shf.se   | true  | false     |                   |
+
+    Given the following applications exist:
+      | user_email     | company_number | state    |
+      | emma@mutts.com | 2120000142     | accepted |
 
     Given the following payments exist
       | user_email     | start_date | expire_date | payment_type | status | hips_id |

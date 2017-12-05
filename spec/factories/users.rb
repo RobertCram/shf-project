@@ -45,6 +45,8 @@ FactoryGirl.define do
 
     factory :member_with_membership_app do
 
+      member true
+
       transient do
         company_number 5562728336
       end
