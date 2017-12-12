@@ -7,11 +7,11 @@ Feature:
 
   Background:
     Given the following users exist
-      | first_name | last_name | email                               | admin | membership_number |
-      | John       | Adams     | ja@hotmail.com                      | false | 1                 |
-      | Sarah      | Connor    | sconnor@example.com                 | false | 2                 |
-      | Luke       | Skywalker | luke@force.net                      | false | 14                |
-      | admin      | admin     | admin@sverigeshundforetagare.se     | true  | 3                 |
+      | first_name | last_name | email                               | admin | membership_number | member |
+      | John       | Adams     | ja@hotmail.com                      | false | 1                 | false  |
+      | Sarah      | Connor    | sconnor@example.com                 | false | 2                 | true   |
+      | Luke       | Skywalker | luke@force.net                      | false | 14                | false  |
+      | admin      | admin     | admin@sverigeshundforetagare.se     | true  | 3                 | false  |
     And the following applications exist:
       | user_email          | state                 | company_number |
       | ja@hotmail.com      | waiting_for_applicant | 0000000000     |

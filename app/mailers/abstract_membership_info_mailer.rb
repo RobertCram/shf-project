@@ -16,10 +16,8 @@ class AbstractMembershipInfoMailer < ApplicationMailer
 
   def set_mail_info(method_sym, member_app)
 
+    super(method_sym, member_app.user)
     @member_app = member_app
-    @action_name = method_sym.to_s
-    @greeting_name = set_greeting_name(member_app.user)
-    @recipient_email = set_recipient_email(member_app.user)
 
   end
 

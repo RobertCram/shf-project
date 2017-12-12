@@ -4,9 +4,9 @@ Feature: As a user
 
   Background:
     Given the following users exist
-      | email          | admin | is_member |
-      | emma@mutts.com |       | false     |
-      | admin@shf.se   | true  | true      |
+      | email          | admin | member |
+      | emma@mutts.com |       | false  |
+      | admin@shf.se   | true  | false  |
 
     Given the following business categories exist
       | name         | description           |

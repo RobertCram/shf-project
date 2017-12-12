@@ -14,9 +14,10 @@ Feature: Create a new membership application
 
   Background:
     Given the following users exists
-      | email                  |
-      | applicant_1@random.com |
-      | applicant_2@random.com |
+      | email                  | admin |
+      | applicant_1@random.com |       |
+      | applicant_2@random.com |       |
+      | admin@shf.se           | yes   |
 
     And the following business categories exist
       | name         |
@@ -39,6 +40,14 @@ Feature: Create a new membership application
     When I click on t("menus.nav.users.my_application")
     Then the t("membership_applications.new.first_name") field should be set to "Kicki"
     And the t("membership_applications.new.last_name") field should be set to "Andersson"
+    Then "applicant_1@random.com" should receive an email
+    And I open the email
+    And I should see t("application_mailer.membership_application.acknowledge_received.subject") in the email subject
+    And I am logged in as "admin@shf.se"
+    Then "admin@shf.se" should receive an email
+    And I open the email
+    And I should see t("application_mailer.admin.new_application_received.subject") in the email subject
+
 
 
   Scenario: A user can submit a new Membership Application with multiple categories
@@ -110,6 +119,9 @@ Feature: Create a new membership application
 
     When I click on t("membership_applications.new.submit_button_label")
     Then I should see error <model_attribute> <error>
+    And I should receive no emails
+    And "admin@shf.se" should receive no emails
+
 
     Scenarios:
       | f_name | c_number   | l_name    | c_email       | phone      | model_attribute                                                    | error                        |
@@ -132,8 +144,8 @@ Feature: Create a new membership application
     Then I should see <error>
 
     Scenarios:
-      | f_name | c_number | l_name    | c_email       | phone      | error                                                     |
-      | Kicki  | 00       | Andersson | kicki@immi.nu | 0706898525 | t("errors.messages.wrong_length", count: 10)|
+      | f_name | c_number | l_name    | c_email       | phone      | error                                        |
+      | Kicki  | 00       | Andersson | kicki@immi.nu | 0706898525 | t("errors.messages.wrong_length", count: 10) |
 
 
   Scenario: Cannot change locale if there are errors in the new application

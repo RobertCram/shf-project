@@ -7,7 +7,7 @@ Feature: As an applicant
 
   Background:
     Given the following users exists
-      | email             | is_member | admin |
+      | email             | member    | admin |
       | emma@random.com   | false     |       |
       | hans@random.com   | false     |       |
       | nils@random.com   | true      |       |

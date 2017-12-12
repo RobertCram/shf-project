@@ -44,6 +44,25 @@ RSpec.describe User, type: :model do
     it { is_expected.not_to be_member }
   end
 
+  describe 'Scopes' do
+
+    describe 'admins' do
+
+      it 'returns 2 users that are admins and 0 that are not' do
+        admin1 = create(:user, admin: true, first_name: 'admin1')
+        admin2 = create(:user, admin: true, first_name: 'admin2')
+        user1 = create(:user, first_name: 'user1')
+
+        all_admins = described_class.admins
+
+        expect(all_admins.count ).to eq 2
+        expect(all_admins).to include admin1
+        expect(all_admins).to include admin2
+        expect(all_admins).not_to include user1
+      end
+    end
+
+  end
 
   describe '#has_membership_application?' do
 

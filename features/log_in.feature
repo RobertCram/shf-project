@@ -4,11 +4,11 @@ Feature: As a registered user
 
   Background:
     Given the following users exists
-      | email                | password | admin | is_member |
-      | emma@random.com      | password | false | true      |
-      | lars-user@random.com | password | false | false     |
-      | anne@random.com      | password | false | false     |
-      | arne@random.com      | password | true  | true      |
+      | email                | password | admin | member |
+      | emma@random.com      | password | false | true   |
+      | lars-user@random.com | password | false | false  |
+      | anne@random.com      | password | false | false  |
+      | arne@random.com      | password | true  | true   |
 
     And the following applications exist:
       | user_email           | company_number | state    |

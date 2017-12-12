@@ -114,12 +114,16 @@ en:
         other: Companies
 
       shf_document:
-        one: SHF Document
-        other: SHF Documents
+        one: Document
+        other: Documents
 
       payment:
         one: Payment
         other: Payments
+
+      user:
+        one: User
+        other: Users
 
 
     attributes:
@@ -154,6 +158,10 @@ en:
         contact_email: &contact_email Contact Email
         state: &state Status
         phone_number: Phone number
+        uploaded_files:
+          one: Uploaded file
+          many: Uploaded files
+
 
       address:
         street: &street Street
@@ -476,6 +484,7 @@ en:
       branding_license: H-Branding License
       pay_branding_fee_tooltip: Paying H-Branding fee will extend your branding
                                 license for one year
+      members: Company Members
     index:
       title: Find H-labeled companies
       admin_title: Edit member companies

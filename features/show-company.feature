@@ -32,11 +32,11 @@ Feature: As a visitor,
       | Company6             | 6914762726     | cmpy6@mail.com         | Stockholm    | Alingsås | none           |
 
     And the following users exists
-      | email               | admin |
-      | emma@happymutts.com |       |
-      | a@happymutts.com    |       |
-      | member@cmpy6.com    |       |
-      | admin@shf.se        | true  |
+      | email               | admin | member |
+      | emma@happymutts.com |       | true   |
+      | a@happymutts.com    |       | true   |
+      | member@cmpy6.com    |       | true   |
+      | admin@shf.se        | true  | false  |
 
     And the following business categories exist
       | name         |
@@ -64,6 +64,8 @@ Feature: As a visitor,
     And I should see "No More Snarky Barky"
     And I should see "Groomer"
     And I should see "JustForFun"
+    And I should see t("companies.show.members")
+    And I should see "Firstname Lastname"
     And I should see "snarky@snarkybarky.com"
     And I should see "123123123"
     And I should see "Hundforetagarevägen 1"

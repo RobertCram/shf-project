@@ -7,9 +7,9 @@ Feature: Don't allow malicious code in Company website value
 
   Background:
     Given the following users exists
-      | email               | admin |
-      | emma@happymutts.com |       |
-      | admin@shf.se        | true  |
+      | email               | admin | member |
+      | emma@happymutts.com |       | true   |
+      | admin@shf.se        | true  |        |
 
     And the following regions exist:
       | name         |

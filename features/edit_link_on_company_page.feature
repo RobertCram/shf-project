@@ -5,12 +5,23 @@ Feature: As the owner of a company (or an admin)
   Background:
 
     Given the following users exists
-      | email                 | admin | is_member | company_number |
-      | emma@happymutts.com   |       | true      | 5562252998     |
-      | lars@happymutts.com   |       | true      | 5562252998     |
-      | anna@happymutts.com   |       | true      | 5562252998     |
-      | bowser@snarkybarky.se |       | true      | 2120000142     |
-      | admin@shf.se          | true  | false     |                |
+      | email                 | admin | member    |
+      | emma@happymutts.com   |       | true      |
+      | lars@happymutts.com   |       | true      |
+      | anna@happymutts.com   |       | true      |
+      | bowser@snarkybarky.se |       | true      |
+      | admin@shf.se          | true  | false     |
+
+    Given the following companies exist:
+      | name         | email                 | company_number |
+      | happy mutts  | emma@happymutts.com   | 5562252998     |
+      | snarky barky | bowser@snarkybarky.se | 2120000142     |
+
+    And the following applications exist:
+      | user_email            | company_number | state    |
+      | emma@happymutts.com   | 5562252998     | accepted |
+      | bowser@snarkybarky.se | 2120000142     | accepted |
+
 
   Scenario: Visitor does not see edit link for a company
     Given I am Logged out

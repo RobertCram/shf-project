@@ -55,9 +55,62 @@ namespace :deploy do
     end
   end
 
-  after :publishing, :restart
-end
 
+  # Note: another way to accomplish this would be to put an entry in .gitattributes for every file to ignore.
+  # However, I don't like mixing deployment information into git files.  (That couples the two systems and mixes responsibilities.)
+  desc "Remove testing related files"
+  task :remove_test_files do
+
+    on release_roles :all do
+
+      # Because gems for these are not deployed,
+      # Rake cannot load these files,
+      # which then causes problems when trying to run any rake tasks on the deployment server.
+      remove_files = ["#{current_path}/lib/tasks/ci.rake",
+                      "#{current_path}/lib/tasks/cucumber.rake",
+                      "#{current_path}/script/cucumber"].freeze
+
+      remove_files.each { |remove_f| remove_file remove_f }
+
+
+      # Remove testing directories since the gems for using them are not deployed.
+      remove_dirs = ["#{current_path}/spec",
+                     "#{current_path}/features"].freeze
+      remove_dirs.each { |remove_d| remove_dir remove_d }
+
+    end
+
+  end
+
+
+  def remove_file(full_fn_path)
+    if test("[ -f #{full_fn_path} ]") # if the file exists on the remote server
+      execute %{rm -f #{full_fn_path} }
+    else
+      warn "File doesn't exist, so it could not be removed: #{full_fn_path}" # log and puts
+    end
+  end
+
+
+  def remove_dir(full_dir_path)
+    if test("[ -f #{full_dir_path} ]") # if the file exists on the remote server
+      execute %{rm -r #{full_dir_path} }
+    else
+      warn "Directory doesn't exist, so it could not be removed: #{full_dir_path}" # log and puts
+    end
+  end
+
+
+
+  # If removing test files causes problems with the build or deployment,
+  # find out early (not after deploying).
+  #   If removing the files causes problems with bundling or assets or
+  #   publishing, the deployment should fail.
+  before :updated, :remove_test_files
+
+
+  after  :publishing, :restart
+end
 
 
 # Run a rails console or a rails dbconsole

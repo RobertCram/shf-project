@@ -22,7 +22,7 @@ RSpec.describe MembershipApplicationMailer, type: :mailer do
     let(:accepted_app) { create(:membership_application, :accepted, user: test_user) }
     let(:email_sent) { MembershipApplicationMailer.accepted(accepted_app) }
 
-    it_behaves_like 'a successfully created email',
+    it_behaves_like 'a successfully created email to a member',
                     I18n.t('application_mailer.membership_application.accepted.subject'),
                     'user@example.com',
                     I18n.t('application_mailer.greeting', greeting_name: 'Firstname Lastname') do
@@ -37,7 +37,7 @@ RSpec.describe MembershipApplicationMailer, type: :mailer do
     let(:received_app) { create(:membership_application, user: test_user) }
     let(:email_sent) { MembershipApplicationMailer.acknowledge_received(received_app) }
 
-    it_behaves_like 'a successfully created email',
+    it_behaves_like 'a successfully created email to a member',
                     I18n.t('application_mailer.membership_application.acknowledge_received.subject'),
                     'user@example.com',
                     I18n.t('application_mailer.greeting', greeting_name: 'Firstname Lastname') do

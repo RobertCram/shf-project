@@ -4,12 +4,12 @@ Feature: As an admin,
 
   Background:
     Given the following users exists
-      | email             | is_member | admin |
-      | emma@random.com   | false     | true  |
-      | hans@random.com   | false     | true  |
-      | nils@random.com   | true      | true  |
-      | bob@barkybobs.com | true      | true  |
-      | admin@shf.se      | true      | true  |
+      | email             | admin | member    |
+      | emma@random.com   |       | false     |
+      | hans@random.com   |       | false     |
+      | nils@random.com   |       | true      |
+      | bob@barkybobs.com |       | true      |
+      | admin@shf.se      | true  | false     |
 
     And the following simple applications exist:
       | user_email        | company_number | state                 |

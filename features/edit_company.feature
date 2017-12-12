@@ -4,7 +4,7 @@ Feature: As a member
 
   Background:
     Given the following users exists
-      | email                      | admin | is_member |
+      | email                      | admin | member    |
       | applicant_1@happymutts.com |       | true      |
       | applicant_3@happymutts.com |       | false     |
       | admin@shf.se               | true  | true      |
@@ -24,6 +24,12 @@ Feature: As a member
     Given I am logged in as "applicant_1@happymutts.com"
     And I am on the edit company page for "5560360793"
     Then I should see t("companies.edit.title", company_name: "No More Snarky Barky")
+
+  Scenario: Prospective member can not edit their company
+    Given I am logged in as "applicant_3@happymutts.com"
+    And I am on the edit company page for "2120000142"
+    Then I should not see t("companies.edit.title", company_name: "Bowsers")
+    And I should see t("errors.not_permitted")
 
   Scenario: Visitor tries to edit a company
     Given I am Logged out

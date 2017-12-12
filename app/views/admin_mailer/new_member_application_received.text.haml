@@ -1,0 +1,25 @@
+- provide :signoff do
+  = render 'admin_mailer/signoff'
+
+
+= t('application_mailer.admin.new_application_received.message_text.new_app_arrived')
+\
+= t('application_mailer.admin.new_application_received.message_text.from')
+= '     ' + @member_app.user.full_name
+= '     ' + I18n.t('activerecord.attributes.membership_application.contact_email') + ': ' + @member_app.contact_email
+
+= '        ' + I18n.t('activerecord.attributes.membership_application.phone_number') + ': ' + (@member_app.phone_number.nil? ? '' : @member_app.phone_number)
+= '        ' + I18n.t('activerecord.attributes.company.company_number') + ': ' + @member_app.company_number
+
+= '        # ' + I18n.t('activerecord.attributes.membership_application.uploaded_files.many') + ': ' + @member_app.uploaded_files.count.to_s
+- @member_app.uploaded_files.each do |uploaded_file|
+  = '            ' + uploaded_file.actual_file_file_name
+
+
+\
+= t('application_mailer.admin.new_application_received.message_text.view_app_here')
+= '     ' + url_for(@member_app)
+\
+= t('application_mailer.admin.new_application_received.message_text.must_be_logged_in')
+\
+

@@ -121,6 +121,10 @@ sv:
         one: Betalning
         other: Betalningar
 
+      user:
+        one: Användaren
+        other: Användare
+
 
     attributes:
 
@@ -154,6 +158,10 @@ sv:
         contact_email: &contact_email Kontakt e-post
         state: &state Status
         phone_number: Telefonnummer
+        uploaded_files:
+          one: Uppladdad fil
+          many: Uppladdade filer
+
 
       address:
         street: &street Gata
@@ -476,6 +484,8 @@ sv:
       edit_branding_status: Redigera Status
       branding_license: Accepterar policy
       pay_branding_fee_tooltip: Betald avgift förlänger H-märkningen i ett år.
+      members: Företagsmedlemmar
+
     index:
       title:  Hitta H-märkt företag
       admin_title: Redigera medlemsföretag

@@ -4,10 +4,14 @@ Feature: As a registered user
 
   Background:
     Given the following users exists
-      | email             | password | admin | is_member | first_name | last_name |
+      | email             | password | admin | member    | first_name | last_name |
       | admin@random.com  | password | true  | false     | emma       | admin     |
       | member@random.com | password | false | true      | mary       | member    |
       | user@random.com   | password | false | false     | ulysses    | user      |
+
+    And the following applications exist:
+      | user_email        | company_number | state    |
+      | member@random.com | 5560360793     | accepted |
 
   Scenario: Admin edits profile
     Given I am on the "landing" page

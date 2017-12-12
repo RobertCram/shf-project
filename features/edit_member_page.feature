@@ -6,8 +6,8 @@ Feature: Edit a member page
   Background:
 
     Given the following users exists
-      | email                    | admin | is_member |
-      | admin@shf.se             | true  | true      |
+      | email                    | admin |
+      | admin@shf.se             | true  |
 
   Scenario: Admin can edit contents of member page
     Given I am logged in as "admin@shf.se"
