@@ -13,9 +13,9 @@ module PathHelpers
         path = root_path
       when 'edit application', 'edit my application'
         user.shf_applications.reload
-        path = edit_shf_application_path(user.membership_application)
+        path = edit_shf_application_path(user.shf_application)
       when 'application', 'show my application'
-        path = shf_application_path(user.membership_application)
+        path = shf_application_path(user.shf_application)
       when 'user instructions'
         path = information_path
       when 'member instructions'
@@ -43,7 +43,7 @@ module PathHelpers
       when 'submit new membership application'
         path = new_shf_application_path
       when 'edit my company'
-        path = edit_company_path(user.membership_application.company)
+        path = edit_company_path(user.shf_application.company)
       when 'all users'
         path = users_path
       when 'all shf documents'

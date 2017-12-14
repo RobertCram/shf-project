@@ -21,7 +21,7 @@ RSpec.describe Visitor, type: :model do
     it { should respond_to(:admin?) }
     it { should respond_to(:member?) }
     it { should respond_to(:is_member_or_admin?) }
-    it { should respond_to(:has_membership_application?) }
+    it { should respond_to(:has_shf_application?) }
     it { should respond_to(:has_company?) }
     it { should respond_to(:is_in_company_numbered?) }
   end

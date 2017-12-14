@@ -197,7 +197,7 @@ RSpec.describe ShfApplication, type: :model do
   describe 'states, events, and transitions' do
 
     let!(:user) {create(:user_with_membership_app)}
-    let!(:application) {user.membership_application}
+    let!(:application) {user.shf_application}
 
     describe 'valid states' do
       it {expect(application).to have_valid_state(:new)}
@@ -210,12 +210,12 @@ RSpec.describe ShfApplication, type: :model do
 
 
     it 'initial state = new' do
-      expect(user.membership_application).to have_state(:new)
-      expect(user.membership_application).not_to have_state(:ready_for_review)
-      expect(user.membership_application).not_to have_state(:under_review)
-      expect(user.membership_application).not_to have_state(:accepted)
-      expect(user.membership_application).not_to have_state(:rejected)
-      expect(user.membership_application).not_to have_state(:waiting_for_applicant)
+      expect(user.shf_application).to have_state(:new)
+      expect(user.shf_application).not_to have_state(:ready_for_review)
+      expect(user.shf_application).not_to have_state(:under_review)
+      expect(user.shf_application).not_to have_state(:accepted)
+      expect(user.shf_application).not_to have_state(:rejected)
+      expect(user.shf_application).not_to have_state(:waiting_for_applicant)
     end
 
 

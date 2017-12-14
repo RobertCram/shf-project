@@ -61,7 +61,7 @@
                 - else
                   -# User is not a member nor admin
 
-                  - if current_user.has_membership_application?
+                  - if current_user.has_shf_application?
                     = render 'navigation_edit_my_application', membership_app: current_user.shf_applications.last
                   - else
                     %li.menu-item

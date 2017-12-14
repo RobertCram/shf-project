@@ -68,12 +68,12 @@ RSpec.describe User, type: :model do
 
     describe 'user: no application' do
       subject { create(:user) }
-      it { expect(subject.has_membership_application?).to be_falsey }
+      it { expect(subject.has_shf_application?).to be_falsey }
     end
 
     describe 'user: 1 saved application' do
       subject { create(:user_with_membership_app) }
-      it { expect(subject.has_membership_application?).to be_truthy }
+      it { expect(subject.has_shf_application?).to be_truthy }
     end
 
     describe 'user: 1 not yet saved application' do
@@ -84,17 +84,17 @@ RSpec.describe User, type: :model do
     describe 'member with 1 app' do
       let(:member) { create(:member_with_membership_app) }
       let(:member_app) { create(:shf_application, user: user_with_app) }
-      it { expect(member.has_membership_application?).to be_truthy }
+      it { expect(member.has_shf_application?).to be_truthy }
     end
 
     describe 'member with 0 app (should not happen)' do
       let(:member) { create(:user) }
-      it { expect(member.has_membership_application?).to be_falsey }
+      it { expect(member.has_shf_application?).to be_falsey }
     end
 
     describe 'admin' do
       subject { create(:user, admin: true) }
-      it { expect(subject.has_membership_application?).to be_falsey }
+      it { expect(subject.has_shf_application?).to be_falsey }
     end
 
   end
@@ -142,32 +142,32 @@ RSpec.describe User, type: :model do
 
     describe 'user: no application' do
       subject { create(:user) }
-      it { expect(subject.membership_application).to be_nil }
+      it { expect(subject.shf_application).to be_nil }
     end
 
     describe 'user: 1 saved application' do
       subject { create(:user_with_membership_app) }
-      it { expect(subject.membership_application).not_to be_nil }
+      it { expect(subject.shf_application).not_to be_nil }
     end
     describe 'user: 2 application' do
       subject { create(:user_with_2_membership_apps) }
-      it { expect(subject.membership_application).not_to be_nil }
+      it { expect(subject.shf_application).not_to be_nil }
       it { expect(subject.shf_applications.size).to eq(2) }
     end
 
     describe 'member with 1 app' do
       let(:member) { create(:member_with_membership_app) }
-      it { expect(member.membership_application).to be_truthy }
+      it { expect(member.shf_application).to be_truthy }
     end
 
     describe 'member with 0 apps (should not happen)' do
       let(:member) { create(:user) }
-      it { expect(member.membership_application).to be_falsey }
+      it { expect(member.shf_application).to be_falsey }
     end
 
     describe 'admin' do
       subject { create(:user, admin: true) }
-      it { expect(subject.membership_application).to be_falsey }
+      it { expect(subject.shf_application).to be_falsey }
     end
   end
 

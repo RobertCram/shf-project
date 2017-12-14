@@ -41,7 +41,7 @@ module PickRandomHelpers
 
         file_txt =  File.open(File.join(FIXTURE_DIR, "uploaded-#{i}.txt"), 'w'){ |f| f.puts "temp text file number #{i}"}
 
-        uploaded_file = UploadedFile.create(actual_file: file_txt, membership_application: app, actual_file_file_name:  "uploaded-#{i}.txt")
+        uploaded_file = UploadedFile.create(actual_file: file_txt, shf_application: app, actual_file_file_name:  "uploaded-#{i}.txt")
         app.uploaded_files << uploaded_file
       end
 

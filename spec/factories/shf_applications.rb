@@ -23,24 +23,24 @@ FactoryGirl.define do
       category_name "Business Category"
     end
 
-    after(:build) do |membership_app, evaluator|
+    after(:build) do |shf_app, evaluator|
 
       if evaluator.num_categories == 1
-        membership_app.business_categories << build(:business_category, name: evaluator.category_name)
+        shf_app.business_categories << build(:business_category, name: evaluator.category_name)
       else
         evaluator.num_categories.times do |cat_num|
-          membership_app.business_categories << build(:business_category, name: "#{evaluator.category_name} #{cat_num + 1}")
+          shf_app.business_categories << build(:business_category, name: "#{evaluator.category_name} #{cat_num + 1}")
         end
       end
 
       if (evaluator.state) && evaluator.state.to_sym == :accepted
-        membership_app.state = :accepted
+        shf_app.state = :accepted
 
         company = Company.find_by(company_number: evaluator.company_number)
         unless company
           company = FactoryGirl.create(:company, company_number: evaluator.company_number)
         end
-        membership_app.company = company
+        shf_app.company = company
       end
     end
 

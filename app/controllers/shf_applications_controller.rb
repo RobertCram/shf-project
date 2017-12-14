@@ -256,14 +256,14 @@ class ShfApplicationsController < ApplicationController
   def send_new_app_emails(new_shf_app)
 
     MembershipApplicationMailer.acknowledge_received(new_shf_app).deliver_now
-    send_new_membership_application_notice_to_admins(new_shf_app)
+    send_new_shf_application_notice_to_admins(new_shf_app)
 
   end
 
 
-  def send_new_membership_application_notice_to_admins(new_shf_app)
+  def send_new_shf_application_notice_to_admins(new_shf_app)
     User.admins.each do |admin|
-      AdminMailer.new_member_application_received(new_shf_app, admin).deliver_now
+      AdminMailer.new_shf_application_received(new_shf_app, admin).deliver_now
     end
   end
 

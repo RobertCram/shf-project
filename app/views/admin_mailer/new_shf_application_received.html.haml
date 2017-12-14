@@ -1,0 +1,25 @@
+- provide :signoff do
+  = render 'admin_mailer/signoff'
+
+
+%p= t('application_mailer.admin.new_application_received.message_text.new_app_arrived')
+
+.from-info
+  %p.from= t('application_mailer.admin.new_application_received.message_text.from')
+  %p.user-name= @shf_app.user.full_name
+  %p.user-email= I18n.t('activerecord.attributes.shf_application.contact_email') + ': ' +@shf_app.contact_email
+  %p.phone-number= I18n.t('activerecord.attributes.shf_application.phone_number') + ': ' + (@shf_app.phone_number.nil? ? '' : @shf_app.phone_number)
+  %p.company-number= I18n.t('activerecord.attributes.company.company_number') +': ' + @shf_app.company_number
+
+  %p.number-files-uploaded= '# ' + I18n.t('activerecord.attributes.shf_application.uploaded_files.many') + ': ' + @shf_app.uploaded_files.count.to_s
+
+  - @shf_app.uploaded_files.each do |uploaded_file|
+    %p.uploaded-file-name= '      ' + uploaded_file.actual_file_file_name
+
+
+%p
+  = t('application_mailer.admin.new_application_received.message_text.view_app_here') + ' '
+  = link_to(url_for(@shf_app), url_for(@shf_app), target: '_blank' )
+
+
+%p= t('application_mailer.admin.new_application_received.message_text.must_be_logged_in')

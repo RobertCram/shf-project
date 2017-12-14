@@ -17,7 +17,7 @@ class AbstractMembershipInfoMailer < ApplicationMailer
   def set_mail_info(method_sym, member_app)
 
     super(method_sym, member_app.user)
-    @member_app = member_app
+    @shf_app = member_app
 
   end
 

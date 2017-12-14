@@ -42,7 +42,7 @@ class User < ApplicationRecord
     member? || shf_applications.where(state: :accepted).any?
   end
 
-  def has_membership_application?
+  def has_shf_application?
     shf_applications.any?
   end
 
@@ -52,13 +52,13 @@ class User < ApplicationRecord
   end
 
 
-  def membership_application
-    has_membership_application? ? shf_applications.last : nil
+  def shf_application
+    has_shf_application? ? shf_applications.last : nil
   end
 
 
   def company
-    has_company? ? membership_application.company : nil
+    has_company? ? shf_application.company : nil
   end
 
 
@@ -75,7 +75,7 @@ class User < ApplicationRecord
   def companies
     if admin?
       Company.all
-    elsif member? && has_membership_application?
+    elsif member? && has_shf_application?
       cos = shf_applications.reload.map(&:company).compact
       cos.uniq(&:company_number)
     else

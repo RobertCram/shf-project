@@ -21,7 +21,7 @@ RSpec.describe AdminMailer, type: :mailer do
 
     let(:new_app) { create(:shf_application, user: test_user)  }
     let(:admin) { create(:user, email: 'admin@example.com', admin: true) }
-    let(:email_sent) { AdminMailer.new_member_application_received(new_app, admin) }
+    let(:email_sent) { AdminMailer.new_shf_application_received(new_app, admin) }
 
     it_behaves_like 'a successfully created email',
                     I18n.t('application_mailer.admin.new_application_received.subject'),
