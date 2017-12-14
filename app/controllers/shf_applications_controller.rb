@@ -255,7 +255,7 @@ class ShfApplicationsController < ApplicationController
 
   def send_new_app_emails(new_shf_app)
 
-    MembershipApplicationMailer.acknowledge_received(new_shf_app).deliver_now
+    ShfApplicationMailer.acknowledge_received(new_shf_app).deliver_now
     send_new_shf_application_notice_to_admins(new_shf_app)
 
   end
