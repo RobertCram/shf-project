@@ -56,13 +56,13 @@
                           = link_to t('menus.nav.members.manage_company.edit_company'),
                                     edit_company_path(member_company)
 
-                  = render 'navigation_edit_my_application', membership_app: current_user.shf_applications.last
+                  = render 'navigation_edit_my_application', shf_app: current_user.shf_applications.last
 
                 - else
                   -# User is not a member nor admin
 
                   - if current_user.has_shf_application?
-                    = render 'navigation_edit_my_application', membership_app: current_user.shf_applications.last
+                    = render 'navigation_edit_my_application', shf_app: current_user.shf_applications.last
                   - else
                     %li.menu-item
                       = link_to t('menus.nav.users.apply_for_membership'), new_shf_application_path

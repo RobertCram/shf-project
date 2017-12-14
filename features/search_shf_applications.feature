@@ -1,4 +1,4 @@
-Feature: Search Membership Applications
+Feature: Search Shf Applications
 
 As an admin for the site
 In order to find find and manage applications

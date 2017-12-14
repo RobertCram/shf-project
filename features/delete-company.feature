@@ -4,7 +4,7 @@ Feature: As an admin
 
   PT: https://www.pivotaltracker.com/story/show/138063171
 
-  Only delete a company if it is not associated with any accepted MembershipApplications
+  Only delete a company if it is not associated with any accepted ShfApplications
 
   Only delete the business categories associated with a company
   if those business categories are not associated with any other companies.
@@ -117,7 +117,7 @@ Feature: As an admin
     Then I should see t("delete")
 
 
-  # ---- MembershipApplications -----
+  # ---- ShfApplications -----
 
   @selenium
   Scenario: Admin deletes a company with no membership applications and no categories

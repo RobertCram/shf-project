@@ -64,7 +64,7 @@ RSpec.describe User, type: :model do
 
   end
 
-  describe '#has_membership_application?' do
+  describe '#has_shf_application?' do
 
     describe 'user: no application' do
       subject { create(:user) }
@@ -138,7 +138,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#membership_application' do
+  describe '#shf_application' do
 
     describe 'user: no application' do
       subject { create(:user) }

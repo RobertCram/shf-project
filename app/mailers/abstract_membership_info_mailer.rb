@@ -1,5 +1,5 @@
 # This class abstracts methods common to mailer classes that send out mails
-# based on MembershipApplications.
+# based on ShfApplications.
 #
 class AbstractMembershipInfoMailer < ApplicationMailer
 

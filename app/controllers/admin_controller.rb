@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   before_action :authorize_admin
 
-  # export membership_appplications
+  # export shf_appplications
   def export_ansokan_csv
 
     begin
@@ -30,11 +30,11 @@ class AdminController < ApplicationController
   end
 
 
-  def export_str(membership_apps)
+  def export_str(shf_apps)
 
     out_str = export_header_str
 
-    membership_apps.each do |m_app|
+    shf_apps.each do |m_app|
       out_str << "#{m_app.contact_email},#{m_app.user.first_name},#{m_app.user.last_name},#{m_app.user.membership_number},"
       out_str << t("shf_applications.state.#{m_app.state}")
       out_str << ','

@@ -96,7 +96,7 @@ class Company < ApplicationRecord
   end
 
 
-  # do not delete a Company if it has MembershipApplications that are accepted
+  # do not delete a Company if it has ShfApplications that are accepted
   def error_if_has_accepted_applications?
 
     shf_applications.reload

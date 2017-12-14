@@ -15,7 +15,7 @@ describe ShfApplicationPolicy do
                                state: :under_review)    }
 
 
-    describe 'For the MembershipApplication creator' do
+    describe 'For the ShfApplication creator' do
 
       subject { described_class.new(application_owner, application) }
 
@@ -196,7 +196,7 @@ describe ShfApplicationPolicy do
       end
     end
 
-    describe 'For other users of MembershipApplication' do
+    describe 'For other users of ShfApplication' do
       subject { described_class.new(user_2, application) }
 
       it 'forbids new' do
@@ -238,7 +238,7 @@ describe ShfApplicationPolicy do
       end
     end
 
-    describe 'For Creator of MembershipApplication' do
+    describe 'For Creator of ShfApplication' do
       subject { described_class.new(user_1, application) }
 
       it 'forbids new' do

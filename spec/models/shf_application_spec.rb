@@ -146,7 +146,7 @@ RSpec.describe ShfApplication, type: :model do
     let(:uploaded_file) {create(:uploaded_file, actual_file: (File.new(File.join(FIXTURE_DIR, 'image.jpg'))))}
     let(:shf_application) {create(:shf_application, user: application_owner, uploaded_files: [uploaded_file])}
 
-    it 'destroys a membershipapplication' do
+    it 'destroys an shfapplication' do
       shf_application.destroy
       expect(shf_application.destroyed?).to be_truthy
     end

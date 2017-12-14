@@ -30,7 +30,7 @@ RSpec.describe 'companies/index' do
       #https://github.com/elabs/pundit/issues/339
       #undefined method `policy' while testing with RSpec views specs
       without_partial_double_verification do
-        allow(view).to receive(:policy).and_return(double('MembershipApplicationPolicy.new', update?: false))
+        allow(view).to receive(:policy).and_return(double('ShfApplicationPolicy.new', update?: false))
       end
 
       assign(:all_visible_companies, [])
@@ -112,7 +112,7 @@ RSpec.describe 'companies/index' do
       #https://github.com/elabs/pundit/issues/339
       #undefined method `policy' while testing with RSpec views specs
       without_partial_double_verification do
-        allow(view).to receive(:policy).and_return(double('MembershipApplicationPolicy.new', update?: true))
+        allow(view).to receive(:policy).and_return(double('ShfApplicationPolicy.new', update?: true))
       end
 
       assign(:all_visible_companies, [])
