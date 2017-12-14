@@ -14,7 +14,7 @@
 
       != model_errors_helper(@shf_application)
 
-      = render partial: 'membership_application_fields',
+      = render partial: 'shf_application_fields',
                locals: { f: f, user: @shf_application.user }
       = render 'application/required_fields'
       = f.submit t('.submit_button_label')

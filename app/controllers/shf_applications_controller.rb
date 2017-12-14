@@ -29,7 +29,7 @@ class ShfApplicationsController < ApplicationController
                                  .includes(:user)
                                  .page(params[:page]).per_page(items_per_page)
 
-    render partial: 'membership_applications_list' if request.xhr?
+    render partial: 'shf_applications_list' if request.xhr?
   end
 
 
