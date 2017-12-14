@@ -20,7 +20,7 @@
                       { class: 'applications_pagination', remote: true })
         %th
     %tbody
-      - @membership_applications.each do |membership_application|
+      - @shf_applications.each do |membership_application|
         %tr.applicant
           %td.membership_number= membership_application.membership_number
           %td.name= link_to "#{membership_application.user.last_name + ', ' + membership_application.user.first_name}", user_path(membership_application.user)
@@ -29,7 +29,7 @@
           %td.action= link_to "#{t('manage')}", shf_application_path(membership_application.id)
 
   = render partial: 'application/paginate_footer',
-           locals: { entities: @membership_applications,
+           locals: { entities: @shf_applications,
                      paginate_class: 'applications_pagination',
                      items_count: @items_count,
                      url: shf_applications_path }

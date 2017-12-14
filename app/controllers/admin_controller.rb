@@ -5,11 +5,11 @@ class AdminController < ApplicationController
   def export_ansokan_csv
 
     begin
-      @membership_applications = ShfApplication.includes(:user).all
+      @shf_applications = ShfApplication.includes(:user).all
 
       export_name = "Ansokningar-#{Time.zone.now.strftime('%Y-%m-%d--%H-%M-%S')}.csv"
 
-      send_data(export_str(@membership_applications), filename: export_name, type: "text/plain" )
+      send_data(export_str(@shf_applications), filename: export_name, type: "text/plain" )
 
       helpers.flash_message(:notice, t('.success'))
 

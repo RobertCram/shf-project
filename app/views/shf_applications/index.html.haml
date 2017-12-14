@@ -17,7 +17,7 @@
   .panel.panel-default.search-form#application_search_form
     = render 'search_form'
 
-  - if @membership_applications.empty?
+  - if @shf_applications.empty?
     %strong
       #{t('.no_search_results')}
   - else

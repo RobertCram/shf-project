@@ -1,27 +1,27 @@
-%div{ :id => "#{unique_css_id(@membership_application)}", class: "#{item_view_class(@membership_application, controller.action_name)}" }
+%div{ :id => "#{unique_css_id(@shf_application)}", class: "#{item_view_class(@shf_application, controller.action_name)}" }
 
   %header.entry-header
-    %h1.entry-title= t('.title', user_full_name: @membership_application.user_full_name)
+    %h1.entry-title= t('.title', user_full_name: @shf_application.user_full_name)
   .post-title-divider
     %span
   .entry-content
 
-    %h2= @membership_application.user_full_name
+    %h2= @shf_application.user_full_name
 
-    = render partial: 'membership_number', locals: { user: @membership_application.user }
+    = render partial: 'membership_number', locals: { user: @shf_application.user }
 
     %p= field_or_none("#{t('activerecord.attributes.user.email')}",
-                      mail_to(@membership_application.user.email),
+                      mail_to(@shf_application.user.email),
                       label_class: 'standard-label')
 
     %p= field_or_none("#{t('.contact_email')}",
-                      mail_to(@membership_application.contact_email),
+                      mail_to(@shf_application.contact_email),
                       label_class: 'standard-label')
 
-    - if @membership_application.phone_number
-      %p #{t('.phone_number')}: #{@membership_application.phone_number}
+    - if @shf_application.phone_number
+      %p #{t('.phone_number')}: #{@shf_application.phone_number}
 
-    %p #{t('.company_number')}: #{@membership_application.company_number}
+    %p #{t('.company_number')}: #{@shf_application.company_number}
 
     - unless assocation_empty?(@categories)
       %h4 #{t('.with_categories')}:
@@ -34,13 +34,13 @@
       %span
 
     #supporting-files
-      = render 'uploaded_files_list', membership_application: @membership_application, show_delete: false
+      = render 'uploaded_files_list', membership_application: @shf_application, show_delete: false
 
 
-    %h3.app-status #{t('.app_status')}: #{t("shf_applications.state.#{@membership_application.state}")}  - #{@membership_application.updated_at.strftime('%F')}
+    %h3.app-status #{t('.app_status')}: #{t("shf_applications.state.#{@shf_application.state}")}  - #{@shf_application.updated_at.strftime('%F')}
 
     - if current_user.admin?
       = render partial: 'application_status_form'
 
-      = link_to "#{t('shf_applications.edit_shf_application')}", edit_shf_application_path(@membership_application), class:'btn btn-warning'
-      = link_to "#{t('.delete')}", @membership_application, method: :delete, class:'btn btn-danger', data: { confirm: "#{t('.confirm_are_you_sure')}" }
+      = link_to "#{t('shf_applications.edit_shf_application')}", edit_shf_application_path(@shf_application), class:'btn btn-warning'
+      = link_to "#{t('.delete')}", @shf_application, method: :delete, class:'btn btn-danger', data: { confirm: "#{t('.confirm_are_you_sure')}" }
