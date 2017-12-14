@@ -34,7 +34,7 @@
       %span
 
     #supporting-files
-      = render 'uploaded_files_list', membership_application: @shf_application, show_delete: false
+      = render 'uploaded_files_list', shf_application: @shf_application, show_delete: false
 
 
     %h3.app-status #{t('.app_status')}: #{t("shf_applications.state.#{@shf_application.state}")}  - #{@shf_application.updated_at.strftime('%F')}

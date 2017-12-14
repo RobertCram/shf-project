@@ -57,7 +57,7 @@
       %table.hidden.table#files-to-upload
         %tbody.files{'data-toggle': "modal-gallery", 'data-target': "#modal-gallery"}
 
-    = render 'uploaded_files_list', membership_application: @shf_application
+    = render 'uploaded_files_list', shf_application: @shf_application
 
 
   %p.upload-more-note.instructions= t('shf_applications.new.upload_more_files') if controller.action_name == 'new'
