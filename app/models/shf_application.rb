@@ -1,7 +1,7 @@
 require_relative File.join('..', 'services', 'address_exporter')
 
 
-class MembershipApplication < ApplicationRecord
+class ShfApplication < ApplicationRecord
 
   before_destroy :before_destroy_checks
 
@@ -17,7 +17,7 @@ class MembershipApplication < ApplicationRecord
   #  company_number.  That's what we'll later use to create (instantiate)
   #  a company if/when needed.
   #
-  belongs_to :company, optional: true, inverse_of: :membership_applications
+  belongs_to :company, optional: true, inverse_of: :shf_applications
 
   has_and_belongs_to_many :business_categories
   has_many :uploaded_files
@@ -132,8 +132,8 @@ class MembershipApplication < ApplicationRecord
 
     # if this is the only application associated with a company, delete the company
     unless company.nil?
-      company.membership_applications.reload
-      company.delete if (company.membership_applications.count == 1)
+      company.shf_applications.reload
+      company.delete if (company.shf_applications.count == 1)
     end
   end
 

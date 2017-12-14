@@ -4,7 +4,7 @@
   .row
     .container
       .reason-waiting-information
-        = label_tag :member_app_waiting_reasons, t('membership_applications.need_info.reason_title')
+        = label_tag :member_app_waiting_reasons, t('shf_applications.need_info.reason_title')
         -# have to set selected into an interim variable because this needs to be evaluated before the collection
         - selected = selected_reason_value(@membership_application, @other_waiting_reason_value)
         = select_tag(:member_app_waiting_reasons,
@@ -12,19 +12,19 @@
                                                             :id,
                                                             reason_name_method,
                                                             selected),
-                         { include_blank: t('membership_applications.need_info.select_a_reason'),
+                         { include_blank: t('shf_applications.need_info.select_a_reason'),
                            class: 'reason-waiting-list',
                            data: { remote: true,
-                                   url: membership_application_path(@membership_application),
+                                   url: shf_application_path(@membership_application),
                                    method: 'put' } })
 
   .row
     .container
       #other-text-field{ style: "display: #{selected == @other_waiting_reason_value ? nil : 'none'}" }
-        = label_tag :custom_reason_text, t('membership_applications.need_info.other_reason_label')
+        = label_tag :custom_reason_text, t('shf_applications.need_info.other_reason_label')
         = text_field_tag :custom_reason_text, @membership_application.custom_reason_text,
                     { data: { remote: true,
-                              url: membership_application_path(@membership_application),
+                              url: shf_application_path(@membership_application),
                               method: 'put' } }
 
 

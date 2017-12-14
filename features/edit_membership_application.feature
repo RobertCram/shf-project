@@ -26,9 +26,9 @@ Feature: As an applicant
     And I am on the "landing" page
     And I click on t("menus.nav.users.my_application")
     Then I should be on "Edit My Application" page
-    And I fill in t("membership_applications.show.first_name") with "Anna"
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.update.success")
+    And I fill in t("shf_applications.show.first_name") with "Anna"
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.success")
     And I should be on the "application" page for "emma@random.com"
     And I should see "Anna Lastname"
 
@@ -37,12 +37,12 @@ Feature: As an applicant
     And I am on the "landing" page
     And I click on t("menus.nav.users.my_application")
     Then I should be on "Edit My Application" page
-    And I fill in t("membership_applications.show.contact_email") with "sussimmi.nu"
-    And I fill in t("membership_applications.show.company_number") with ""
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.update.error")
-    And I should see error t("membership_applications.show.company_number") t("errors.messages.blank")
-    And I should see button t("membership_applications.edit.submit_button_label")
+    And I fill in t("shf_applications.show.contact_email") with "sussimmi.nu"
+    And I fill in t("shf_applications.show.company_number") with ""
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.error")
+    And I should see error t("shf_applications.show.company_number") t("errors.messages.blank")
+    And I should see button t("shf_applications.edit.submit_button_label")
 
   Scenario: Applicant can not edit applications not created by him
     Given I am logged in as "emma@random.com"
@@ -58,7 +58,7 @@ Feature: As an applicant
     Given I am logged in as "nils@random.com"
     And I am on the "show my application" page for "nils@random.com"
     Then I should not see t("errors.not_permitted")
-    And I should see t("membership_applications.accepted")
+    And I should see t("shf_applications.accepted")
 
   Scenario: Applicant can not edit rejected application
     Given I am logged in as "bob@barkybobs.com"
@@ -69,7 +69,7 @@ Feature: As an applicant
     Given I am logged in as "bob@barkybobs.com"
     And I am on the "show my application" page for "bob@barkybobs.com"
     Then I should not see t("errors.not_permitted")
-    And I should see t("membership_applications.rejected")
+    And I should see t("shf_applications.rejected")
 
   Scenario: Member wants to view their own application
     Given I am logged in as "nils@random.com"
@@ -80,22 +80,22 @@ Feature: As an applicant
   Scenario: Admin should be able to edit membership number
     Given I am logged in as "admin@shf.se"
     And I am on the "edit application" page for "nils@random.com"
-    Then I should see t("membership_applications.show.membership_number")
+    Then I should see t("shf_applications.show.membership_number")
 
   Scenario: Admin can't edit membership number for a rejected application
     Given I am logged in as "admin@shf.se"
     And I am on the "edit application" page for "bob@barkybobs.com"
-    And I should not see t("membership_applications.edit.submit_button_label")
+    And I should not see t("shf_applications.edit.submit_button_label")
 
   Scenario: Cannot change locale if there are errors in the application
     Given I am logged in as "emma@random.com"
     And I am on the "landing" page
     And I click on t("menus.nav.users.my_application")
     Then I should be on "Edit My Application" page
-    And I fill in t("membership_applications.show.contact_email") with "sussimmi.nu"
-    And I fill in t("membership_applications.show.company_number") with ""
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.update.error")
+    And I fill in t("shf_applications.show.contact_email") with "sussimmi.nu"
+    And I fill in t("shf_applications.show.company_number") with ""
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.error")
     And I should not see t("show_in_swedish") image
     And I should not see t("show_in_english") image
     And I should see t("cannot_change_language") image

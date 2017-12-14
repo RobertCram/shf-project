@@ -5,7 +5,7 @@ if defined? Bullet
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'Company',
-                association: :membership_applications
+                association: :shf_applications
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'Company',
@@ -33,7 +33,7 @@ if defined? Bullet
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'BusinessCategory',
-                association: :membership_applications
+                association: :shf_applications
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'BusinessCategory',
@@ -41,5 +41,5 @@ if defined? Bullet
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'User',
-                association: :membership_applications
+                association: :shf_applications
 end

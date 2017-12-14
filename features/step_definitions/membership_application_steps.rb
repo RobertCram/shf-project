@@ -10,7 +10,7 @@ And(/^the following applications exist:$/) do |table|
    end
    contact_email = hash['contact_email'] && ! hash['contact_email'].empty? ? 
                    hash['contact_email'] : hash[:user_email]
-   ma = FactoryGirl.create(:membership_application,
+   ma = FactoryGirl.create(:shf_application,
                             attributes.merge(user: user,
                             company: company,
                             contact_email: contact_email))
@@ -27,7 +27,7 @@ end
 
 And(/^the following simple applications exist:$/) do |table|
   table.hashes.each do |hash|
-    ma = FactoryGirl.build(:membership_application,
+    ma = FactoryGirl.build(:shf_application,
                            company_number: hash['company_number'],
                            contact_email: hash['user_email'],
                            state: hash['state'])

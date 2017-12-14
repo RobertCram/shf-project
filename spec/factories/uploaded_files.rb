@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :uploaded_file do
 
-    membership_application
+    shf_application
 
     FIXTURE_DIR = File.join("#{Rails.root}",'spec','fixtures','uploaded_files')
     trait :png do

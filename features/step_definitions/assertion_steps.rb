@@ -12,10 +12,10 @@ module PathHelpers
       when 'landing'
         path = root_path
       when 'edit application', 'edit my application'
-        user.membership_applications.reload
-        path = edit_membership_application_path(user.membership_application)
+        user.shf_applications.reload
+        path = edit_shf_application_path(user.membership_application)
       when 'application', 'show my application'
-        path = membership_application_path(user.membership_application)
+        path = shf_application_path(user.membership_application)
       when 'user instructions'
         path = information_path
       when 'member instructions'
@@ -35,13 +35,13 @@ module PathHelpers
       when 'business categories'
         path = business_categories_path
       when 'membership applications'
-        path = membership_applications_path
+        path = shf_applications_path
       when 'all companies'
         path = companies_path
       when 'create a new company'
         path = new_company_path
       when 'submit new membership application'
-        path = new_membership_application_path
+        path = new_shf_application_path
       when 'edit my company'
         path = edit_company_path(user.membership_application.company)
       when 'all users'

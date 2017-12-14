@@ -227,20 +227,20 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   describe '#model_errors_helper' do
 
-    let(:good_ma) { FactoryGirl.create(:membership_application) }
+    let(:good_ma) { FactoryGirl.create(:shf_application) }
 
     let(:user)    { FactoryGirl.create(:user) }
 
     let(:errors_html_sv)  do
       I18n.locale = :sv
-      ma = MembershipApplication.new(user: user)
+      ma = ShfApplication.new(user: user)
       ma.valid?
       model_errors_helper(ma)
     end
 
     let(:errors_html_en)  do
       I18n.locale = :en
-      ma = MembershipApplication.new(user: user)
+      ma = ShfApplication.new(user: user)
       ma.valid?
       model_errors_helper(ma)
     end

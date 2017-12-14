@@ -74,7 +74,7 @@ Feature: As any type of visitor
     Given I am logged in as "admin@shf.se"
     And I am on the "edit application" page for "ernt@mutts.com"
     And I select "Extra" Category
-    And I click on t("membership_applications.edit.submit_button_label")
+    And I click on t("shf_applications.edit.submit_button_label")
     When I am on the business category "Extra"
     Then I should see "WOOF"
     And I should see "Västerbotten"

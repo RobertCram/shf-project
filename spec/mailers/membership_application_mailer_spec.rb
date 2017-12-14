@@ -19,11 +19,11 @@ RSpec.describe MembershipApplicationMailer, type: :mailer do
 
   describe '#accepted' do
 
-    let(:accepted_app) { create(:membership_application, :accepted, user: test_user) }
+    let(:accepted_app) { create(:shf_application, :accepted, user: test_user) }
     let(:email_sent) { MembershipApplicationMailer.accepted(accepted_app) }
 
     it_behaves_like 'a successfully created email to a member',
-                    I18n.t('application_mailer.membership_application.accepted.subject'),
+                    I18n.t('application_mailer.shf_application.accepted.subject'),
                     'user@example.com',
                     I18n.t('application_mailer.greeting', greeting_name: 'Firstname Lastname') do
       let(:email_created) { email_sent }
@@ -34,11 +34,11 @@ RSpec.describe MembershipApplicationMailer, type: :mailer do
 
   describe '#acknowledge_received' do
 
-    let(:received_app) { create(:membership_application, user: test_user) }
+    let(:received_app) { create(:shf_application, user: test_user) }
     let(:email_sent) { MembershipApplicationMailer.acknowledge_received(received_app) }
 
     it_behaves_like 'a successfully created email to a member',
-                    I18n.t('application_mailer.membership_application.acknowledge_received.subject'),
+                    I18n.t('application_mailer.shf_application.acknowledge_received.subject'),
                     'user@example.com',
                     I18n.t('application_mailer.greeting', greeting_name: 'Firstname Lastname') do
       let(:email_created) { email_sent }

@@ -4,13 +4,13 @@
     %h1.entry-title= t('.title')
   .post-title-divider
     %span
-  .entry-content.instructions= t('membership_applications.new.instructions')
+  .entry-content.instructions= t('shf_applications.new.instructions')
 
   .entry-content.wpcf7
 
     = render partial: 'membership_number', locals: { user: @membership_application.user }
 
-    = form_for @membership_application, html: {multipart: true}, url: membership_application_path do |f|
+    = form_for @membership_application, html: {multipart: true}, url: shf_application_path do |f|
 
       != model_errors_helper(@membership_application)
 

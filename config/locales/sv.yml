@@ -101,7 +101,7 @@ sv:
   # Automatisk och manuell sökning för Active Records
   activerecord:
     models:
-      membership_application:
+      shf_application:
         one: Medlemskap
         other: Medlemskap
 
@@ -151,7 +151,7 @@ sv:
         expire_date: &expire_date Utgångsdatum
         notes: Anteckningar
 
-      membership_application:
+      shf_application:
         company_number: &company_number Organisationsnummer
         first_name: *first_name
         last_name: *last_name
@@ -234,7 +234,7 @@ sv:
             actual_file:
               file_too_large: 'Filen måste vara mindre än %{max}. (Filen är %{value} byte.)'
 
-        membership_application:
+        shf_application:
           attributes:
             company_number:
               invalid: "%{company_number} är inte ett svenskt organisationsnummer"
@@ -258,7 +258,7 @@ sv:
       branding_fee: H-märkesavgift
 
   # Automatisk och manuell sökning för views:
-  membership_applications:
+  shf_applications:
     new:
       title: Ansök om medlemskap
       instructions: 'För att kunna hantera din ansökan behöver vi ha information om dig, vilka kategorier du ansöker som samt dokument som styrker din kompetens i dessa kategorier.'
@@ -420,10 +420,10 @@ sv:
 
     awaiting_payment: Inväntar betalning
 
-    all_membership_applications: Alla ansökningar
-    edit_membership_application: Redigera ansökan
-    view_membership_application: Visa ansökan
-    list_all_membership_applications: Lista alla ansökningar
+    all_shf_applications: Alla ansökningar
+    edit_shf_application: Redigera ansökan
+    view_shf_application: Visa ansökan
+    list_all_shf_applications: Lista alla ansökningar
 
     uploads:
       no_files: Inga filer är uppladdade för denna ansökan.
@@ -821,7 +821,7 @@ sv:
           must_be_logged_in: "(Du måste vara inloggad som en administratör för att se det.)"
 
 
-    membership_application:
+    shf_application:
       signoff: "Med vänliga hälsningar,"
       signature: *medlemsansvarig
       signature_url: "http://sverigeshundforetagare.se"

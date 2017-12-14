@@ -1,4 +1,4 @@
-module MembershipApplicationsHelper
+module ShfApplicationsHelper
 
   def can_edit_state?
     policy(@membership_application).permitted_attributes_for_edit.include? :state

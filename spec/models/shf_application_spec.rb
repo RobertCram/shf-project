@@ -31,11 +31,11 @@ end
 #--------------------------------------------------------------------------
 
 
-RSpec.describe MembershipApplication, type: :model do
+RSpec.describe ShfApplication, type: :model do
 
   describe 'Factory' do
     it 'has a valid factory' do
-      expect(create(:membership_application)).to be_valid
+      expect(create(:shf_application)).to be_valid
     end
   end
 
@@ -60,10 +60,10 @@ RSpec.describe MembershipApplication, type: :model do
   end
 
   context 'scopes' do
-    let!(:accepted_app1) { create(:membership_application, :accepted) }
-    let!(:accepted_app2) { create(:membership_application, :accepted) }
-    let!(:rejected_app1) { create(:membership_application, :rejected) }
-    let!(:new_app1)      { create(:membership_application) }
+    let!(:accepted_app1) { create(:shf_application, :accepted) }
+    let!(:accepted_app2) { create(:shf_application, :accepted) }
+    let!(:rejected_app1) { create(:shf_application, :rejected) }
+    let!(:new_app1)      { create(:shf_application) }
 
     describe 'open' do
       it 'returns all apps not accepted or rejected' do
@@ -81,7 +81,7 @@ RSpec.describe MembershipApplication, type: :model do
 
   describe 'Validate Swedish Orgnr' do
     let (:company) do
-      create(:membership_application)
+      create(:shf_application)
     end
 
     subject {company}
@@ -106,7 +106,7 @@ RSpec.describe MembershipApplication, type: :model do
     let(:application_owner2) {create(:user, email: 'user_2@random.com')}
 
     it 'uploading a file increases the number of uploaded files by 1' do
-      expect {create(:membership_application, user: application_owner, uploaded_files: [create(:uploaded_file, actual_file: (File.new(File.join(FIXTURE_DIR, 'image.jpg'))))])}.to change(UploadedFile, :count).by(1)
+      expect {create(:shf_application, user: application_owner, uploaded_files: [create(:uploaded_file, actual_file: (File.new(File.join(FIXTURE_DIR, 'image.jpg'))))])}.to change(UploadedFile, :count).by(1)
     end
 
   end
@@ -114,7 +114,7 @@ RSpec.describe MembershipApplication, type: :model do
   describe 'User attributes nesting' do
 
     let(:user) {create(:user, first_name: 'Firstname', last_name: 'Lastname')}
-    let!(:member_app) {create(:membership_application, user: user, user_attributes: {first_name: 'New Firstname', last_name: 'New Lastname'})}
+    let!(:member_app) {create(:shf_application, user: user, user_attributes: {first_name: 'New Firstname', last_name: 'New Lastname'})}
 
     it 'sets first_name on user' do
       expect(user.first_name).to eq('New Firstname')
@@ -128,14 +128,14 @@ RSpec.describe MembershipApplication, type: :model do
       expect {
         user.first_name = ''
         member_app.save!
-      }.to raise_exception(/#{I18n.t('activerecord.attributes.membership_application.first_name')} #{I18n.t('errors.messages.blank')}/)
+      }.to raise_exception(/#{I18n.t('activerecord.attributes.shf_application.first_name')} #{I18n.t('errors.messages.blank')}/)
     end
 
     it 'validates the presence of last_name' do
       expect {
         user.last_name = ''
         member_app.save!
-      }.to raise_exception(/#{I18n.t('activerecord.attributes.membership_application.last_name')} #{I18n.t('errors.messages.blank')}/)
+      }.to raise_exception(/#{I18n.t('activerecord.attributes.shf_application.last_name')} #{I18n.t('errors.messages.blank')}/)
     end
 
   end
@@ -144,15 +144,15 @@ RSpec.describe MembershipApplication, type: :model do
 
     let(:application_owner) {create(:user, email: 'user_1@random.com')}
     let(:uploaded_file) {create(:uploaded_file, actual_file: (File.new(File.join(FIXTURE_DIR, 'image.jpg'))))}
-    let(:membership_application) {create(:membership_application, user: application_owner, uploaded_files: [uploaded_file])}
+    let(:shf_application) {create(:shf_application, user: application_owner, uploaded_files: [uploaded_file])}
 
     it 'destroys a membershipapplication' do
-      membership_application.destroy
-      expect(membership_application.destroyed?).to be_truthy
+      shf_application.destroy
+      expect(shf_application.destroyed?).to be_truthy
     end
 
     it 'destroys the uploaded file' do
-      membership_application.destroy
+      shf_application.destroy
       expect(uploaded_file.destroyed?).to be_truthy
     end
 
@@ -161,7 +161,7 @@ RSpec.describe MembershipApplication, type: :model do
   describe 'test factories' do
 
     it '1 category with default category name' do
-      member_app = create(:membership_application, num_categories: 1)
+      member_app = create(:shf_application, num_categories: 1)
       expect(member_app.business_categories.count).to eq(1)
       expect(member_app.business_categories.first.name)
           .to eq("Business Category"),
@@ -170,21 +170,21 @@ RSpec.describe MembershipApplication, type: :model do
     end
 
     it '2 categories with sequence names' do
-      member_app = create(:membership_application, num_categories: 2)
+      member_app = create(:shf_application, num_categories: 2)
       expect(member_app.business_categories.count).to eq(2), "The number of categories should have been 2 but instead was #{member_app.business_categories.count}"
       expect(member_app.business_categories.first.name).to eq("Business Category 1"), "The first category name should have been 'Business Category 1' but instead was '#{member_app.business_categories.first.name}'"
       expect(member_app.business_categories.last.name).to eq("Business Category 2"), "The last category name should have been 'Business Category 2' but instead was '#{member_app.business_categories.first.name}'"
     end
 
     it '1 category with the name "Special"' do
-      member_app = create(:membership_application, num_categories: 1,
+      member_app = create(:shf_application, num_categories: 1,
                           category_name:                           "Special")
       expect(member_app.business_categories.count).to eq(1)
       expect(member_app.business_categories.first.name).to eq("Special"), "The first category name should have been 'Special' but instead was '#{member_app.business_categories.first.name}'"
     end
 
     it '3 categories with the name "Special 1, Special 2, Special 3"' do
-      member_app = create(:membership_application, category_name: "Special", num_categories: 3)
+      member_app = create(:shf_application, category_name: "Special", num_categories: 3)
       expect(member_app.business_categories.count).to eq(3)
       expect(member_app.business_categories.first.name).to eq("Special 1"), "The first category name should have been 'Special 1' but instead was '#{member_app.business_categories.first.name}'"
       expect(member_app.business_categories.last.name).to eq("Special 3"), "The first category name should have been 'Special 3' but instead was '#{member_app.business_categories.last.name}'"
@@ -327,8 +327,8 @@ RSpec.describe MembershipApplication, type: :model do
 
   describe '#se_mailing_csv_str (comma sep string) of the address for the swedish postal service' do
 
-    let(:accepted_app) { create(:membership_application, :accepted) }
-    let(:rejected_app) { create(:membership_application, :rejected)}  # no company for this
+    let(:accepted_app) { create(:shf_application, :accepted) }
+    let(:rejected_app) { create(:shf_application, :rejected)}  # no company for this
 
     it 'uses the company main address' do
 
@@ -348,7 +348,7 @@ RSpec.describe MembershipApplication, type: :model do
   describe 'membership number generator' do
 
     let(:user) { create(:user) }
-    let(:new_app) { create(:membership_application, user: user) }
+    let(:new_app) { create(:shf_application, user: user) }
 
     before(:each) do
       new_app.start_review

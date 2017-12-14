@@ -29,11 +29,11 @@ Feature: Whole process of a new user creating a login, applying, being approved,
     And I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
-      | NewUser1                               | NewLastName                           | 5562252998                                 | 031-1234567                              | new_user@example.com                      |
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.phone_number | shf_applications.new.contact_email |
+      | NewUser1                        | NewLastName                    | 5562252998                          | 031-1234567                       | new_user@example.com               |
     And I select "Groomer" Category
-    And I click on t("membership_applications.new.submit_button_label")
-    And I should see t("membership_applications.create.success", email_address: new_user@example.com)
+    And I click on t("shf_applications.new.submit_button_label")
+    And I should see t("shf_applications.create.success", email_address: new_user@example.com)
 
     Then I am in "admin@shf.se" browser
     And I am logged in as "admin@shf.se"
@@ -41,13 +41,13 @@ Feature: Whole process of a new user creating a login, applying, being approved,
     And I click on t("menus.nav.admin.manage_applications")
     Then I should see "NewUser1"
     And I am on the "application" page for "new_user@example.com"
-    And I click on t("membership_applications.start_review_btn")
-    And I click on t("membership_applications.accept_btn")
+    And I click on t("shf_applications.start_review_btn")
+    And I click on t("shf_applications.accept_btn")
     And I should be on the "edit application" page for "new_user@example.com"
-    And I should not see t("membership_applications.update.enter_member_number")
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.update.success")
-    And I should see t("membership_applications.accepted")
+    And I should not see t("shf_applications.update.enter_member_number")
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.success")
+    And I should see t("shf_applications.accepted")
 
     Given I am in "new_user@example.com" browser
     And I am logged in as "new_user@example.com"
@@ -58,12 +58,12 @@ Feature: Whole process of a new user creating a login, applying, being approved,
 
     Then I am in "admin@shf.se" browser
     And I am on the "application" page for "new_user@example.com"
-    And I click on t("membership_applications.edit_membership_application")
+    And I click on t("shf_applications.edit_shf_application")
 
-    And I fill in t("membership_applications.show.membership_number") with "10101"
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.update.success")
-    And I should see t("membership_applications.accepted")
+    And I fill in t("shf_applications.show.membership_number") with "10101"
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.success")
+    And I should see t("shf_applications.accepted")
     And I should see "10101"
     And I am logged out
     And I am logged in as "new_user@example.com"

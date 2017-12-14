@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe MembershipApplicationPolicy do
+describe ShfApplicationPolicy do
 
 
   describe 'policy for the state attribute' do
@@ -10,7 +10,7 @@ describe MembershipApplicationPolicy do
     let(:admin) { create(:user, email: 'admin@sgf.com', admin: true) }
     let(:not_the_owner) { create(:user, email: 'user_2@random.com') }
 
-    let(:application) { create(:membership_application,
+    let(:application) { create(:shf_application,
                                user: application_owner,
                                state: :under_review)    }
 
@@ -146,7 +146,7 @@ describe MembershipApplicationPolicy do
     let(:user_2) { create(:user, email: 'user_2@random.com') }
     let(:admin)  { create(:user, email: 'admin@sgf.com', admin: true) }
     let(:visitor) { build(:visitor) }
-    let(:application) { create(:membership_application,
+    let(:application) { create(:shf_application,
                                user: user_1,
                                state: :under_review) }
 

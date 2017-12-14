@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe MembershipApplicationsHelper, type: :helper do
+RSpec.describe ShfApplicationsHelper, type: :helper do
 
   describe 'returns a list of reasons_for_waiting for the right locale' do
 
@@ -170,7 +170,7 @@ RSpec.describe MembershipApplicationsHelper, type: :helper do
 
   describe '#selected_reason_value' do
 
-    let(:member_app) { create(:membership_application) }
+    let(:member_app) { create(:shf_application) }
 
     it '@other_reason_value if there is something in custom reason text' do
       member_app.custom_reason_text = 'something'

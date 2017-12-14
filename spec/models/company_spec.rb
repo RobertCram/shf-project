@@ -71,12 +71,12 @@ RSpec.describe Company, type: :model do
   end
 
   describe 'Associations' do
-    it { is_expected.to have_many(:business_categories).through(:membership_applications) }
-    it { is_expected.to have_many(:membership_applications).dependent(:destroy) }
+    it { is_expected.to have_many(:business_categories).through(:shf_applications) }
+    it { is_expected.to have_many(:shf_applications).dependent(:destroy) }
     it { is_expected.to have_many(:addresses).dependent(:destroy) }
     it { is_expected.to accept_nested_attributes_for(:addresses)}
     it { is_expected.to have_many(:pictures) }
-    it { is_expected.to have_many(:users).through(:membership_applications) }
+    it { is_expected.to have_many(:users).through(:shf_applications) }
     it { is_expected.to have_many(:payments) }
     it { is_expected.to accept_nested_attributes_for(:payments)}
   end
@@ -123,20 +123,20 @@ RSpec.describe Company, type: :model do
     let(:cat3) { create(:business_category, name: 'cat3') }
 
     let(:m1) do
-      create(:membership_application,
+      create(:shf_application,
              :accepted,
              user: employee1,
              num_categories: 0,
              company_number: company.company_number)
     end
     let(:m2) do
-      create(:membership_application,
+      create(:shf_application,
              :accepted, user: employee2,
              num_categories: 0,
              company_number: company.company_number)
     end
     let(:m3) do
-      create(:membership_application,
+      create(:shf_application,
              :accepted,
              user: employee3,
              num_categories: 0,
@@ -392,32 +392,32 @@ RSpec.describe Company, type: :model do
     let(:user4) { create(:user) }
 
     let!(:cmpy1_app1) do
-      create(:membership_application, :accepted,
+      create(:shf_application, :accepted,
              company_number: cmpy1.company_number, user: user1)
     end
 
     let!(:cmpy1_app2) do
-      create(:membership_application, :accepted,
+      create(:shf_application, :accepted,
              company_number: cmpy1.company_number, user: user2)
     end
 
     let!(:cmpy1_app3) do
-      create(:membership_application, :rejected,
+      create(:shf_application, :rejected,
              company_number: cmpy1.company_number, user: user3)
     end
 
     let!(:cmpy2_app1) do
-      create(:membership_application, :accepted,
+      create(:shf_application, :accepted,
              company_number: cmpy2.company_number, user: user1)
     end
 
     let!(:cmpy2_app2) do
-      create(:membership_application, :accepted,
+      create(:shf_application, :accepted,
              company_number: cmpy2.company_number, user: user2)
     end
 
     let!(:cmpy2_app3) do
-      create(:membership_application, :accepted,
+      create(:shf_application, :accepted,
              company_number: cmpy1.company_number, user: user4)
     end
 

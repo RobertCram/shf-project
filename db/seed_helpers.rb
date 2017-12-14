@@ -29,7 +29,7 @@ module SeedHelper
       next unless org_number.valid?
 
       # keep going if number already used
-      unless MembershipApplication.find_by_company_number(org_number.number)
+      unless ShfApplication.find_by_company_number(org_number.number)
         company_number = org_number.number
         break
       end
@@ -77,7 +77,7 @@ module SeedHelper
       state = MA_ACCEPTED_STATE
     else
       # set a random state (except accepted) for the rest of the applications
-      states = MembershipApplication.aasm.states.map(&:name) - [MA_ACCEPTED_STATE]
+      states = ShfApplication.aasm.states.map(&:name) - [MA_ACCEPTED_STATE]
       state = FFaker.fetch_sample( states )
     end
 
@@ -110,7 +110,7 @@ module SeedHelper
 
 
     # ensure that this is the *last* application for the user
-    user.membership_applications << ma
+    user.shf_applications << ma
 
     user.save!
     user
@@ -155,9 +155,9 @@ module SeedHelper
     business_categories = BusinessCategory.all.to_a
 
     # for 1 in 8 apps, use a different contact email than the user's email
-    ma = MembershipApplication.new(contact_email: ( (Random.new.rand(1..8)) == 0 ? FFaker::InternetSE.disposable_email : u.email),
-                                   company_number: company_number,
-                                   user: u)
+    ma = ShfApplication.new(contact_email: ( (Random.new.rand(1..8)) == 0 ? FFaker::InternetSE.disposable_email : u.email),
+                            company_number: company_number,
+                            user: u)
 
     # add 1 to 3 business_categories, picked at random from them
     cats = FFaker.fetch_sample(business_categories, { count: (r.rand(1..3)) })

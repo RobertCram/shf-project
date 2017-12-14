@@ -52,10 +52,10 @@ Feature: As an Admin
   Scenario: Listing shows the necessary columns for Admin
     Given I am logged in as "admin@shf.com"
     And I am on the "membership applications" page
-    Then I should see t("membership_applications.index.membership_number")
-    And I should see t("membership_applications.index.name")
-    And I should see t("membership_applications.index.org_nr")
-    And I should see t("membership_applications.index.state")
+    Then I should see t("shf_applications.index.membership_number")
+    And I should see t("shf_applications.index.name")
+    And I should see t("shf_applications.index.org_nr")
+    And I should see t("shf_applications.index.state")
     And I should see t("manage")
 
   @admin
@@ -63,26 +63,26 @@ Feature: As an Admin
     Given I am logged in as "admin@shf.com"
     And I am on the "membership applications" page
     Then I should see "7" applications
-    And I should see 1 t("membership_applications.under_review")
-    And I should see 1 t("membership_applications.accepted")
-    And I should see 3 t("membership_applications.waiting_for_applicant")
-    And I should see 1 t("membership_applications.rejected")
-    And I click the t("membership_applications.index.manage") action for the row with "Lastname, Emma"
+    And I should see 1 t("shf_applications.under_review")
+    And I should see 1 t("shf_applications.accepted")
+    And I should see 3 t("shf_applications.waiting_for_applicant")
+    And I should see 1 t("shf_applications.rejected")
+    And I click the t("shf_applications.index.manage") action for the row with "Lastname, Emma"
     Then I should be on the "application" page for "emma@personal.com"
     And I should see "Emma Lastname"
     And I should see "5562252998"
-    And I should see status line with status t("membership_applications.waiting_for_applicant")
+    And I should see status line with status t("shf_applications.waiting_for_applicant")
 
   @admin
   Scenario: Admin can see an application with one business categories given
     Given I am logged in as "admin@shf.com"
     And I am on the "membership applications" page
     Then I should see "7" applications
-    And I click the t("membership_applications.index.manage") action for the row with "Lastname, Hans"
+    And I click the t("shf_applications.index.manage") action for the row with "Lastname, Hans"
     Then I should be on the "application" page for "hans@random.com"
     And I should see "Hans Lastname"
     And I should see "5560360793"
-    And I should see t("membership_applications.waiting_for_applicant")
+    And I should see t("shf_applications.waiting_for_applicant")
     And I should see "Psychologist"
     And I should not see "Trainer"
     And I should not see "Groomer"
@@ -94,12 +94,12 @@ Feature: As an Admin
     And I click on t("menus.nav.members.my_application")
     And I select "Trainer" Category
     And I select "Psychologist" Category
-    And I click on t("membership_applications.edit.submit_button_label")
+    And I click on t("shf_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.com"
     And I am on the "membership applications" page
     Then I should see "7" applications
-    And I click the t("membership_applications.index.manage") action for the row with "Lastname, Emma"
+    And I click the t("shf_applications.index.manage") action for the row with "Lastname, Emma"
     Then I should be on the "application" page for "emma@personal.com"
     And I should see "Emma Lastname"
     And I should see "5562252998"
@@ -114,7 +114,7 @@ Feature: As an Admin
     Given I am logged in as "nils_member@bowwowwow.se"
     And I am on the "landing" page
     And I click on t("menus.nav.members.my_application")
-    Then I should see t("membership_applications.show.membership_number")
+    Then I should see t("shf_applications.show.membership_number")
 
   @user
   Scenario: Listing incoming Applications restricted for Non-admins
@@ -127,8 +127,8 @@ Feature: As an Admin
   Scenario: Clicking the edit button on show page
     Given I am logged in as "admin@shf.com"
     When I am on the "application" page for "nils_member@bowwowwow.se"
-    Then I should see t("membership_applications.accepted")
-    And I click on t("membership_applications.edit_membership_application")
+    Then I should see t("shf_applications.accepted")
+    And I click on t("shf_applications.edit_shf_application")
     Then I should be on the "edit application" page for "nils_member@bowwowwow.se"
 
   @user

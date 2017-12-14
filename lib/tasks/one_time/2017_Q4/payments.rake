@@ -20,8 +20,8 @@ namespace :shf do
 
       ActivityLogger.open(LOG_FILE, 'SHF_TASK', 'Add 2017 branding payments') do |log|
 
-        companies = Company.joins(:membership_applications)
-                           .where("membership_applications.state = 'accepted'")
+        companies = Company.joins(:shf_applications)
+                           .where("shf_applications.state = 'accepted'")
                            .distinct
 
         user = User.where(admin: true).first
@@ -62,8 +62,8 @@ namespace :shf do
 
       ActivityLogger.open(LOG_FILE, 'SHF_TASK', 'Add 2017 membership payments') do |log|
 
-        members = User.joins(:membership_applications)
-                      .where("membership_applications.state = 'accepted'")
+        members = User.joins(:shf_applications)
+                      .where("shf_applications.state = 'accepted'")
                       .distinct
 
         payments_added = 0

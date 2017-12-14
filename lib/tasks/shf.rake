@@ -259,17 +259,17 @@ namespace :shf do
                                      phone_number: row[:phone_number],
                                      website: row[:website])
 
-    if (membership = MembershipApplication.find_by(user: user.id))
+    if (membership = ShfApplication.find_by(user: user.id))
       puts_already_exists('Membership application', " org number: #{row[:company_number]}")
     else
-      membership = MembershipApplication.create!(company_number: row[:company_number],
-                                                 first_name: row[:first_name],
-                                                 last_name: row[:last_name],
-                                                 contact_email: user.email,
-                                                 state: ACCEPTED_STATE,
-                                                 membership_number: row[:membership_number],
-                                                 user: user,
-                                                 company: company
+      membership = ShfApplication.create!(company_number: row[:company_number],
+                                          first_name: row[:first_name],
+                                          last_name: row[:last_name],
+                                          contact_email: user.email,
+                                          state: ACCEPTED_STATE,
+                                          membership_number: row[:membership_number],
+                                          user: user,
+                                          company: company
       )
 
       puts_created('Membership application', " org number: #{row[:company_number]}")

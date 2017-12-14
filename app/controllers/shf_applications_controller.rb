@@ -1,4 +1,4 @@
-class MembershipApplicationsController < ApplicationController
+class ShfApplicationsController < ApplicationController
   include PaginationUtility
 
   before_action :get_membership_application, except: [:information, :index, :new, :create]
@@ -7,21 +7,21 @@ class MembershipApplicationsController < ApplicationController
 
 
   def new
-    @membership_application = MembershipApplication.new(user: current_user)
+    @membership_application = ShfApplication.new(user: current_user)
     @all_business_categories = BusinessCategory.all
     @uploaded_file = @membership_application.uploaded_files.build
   end
 
 
   def index
-    authorize MembershipApplication
+    authorize ShfApplication
 
-    session[:membership_application_items_selection] ||= 'All' if current_user.admin?
+    session[:shf_application_items_selection] ||= 'All' if current_user.admin?
 
     action_params, @items_count, items_per_page =
-      process_pagination_params('membership_application')
+      process_pagination_params('shf_application')
 
-    @search_params = MembershipApplication.includes(:user).ransack(action_params)
+    @search_params = ShfApplication.includes(:user).ransack(action_params)
 
     @membership_applications = @search_params
                                    .result
@@ -44,7 +44,7 @@ class MembershipApplicationsController < ApplicationController
 
 
   def create
-    @membership_application = MembershipApplication.new(user: current_user)
+    @membership_application = ShfApplication.new(user: current_user)
     @membership_application.update(membership_application_params)
 
     if @membership_application.save
@@ -88,7 +88,7 @@ class MembershipApplicationsController < ApplicationController
 
       if new_file_uploaded params
 
-        check_and_mark_if_ready_for_review params['membership_application'] if params.fetch('membership_application', false)
+        check_and_mark_if_ready_for_review params['shf_application'] if params.fetch('shf_application', false)
 
         respond_to do |format|
           format.js do
@@ -97,7 +97,7 @@ class MembershipApplicationsController < ApplicationController
 
           format.html do
             helpers.flash_message(:notice, t('.success'))
-            redirect_to membership_application_path(@membership_application)
+            redirect_to shf_application_path(@membership_application)
           end
 
         end
@@ -126,9 +126,9 @@ class MembershipApplicationsController < ApplicationController
 
 
   def destroy
-    @membership_application = MembershipApplication.find(params[:id]) # we don't need to fetch the categories
+    @membership_application = ShfApplication.find(params[:id]) # we don't need to fetch the categories
     @membership_application.destroy
-    redirect_to membership_applications_url, notice: t('membership_applications.application_deleted')
+    redirect_to shf_applications_url, notice: t('shf_applications.application_deleted')
   end
 
 
@@ -141,18 +141,18 @@ class MembershipApplicationsController < ApplicationController
 
     begin
       @membership_application.accept!
-      helpers.flash_message(:notice, t('membership_applications.accept.success'))
-      redirect_to edit_membership_application_url(@membership_application)
+      helpers.flash_message(:notice, t('shf_applications.accept.success'))
+      redirect_to edit_shf_application_url(@membership_application)
       return
     rescue => e
       helpers.flash_message(:alert, t('.error') + e.message)
-      redirect_to edit_membership_application_path(@membership_application)
+      redirect_to edit_shf_application_path(@membership_application)
     end
   end
 
 
   def reject
-    simple_state_change(:reject!, t('membership_applications.reject.success'), t('.error'))
+    simple_state_change(:reject!, t('shf_applications.reject.success'), t('.error'))
   end
 
 
@@ -173,12 +173,12 @@ class MembershipApplicationsController < ApplicationController
 
   private
   def membership_application_params
-    params.require(:membership_application).permit(*policy(@membership_application || MembershipApplication).permitted_attributes)
+    params.require(:shf_application).permit(*policy(@membership_application || ShfApplication).permitted_attributes)
   end
 
 
   def get_membership_application
-    @membership_application = MembershipApplication.find(params[:id])
+    @membership_application = ShfApplication.find(params[:id])
     @categories = @membership_application.business_categories
   end
 
@@ -205,7 +205,7 @@ class MembershipApplicationsController < ApplicationController
         @uploaded_file = @membership_application.uploaded_files.create(actual_file: uploaded_file)
 
         if @uploaded_file.valid?
-          helpers.flash_message(:notice, t('membership_applications.uploads.file_was_uploaded',
+          helpers.flash_message(:notice, t('shf_applications.uploads.file_was_uploaded',
                                            filename: @uploaded_file.actual_file_file_name))
           successful = successful & true
         else
@@ -237,7 +237,7 @@ class MembershipApplicationsController < ApplicationController
 
   def create_error(error_message)
     helpers.flash_message(:alert, error_message)
-    current_user.membership_applications.reload
+    current_user.shf_applications.reload
     render :new
   end
 

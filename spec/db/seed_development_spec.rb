@@ -38,15 +38,15 @@ RSpec.describe 'load business categories, regions, kommuns, users and membership
   end
 
   it "addresses are in the db" do
-    expect(Address.all.size).to eq(MembershipApplication.where(state: :accepted).count)
+    expect(Address.all.size).to eq(ShfApplication.where(state: :accepted).count)
   end
 
   it "companies are in the db" do
-    expect(Company.all.size).to eq(MembershipApplication.where(state: :accepted).count)
+    expect(Company.all.size).to eq(ShfApplication.where(state: :accepted).count)
   end
 
   it "memberships applications are in the db" do
-    expect(MembershipApplication.all.size).to eq(seed_users-1)
+    expect(ShfApplication.all.size).to eq(seed_users-1)
   end
 
 end

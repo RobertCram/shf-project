@@ -31,18 +31,18 @@ Feature: Create a new membership application
     Given I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
-      | Kicki                                  | Andersson                             | 5562252998                                 | 031-1234567                              | info@craft.se                             |
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.phone_number | shf_applications.new.contact_email |
+      | Kicki                           | Andersson                      | 5562252998                          | 031-1234567                       | info@craft.se                      |
     And I select "Groomer" Category
-    And I click on t("membership_applications.new.submit_button_label")
+    And I click on t("shf_applications.new.submit_button_label")
     Then I should be on the "landing" page
-    And I should see t("membership_applications.create.success", email_address: info@craft.se)
+    And I should see t("shf_applications.create.success", email_address: info@craft.se)
     When I click on t("menus.nav.users.my_application")
-    Then the t("membership_applications.new.first_name") field should be set to "Kicki"
-    And the t("membership_applications.new.last_name") field should be set to "Andersson"
+    Then the t("shf_applications.new.first_name") field should be set to "Kicki"
+    And the t("shf_applications.new.last_name") field should be set to "Andersson"
     Then "applicant_1@random.com" should receive an email
     And I open the email
-    And I should see t("application_mailer.membership_application.acknowledge_received.subject") in the email subject
+    And I should see t("application_mailer.shf_application.acknowledge_received.subject") in the email subject
     And I am logged in as "admin@shf.se"
     Then "admin@shf.se" should receive an email
     And I open the email
@@ -54,40 +54,40 @@ Feature: Create a new membership application
     Given I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
-      | Kicki                                  | Andersson                             | 5562252998                                 | 031-1234567                              | info@craft.se                             |
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.phone_number | shf_applications.new.contact_email |
+      | Kicki                           | Andersson                      | 5562252998                          | 031-1234567                       | info@craft.se                      |
     And I select "Trainer" Category
     And I select "Psychologist" Category
-    And I click on t("membership_applications.new.submit_button_label")
+    And I click on t("shf_applications.new.submit_button_label")
     Then I should be on the "landing" page
-    And I should see t("membership_applications.create.success", email_address: info@craft.se)
+    And I should see t("shf_applications.create.success", email_address: info@craft.se)
 
 
   Scenario: A user can submit a new Membership Application with no categories
     Given I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.phone_number | shf_applications.new.contact_email |
       | Kicki                                  | Andersson                             | 5562252998                                 | 031-1234567                              | info@craft.se                             |
-    And I click on t("membership_applications.new.submit_button_label")
+    And I click on t("shf_applications.new.submit_button_label")
     Then I should be on the "landing" page
-    And I should see t("membership_applications.create.success", email_address: info@craft.se)
+    And I should see t("shf_applications.create.success", email_address: info@craft.se)
 
 
   Scenario: Applicant not see membership number when submitting
     Given I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
-    Then I should not see t("membership_applications.show.membership_number")
+    Then I should not see t("shf_applications.show.membership_number")
 
 
   Scenario: Applicant can see which fields are required
     Given I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
-    Then the field t("membership_applications.new.first_name") should have a required field indicator
-    And the field t("membership_applications.new.company_number") should have a required field indicator
-    And the field t("membership_applications.new.last_name") should have a required field indicator
-    And the field t("membership_applications.new.contact_email") should have a required field indicator
-    And the field t("membership_applications.new.phone_number") should not have a required field indicator
+    Then the field t("shf_applications.new.first_name") should have a required field indicator
+    And the field t("shf_applications.new.company_number") should have a required field indicator
+    And the field t("shf_applications.new.last_name") should have a required field indicator
+    And the field t("shf_applications.new.contact_email") should have a required field indicator
+    And the field t("shf_applications.new.phone_number") should not have a required field indicator
     And I should see t("is_required_field")
 
 
@@ -96,51 +96,51 @@ Feature: Create a new membership application
     And I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
-      | Applicant1                             | Andersson                             | 5562252998                                 | 031-1234567                              | applicant_1@random.com                    |
-    And I click on t("membership_applications.new.submit_button_label")
-    Then I should see t("membership_applications.create.success", email_address: applicant_1@random.com)
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.phone_number | shf_applications.new.contact_email |
+      | Applicant1                      | Andersson                      | 5562252998                          | 031-1234567                       | applicant_1@random.com             |
+    And I click on t("shf_applications.new.submit_button_label")
+    Then I should see t("shf_applications.create.success", email_address: applicant_1@random.com)
     Given I am logged in as "applicant_2@random.com"
     And I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
-      | Applicant2                             | Andersson                             | 2120000142                                 | 031-1234567                              | applicant_2@random.com                    |
-    And I click on t("membership_applications.new.submit_button_label")
-    Then I should see t("membership_applications.create.success", email_address: applicant_2@random.com)
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.phone_number | shf_applications.new.contact_email |
+      | Applicant2                      | Andersson                      | 2120000142                          | 031-1234567                       | applicant_2@random.com             |
+    And I click on t("shf_applications.new.submit_button_label")
+    Then I should see t("shf_applications.create.success", email_address: applicant_2@random.com)
 
 
   Scenario Outline: Apply for membership - when things go wrong
     Given I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.contact_email | membership_applications.new.phone_number |
-      | <f_name>                               | <l_name>                              | <c_number>                                 | <c_email>                                 | <phone>                                  |
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.contact_email | shf_applications.new.phone_number |
+      | <f_name>                        | <l_name>                       | <c_number>                          | <c_email>                          | <phone>                           |
 
-    When I click on t("membership_applications.new.submit_button_label")
+    When I click on t("shf_applications.new.submit_button_label")
     Then I should see error <model_attribute> <error>
     And I should receive no emails
     And "admin@shf.se" should receive no emails
 
 
     Scenarios:
-      | f_name | c_number   | l_name    | c_email       | phone      | model_attribute                                                    | error                        |
-      | Kicki  |            | Andersson | kicki@immi.nu | 0706898525 | t("activerecord.attributes.membership_application.company_number") | t("errors.messages.blank")   |
-      | Kicki  | 5562252998 |           | kicki@immi.nu | 0706898525 | t("activerecord.attributes.membership_application.last_name")      | t("errors.messages.blank")   |
-      | Kicki  | 5562252998 | Andersson |               | 0706898525 | t("activerecord.attributes.membership_application.contact_email")  | t("errors.messages.blank")   |
-      |        | 5562252998 | Andersson | kicki@immi.nu | 0706898525 | t("activerecord.attributes.membership_application.first_name")     | t("errors.messages.blank")   |
-      | Kicki  | 5562252998 | Andersson | kicki@imminu  | 0706898525 | t("activerecord.attributes.membership_application.contact_email")  | t("errors.messages.invalid") |
-      | Kicki  | 5562252998 | Andersson | kickiimmi.nu  | 0706898525 | t("activerecord.attributes.membership_application.contact_email")  | t("errors.messages.invalid") |
+      | f_name | c_number   | l_name    | c_email       | phone      | model_attribute                                             | error                        |
+      | Kicki  |            | Andersson | kicki@immi.nu | 0706898525 | t("activerecord.attributes.shf_application.company_number") | t("errors.messages.blank")   |
+      | Kicki  | 5562252998 |           | kicki@immi.nu | 0706898525 | t("activerecord.attributes.shf_application.last_name")      | t("errors.messages.blank")   |
+      | Kicki  | 5562252998 | Andersson |               | 0706898525 | t("activerecord.attributes.shf_application.contact_email")  | t("errors.messages.blank")   |
+      |        | 5562252998 | Andersson | kicki@immi.nu | 0706898525 | t("activerecord.attributes.shf_application.first_name")     | t("errors.messages.blank")   |
+      | Kicki  | 5562252998 | Andersson | kicki@imminu  | 0706898525 | t("activerecord.attributes.shf_application.contact_email")  | t("errors.messages.invalid") |
+      | Kicki  | 5562252998 | Andersson | kickiimmi.nu  | 0706898525 | t("activerecord.attributes.shf_application.contact_email")  | t("errors.messages.invalid") |
 
 
   Scenario Outline: Apply for membership: company number wrong length
     Given I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.contact_email | membership_applications.new.phone_number |
-      | <f_name>                               | <l_name>                              | <c_number>                                 | <c_email>                                 | <phone>                                  |
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.contact_email | shf_applications.new.phone_number |
+      | <f_name>                        | <l_name>                       | <c_number>                          | <c_email>                          | <phone>                           |
 
-    And I click on t("membership_applications.new.submit_button_label")
+    And I click on t("shf_applications.new.submit_button_label")
     Then I should see <error>
 
     Scenarios:
@@ -152,10 +152,10 @@ Feature: Create a new membership application
     Given I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.contact_email | membership_applications.new.phone_number |
-      | Kicki                                  | Andersson                             | 1                                          | kicki@immi.n                              | 0706898525                               |
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.contact_email | shf_applications.new.phone_number |
+      | Kicki                           | Andersson                      | 1                                   | kicki@immi.n                       | 0706898525                        |
 
-    And I click on t("membership_applications.new.submit_button_label")
+    And I click on t("shf_applications.new.submit_button_label")
     Then I should see t("errors.messages.wrong_length", count: 10)
     And I should not see t("show_in_swedish") image
     And I should not see t("show_in_english") image

@@ -16,14 +16,14 @@ class Company < ApplicationRecord
 
   before_save :sanitize_website
 
-  has_many :membership_applications, dependent: :destroy, inverse_of: :company
+  has_many :shf_applications, dependent: :destroy, inverse_of: :company
 
-  has_many :users, through: :membership_applications
+  has_many :users, through: :shf_applications
 
   has_many :payments
   accepts_nested_attributes_for :payments
 
-  has_many :business_categories, through: :membership_applications
+  has_many :business_categories, through: :shf_applications
 
   has_many :addresses, as: :addressable, dependent: :destroy,
            inverse_of: :addressable
@@ -39,7 +39,7 @@ class Company < ApplicationRecord
 
   def approved_applications_from_members
     # Returns ActiveRecord Relation
-    membership_applications.accepted.includes(:user)
+    shf_applications.accepted.includes(:user)
       .order('users.last_name').where('users.member = ?', true)
   end
 
@@ -99,9 +99,9 @@ class Company < ApplicationRecord
   # do not delete a Company if it has MembershipApplications that are accepted
   def error_if_has_accepted_applications?
 
-    membership_applications.reload
+    shf_applications.reload
 
-    if membership_applications.where(state: 'accepted').any?
+    if shf_applications.where(state: 'accepted').any?
       errors.add(:base, 'activerecord.errors.models.company.company_has_active_memberships')
       # Rails 5: must throw
       throw(:abort)

@@ -1,4 +1,4 @@
-class MembershipApplicationPolicy < ApplicationPolicy
+class ShfApplicationPolicy < ApplicationPolicy
 
   EDITABLE_STATES_FOR_APPLICANT = Set[:new, :initial, :ready_for_review, :under_review, :waiting_for_applicant].freeze
 

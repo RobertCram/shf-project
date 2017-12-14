@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get "test_exception_notifications" => "application#test_exception_notifications"
 
 
-      root to: 'membership_applications#index', as: :admin_root
+      root to: 'shf_applications#index', as: :admin_root
     end
   end
 
@@ -34,25 +34,25 @@ Rails.application.routes.draw do
   scope(path_names: { new: 'ny', edit: 'redigera' }) do
     resources :business_categories, path: 'kategori'
 
-    resources :membership_applications, path: 'ansokan' do
+    resources :shf_applications, path: 'ansokan' do
       member do
-        get 'start-review', to: 'membership_applications#show'
-        post 'start-review', to: 'membership_applications#start_review'
+        get 'start-review', to: 'shf_applications#show'
+        post 'start-review', to: 'shf_applications#start_review'
 
-        get 'accept', to: 'membership_applications#show'
-        post 'accept', to: 'membership_applications#accept'
-        get 'reject', to: 'membership_applications#show'
-        post 'reject', to: 'membership_applications#reject'
-        get 'need-info', to: 'membership_applications#show'
-        post 'need-info', to: 'membership_applications#need_info'
-        get 'cancel-need-info', to: 'membership_applications#show'
-        post 'cancel-need-info', to: 'membership_applications#cancel_need_info'
-        get 'need-payment', to: 'membership_applications#show'
-        post 'need-payment', to: 'membership_applications#need_payment'
-        get 'cancel-need-payment', to: 'membership_applications#show'
-        post 'cancel-need-payment', to: 'membership_applications#cancel_need_payment'
-        get 'received-payment', to: 'membership_applications#show'
-        post 'received-payment', to: 'membership_applications#received_payment'
+        get 'accept', to: 'shf_applications#show'
+        post 'accept', to: 'shf_applications#accept'
+        get 'reject', to: 'shf_applications#show'
+        post 'reject', to: 'shf_applications#reject'
+        get 'need-info', to: 'shf_applications#show'
+        post 'need-info', to: 'shf_applications#need_info'
+        get 'cancel-need-info', to: 'shf_applications#show'
+        post 'cancel-need-info', to: 'shf_applications#cancel_need_info'
+        get 'need-payment', to: 'shf_applications#show'
+        post 'need-payment', to: 'shf_applications#need_payment'
+        get 'cancel-need-payment', to: 'shf_applications#show'
+        post 'cancel-need-payment', to: 'shf_applications#cancel_need_payment'
+        get 'received-payment', to: 'shf_applications#show'
+        post 'received-payment', to: 'shf_applications#received_payment'
 
       end
 
@@ -122,7 +122,7 @@ Rails.application.routes.draw do
          as: :company_address_delete
   # ----------------------------------------------------------
 
-  get 'information', to: 'membership_applications#information'
+  get 'information', to: 'shf_applications#information'
 
   root to: 'companies#index'
 

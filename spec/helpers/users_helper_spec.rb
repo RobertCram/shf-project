@@ -6,7 +6,7 @@ RSpec.describe UsersHelper, type: :helper do
   let(:right_now) { Time.zone.now }
   let(:yesterday) { Time.zone.now - 1.day - 2.minutes }
 
-  let(:app)  { create(:membership_application, state: :accepted) }
+  let(:app)  { create(:shf_application, state: :accepted) }
   let(:expected_path) do
     payments_path(user_id: user.id, type: Payment::PAYMENT_TYPE_MEMBER)
   end
@@ -52,7 +52,7 @@ RSpec.describe UsersHelper, type: :helper do
     end
 
     it 'returns pay-fee link if user has app in "accepted" state' do
-      user.membership_applications << app
+      user.shf_applications << app
       user.save
       expect(pay_member_fee_link(user)).to match expected_path
     end

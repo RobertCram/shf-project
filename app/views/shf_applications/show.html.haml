@@ -37,10 +37,10 @@
       = render 'uploaded_files_list', membership_application: @membership_application, show_delete: false
 
 
-    %h3.app-status #{t('.app_status')}: #{t("membership_applications.state.#{@membership_application.state}")}  - #{@membership_application.updated_at.strftime('%F')}
+    %h3.app-status #{t('.app_status')}: #{t("shf_applications.state.#{@membership_application.state}")}  - #{@membership_application.updated_at.strftime('%F')}
 
     - if current_user.admin?
       = render partial: 'application_status_form'
 
-      = link_to "#{t('membership_applications.edit_membership_application')}", edit_membership_application_path(@membership_application), class:'btn btn-warning'
+      = link_to "#{t('shf_applications.edit_shf_application')}", edit_shf_application_path(@membership_application), class:'btn btn-warning'
       = link_to "#{t('.delete')}", @membership_application, method: :delete, class:'btn btn-danger', data: { confirm: "#{t('.confirm_are_you_sure')}" }

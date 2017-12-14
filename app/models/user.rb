@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :membership_applications
+  has_many :shf_applications
 
   has_many :payments
   accepts_nested_attributes_for :payments
@@ -39,21 +39,21 @@ class User < ApplicationRecord
     # 1. user == member, or
     # 2. user has at least one application with status == :accepted
 
-    member? || membership_applications.where(state: :accepted).any?
+    member? || shf_applications.where(state: :accepted).any?
   end
 
   def has_membership_application?
-    membership_applications.any?
+    shf_applications.any?
   end
 
 
   def has_company?
-    membership_applications.where.not(company_id: nil).count > 0
+    shf_applications.where.not(company_id: nil).count > 0
   end
 
 
   def membership_application
-    has_membership_application? ? membership_applications.last : nil
+    has_membership_application? ? shf_applications.last : nil
   end
 
 
@@ -76,7 +76,7 @@ class User < ApplicationRecord
     if admin?
       Company.all
     elsif member? && has_membership_application?
-      cos = membership_applications.reload.map(&:company).compact
+      cos = shf_applications.reload.map(&:company).compact
       cos.uniq(&:company_number)
     else
       [] # no_companies

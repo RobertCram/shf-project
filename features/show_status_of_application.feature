@@ -25,8 +25,8 @@ Feature: As an Admin
     Given I am logged in as "admin@sgf.com"
     And I am on the "membership applications" page
     Then I should see "4" applications
-    And I should see t("membership_applications.index.state")
-    And I should see t("membership_applications.under_review")
-    And I should see t("membership_applications.accepted")
-    And I should see t("membership_applications.rejected")
-    And I should see t("membership_applications.waiting_for_applicant")
+    And I should see t("shf_applications.index.state")
+    And I should see t("shf_applications.under_review")
+    And I should see t("shf_applications.accepted")
+    And I should see t("shf_applications.rejected")
+    And I should see t("shf_applications.waiting_for_applicant")

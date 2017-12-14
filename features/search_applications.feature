@@ -50,7 +50,7 @@ Scenario: Search by user's last name
   And I should see "John"
   And I should see "Anna"
   And I should see "Emma"
-  Then I select "Fransson" in select list t("activerecord.attributes.membership_application.last_name")
+  Then I select "Fransson" in select list t("activerecord.attributes.shf_application.last_name")
   And I click on t("search")
   And I should see "Fransson, Fred"
   And I should not see "John"
@@ -59,26 +59,26 @@ Scenario: Search by user's last name
 
 @selenium
 Scenario: Search by company (org) number
-  Then I select "5569467466" in select list t("membership_applications.index.org_nr")
+  Then I select "5569467466" in select list t("shf_applications.index.org_nr")
   And I click on t("search")
   Then I should see "Eriksson, Emma"
   And I should not see "John"
   And I should not see "Anna"
   And I should not see "Fred"
-  Then I select "2120000142" in select list t("membership_applications.index.org_nr")
+  Then I select "2120000142" in select list t("shf_applications.index.org_nr")
   And I click on t("search")
   Then I should see "Eriksson, Emma"
   Then I should see "Johanssen, John"
 
 @selenium
 Scenario: Search by status
-  Then I select "Under review" in select list t("membership_applications.index.state")
+  Then I select "Under review" in select list t("shf_applications.index.state")
   And I click on t("search")
   And I should see "Eriksson, Emma"
   And I should not see "John"
   And I should not see "Anna"
   And I should not see "Fred"
-  Then I select "New" in select list t("membership_applications.index.state")
+  Then I select "New" in select list t("shf_applications.index.state")
   And I click on t("search")
   And I should see "Eriksson, Emma"
   And I should see "Anderson, Anna"
@@ -87,14 +87,14 @@ Scenario: Search by status
 
 @selenium
 Scenario: Search by status and company number
-  Then I select "Under review" in select list t("membership_applications.index.state")
-  Then I select "2120000142" in select list t("membership_applications.index.org_nr")
+  Then I select "Under review" in select list t("shf_applications.index.state")
+  Then I select "2120000142" in select list t("shf_applications.index.org_nr")
   And I click on t("search")
   And I should not see "Emma"
   And I should not see "John"
   And I should not see "Anna"
   And I should not see "Fred"
-  Then I select "5569467466" in select list t("membership_applications.index.org_nr")
+  Then I select "5569467466" in select list t("shf_applications.index.org_nr")
   And I click on t("search")
   And I should see "Eriksson, Emma"
   And I should not see "John"
@@ -103,34 +103,34 @@ Scenario: Search by status and company number
 
 @selenium
 Scenario: Search by membership number
-  Then I select "1" in select list t("membership_applications.index.membership_number")
+  Then I select "1" in select list t("shf_applications.index.membership_number")
   And I click on t("search")
   Then I should see "Anderson, Anna"
   And I should not see "John"
   And I should not see "Emma"
   And I should not see "Fred"
-  Then I select "14" in select list t("membership_applications.index.membership_number")
+  Then I select "14" in select list t("shf_applications.index.membership_number")
   And I click on t("search")
   Then I should see "Johanssen, John"
 
 @selenium
 Scenario: Can sort by user lastname
-  Then I click on t("membership_applications.index.name") link
+  Then I click on t("shf_applications.index.name") link
   And I should see "Anderson" before "Eriksson"
   And I should see "Eriksson" before "Fransson"
   And I should see "Fransson" before "Johanssen"
-  Then I click on t("membership_applications.index.name") link
+  Then I click on t("shf_applications.index.name") link
   And I should see "Johanssen" before "Fransson"
   And I should see "Fransson" before "Eriksson"
   And I should see "Eriksson" before "Anderson"
 
 @selenium
 Scenario: Can sort by user membership number
-  Then I click on t("membership_applications.index.membership_number") link
+  Then I click on t("shf_applications.index.membership_number") link
   And I should see "Anderson" before "Eriksson"
   And I should see "Eriksson" before "Fransson"
   And I should see "Fransson" before "Johanssen"
-  Then I click on t("membership_applications.index.membership_number") link
+  Then I click on t("shf_applications.index.membership_number") link
   And I should see "Johanssen" before "Fransson"
   And I should see "Fransson" before "Eriksson"
   And I should see "Eriksson" before "Anderson"

@@ -101,7 +101,7 @@ en:
  # Automatic and manual lookup for ActiveRecords:
   activerecord:
     models:
-      membership_application:
+      shf_application:
         one: Membership
         other: Memberships
 
@@ -151,7 +151,7 @@ en:
         expire_date: &expire_date Expire Date
         notes: Notes
 
-      membership_application:
+      shf_application:
         company_number: &company_number Company number
         first_name: *first_name
         last_name: *last_name
@@ -232,7 +232,7 @@ en:
             actual_file:
               file_too_large: 'The uploaded file size must be smaller than %{max}. (Your file is %{value} bytes.)'
 
-        membership_application:
+        shf_application:
           attributes:
             company_number:
               invalid: "%{company_number} is not a valid Swedish company number"
@@ -257,7 +257,7 @@ en:
       branding_fee: Branding Fee
 
  # Automatic and manual lookup for views:
-  membership_applications:
+  shf_applications:
     new:
       title: Apply for a Membership
       instructions: 'To process your application, we need information about you and in which category you are applying as well as documents proving your skills in this/those categories.'
@@ -418,10 +418,10 @@ en:
 
     awaiting_payment: Awaiting payment
 
-    all_membership_applications: All applications
-    edit_membership_application: Edit application
-    view_membership_application: View application
-    list_all_membership_applications: List all applications
+    all_shf_applications: All applications
+    edit_shf_application: Edit application
+    view_shf_application: View application
+    list_all_shf_applications: List all applications
 
     uploads:
       no_files: You have not uploaded any files for this application.
@@ -819,7 +819,7 @@ en:
           view_app_here: "You can view the membership application here: "
           must_be_logged_in: "(You must be logged in as the administrator to view it.)"
 
-    membership_application:
+    shf_application:
       signoff: "Best Regards,"
       signature: *medlemsansvarig
       signature_url: "http://sverigeshundforetagare.se"

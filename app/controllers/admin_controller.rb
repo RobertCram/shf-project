@@ -5,7 +5,7 @@ class AdminController < ApplicationController
   def export_ansokan_csv
 
     begin
-      @membership_applications = MembershipApplication.includes(:user).all
+      @membership_applications = ShfApplication.includes(:user).all
 
       export_name = "Ansokningar-#{Time.zone.now.strftime('%Y-%m-%d--%H-%M-%S')}.csv"
 
@@ -36,7 +36,7 @@ class AdminController < ApplicationController
 
     membership_apps.each do |m_app|
       out_str << "#{m_app.contact_email},#{m_app.user.first_name},#{m_app.user.last_name},#{m_app.user.membership_number},"
-      out_str << t("membership_applications.state.#{m_app.state}")
+      out_str << t("shf_applications.state.#{m_app.state}")
       out_str << ','
 
       # add the business categories, all surrounded by double-quotes
@@ -61,11 +61,11 @@ class AdminController < ApplicationController
 
     # build the header string from strings in the locale file
 
-    header_member_strs = [t('activerecord.attributes.membership_application.contact_email'),
-                          t('activerecord.attributes.membership_application.first_name'),
-                          t('activerecord.attributes.membership_application.last_name'),
+    header_member_strs = [t('activerecord.attributes.shf_application.contact_email'),
+                          t('activerecord.attributes.shf_application.first_name'),
+                          t('activerecord.attributes.shf_application.last_name'),
                           t('activerecord.attributes.user.membership_number'),
-                          t('activerecord.attributes.membership_application.state'),
+                          t('activerecord.attributes.shf_application.state'),
                           t('activerecord.models.business_category.other'),
                           t('activerecord.models.company.one'),
                           t('activerecord.attributes.address.street'),

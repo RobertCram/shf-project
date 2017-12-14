@@ -28,7 +28,7 @@ Feature: As a user
     Then I am in "admin@shf.se" browser
     And I am logged in as "admin@shf.se"
     Then I am on the "application" page for "emma@mutts.com"
-    And I click on t("membership_applications.accept_btn")
+    And I click on t("shf_applications.accept_btn")
 
     Then I am in "emma@mutts.com" browser
     And I reload the page
@@ -50,7 +50,7 @@ Feature: As a user
     Then I am in "admin@shf.se" browser
     And I am logged in as "admin@shf.se"
     Then I am on the "application" page for "emma@mutts.com"
-    And I click on t("membership_applications.accept_btn")
+    And I click on t("shf_applications.accept_btn")
 
     Then I am in "emma@mutts.com" browser
     And I reload the page
