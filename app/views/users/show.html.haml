@@ -46,7 +46,7 @@
               = t('activerecord.attributes.company.name')
         %tbody
           - @user.shf_applications.includes(:company).each do |app|
-            %tr.membership_application
+            %tr.shf_application
               %td= mail_to(app.contact_email)
               %td
                 - if app.accepted?

@@ -12,7 +12,7 @@ $files-table-background: #ffffff;
 $app-state-border-blue: rgb(142, 173, 206);
 
 
-.membershipapplication {
+.shfapplication {
 
   .entry-content.wpcf7 {
     margin-top: 1em !important;
@@ -179,8 +179,8 @@ $app-state-border-blue: rgb(142, 173, 206);
   }
 }
 
-.show.membershipapplication,
-.update.membershipapplication {
+.show.shfapplication,
+.update.shfapplication {
 
   #uploaded-files h4.files-uploaded-list-title {
     font-weight: bold;
