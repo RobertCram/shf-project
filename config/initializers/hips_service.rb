@@ -1,4 +1,4 @@
-HIPS_ORDERS_URL = ENV['SHF_HIPS_URL'] + 'orders/'
+HIPS_ORDERS_URL = ENV['SHF_HIPS_URL'] + 'orders/' if ENV['SHF_HIPS_URL']
 
 HIPS_JS_CDN     = ENV['SHF_HIPS_JS_CDN']
 
