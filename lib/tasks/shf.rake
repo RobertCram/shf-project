@@ -9,6 +9,7 @@ namespace :shf do
   desc 'recreate db (current env): drop, setup, migrate, seed the db.'
   task :db_recreate => [:environment] do
     #Rake::Task['db:drop'].invoke if database_exists?
+    puts "database exists" if database_exists?
     tasks = ['db:create', 'db:migrate',
              'shf:load_regions', 'shf:load_kommuns', 'db:seed']
     tasks.each { |t| Rake::Task["#{t}"].invoke }
