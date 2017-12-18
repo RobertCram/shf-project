@@ -19,11 +19,11 @@ RSpec.describe ShfApplicationMailer, type: :mailer do
 
   describe '#app_approved' do
 
-    let(:approved_text) { 'application_mailer.membership_application.app_approved.message_text' }
+    let(:approved_text) { 'application_mailer.shf_application.app_approved.message_text' }
 
 
     let(:accepted_app) { create(:shf_application, :accepted, user: test_user) }
-    let(:email_sent) { ShfApplicationMailer.accepted(accepted_app) }
+    let(:email_sent) { ShfApplicationMailer.app_approved(accepted_app) }
 
     it_behaves_like 'a successfully created email to a member',
                     I18n.t('application_mailer.shf_application.app_approved.subject'),
@@ -99,10 +99,10 @@ RSpec.describe ShfApplicationMailer, type: :mailer do
 
 
       let(:accepted_app_branding_paid) {
-        create(:membership_application, :accepted, user: user1, company_number: co_branding_paid.company_number)
+        create(:shf_application, :accepted, user: user1, company_number: co_branding_paid.company_number)
       }
 
-      let(:email_sent_branding_paid) { MembershipApplicationMailer.app_approved(accepted_app_branding_paid) }
+      let(:email_sent_branding_paid) { ShfApplicationMailer.app_approved(accepted_app_branding_paid) }
 
 
       it 'does not say branding license fee must be paid next' do

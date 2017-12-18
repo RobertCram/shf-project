@@ -3,7 +3,7 @@ module PickRandomHelpers
 
 
   # return a random new membership application
-  def random_member_app(application_state = :new)
+  def random_shf_app(application_state = :new)
 
     app_ids = ShfApplication.where(state: application_state).pluck(:id)
 

@@ -34,15 +34,15 @@ Feature: Applicant gets an email when the application is approved
   Scenario: Admin approves membership and email is sent to applicant
     Given I am logged in as "admin@shf.com"
     And I am on the "application" page for "emma@happymutts.se"
-    When I click on t("membership_applications.accept_btn")
+    When I click on t("shf_applications.accept_btn")
     And I should be on the "edit application" page for "emma@happymutts.se"
-    And I should see t("membership_applications.accept.success")
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.update.success")
-    And I should see t("membership_applications.accepted")
+    And I should see t("shf_applications.accept.success")
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.success")
+    And I should see t("shf_applications.accepted")
     Then "emma@happymutts.se" should receive an email
     And I am logged in as "emma@happymutts.se"
     And I open the email
-    And I should see t("application_mailer.membership_application.app_approved.subject") in the email subject
+    And I should see t("application_mailer.shf_application.app_approved.subject") in the email subject
 
 

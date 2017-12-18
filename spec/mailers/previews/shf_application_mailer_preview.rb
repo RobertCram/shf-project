@@ -6,13 +6,13 @@ class ShfApplicationMailerPreview < ActionMailer::Preview
 
   include PickRandomHelpers
 
-  def accepted
-    ShfApplicationMailer.app_aproved(random_member_app(:accepted))
+  def app_approved
+    ShfApplicationMailer.app_approved(random_shf_app(:accepted))
   end
 
 
   def acknowledge_received
-    ShfApplicationMailer.acknowledge_received(random_member_app)
+    ShfApplicationMailer.acknowledge_received(random_shf_app)
   end
 
 

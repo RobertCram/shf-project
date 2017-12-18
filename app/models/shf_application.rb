@@ -114,7 +114,7 @@ class ShfApplication < ApplicationRecord
       update(company: company)
 
       # email the applicant to let them know the application was approved:
-      MembershipApplicationMailer.app_approved(self).deliver_now
+      ShfApplicationMailer.app_approved(self).deliver_now
 
     rescue => e
       puts "ERROR: could not accept_membership.  error: #{e.inspect}"
