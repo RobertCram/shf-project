@@ -828,8 +828,16 @@ en:
         subject: Your application to Sveriges Hundföretagare has been received
         message_text: "Your application has been received.  We are all working hard, so it might take a while before we get to it. So do not worry if it takes a while before you hear from us."
 
+      app_approved:
+        subject: Your application to Sveriges Hundföretagare is approved
+        message_text:
+          app_approved_and_next: "Your application is now approved. What is left before you are registered as a member in the system is to pay your membership fee.  Log in to the website and then pay at this link: "
+          h_branding_not_paid: "När detta är gjort behöver du göra färdigt din företagssida och betala din H-märkningsvagift. Mer information om hur du gör det kommer i ett mail efter att du betalt din medlemsavgift."
+          thanks:  "Thank you for wanting to be a member and contributing to a Sweden with an ethical dog industry."
+
+    user:
       accepted:
-        subject: "Welcome! Your SHF application has been approved"
+        subject: "Welcome to SHF! You're now a member"
         greeting: *email_greeting
         message_text:
           youre_active: "You have now been activated as a member of the system and can log in and manage your profile and build your business page. Once you are logged in, you can edit your company page here: "

@@ -6,8 +6,8 @@ class MembershipApplicationMailerPreview < ActionMailer::Preview
 
   include PickRandomHelpers
 
-  def accepted
-    MembershipApplicationMailer.accepted(random_member_app(:accepted))
+  def app_approved
+    MembershipApplicationMailer.app_approved(random_member_app(:accepted))
   end
 
 

@@ -81,7 +81,7 @@ class HipsService
               items: [ {
                           type: 'fee',
                           sku: payment_data[:type],
-                          name: payment_data[:type],
+                          name: payment_data[:paid_item],
                           quantity: 1,
                           unit_price: item_price
                         }

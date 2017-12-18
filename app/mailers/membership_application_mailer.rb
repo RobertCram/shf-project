@@ -8,9 +8,10 @@ class MembershipApplicationMailer < AbstractMembershipInfoMailer
   end
 
 
-  def accepted(member_application)
+  def app_approved(member_application)
+    @branding_fee_paid = member_application.company&.branding_license?
 
-    send_mail_for __method__, member_application, t('application_mailer.membership_application.accepted.subject')
+    send_mail_for __method__, member_application, t('application_mailer.membership_application.app_approved.subject')
 
   end
 

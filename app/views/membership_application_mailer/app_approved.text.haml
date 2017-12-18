@@ -1,0 +1,13 @@
+- provide :signoff do
+  = render 'membership_application_mailer/signoff'
+
+- message_scope = 'application_mailer.membership_application.app_approved.message_text'
+
+= I18n.t('app_approved_and_next', scope: message_scope) + user_url(@member_app.user)
+
+- unless @branding_fee_paid
+  \
+  = I18n.t('h_branding_not_paid', scope: message_scope)
+
+\
+= I18n.t('thanks', scope: message_scope)
