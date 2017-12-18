@@ -19,9 +19,11 @@ class PaymentsController < ApplicationController
     if payment_type == Payment::PAYMENT_TYPE_MEMBER
       entity_id = user_id
       start_date, expire_date = User.next_membership_payment_dates(user_id)
+      paid_item = I18n.t('payment.payment_type.member_fee')
     else
       entity_id = company_id
       start_date, expire_date = Company.next_branding_payment_dates(company_id)
+      paid_item = I18n.t('payment.payment_type.branding_fee')
     end
 
     # HIPS will associate the payment with a "merchant reference" - which
@@ -35,7 +37,8 @@ class PaymentsController < ApplicationController
 
     # Build data structures for HIPS order
     urls = hips_order_urls(entity_id, @payment.id, company_id, payment_type)
-    payment_data = { id: @payment.id, type: payment_type, currency: 'SEK' }
+    payment_data = { id: @payment.id, type: payment_type, currency: 'SEK',
+                     paid_item: paid_item }
 
     # Invoke HIPS API - returns an order to be used for checkout
     hips_order = HipsService.create_order(user_id,

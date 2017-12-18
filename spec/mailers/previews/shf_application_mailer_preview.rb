@@ -7,7 +7,7 @@ class ShfApplicationMailerPreview < ActionMailer::Preview
   include PickRandomHelpers
 
   def accepted
-    ShfApplicationMailer.accepted(random_member_app(:accepted))
+    ShfApplicationMailer.app_aproved(random_member_app(:accepted))
   end
 
 
