@@ -29,17 +29,13 @@
       - @companies.each do |company|
         %tr.company
           %td{ style: 'white-space: nowrap;' }
-            - first = true
-            - company.business_categories.order(:name).distinct.each do | bc |
-              - if first
-                - first = false
-                = bc.name
-              - else
-                <br/>
-                = bc.name
+            = company.business_categories.order(:name).each.map{|bc| bc.name}.join('<br/>').html_safe
           %td= link_to company.name, company
-          %td= company.main_address.region&.name
-          %td= company.main_address.kommun&.name
+          %td{style: 'white-space: nowrap;'}
+            = company.addresses.each.map{|address| address.region&.name}.join('<br/>').html_safe
+          %td{style: 'white-space: nowrap;'}
+            = company.addresses.each.map{|address| address.kommun&.name}.join('<br/>').html_safe
+
           - if current_user.admin?
             %td= company.company_number
             %td= link_to "#{t('edit')}", edit_company_path(company)
