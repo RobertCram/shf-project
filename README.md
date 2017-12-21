@@ -105,7 +105,7 @@ private message in Slack, or general message in the project's Slack channel).
 ```shell
 $ bundle exec rake shf:db_recreate
 ```
-The rake task `shf:db_recreate` recreates the development DB, creates the application
+The rake task `shf:db_recreate` creates or recreates the development and test DBs, creates the application
 schema, loads foundation data table (e.g. list of Swedish counties) and then
 runs seed.db to populate the DB with data for development.
 
