@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'Associations' do
-    it { is_expected.to have_many :membership_applications }
+    it { is_expected.to have_many :shf_applications }
     it { is_expected.to have_many :payments }
     it { is_expected.to accept_nested_attributes_for(:payments)}
   end
@@ -64,16 +64,16 @@ RSpec.describe User, type: :model do
 
   end
 
-  describe '#has_membership_application?' do
+  describe '#has_shf_application?' do
 
     describe 'user: no application' do
       subject { create(:user) }
-      it { expect(subject.has_membership_application?).to be_falsey }
+      it { expect(subject.has_shf_application?).to be_falsey }
     end
 
     describe 'user: 1 saved application' do
       subject { create(:user_with_membership_app) }
-      it { expect(subject.has_membership_application?).to be_truthy }
+      it { expect(subject.has_shf_application?).to be_truthy }
     end
 
     describe 'user: 1 not yet saved application' do
@@ -83,18 +83,18 @@ RSpec.describe User, type: :model do
 
     describe 'member with 1 app' do
       let(:member) { create(:member_with_membership_app) }
-      let(:member_app) { create(:membership_application, user: user_with_app) }
-      it { expect(member.has_membership_application?).to be_truthy }
+      let(:member_app) { create(:shf_application, user: user_with_app) }
+      it { expect(member.has_shf_application?).to be_truthy }
     end
 
     describe 'member with 0 app (should not happen)' do
       let(:member) { create(:user) }
-      it { expect(member.has_membership_application?).to be_falsey }
+      it { expect(member.has_shf_application?).to be_falsey }
     end
 
     describe 'admin' do
       subject { create(:user, admin: true) }
-      it { expect(subject.has_membership_application?).to be_falsey }
+      it { expect(subject.has_shf_application?).to be_falsey }
     end
 
   end
@@ -103,7 +103,7 @@ RSpec.describe User, type: :model do
 
     after(:each) {
       Company.delete_all
-      MembershipApplication.delete_all
+      ShfApplication.delete_all
       User.delete_all
     }
 
@@ -138,36 +138,36 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#membership_application' do
+  describe '#shf_application' do
 
     describe 'user: no application' do
       subject { create(:user) }
-      it { expect(subject.membership_application).to be_nil }
+      it { expect(subject.shf_application).to be_nil }
     end
 
     describe 'user: 1 saved application' do
       subject { create(:user_with_membership_app) }
-      it { expect(subject.membership_application).not_to be_nil }
+      it { expect(subject.shf_application).not_to be_nil }
     end
     describe 'user: 2 application' do
       subject { create(:user_with_2_membership_apps) }
-      it { expect(subject.membership_application).not_to be_nil }
-      it { expect(subject.membership_applications.size).to eq(2) }
+      it { expect(subject.shf_application).not_to be_nil }
+      it { expect(subject.shf_applications.size).to eq(2) }
     end
 
     describe 'member with 1 app' do
       let(:member) { create(:member_with_membership_app) }
-      it { expect(member.membership_application).to be_truthy }
+      it { expect(member.shf_application).to be_truthy }
     end
 
     describe 'member with 0 apps (should not happen)' do
       let(:member) { create(:user) }
-      it { expect(member.membership_application).to be_falsey }
+      it { expect(member.shf_application).to be_falsey }
     end
 
     describe 'admin' do
       subject { create(:user, admin: true) }
-      it { expect(subject.membership_application).to be_falsey }
+      it { expect(subject.shf_application).to be_falsey }
     end
   end
 
@@ -265,8 +265,8 @@ RSpec.describe User, type: :model do
       describe 'member with 2 apps, both with same (1) company' do
         let(:member) do
           m = create(:member_with_membership_app)
-          app2 = create(:membership_application, :accepted, company_number: m.membership_applications.first.company_number)
-          m.membership_applications << app2
+          app2 = create(:shf_application, :accepted, company_number: m.shf_applications.first.company_number)
+          m.shf_applications << app2
           m
         end
         it { expect(member.is_in_company_numbered?(default_co_number)).to be_truthy }
@@ -275,8 +275,8 @@ RSpec.describe User, type: :model do
       describe 'member with 2 apps, 2 different companies' do
         let(:member) do
           m = create(:member_with_membership_app, company_number: '5562252998')
-          app2 = create(:membership_application, :accepted, company_number: '2120000142')
-          m.membership_applications << app2
+          app2 = create(:shf_application, :accepted, company_number: '2120000142')
+          m.shf_applications << app2
           m
         end
         it { expect(member.is_in_company_numbered?('5562252998')).to be_truthy }
@@ -327,8 +327,8 @@ RSpec.describe User, type: :model do
       describe 'member with 2 apps, both with same (1) company' do
         let(:member) do
           m = create(:member_with_membership_app)
-          app2 = create(:membership_application, :accepted, company_number: m.membership_applications.first.company_number)
-          m.membership_applications << app2
+          app2 = create(:shf_application, :accepted, company_number: m.shf_applications.first.company_number)
+          m.shf_applications << app2
           m
         end
         it { expect(member.companies.size).to eq(1), "found: size: #{member.companies.size} #{member.companies.inspect}" }
@@ -337,8 +337,8 @@ RSpec.describe User, type: :model do
       describe 'member with 2 apps, 2 different companies' do
         let(:member) do
           m = create(:member_with_membership_app, company_number: '5562252998')
-          app2 = create(:membership_application, :accepted, company_number: '2120000142')
-          m.membership_applications << app2
+          app2 = create(:shf_application, :accepted, company_number: '2120000142')
+          m.shf_applications << app2
           m
         end
         it { expect(member.companies.size).to eq(2) }
@@ -347,10 +347,10 @@ RSpec.describe User, type: :model do
       describe 'member with 2 apps, 2 for the same company, 1 different company' do
         let(:member) do
           m = create(:member_with_membership_app)
-          app2 = create(:membership_application, :accepted, company_number: m.membership_applications.first.company_number)
-          m.membership_applications << app2
-          app3_different_co = create(:membership_application, :accepted, company_number: '2120000142')
-          m.membership_applications << app3_different_co
+          app2 = create(:shf_application, :accepted, company_number: m.shf_applications.first.company_number)
+          m.shf_applications << app2
+          app3_different_co = create(:shf_application, :accepted, company_number: '2120000142')
+          m.shf_applications << app3_different_co
           m
         end
         it { expect(member.companies.size).to eq(2) }
@@ -431,7 +431,7 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
     let(:success) { Payment.order_to_payment_status('successful') }
     let(:application) do
-      create(:membership_application, user: user, state: :accepted)
+      create(:shf_application, user: user, state: :accepted)
     end
 
     let(:payment_date_2017) { Time.zone.local(2017, 10, 1) }
@@ -556,6 +556,35 @@ RSpec.describe User, type: :model do
       it 'returns true if user has app in "accepted" state' do
         application
         expect(user.allow_pay_member_fee?).to eq true
+      end
+    end
+
+    describe '#check_member_status' do
+      it 'does nothing if not a member' do
+        user.check_member_status
+        expect(user.member).to be false
+      end
+
+      it 'does nothing if a member and payment not expired' do
+        payment1
+        user.update(member: true)
+
+        user.check_member_status
+        expect(user.member).to be true
+      end
+
+      it 'revokes membership if a member and payment has expired' do
+        Timecop.freeze(payment_date_2018)
+
+        payment1
+        user.update(member: true)
+        
+        Timecop.freeze(Time.zone.today + 1.year)
+
+        user.check_member_status
+        expect(user.member).to be false
+
+        Timecop.return
       end
     end
   end

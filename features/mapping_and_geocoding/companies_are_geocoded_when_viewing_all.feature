@@ -22,10 +22,10 @@ Feature: All companies are geocoded before being shown on the view all companies
       | CompanyNotVisible    | 5569467466     | company@notvisible.com | Stockholm    | Alingsås | none           |
 
     And the following users exists
-      | email               | admin |
-      | emma@happymutts.com |       |
-      | a@happymutts.com    |       |
-      | admin@shf.se        | true  |
+      | email               | admin | member |
+      | emma@happymutts.com |       | true   |
+      | a@happymutts.com    |       | true   |
+      | admin@shf.se        | true  |        |
 
     And the following business categories exist
       | name         |

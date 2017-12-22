@@ -12,6 +12,10 @@ Feature: As the owner of a company (or an admin)
       | bowser@snarkybarky.se |       | true      |
       | admin@shf.se          | true  | false     |
 
+    Given the following payments exist
+      | user_email          | start_date | expire_date | payment_type | status | hips_id |
+      | emma@happymutts.com | 2017-10-1  | 2017-12-31  | member_fee   | betald | none    |
+
     Given the following companies exist:
       | name         | email                 | company_number |
       | happy mutts  | emma@happymutts.com   | 5562252998     |
@@ -41,7 +45,9 @@ Feature: As the owner of a company (or an admin)
     Then I should see t("companies.show.email")
     And I should not see t("companies.edit_company")
 
+  @time_adjust
   Scenario: User related to company does see edit link for company
+    Given the date is set to "2017-10-01"
     Given I am logged in as "emma@happymutts.com"
     And I am the page for company number "5562252998"
     Then I should see t("companies.show.email")

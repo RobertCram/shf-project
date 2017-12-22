@@ -44,11 +44,9 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if resource.admin?
-      admin_root_path
-    else
-      information_path
-    end
+    return admin_root_path if resource.admin?
+
+    information_path
   end
 
   def user_not_authorized
@@ -72,7 +70,9 @@ class ApplicationController < ActionController::Base
   def prepare_exception_notifier
     request.env["exception_notifier.exception_data"] = {
         current_user: current_user.inspect,
-        remote_addr: request.env['REMOTE_ADDR']
+        remote_addr: request.env['REMOTE_ADDR'],
+        browser: request.env['HTTP_USER_AGENT']
+
     }
   end
 

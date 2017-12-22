@@ -8,6 +8,10 @@ Feature: Only members and admins can see members only (hidden) pages
       | not_a_member@bowsers.com |       | false     |
       | admin@shf.se             | true  | false     |
 
+    Given the following payments exist
+      | user_email          | start_date | expire_date | payment_type | status | hips_id |
+      | emma@happymutts.com | 2017-10-1  | 2017-12-31  | member_fee   | betald | none    |
+
     And the following business categories exist
       | name  |
       | Rehab |
@@ -39,13 +43,17 @@ Feature: Only members and admins can see members only (hidden) pages
     And I am on the "landing" page
     Then I should not see t("menus.nav.members.member_pages")
 
+  @time_adjust
   Scenario: Member can see members only pages
+    Given the date is set to "2017-10-01"
     Given I am logged in as "emma@happymutts.com"
     And  I am on the static workgroups page
     Then I should see "Yrkesrad"
     Then I should not see t("errors.not_permitted")
 
+  @time_adjust
   Scenario: Member can see members only menu
+    Given the date is set to "2017-10-01"
     Given I am logged in as "emma@happymutts.com"
     And I am on the "landing" page
     Then I should see t("menus.nav.members.member_pages")

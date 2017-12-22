@@ -30,7 +30,7 @@ Feature: So that I do not get frustrated by trying to find out more
 
     And the following users exists
       | email                        | admin |
-      | emmaGroomer@happymutts.com   |       |
+      | emmagroomer@happymutts.com   |       |
       | annaTrainer@bowsers.com      |       |
       | ole@noOldRegion.se           |       |
       | maja@onlyNoRegion.se         |       |
@@ -80,7 +80,7 @@ Feature: So that I do not get frustrated by trying to find out more
 
   @member
   Scenario: Member on landing page - only complete companies are shown
-    Given I am logged in as "emmaGroomer@happymutts.com"
+    Given I am logged in as "emmagroomer@happymutts.com"
     When I am on the "landing" page
     Then I should see "Happy Mutts"
     And I should see "Bowsers"
@@ -89,7 +89,7 @@ Feature: So that I do not get frustrated by trying to find out more
 
   @member
   Scenario: Member on Kategori - only complete companies are shown
-    Given I am logged in as "emmaGroomer@happymutts.com"
+    Given I am logged in as "emmagroomer@happymutts.com"
     When I am on the business category "Groomer"
     Then I should not see "5906055081"
     And I should not see "NoRegion"

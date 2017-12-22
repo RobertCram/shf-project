@@ -30,7 +30,7 @@ RSpec.describe UploadedFile, type: :model do
   end
 
   describe 'Associations' do
-    it { is_expected.to belong_to :membership_application }
+    it { is_expected.to belong_to :shf_application }
     it { should have_attached_file :actual_file }
   end
 

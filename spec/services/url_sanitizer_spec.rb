@@ -1,6 +1,5 @@
 require 'spec_helper'
-
-require_relative (File.join(__dir__, '..', '..', 'app','services','url_sanitizer' ))
+require_relative(File.join( SERVICES_PATH, 'url_sanitizer'))
 
 
 RSpec.describe URLSanitizer  do

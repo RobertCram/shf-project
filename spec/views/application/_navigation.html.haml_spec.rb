@@ -8,11 +8,11 @@ RSpec.describe 'companies/index' do
 
   let(:user)    { FactoryGirl.create(:user_with_membership_app) }
 
-  let(:cmpy_id) { member.membership_applications[0].company.id }
+  let(:cmpy_id) { member.shf_applications[0].company.id }
 
-  let(:app_id)  { member.membership_applications[0].id }
+  let(:app_id)  { member.shf_applications[0].id }
 
-  let(:user_app_id) { user.membership_applications[0].id }
+  let(:user_app_id) { user.shf_applications[0].id }
 
   let(:shf_site) { Regexp.escape('http://sverigeshundforetagare.se/') }
 
@@ -30,7 +30,7 @@ RSpec.describe 'companies/index' do
       #https://github.com/elabs/pundit/issues/339
       #undefined method `policy' while testing with RSpec views specs
       without_partial_double_verification do
-        allow(view).to receive(:policy).and_return(double('MembershipApplicationPolicy.new', update?: false))
+        allow(view).to receive(:policy).and_return(double('ShfApplicationPolicy.new', update?: false))
       end
 
       assign(:all_visible_companies, [])
@@ -112,7 +112,7 @@ RSpec.describe 'companies/index' do
       #https://github.com/elabs/pundit/issues/339
       #undefined method `policy' while testing with RSpec views specs
       without_partial_double_verification do
-        allow(view).to receive(:policy).and_return(double('MembershipApplicationPolicy.new', update?: true))
+        allow(view).to receive(:policy).and_return(double('ShfApplicationPolicy.new', update?: true))
       end
 
       assign(:all_visible_companies, [])

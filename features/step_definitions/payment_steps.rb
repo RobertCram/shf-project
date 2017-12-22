@@ -1,11 +1,17 @@
 Given(/^the following payments exist$/) do |table|
   table.hashes.each do |payment|
     user_email = payment.delete('user_email')
+    company_name = payment.delete('company_name')
+
     user = User.find_by_email(user_email)
 
-    company_number = payment.delete('company_number')
-    company = nil
-    company = Company.find_by_company_number(company_number) if company_number
+    if company_name
+      company = Company.find_by_name(company_name)
+    else
+      company_number = payment.delete('company_number')
+      company = nil
+      company = Company.find_by_company_number(company_number) if company_number
+    end
 
     FactoryGirl.create(:payment, payment.merge(user: user, company: company))
   end

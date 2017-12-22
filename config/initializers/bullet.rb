@@ -5,7 +5,7 @@ if defined? Bullet
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'Company',
-                association: :membership_applications
+                association: :shf_applications
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'Company',
@@ -16,12 +16,12 @@ if defined? Bullet
                 association: :addresses
 
   Bullet.add_whitelist type: :unused_eager_loading,
-                 class_name: 'MembershipApplication',
+                 class_name: 'ShfApplication',
                 association: :business_categories
 
   Bullet.add_whitelist type: :unused_eager_loading,
-                 class_name: 'MembershipApplication',
-                association: :membershipapplications_business_categories
+                 class_name: 'ShfApplication',
+                association: :shfapplications_business_categories
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'Address',
@@ -33,13 +33,13 @@ if defined? Bullet
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'BusinessCategory',
-                association: :membership_applications
+                association: :shf_applications
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'BusinessCategory',
-                association: :businesscategories_membership_applications
+                association: :businesscategories_shf_applications
 
   Bullet.add_whitelist type: :unused_eager_loading,
                  class_name: 'User',
-                association: :membership_applications
+                association: :shf_applications
 end

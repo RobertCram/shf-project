@@ -13,10 +13,10 @@ Feature: As an admin
 
   Background:
     Given the following users exists
-      | email                      | admin |
-      | applicant_1@happymutts.com |       |
-      | applicant_3@happymutts.com |       |
-      | admin@shf.se               | true  |
+      | email                      | admin | member |
+      | applicant_1@happymutts.com |       | true   |
+      | applicant_3@happymutts.com |       |        |
+      | admin@shf.se               | true  |        |
 
     Given the following regions exist:
       | name         |

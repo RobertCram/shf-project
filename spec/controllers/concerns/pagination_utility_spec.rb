@@ -138,19 +138,19 @@ RSpec.describe TestPaginationUtility do
     end
   end
 
-  describe "#process_pagination_params('membership_applications')" do
+  describe "#process_pagination_params('shf_applications')" do
 
     it 'initial page load' do
       subject.params = ActionController::Parameters.new({})
 
-      expect(subject.process_pagination_params('membership_applications'))
+      expect(subject.process_pagination_params('shf_applications'))
         .to match_array [ nil, 10, 10 ]
     end
 
     it 'search with no criteria' do
       subject.params = ActionController::Parameters.new(empty_search_applications)
 
-      expect(subject.process_pagination_params('membership_applications'))
+      expect(subject.process_pagination_params('shf_applications'))
         .to match_array [ ActionController::Parameters.new(
           empty_search_applications[:q]), 10, 10 ]
     end
@@ -158,7 +158,7 @@ RSpec.describe TestPaginationUtility do
     it 'search with specified criteria' do
       subject.params = ActionController::Parameters.new(specified_search_applications)
 
-      expect(subject.process_pagination_params('membership_applications'))
+      expect(subject.process_pagination_params('shf_applications'))
         .to match_array [ ActionController::Parameters.new(
           specified_search_applications[:q]), 10, 10 ]
     end
@@ -166,65 +166,65 @@ RSpec.describe TestPaginationUtility do
     it 'set per-page items to 25' do
       # "Load" the page first
       subject.params = ActionController::Parameters.new({})
-      subject.process_pagination_params('membership_applications')
+      subject.process_pagination_params('shf_applications')
 
       # Now set items count
       subject.params = ActionController::Parameters.new(items_count_25)
 
-      expect(subject.process_pagination_params('membership_applications'))
+      expect(subject.process_pagination_params('shf_applications'))
         .to match_array [ nil, 25, 25 ]
     end
 
     it 'set per-page items to All' do
       # "Load" the page first
       subject.params = ActionController::Parameters.new({})
-      subject.process_pagination_params('membership_applications')
+      subject.process_pagination_params('shf_applications')
 
       # Now set items count
       subject.params = ActionController::Parameters.new(items_count_all)
 
-      expect(subject.process_pagination_params('membership_applications'))
+      expect(subject.process_pagination_params('shf_applications'))
         .to match_array [ nil, 'All', 10_000 ]
     end
 
     it 'session cache management' do
       # "Load" the page
       subject.params = ActionController::Parameters.new({})
-      subject.process_pagination_params('membership_applications')
+      subject.process_pagination_params('shf_applications')
 
-      expect(session[:membership_applications_search_criteria]).to eq 'null'
-      expect(session[:membership_applications_items_selection]).to be_nil
+      expect(session[:shf_applications_search_criteria]).to eq 'null'
+      expect(session[:shf_applications_items_selection]).to be_nil
 
       # Set items count to 25
       subject.params = ActionController::Parameters.new(items_count_25)
-      subject.process_pagination_params('membership_applications')
+      subject.process_pagination_params('shf_applications')
 
-      expect(session[:membership_applications_search_criteria]).to eq 'null'
-      expect(session[:membership_applications_items_selection]).to eq 25
+      expect(session[:shf_applications_search_criteria]).to eq 'null'
+      expect(session[:shf_applications_items_selection]).to eq 25
 
       # Search with no criteria
       subject.params = ActionController::Parameters.new(empty_search_applications)
-      subject.process_pagination_params('membership_applications')
+      subject.process_pagination_params('shf_applications')
 
-      expect(session[:membership_applications_search_criteria])
+      expect(session[:shf_applications_search_criteria])
         .to eq empty_search_applications[:q].to_json
-      expect(session[:membership_applications_items_selection]).to eq 25
+      expect(session[:shf_applications_items_selection]).to eq 25
 
       # Search with criteria
       subject.params = ActionController::Parameters.new(specified_search_applications)
-      subject.process_pagination_params('membership_applications')
+      subject.process_pagination_params('shf_applications')
 
-      expect(session[:membership_applications_search_criteria])
+      expect(session[:shf_applications_search_criteria])
         .to eq specified_search_applications[:q].to_json
-      expect(session[:membership_applications_items_selection]).to eq 25
+      expect(session[:shf_applications_items_selection]).to eq 25
 
       # Set items count to 'All'
       subject.params = ActionController::Parameters.new(items_count_all)
-      subject.process_pagination_params('membership_applications')
+      subject.process_pagination_params('shf_applications')
 
-      expect(session[:membership_applications_search_criteria])
+      expect(session[:shf_applications_search_criteria])
         .to eq specified_search_applications[:q].to_json
-      expect(session[:membership_applications_items_selection]).to eq 'All'
+      expect(session[:shf_applications_items_selection]).to eq 'All'
     end
   end
 end

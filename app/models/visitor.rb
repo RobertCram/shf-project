@@ -12,7 +12,7 @@ class Visitor
     false
   end
 
-  def has_membership_application?
+  def has_shf_application?
     false
   end
 

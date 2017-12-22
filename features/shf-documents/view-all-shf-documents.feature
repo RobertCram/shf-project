@@ -16,6 +16,10 @@ Feature: SHF members (and admins) can views board meeting minutes (SHF documents
       | bob@snarkybarky.se |       | false  |
       | admin@shf.se       | true  | false  |
 
+    Given the following payments exist
+      | user_email         | start_date | expire_date | payment_type | status | hips_id |
+      | emma@happymutts.se | 2017-10-1  | 2017-12-31  | member_fee   | betald | none    |
+
     And the following companies exist:
       | name        | company_number | email               |
       | Happy Mutts | 2120000142     | bowwow@bowsersy.com |
@@ -45,8 +49,9 @@ Feature: SHF members (and admins) can views board meeting minutes (SHF documents
      # clicking on a document title will show or download the actual document
 
 
-
+  @time_adjust
   Scenario: A member can see all SHF documents and click on title link
+    Given the date is set to "2017-10-01"
     Given I am logged in as "admin@shf.se"
     And I am on the "new SHF document" page
     And I fill in the translated form with data:
@@ -105,6 +110,6 @@ Feature: SHF members (and admins) can views board meeting minutes (SHF documents
 
 
   Scenario: A user cannot see SHF documents
-    Given I am logged in as "bob@snarkybarky.se "
+    Given I am logged in as "bob@snarkybarky.se"
     And I am on the "all SHF documents" page
     Then I should see t("errors.not_permitted")

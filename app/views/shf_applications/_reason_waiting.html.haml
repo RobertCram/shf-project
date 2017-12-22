@@ -1,0 +1,68 @@
+-# Submit the changed reason via javascript when a member_app_waiting_reasons_id is selected from the list or custom_reason_text is changed.
+  Do not make user press a "save" or "submit" button for these changes. (use AJAX)
+#reason-waiting
+  .row
+    .container
+      .reason-waiting-information
+        = label_tag :member_app_waiting_reasons, t('shf_applications.need_info.reason_title')
+        -# have to set selected into an interim variable because this needs to be evaluated before the collection
+        - selected = selected_reason_value(@shf_application, @other_waiting_reason_value)
+        = select_tag(:member_app_waiting_reasons,
+                         options_from_collection_for_select(reasons_collection(@other_waiting_reason_value, @other_waiting_reason_text),
+                                                            :id,
+                                                            reason_name_method,
+                                                            selected),
+                         { include_blank: t('shf_applications.need_info.select_a_reason'),
+                           class: 'reason-waiting-list',
+                           data: { remote: true,
+                                   url: shf_application_path(@shf_application),
+                                   method: 'put' } })
+
+  .row
+    .container
+      #other-text-field{ style: "display: #{selected == @other_waiting_reason_value ? nil : 'none'}" }
+        = label_tag :custom_reason_text, t('shf_applications.need_info.other_reason_label')
+        = text_field_tag :custom_reason_text, @shf_application.custom_reason_text,
+                    { data: { remote: true,
+                              url: shf_application_path(@shf_application),
+                              method: 'put' } }
+
+
+:javascript
+
+  let ChangeStatus = {
+    unsaved_changes: false,
+    received_input: function(e) {
+      ChangeStatus.unsaved_changes = true;
+      $('#custom_reason_text').off('input');
+    }
+  }
+
+  $(document).ready(function () {
+
+    $('#member_app_waiting_reasons').on('ajax:success', function (e, data) {
+      if (data === "#{@other_waiting_reason_value}") {
+        $('#other-text-field').show();
+      } else {
+        $('#other-text-field').hide();
+      }
+    });
+
+    $('#custom_reason_text').on('input', ChangeStatus.received_input);
+
+    $('#custom_reason_text').on('change', function (e) {
+      ChangeStatus.unsaved_changes = false;
+      $('#custom_reason_text').on('input', ChangeStatus.received_input);
+    });
+
+    $(window).on('beforeunload', function (e) {
+
+      if ($('#member_app_waiting_reasons').val() === '#{@other_waiting_reason_value}' &&
+          ChangeStatus.unsaved_changes === true) {
+
+        e.returnValue = I18n.t('unsaved_changes_on_page');
+        return e.returnValue;
+      }
+
+    });
+  });

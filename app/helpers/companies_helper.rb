@@ -2,7 +2,7 @@ module CompaniesHelper
 
   def list_categories company, separator=' '
     if company.business_categories.any?
-      company.business_categories.includes(:membership_applications).map(&:name).sort.join(separator)
+      company.business_categories.includes(:shf_applications).map(&:name).sort.join(separator)
     end
   end
 

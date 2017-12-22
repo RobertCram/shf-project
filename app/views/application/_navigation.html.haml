@@ -44,7 +44,7 @@
                   = render 'navigation_member_pages'
 
                   - if current_user.has_company?
-                    - member_company = current_user.membership_applications.accepted.last.company
+                    - member_company = current_user.shf_applications.accepted.last.company
                     %li.menu-item.menu-item-has-children
                       = link_to t('menus.nav.members.manage_company.submenu_title'),
                                 company_path(member_company)
@@ -56,16 +56,16 @@
                           = link_to t('menus.nav.members.manage_company.edit_company'),
                                     edit_company_path(member_company)
 
-                  = render 'navigation_edit_my_application', membership_app: current_user.membership_applications.last
+                  = render 'navigation_edit_my_application', shf_app: current_user.shf_applications.last
 
                 - else
                   -# User is not a member nor admin
 
-                  - if current_user.has_membership_application?
-                    = render 'navigation_edit_my_application', membership_app: current_user.membership_applications.last
+                  - if current_user.has_shf_application?
+                    = render 'navigation_edit_my_application', shf_app: current_user.shf_applications.last
                   - else
                     %li.menu-item
-                      = link_to t('menus.nav.users.apply_for_membership'), new_membership_application_path
+                      = link_to t('menus.nav.users.apply_for_membership'), new_shf_application_path
 
         - else
           -# Visitor navigation

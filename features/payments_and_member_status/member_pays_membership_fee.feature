@@ -8,6 +8,10 @@ Feature: As a member
       | emma@mutts.com |       | true      | 1001              |
       | admin@shf.se   | true  | false     |                   |
 
+    Given the following companies exist:
+      | name       | company_number | email                 | region    |
+      | HappyMutts | 2120000142     | woof@happymutts.com   | Stockholm |
+
     Given the following applications exist:
       | user_email     | company_number | state    |
       | emma@mutts.com | 2120000142     | accepted |
@@ -24,6 +28,20 @@ Feature: As a member
     And I complete the payment
     And I should see t("payments.success.success")
     And I should see "2018-12-31"
+
+  @time_adjust
+  Scenario: Membership expires and member cannot edit company
+    Given the date is set to "2017-10-01"
+    And I am logged in as "emma@mutts.com"
+    And I am on the page for company number "2120000142"
+    And I should see t("companies.edit_company")
+    And I should see t("companies.show.add_address")
+    And I am logged out
+    Then the date is set to "2018-01-01"
+    And I am logged in as "emma@mutts.com"
+    And I am on the page for company number "2120000142"
+    And I should not see t("companies.edit_company")
+    And I should not see t("companies.show.add_address")
 
   @selenium
   Scenario: Member starts payment process then abandons it

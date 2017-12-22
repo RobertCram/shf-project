@@ -7,9 +7,13 @@ Feature: Don't allow malicious code in Company website value
 
   Background:
     Given the following users exists
-      | email               | admin | member |
-      | emma@happymutts.com |       | true   |
-      | admin@shf.se        | true  |        |
+      | email          | admin | member |
+      | emma@mutts.com |       | true   |
+      | admin@shf.se   | true  |        |
+
+    Given the following payments exist
+      | user_email     | start_date | expire_date | payment_type | status | hips_id |
+      | emma@mutts.com | 2017-10-1  | 2017-12-31  | member_fee   | betald | none    |
 
     And the following regions exist:
       | name         |
@@ -27,13 +31,13 @@ Feature: Don't allow malicious code in Company website value
 
 
     And the following applications exist:
-      | user_email          | company_number | state    |
-      | emma@happymutts.com | 5560360793     | accepted |
+      | user_email     | company_number | state    |
+      | emma@mutts.com | 5560360793     | accepted |
 
-
-
+  @time_adjust
   Scenario Outline: Malicious website entry not accepted
-    Given I am logged in as "emma@happymutts.com"
+    Given the date is set to "2017-10-01"
+    Given I am logged in as "emma@mutts.com"
     And I am on the edit company page for "5560360793"
     And I fill in t("companies.website_include_http") with "<malicious_entry>"
     And I click on t("submit") button

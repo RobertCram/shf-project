@@ -1,0 +1,30 @@
+.uploaded-files#uploaded-files
+  - warning = content_tag(:p, icon('warning') + t('shf_applications.uploads.no_files'))
+
+
+  - if shf_application.uploaded_files.count < 1
+
+    %p.no-files-uploaded-warn
+      = icon('warning') + t('shf_applications.uploads.no_files')
+
+
+  - else
+    %h4.files-uploaded-list-title= t('shf_applications.uploads.files_uploaded')
+
+    - show_delete = true if show_delete.nil?
+    %table
+      %thead
+        %tr
+          %th= t('shf_applications.uploads.filename')
+          - if show_delete
+            %th.action= t('delete')
+
+      %tbody
+        - shf_application.uploaded_files.each do |uploaded_file|
+          %tr.uploaded-files
+            %td.uploaded-file
+              = link_to uploaded_file.actual_file_file_name, uploaded_file.actual_file.url, target: "_blank", id: "uploaded-file-link-#{uploaded_file.id}", class: "uploaded-file-link"
+
+            - if show_delete
+              %td{ class: "delete-uploaded-file-#{uploaded_file.id}" }
+                = link_to icon('trash'), shf_application_path(shf_application.id, shf_application: { uploaded_files_attributes: { id: uploaded_file.id,  '_destroy' => true }}), method: :put, id: "uploaded-file-#{uploaded_file.id}", class: "action-delete", data: { confirm: "#{t('shf_applications.uploads.confirm_delete', filename: uploaded_file.actual_file_file_name)}" }

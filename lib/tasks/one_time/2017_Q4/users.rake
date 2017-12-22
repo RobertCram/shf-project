@@ -14,8 +14,8 @@ namespace :shf do
 
       ActivityLogger.open(LOG_FILE, 'SHF_TASK', 'Set member status') do |log|
 
-        members = User.joins(:membership_applications)
-                      .where("membership_applications.state = 'accepted'")
+        members = User.joins(:shf_applications)
+                      .where("shf_applications.state = 'accepted'")
                       .distinct
 
         members_set = 0

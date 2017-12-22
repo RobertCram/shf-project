@@ -8,7 +8,13 @@ Feature: As a member
     Given the following users exists
       | email               | admin | member |
       | emma@happymutts.com |       | true   |
+      | member@random.com   |       | true   |
+      | user@random.com     |       |        |
       | admin@shf.se        | true  | false  |
+
+    Given the following payments exist
+      | user_email          | start_date | expire_date | payment_type | status | hips_id |
+      | emma@happymutts.com | 2017-10-1  | 2017-12-31  | member_fee   | betald | none    |
 
     Given the following regions exist:
       | name         |
@@ -104,8 +110,9 @@ Feature: As a member
     And I click on "Happy Mutts"
     And I should see "1" address
 
-
+  @time_adjust
   Scenario: Another tries to edit your company page (gets rerouted)
+    Given the date is set to "2017-10-01"
     Given I am logged in as "emma@happymutts.com"
     And I am on the "edit my company" page
     And I fill in the translated form with data:
@@ -113,14 +120,14 @@ Feature: As a member
       | Happy Mutts            | 5562252998                    | kicki@gladajyckar.se | http://www.gladajyckar.se      |
     And I click on t("submit")
     And I am Logged out
-    And I am logged in as "applicant_2@random.com"
+    And I am logged in as "member@random.com"
     And I am on the "edit my company" page for "emma@happymutts.com"
     Then I should be on the "landing" page
     And I should see t("errors.not_permitted")
 
 
   Scenario: User tries to go to company page (gets rerouted)
-    Given I am logged in as "applicant_2@random.com"
+    Given I am logged in as "user@random.com"
     And I am on the "edit my company" page for "emma@happymutts.com"
     Then I should be on the "landing" page
     And I should see t("errors.not_permitted")

@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     membership_filter = 'member = false' if @filter_are_not_members
 
     @q = User.ransack(action_params)
-    @users = @q.result.includes(:membership_applications).where(membership_filter).page(params[:page]).per_page(items_per_page)
+    @users = @q.result.includes(:shf_applications).where(membership_filter).page(params[:page]).per_page(items_per_page)
 
     render partial: 'users_list', locals: { q: @q, users: @users, items_count: @items_count } if request.xhr?
   end

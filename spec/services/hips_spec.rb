@@ -1,6 +1,6 @@
 require 'rails_helper'
+require_relative(File.join( SERVICES_PATH, 'hips'))
 
-require_relative(File.join(__dir__, '..', '..', 'app','services','hips'))
 
 RSpec.describe HipsService do
   let(:nil_urls) { {success: nil, error: nil, webhook: nil} }

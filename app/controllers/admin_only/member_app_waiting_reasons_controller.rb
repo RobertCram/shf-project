@@ -46,7 +46,7 @@ module AdminOnly
 
 
     def update
-      # TODO must check to see if this reason is in use by any MembershipApplications.  If it is, warn the user (or do whatever action makes sense).
+      # TODO must check to see if this reason is in use by any ShfApplications.  If it is, warn the user (or do whatever action makes sense).
       respond_to do |format|
         if @member_app_waiting_reason.update(member_app_waiting_reason_params)
           format.html { redirect_to @member_app_waiting_reason, notice: t('admin_only.member_app_waiting_reasons.update.success'), only_path: true  }
@@ -60,7 +60,7 @@ module AdminOnly
 
 
     def destroy
-      # TODO must check to see if this reason is in use by any MembershipApplications.  If it is, warn the user (or do whatever action makes sense).
+      # TODO must check to see if this reason is in use by any ShfApplications.  If it is, warn the user (or do whatever action makes sense).
       if @member_app_waiting_reason.destroy
         respond_to do |format|
           format.html { redirect_to admin_only_member_app_waiting_reasons_url, notice: t('admin_only.member_app_waiting_reasons.destroy.success'), only_path: true  }

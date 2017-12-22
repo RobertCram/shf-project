@@ -72,7 +72,7 @@ RSpec.describe 'load admin.email, admin.password, business categories, regions a
     end
 
     it "memberships applications are not in the db" do
-      expect(MembershipApplication.all.size).to eq(0)
+      expect(ShfApplication.all.size).to eq(0)
     end
 
   end

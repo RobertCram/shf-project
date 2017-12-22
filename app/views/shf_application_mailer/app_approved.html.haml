@@ -1,0 +1,13 @@
+- provide :signoff do
+  = render 'shf_application_mailer/signoff'
+
+- message_scope = 'application_mailer.shf_application.app_approved.message_text'
+
+%p
+  = I18n.t('app_approved_and_next', scope: message_scope)
+  = link_to( user_url(@shf_app.user), user_url(@shf_app.user), target: '_blank')
+
+- unless @branding_fee_paid
+  %p= I18n.t('h_branding_not_paid', scope: message_scope)
+
+%p= I18n.t('thanks', scope: message_scope)

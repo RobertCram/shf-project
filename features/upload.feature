@@ -21,14 +21,14 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_2@random.com"
     And I am on the "submit new membership application" page
     And I fill in the translated form with data:
-      | membership_applications.new.first_name | membership_applications.new.last_name | membership_applications.new.company_number | membership_applications.new.phone_number | membership_applications.new.contact_email |
-      | Hans                                   | Newfoundland                          | 5560360793                                 | 031-1234567                              | applicant_2@random.com                    |
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.phone_number | shf_applications.new.contact_email |
+      | Hans                            | Newfoundland                   | 5560360793                          | 031-1234567                       | applicant_2@random.com             |
     And I choose a file named "diploma.pdf" to upload
-    When I click on t("membership_applications.new.submit_button_label")
-    Then I should see t("membership_applications.create.success", email_address: applicant_2@random.com)
-    And I should see t("membership_applications.uploads.file_was_uploaded", filename: 'diploma.pdf')
+    When I click on t("shf_applications.new.submit_button_label")
+    Then I should see t("shf_applications.create.success", email_address: applicant_2@random.com)
+    And I should see t("shf_applications.uploads.file_was_uploaded", filename: 'diploma.pdf')
     And I am on the "edit my application" page
-    Then I should see t("membership_applications.uploads.files_uploaded")
+    Then I should see t("shf_applications.uploads.files_uploaded")
     And I should see "diploma.pdf" uploaded for this membership application
     And I should see the file delete action
 
@@ -37,28 +37,28 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     When I choose a file named "diploma.pdf" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.uploads.files_uploaded")
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.uploads.files_uploaded")
     And I should see "diploma.pdf" uploaded for this membership application
-    And I should see t("membership_applications.update.success")
-    And I should see t("membership_applications.uploads.file_was_uploaded", filename: 'diploma.pdf')
-    And I should see t("membership_applications.update.success")
+    And I should see t("shf_applications.update.success")
+    And I should see t("shf_applications.uploads.file_was_uploaded", filename: 'diploma.pdf')
+    And I should see t("shf_applications.update.success")
 
 
   Scenario: Upload a second file
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     When I choose a file named "diploma.pdf" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
+    And I click on t("shf_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.com"
     And I am on the "application" page for "applicant_1@random.com"
-    Then I click on t("membership_applications.ask_applicant_for_info_btn")
+    Then I click on t("shf_applications.ask_applicant_for_info_btn")
     And  I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     When I choose a file named "picture.jpg" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.uploads.files_uploaded")
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.uploads.files_uploaded")
     And I should see "diploma.pdf" uploaded for this membership application
     And I should see "picture.jpg" uploaded for this membership application
     And I should see 2 uploaded files listed
@@ -69,8 +69,8 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     When I choose the files named ["picture.jpg", "picture.png", "diploma.pdf"] to upload
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.uploads.files_uploaded")
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.uploads.files_uploaded")
     And I should see "diploma.pdf" uploaded for this membership application
     And I should see "picture.jpg" uploaded for this membership application
     And I should see "picture.png" uploaded for this membership application
@@ -93,8 +93,8 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     When I choose a file named "tred.exe" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.uploads.invalid_upload_type")
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.uploads.invalid_upload_type")
     And I should not see "not-accepted.exe" uploaded for this membership application
 
 
@@ -102,11 +102,11 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     When I choose a file named "diploma.pdf" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
+    And I click on t("shf_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.com"
     And I am on the "application" page for "applicant_1@random.com"
-    Then I click on t("membership_applications.ask_applicant_for_info_btn")
+    Then I click on t("shf_applications.ask_applicant_for_info_btn")
     And  I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     And I click on trash icon for "diploma.pdf"
@@ -117,8 +117,8 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     When I choose a file named "diploma.pdf" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.uploads.files_uploaded")
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.uploads.files_uploaded")
     And I should see "diploma.pdf" uploaded for this membership application
 
 
@@ -126,7 +126,7 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     And I choose a file named "diploma.pdf" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
+    And I click on t("shf_applications.edit.submit_button_label")
     And I click on "diploma.pdf"
 
 
@@ -134,7 +134,7 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     And I choose a file named "diploma.pdf" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
+    And I click on t("shf_applications.edit.submit_button_label")
     Then I should see link "uploaded-file-link-1" with target = "_blank"
 
 
@@ -143,7 +143,7 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     And I choose a file named "diploma.pdf" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
+    And I click on t("shf_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.com"
     And I am on the "membership applications" page
@@ -154,7 +154,7 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     And I choose a file named "diploma.pdf" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
+    And I click on t("shf_applications.edit.submit_button_label")
     When I am on the "application" page for "applicant_1@random.com"
     Then I should not see the file delete action
 
@@ -162,7 +162,7 @@ Feature: Applicant uploads a file for their application
     Given I am logged in as "applicant_1@random.com"
     And I am on the "edit my application" page
     And I choose a file named "diploma.pdf" to upload
-    And I click on t("membership_applications.edit.submit_button_label")
+    And I click on t("shf_applications.edit.submit_button_label")
     And I am Logged out
     And I am logged in as "admin@shf.com"
     When I am on the "application" page for "applicant_1@random.com"

@@ -6,14 +6,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :membership_applications
+  has_many :shf_applications
 
   has_many :payments
   accepts_nested_attributes_for :payments
 
   validates_presence_of :first_name, :last_name, unless: Proc.new {!new_record? && !(first_name_changed? || last_name_changed?)}
   validates_uniqueness_of :membership_number, allow_blank: true
-  
+
   scope :admins, -> { where(admin: true) }
 
   scope :members, -> { where(member: true) }
@@ -30,6 +30,10 @@ class User < ApplicationRecord
     payment_notes(Payment::PAYMENT_TYPE_MEMBER)
   end
 
+  def membership_current?
+    membership_expire_date&.future?
+  end
+
   def self.next_membership_payment_dates(user_id)
     next_payment_dates(user_id, Payment::PAYMENT_TYPE_MEMBER)
   end
@@ -39,26 +43,34 @@ class User < ApplicationRecord
     # 1. user == member, or
     # 2. user has at least one application with status == :accepted
 
-    member? || membership_applications.where(state: :accepted).any?
+    member? || shf_applications.where(state: :accepted).any?
   end
 
-  def has_membership_application?
-    membership_applications.any?
+  def has_shf_application?
+    shf_applications.any?
+  end
+
+  def check_member_status
+    # Called from Warden after user authentication - see after_sign_in.rb
+    # If member payment has expired, revoke membership status.
+    if member? && ! membership_current?
+      update(member: false)
+    end
   end
 
 
   def has_company?
-    membership_applications.where.not(company_id: nil).count > 0
+    shf_applications.where.not(company_id: nil).count > 0
   end
 
 
-  def membership_application
-    has_membership_application? ? membership_applications.last : nil
+  def shf_application
+    has_shf_application? ? shf_applications.last : nil
   end
 
 
   def company
-    has_company? ? membership_application.company : nil
+    has_company? ? shf_application.company : nil
   end
 
 
@@ -75,8 +87,8 @@ class User < ApplicationRecord
   def companies
     if admin?
       Company.all
-    elsif member? && has_membership_application?
-      cos = membership_applications.reload.map(&:company).compact
+    elsif member? && has_shf_application?
+      cos = shf_applications.reload.map(&:company).compact
       cos.uniq(&:company_number)
     else
       [] # no_companies

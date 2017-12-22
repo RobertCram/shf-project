@@ -23,20 +23,28 @@ Feature: As a visitor,
       | Bromölla  |
 
     Given the following companies exist:
-      | name                 | company_number | email                  | region       | kommun   | visibility     |
-      | No More Snarky Barky | 5560360793     | snarky@snarkybarky.com | Stockholm    | Alingsås | street_address |
-      | Bowsers              | 2120000142     | bowwow@bowsersy.com    | Västerbotten | Bromölla | street_address |
-      | Company3             | 6613265393     | cmpy3@mail.com         | Stockholm    | Alingsås | post_code      |
-      | Company4             | 6222279082     | cmpy4@mail.com         | Stockholm    | Alingsås | city           |
-      | Company5             | 8025085252     | cmpy5@mail.com         | Stockholm    | Alingsås | kommun         |
-      | Company6             | 6914762726     | cmpy6@mail.com         | Stockholm    | Alingsås | none           |
+      | name     | company_number | email          | region       | kommun   | visibility     |
+      | Company1 | 5560360793     | cmpy1@mail.com | Stockholm    | Alingsås | street_address |
+      | Company2 | 2120000142     | cmpy2@mail.com | Västerbotten | Bromölla | street_address |
+      | Company3 | 6613265393     | cmpy3@mail.com | Stockholm    | Alingsås | post_code      |
+      | Company4 | 6222279082     | cmpy4@mail.com | Stockholm    | Alingsås | city           |
+      | Company5 | 8025085252     | cmpy5@mail.com | Stockholm    | Alingsås | kommun         |
+      | Company6 | 6914762726     | cmpy6@mail.com | Stockholm    | Alingsås | none           |
+      | Company7 | 7661057765     | cmpy7@mail.com | Stockholm    | Alingsås | street_address |
+      | Company8 | 7736362901     | cmpy8@mail.com | Stockholm    | Alingsås | street_address |
 
     And the following users exists
       | email               | admin | member |
       | emma@happymutts.com |       | true   |
       | a@happymutts.com    |       | true   |
+      | b@happymutts.com    |       | false  |
       | member@cmpy6.com    |       | true   |
       | admin@shf.se        | true  | false  |
+
+    Given the following payments exist
+      | user_email       | start_date | expire_date | payment_type | status | hips_id |
+      | member@cmpy6.com | 2017-10-1  | 2017-12-31  | member_fee   | betald | none    |
+
 
     And the following business categories exist
       | name         |
@@ -56,17 +64,30 @@ Feature: As a visitor,
       | a@happymutts.com    | 6222279082     | Groomer                 | accepted |
       | a@happymutts.com    | 8025085252     | Groomer                 | accepted |
       | member@cmpy6.com    | 6914762726     | Groomer                 | accepted |
+      | a@happymutts.com    | 7661057765     | Groomer                 | rejected |
+      | b@happymutts.com    | 7736362901     | Groomer                 | accepted |
+
+    And the following payments exist
+      | user_email   | start_date | expire_date | payment_type | status | hips_id | company_number |
+      | admin@shf.se | 2017-01-01 | 2017-12-31  | branding_fee | betald | none    | 5560360793     |
+      | admin@shf.se | 2017-01-01 | 2017-12-31  | branding_fee | betald | none    | 2120000142     |
+      | admin@shf.se | 2017-01-01 | 2017-12-31  | branding_fee | betald | none    | 6613265393     |
+      | admin@shf.se | 2017-01-01 | 2017-12-31  | branding_fee | betald | none    | 6222279082     |
+      | admin@shf.se | 2017-01-01 | 2017-12-31  | branding_fee | betald | none    | 8025085252     |
+      | admin@shf.se | 2017-01-01 | 2017-12-31  | branding_fee | betald | none    | 6914762726     |
+      | admin@shf.se | 2017-01-01 | 2017-12-31  | branding_fee | betald | none    | 7661057765     |
+      | admin@shf.se | 2017-01-01 | 2017-12-31  | branding_fee | betald | none    | 7736362901     |
+
 
   Scenario: Show company details to a visitor, but don't show the org nr.
     Given I am Logged out
     And I am the page for company number "5560360793"
     Then I should not see "5560360793"
-    And I should see "No More Snarky Barky"
+    And I should see "Company1"
     And I should see "Groomer"
-    And I should see "JustForFun"
     And I should see t("companies.show.members")
     And I should see "Firstname Lastname"
-    And I should see "snarky@snarkybarky.com"
+    And I should see "cmpy1@mail.com"
     And I should see "123123123"
     And I should see "Hundforetagarevägen 1"
     And I should see "310 40"
@@ -74,12 +95,12 @@ Feature: As a visitor,
     And I should see "http://www.example.com"
     When I am the page for company number "2120000142"
     Then I should not see "2120000142"
-    And I should see "Bowsers"
+    And I should see "Company2"
     And I should see "Groomer"
     And I should see "Trainer"
     And I should see "Rehab"
     And I should see "Psychologist"
-    And I should see "bowwow@bowsersy.com"
+    And I should see "cmpy2@mail.com"
     And I should see "123123123"
     And I should see "Hundforetagarevägen 1"
     And I should see "310 40"
@@ -90,10 +111,10 @@ Feature: As a visitor,
     Given I am logged in as "emma@happymutts.com"
     And I am the page for company number "5560360793"
     Then I should not see "5560360793"
-    And I should see "No More Snarky Barky"
+    And I should see "Company1"
     And I should see "Groomer"
     And I should see "JustForFun"
-    And I should see "snarky@snarkybarky.com"
+    And I should see "cmpy1@mail.com"
     And I should see "123123123"
     And I should see "Hundforetagarevägen 1"
     And I should see "310 40"
@@ -104,10 +125,10 @@ Feature: As a visitor,
     Given I am logged in as "admin@shf.se"
     And I am the page for company number "5560360793"
     Then I should see "5560360793"
-    And I should see "No More Snarky Barky"
+    And I should see "Company1"
     And I should see "Groomer"
     And I should see "JustForFun"
-    And I should see "snarky@snarkybarky.com"
+    And I should see "cmpy1@mail.com"
     And I should see "123123123"
     And I should see "Hundforetagarevägen 1"
     And I should see "310 40"
@@ -115,12 +136,12 @@ Feature: As a visitor,
     And I should see "http://www.example.com"
     When I am the page for company number "2120000142"
     Then I should see "2120000142"
-    And I should see "Bowsers"
+    And I should see "Company2"
     And I should see "Groomer"
     And I should see "Trainer"
     And I should see "Rehab"
     And I should see "Psychologist"
-    And I should see "bowwow@bowsersy.com"
+    And I should see "cmpy2@mail.com"
     And I should see "123123123"
     And I should see "Hundforetagarevägen 1"
     And I should see "310 40"
@@ -136,7 +157,9 @@ Feature: As a visitor,
     And I should see "Harplinge"
     And I should see "Alingsås"
 
+  @time_adjust
   Scenario: Show company address to member regardless of visibility setting
+    Given the date is set to "2017-10-01"
     Given I am logged in as "member@cmpy6.com"
     And I am the page for company number "6914762726"
     And I should see "Hundforetagarevägen 1"
