@@ -1,6 +1,5 @@
 require 'rails_helper'
-
-require_relative (File.join(__dir__, '..', '..', 'app', 'services', 'address_exporter'))
+require_relative(File.join( SERVICES_PATH, 'address_exporter'))
 
 
 RSpec.describe AddressExporter do
@@ -41,7 +40,7 @@ RSpec.describe AddressExporter do
     it 'is a comma separated string' do
 
       expected_str = '"' + valid_address1.street_address + '",'
-      expected_str << "#{post_code_str valid_address1.post_code},#{valid_address1.city},#{valid_address1.kommun.name },#{valid_address1.region.name},SE-Sweden"
+      expected_str << "#{post_code_str valid_address1.post_code},\"#{valid_address1.city}\",#{valid_address1.kommun.name },#{valid_address1.region.name},Sverige"
 
       expect(AddressExporter.se_mailing_csv_str(valid_address1)).to eq expected_str
     end
@@ -55,7 +54,7 @@ RSpec.describe AddressExporter do
 
         export_str = AddressExporter.se_mailing_csv_str(valid_address1)
 
-        expect(export_str).to match(/"",'957 31,Övertorneå,/)
+        expect(export_str).to match(/"",'957 31,"Övertorneå",/)
       end
 
       it 'valid street address' do
@@ -83,7 +82,7 @@ RSpec.describe AddressExporter do
       valid_address1.kommun = nil
 
       expected_str = '"' + valid_address1.street_address + '",'
-      expected_str << "#{post_code_str valid_address1.post_code},#{valid_address1.city},,#{valid_address1.region.name},SE-Sweden"
+      expected_str << "#{post_code_str valid_address1.post_code},\"#{valid_address1.city}\",,#{valid_address1.region.name},Sverige"
 
       expect(AddressExporter.se_mailing_csv_str(valid_address1)).to eq expected_str
 
@@ -94,23 +93,13 @@ RSpec.describe AddressExporter do
       valid_address1.region = nil
 
       expected_str = '"' + valid_address1.street_address + '",'
-      expected_str << "#{post_code_str valid_address1.post_code},#{valid_address1.city},#{valid_address1.kommun.name },,SE-Sweden"
+      expected_str << "#{post_code_str valid_address1.post_code},\"#{valid_address1.city}\",#{valid_address1.kommun.name },,Sverige"
 
       expect(AddressExporter.se_mailing_csv_str(valid_address1)).to eq expected_str
 
     end
 
-
-    it "will print SE-Sweden for the country if the country attribute == 'Sverige'" do
-
-      export_str = AddressExporter.se_mailing_csv_str(valid_address1)
-
-      expect(export_str).to match(/SE-Sweden/)
-      expect(export_str).not_to match(/Sverige/)
-    end
-
-
-    it "will use whatever is stored for the country if it is something other than 'Sveriges'" do
+    it "will use whatever is stored for the country" do
 
       valid_address1.country = "Sweeeeeden"
 

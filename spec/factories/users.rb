@@ -7,6 +7,7 @@ FactoryGirl.define do
     email
     password 'my_password'
     admin false
+    member false
 
     transient do
       company_number 5712213304
@@ -24,7 +25,7 @@ FactoryGirl.define do
     factory :user_with_membership_app do
 
       after(:create) do |user, evaluator|
-        create_list(:membership_application, 1, user: user, contact_email: evaluator.email, company_number: evaluator.company_number)
+        create_list(:shf_application, 1, user: user, contact_email: evaluator.email, company_number: evaluator.company_number)
       end
     end
 
@@ -36,20 +37,22 @@ FactoryGirl.define do
       end
 
       after(:create) do |user, evaluator|
-        create(:membership_application, user: user, contact_email: evaluator.email, company_number: evaluator.company_number1)
-        create(:membership_application, user: user, contact_email: evaluator.email, company_number: evaluator.company_number2)
+        create(:shf_application, user: user, contact_email: evaluator.email, company_number: evaluator.company_number1)
+        create(:shf_application, user: user, contact_email: evaluator.email, company_number: evaluator.company_number2)
       end
 
     end
 
     factory :member_with_membership_app do
 
+      member true
+
       transient do
         company_number 5562728336
       end
 
       after(:create) do |user, evaluator|
-        create_list(:membership_application, 1, :accepted, user: user,
+        create_list(:shf_application, 1, :accepted, user: user,
                     contact_email: evaluator.email,
                     company_number:  evaluator.company_number)
       end

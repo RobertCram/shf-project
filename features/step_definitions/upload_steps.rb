@@ -1,5 +1,5 @@
 When(/^I choose a file named "([^"]*)" to upload$/) do | filename |
-  page.attach_file "uploaded_file[actual_files][]", File.join(Rails.root, 'spec', 'fixtures','uploaded_files', filename)
+  page.attach_file "uploaded_file[actual_files][]", File.join(Rails.root, 'spec', 'fixtures','uploaded_files', filename), visible: false #selenium won't find the upload button without visible: false
 end
 
 And(/^I should( not)? see "([^"]*)" uploaded for this membership application$/) do |negate, filename|
@@ -14,7 +14,7 @@ When(/^I choose the files named \["([^"]*)", "([^"]*)", "([^"]*)"\] to upload$/)
   files = [File.join(Rails.root, 'spec', 'fixtures','uploaded_files', file1),
            File.join(Rails.root, 'spec', 'fixtures','uploaded_files', file2),
            File.join(Rails.root, 'spec', 'fixtures','uploaded_files', file3)]
-  page.attach_file "uploaded_file[actual_files][]", files
+  page.attach_file "uploaded_file[actual_files][]", files, visible: false  #selenium won't find the upload button without visible: false
 end
 
 And(/^I click on trash icon for "([^"]*)"$/) do |filename|

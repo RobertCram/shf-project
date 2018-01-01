@@ -38,9 +38,9 @@ RSpec.describe Company, type: :model do
     co
   end
 
-  let!(:complete_companies) { [complete_co] }
+  let(:complete_companies) { [complete_co] }
 
-  let!(:incomplete_companies) do
+  let(:incomplete_companies) do
     incomplete_cos = []
     incomplete_cos << no_name
     incomplete_cos << nil_region
@@ -68,26 +68,102 @@ RSpec.describe Company, type: :model do
     it { is_expected.to validate_length_of(:company_number).is_equal_to(10) }
     it { is_expected.to allow_value('user@example.com').for(:email) }
     it { is_expected.not_to allow_value('userexample.com').for(:email) }
+
+    describe 'uniqueness of company_number' do
+      let(:msg) { I18n.t('activerecord.errors.models.company.company_number.taken') }
+      subject { FactoryGirl.build(:company) }
+
+      it 'uniqueness of company_number' do
+        expect(subject).to validate_uniqueness_of(:company_number)
+                             .with_message(msg).case_insensitive
+      end
+    end
+
+    describe 'swedish org number' do
+      it { is_expected.to allow_values('5560360793', '2120000142')
+                            .for(:company_number) }
+      it { is_expected.not_to allow_values('0123456789', '212000')
+                            .for(:company_number) }
+    end
   end
 
   describe 'Associations' do
-    it { is_expected.to have_many(:business_categories).through(:membership_applications) }
-    it { is_expected.to have_many(:membership_applications).dependent(:destroy) }
+    it { is_expected.to have_many(:business_categories).through(:shf_applications) }
+    it { is_expected.to have_many(:shf_applications).dependent(:destroy) }
     it { is_expected.to have_many(:addresses).dependent(:destroy) }
-    it { is_expected.to have_many(:pictures) }
+    it { is_expected.to accept_nested_attributes_for(:addresses).allow_destroy(true) }
+    it do
+      is_expected.to have_many(:pictures).dependent(:destroy)
+                       .class_name(Ckeditor::Picture)
+    end
+    it { is_expected.to have_many(:users).through(:shf_applications) }
+    it { is_expected.to have_many(:payments) }
+    it { is_expected.to accept_nested_attributes_for(:payments).allow_destroy(false) }
   end
 
+  describe 'destroy associated records when company is destroyed' do
+    let(:company) { create(:company, num_addresses: 3) }
+    let(:user1)   { create(:user) }
+    let(:user2)   { create(:user) }
+    let(:application1) do
+      create(:shf_application, company: company,
+             company_number: company.company_number, user: user1)
+    end
+    let(:application2) do
+      create(:shf_application, company: company,
+             company_number: company.company_number, user: user2)
+    end
+
+    let(:picture1) do
+      pic = Ckeditor::Picture.new
+      pic.company_id = company.id
+      pic.data_file_name = 'test'
+      pic.save!(validate: false)
+      pic
+    end
+
+    let(:picture2) do
+      pic = Ckeditor::Picture.new
+      pic.company_id = company.id
+      pic.data_file_name = 'test'
+      pic.save!(validate: false)
+      pic
+    end
+
+    it 'addresses' do
+      expect { company }.to change(Address, :count).by(3)
+      expect { company.destroy }.to change(Address, :count).by(-3)
+    end
+
+    it 'applications' do
+      application1
+      application2
+      expect(company.shf_applications.count).to eq 2
+      expect { company.destroy }.to change(ShfApplication, :count).by(-2)
+    end
+
+    it 'pictures' do
+      Ckeditor::Picture.for_company_id = company.id
+      picture1
+      picture2
+      expect(company.pictures.count).to eq 2
+      expect { company.destroy }.to change(Ckeditor::Picture, :count).by(-2)
+    end
+  end
 
   describe 'complete scope' do
+    let(:complete_scope) { Company.complete }
+
+    before(:each) do
+      complete_companies
+      incomplete_companies
+    end
 
     it 'only returns companies that are complete' do
-
-      complete_scope = Company.complete
       expect(complete_scope).to match_array(complete_companies)
     end
 
     it 'does not return any incomplete companies' do
-      complete_scope = Company.complete
       expect(complete_scope & incomplete_companies).to match_array([])
     end
 
@@ -116,30 +192,24 @@ RSpec.describe Company, type: :model do
     let(:cat3) { create(:business_category, name: 'cat3') }
 
     let(:m1) do
-      create(:membership_application,
+      create(:shf_application,
              :accepted,
              user: employee1,
              num_categories: 0,
              company_number: company.company_number)
     end
     let(:m2) do
-      create(:membership_application,
+      create(:shf_application,
              :accepted, user: employee2,
              num_categories: 0,
              company_number: company.company_number)
     end
     let(:m3) do
-      create(:membership_application,
+      create(:shf_application,
              :accepted,
              user: employee3,
              num_categories: 0,
              company_number: company.company_number)
-    end
-
-    before(:all) do
-      expect(Company.count).to eq(0)
-      expect(MembershipApplication.count).to eq(0)
-      expect(User.count).to eq(0)
     end
 
     it '3 employees, each with 1 unique category' do
@@ -178,7 +248,13 @@ RSpec.describe Company, type: :model do
 
     end
 
-    it 'returns the first address for the company' do
+    it 'returns mail address for company' do
+      company = create(:company, num_addresses: 3)
+      company.addresses[1].update(mail: true)
+      expect(company.main_address).to eq(company.addresses.second)
+    end
+
+    it 'returns the first address for the company if no mail address' do
       company = create(:company, num_addresses: 3)
       expect(company.addresses.count).to eq 3
       expect(company.main_address).to eq(company.addresses.first)
@@ -239,6 +315,237 @@ RSpec.describe Company, type: :model do
       expect(company.website).to eq("alert('scriptalert(Boo!)')")
     end
 
+
+  end
+
+  context 'payment and branding license period' do
+    let(:user) { create(:user) }
+    let(:company) { create(:company) }
+
+    let(:success) { Payment.order_to_payment_status('successful') }
+
+    let(:payment_date_2017) { Time.zone.local(2017, 10, 1) }
+
+    let(:payment_date_2018) { Time.zone.local(2018, 11, 21) }
+
+    let(:payment1) do
+      start_date, expire_date = Company.next_branding_payment_dates(company.id)
+      create(:payment, user: user, status: success, company: company,
+             payment_type: Payment::PAYMENT_TYPE_BRANDING,
+             notes: 'these are notes for branding payment1',
+             start_date: start_date,
+             expire_date: expire_date)
+    end
+    let(:payment2) do
+      start_date, expire_date = Company.next_branding_payment_dates(company.id)
+      create(:payment, user: user, status: success, company: company,
+             payment_type: Payment::PAYMENT_TYPE_BRANDING,
+             notes: 'these are notes for branding payment2',
+             start_date: start_date,
+             expire_date: expire_date)
+    end
+
+    describe '#branding_expire_date' do
+      it 'returns date for latest completed payment' do
+        payment1
+        expect(company.branding_expire_date).to eq payment1.expire_date
+        payment2
+        expect(company.branding_expire_date).to eq payment2.expire_date
+      end
+    end
+
+    describe '#branding_payment_notes' do
+      it 'returns notes for latest completed payment' do
+        payment1
+        expect(company.branding_payment_notes).to eq payment1.notes
+        payment2
+        expect(company.branding_payment_notes).to eq payment2.notes
+      end
+    end
+
+    describe '#most_recent_branding_payment' do
+      it 'returns latest completed payment' do
+        payment1
+        expect(company.most_recent_branding_payment).to eq payment1
+        payment2
+        expect(company.most_recent_branding_payment).to eq payment2
+      end
+    end
+
+    describe '.self.next_branding_payment_dates' do
+
+      context 'during the year 2017' do
+
+        around(:each) do |example|
+          Timecop.freeze(payment_date_2017)
+          example.run
+          Timecop.return
+        end
+
+        it "returns today's date for first payment start date" do
+          expect(Company.next_branding_payment_dates(company.id)[0])
+            .to eq Time.zone.today
+        end
+
+        it 'returns Dec 31, 2018 for first payment expire date' do
+          expect(Company.next_branding_payment_dates(company.id)[1])
+            .to eq Time.zone.local(2018, 12, 31)
+        end
+
+        it 'returns Jan 1, 2019 for second payment start date' do
+          payment1
+          expect(Company.next_branding_payment_dates(company.id)[0])
+            .to eq Time.zone.local(2019, 1, 1)
+        end
+
+        it 'returns Dec 31, 2019 for second payment expire date' do
+          payment1
+          expect(Company.next_branding_payment_dates(company.id)[1])
+            .to eq Time.zone.local(2019, 12, 31)
+        end
+      end
+
+      context 'after the year 2017' do
+
+        around(:each) do |example|
+          Timecop.freeze(payment_date_2018)
+          example.run
+          Timecop.return
+        end
+
+        it "returns today's date for first payment start date" do
+          expect(Company.next_branding_payment_dates(company.id)[0]).to eq Time.zone.today
+        end
+
+        it 'returns one year later for first payment expire date' do
+          expect(Company.next_branding_payment_dates(company.id)[1])
+            .to eq Time.zone.today + 1.year - 1.day
+        end
+
+        it 'returns date-after-expiration for second payment start date' do
+          payment1
+          expect(Company.next_branding_payment_dates(company.id)[0])
+            .to eq Time.zone.today + 1.year
+        end
+
+        it 'returns one year later for second payment expire date' do
+          payment1
+          expect(Company.next_branding_payment_dates(company.id)[1])
+            .to eq Time.zone.today + 1.year + 1.year - 1.day
+        end
+      end
+    end
+
+    describe 'scope: branding_licensed' do
+      it 'returns all currently-licensed companies' do
+        payment1.update(expire_date: Time.zone.today - 1.day)
+        payment2.update(expire_date: Time.zone.today - 1.day)
+        expect(Company.branding_licensed).to be_empty
+
+        payment1.update(expire_date: Time.zone.today)
+        expect(Company.branding_licensed).to contain_exactly(company)
+
+        payment2.update(expire_date: Time.zone.today)
+        expect(Company.branding_licensed).to contain_exactly(company)
+      end
+    end
+  end
+
+  describe '#approved_applications_from_members' do
+    let(:cmpy1) { create(:company, company_number: '5560360793') }
+    let(:cmpy2) { create(:company, company_number: '5562252998') }
+
+    let(:user1) { create(:user, member: true) }
+    let(:user2) { create(:user, member: true) }
+    let(:user3) { create(:user, member: true) }
+    let(:user4) { create(:user) }
+
+    let!(:cmpy1_app1) do
+      create(:shf_application, :accepted,
+             company_number: cmpy1.company_number, user: user1)
+    end
+
+    let!(:cmpy1_app2) do
+      create(:shf_application, :accepted,
+             company_number: cmpy1.company_number, user: user2)
+    end
+
+    let!(:cmpy1_app3) do
+      create(:shf_application, :rejected,
+             company_number: cmpy1.company_number, user: user3)
+    end
+
+    let!(:cmpy2_app1) do
+      create(:shf_application, :accepted,
+             company_number: cmpy2.company_number, user: user1)
+    end
+
+    let!(:cmpy2_app2) do
+      create(:shf_application, :accepted,
+             company_number: cmpy2.company_number, user: user2)
+    end
+
+    let!(:cmpy2_app3) do
+      create(:shf_application, :accepted,
+             company_number: cmpy1.company_number, user: user4)
+    end
+
+    it 'returns only apps that are 1) accepted and 2) from members' do
+      expect(cmpy1.approved_applications_from_members)
+        .to contain_exactly(cmpy1_app1, cmpy1_app2)
+
+      expect(cmpy2.approved_applications_from_members)
+        .to contain_exactly(cmpy2_app1, cmpy2_app2)
+    end
+  end
+
+  describe 'scope: with_members' do
+    let(:cmpy1) { create(:company, company_number: '5560360793') }
+    let(:cmpy2) { create(:company, company_number: '5562252998') }
+
+    let(:user1) { create(:user) }
+    let(:user2) { create(:user) }
+
+    let(:app_co1_user1) do
+      create(:shf_application, user: user1, company_number: cmpy1.company_number)
+    end
+    let(:app_co1_user2) do
+      create(:shf_application, user: user2, company_number: cmpy1.company_number)
+    end
+    let(:app_co2_user2) do
+      create(:shf_application, user: user2, company_number: cmpy2.company_number)
+    end
+
+    before(:each) { app_co1_user1; app_co1_user2; app_co2_user2 }
+
+    it 'returns no companies if no members' do
+      expect(Company.with_members).to be_empty
+    end
+
+    it 'returns all companies with members' do
+      app_co1_user1.start_review
+      app_co1_user1.accept!
+      user1.update(member: true)
+
+      expect(Company.with_members).to contain_exactly(cmpy1)
+
+      app_co2_user2.start_review
+      app_co2_user2.accept!
+      user2.update(member: true)
+
+      expect(Company.with_members).to contain_exactly(cmpy1, cmpy2)
+    end
+
+    it 'returns company only once even if multiple members' do
+      app_co1_user1.start_review
+      app_co1_user1.accept!
+      user1.update(member: true)
+
+      app_co1_user2.start_review; app_co1_user2.accept!
+      user2.update(member: true)
+
+      expect(Company.with_members).to contain_exactly(cmpy1)
+    end
 
   end
 end

@@ -48,10 +48,10 @@ RSpec.describe "swedish named routes", :type => :routing do
     it_should_behave_like "a swedish named resource", 'hundforetag', 'companies'
   end
 
-  describe 'membership_applications path = ansokan, controller: MembershipApplicationsController' do
+  describe 'shf_applications path = ansokan, controller: ShfApplicationsController' do
 
     describe 'change membership application state actions' do
-      let(:controller) {'membership_applications'}
+      let(:controller) {'shf_applications'}
       let(:swedish_name) {'ansokan'}
 
       it 'accept - POST' do

@@ -2,7 +2,7 @@ module CompaniesHelper
 
   def list_categories company, separator=' '
     if company.business_categories.any?
-      company.business_categories.includes(:membership_applications).map(&:name).sort.join(separator)
+      company.business_categories.includes(:shf_applications).map(&:name).sort.join(separator)
     end
   end
 
@@ -60,5 +60,15 @@ module CompaniesHelper
     Address::ADDRESS_VISIBILITY.map do |visibility_level|
       [ I18n.t("address_visibility.#{visibility_level}"), visibility_level ]
     end
+  end
+
+  def pay_branding_fee_link(company_id, user_id)
+    # Returns link styled as a button
+
+    link_to("#{t('menus.nav.company.pay_branding_fee')}",
+            payments_path(user_id: user_id,
+                          company_id: company_id,
+                          type: Payment::PAYMENT_TYPE_BRANDING),
+            { method: :post, class: 'btn btn-primary btn-xs' })
   end
 end

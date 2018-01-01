@@ -87,11 +87,11 @@ if Rails.env.development? || Rails.env.staging? || ENV['HEROKU_STAGING']
 
   make_applications(users.values)
 
-  puts "\n  Membership applications created: #{MembershipApplication.count}"
+  puts "\n  Membership applications created: #{ShfApplication.count}"
   puts "  Membership Applications by state:"
-  states = MembershipApplication.aasm.states.map(&:name)
+  states = ShfApplication.aasm.states.map(&:name)
   states.sort.each do | state |
-    puts "  #{state}: #{MembershipApplication.where(state: state).count }"
+    puts "  #{state}: #{ShfApplication.where(state: state).count }"
   end
 end
 

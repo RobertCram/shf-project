@@ -24,6 +24,7 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Before do
  # I18n.locale = 'en'
+ ENV['SHF_BETA'] = 'no'
 end
 
 

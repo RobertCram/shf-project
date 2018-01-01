@@ -6,9 +6,12 @@
   .post-title-divider
     %span
 
+#hips-checkout
+
 :javascript
   Hips.checkout({
           token: "#{@hips_id}",
+          target: "#hips-checkout",
           style: {
             'mainColor': "#{HIPS_FORM_MAIN_COLOR}",
             'secondColor': "#{HIPS_FORM_SECONDARY_COLOR}",

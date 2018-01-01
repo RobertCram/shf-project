@@ -9,14 +9,10 @@
       = link_to(t('devise.registrations.edit.title'),
                 edit_user_registration_path)
     %li
+      = link_to(t('menus.nav.users.your_account'), user_path(current_user))
+    %li
       = link_to(t('devise.sessions.destroy.log_out'),
                 destroy_user_session_path, method: :delete)
-  -# Temporary payment link
-    %li
-      = link_to(t('menus.nav.members.pay_membership'),
-                payments_path(user_id: current_user.id,
-                              type: Payment::PAYMENT_TYPE_MEMBER),
-                { method: :post })
 - else
   = link_to(t('devise.sessions.new.log_in'), new_user_session_path,
             { class: 'tall-line' })

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CompaniesHelper, type: :helper do
   let!(:company) { create(:company) }
+  let(:user) { create(:user) }
 
   describe 'companies' do
     let(:employee1) { create(:user) }
@@ -9,31 +10,25 @@ RSpec.describe CompaniesHelper, type: :helper do
     let(:employee3) { create(:user) }
 
     let!(:ma1) do
-      ma = create(:membership_application, :accepted,
+      ma = create(:shf_application, :accepted,
                   user: employee1,
                   company_number: company.company_number)
       ma.business_categories << create(:business_category, name: 'cat1')
       ma
     end
     let!(:ma2) do
-      ma = create(:membership_application, :accepted,
+      ma = create(:shf_application, :accepted,
                   user: employee2,
                   company_number: company.company_number)
       ma.business_categories << create(:business_category, name: 'cat2')
       ma
     end
     let!(:ma3) do
-      ma = create(:membership_application, :accepted,
+      ma = create(:shf_application, :accepted,
                   user: employee3,
                   company_number: company.company_number)
       ma.business_categories << create(:business_category, name: 'cat3')
       ma
-    end
-
-    before(:all) do
-      expect(Company.count).to eq(0)
-      expect(MembershipApplication.count).to eq(0)
-      expect(User.count).to eq(0)
     end
 
     it '#list_categories' do
@@ -149,6 +144,18 @@ RSpec.describe CompaniesHelper, type: :helper do
       I18n.locale = 'en'
       expect(selection_array[0][0]).to eq 'Street'
       expect(address_visibility_array).to match_array selection_array
+    end
+  end
+
+  describe '#pay_branding_fee_link' do
+    let(:expected_path) do
+      payments_path(user_id: user.id, company_id: company.id,
+                    type: Payment::PAYMENT_TYPE_BRANDING)
+    end
+
+    it 'returns pay-fee link with company and user id' do
+      expect(pay_branding_fee_link(company.id, user.id))
+        .to match Regexp.new(Regexp.escape(expected_path))
     end
   end
 end

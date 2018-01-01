@@ -15,8 +15,8 @@ RSpec.describe BusinessCategory, type: :model do
   end
 
   describe 'Associations' do
-    it { is_expected.to have_many(:companies).through(:membership_applications) }
-    it { is_expected.to have_and_belong_to_many(:membership_applications) }
+    it { is_expected.to have_many(:companies).through(:shf_applications) }
+    it { is_expected.to have_and_belong_to_many(:shf_applications) }
   end
 
   describe 'Validations' do

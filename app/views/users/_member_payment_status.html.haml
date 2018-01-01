@@ -1,0 +1,28 @@
+#userMemberStatus
+  - if defined?(error) && error
+    .alert.alert-danger= error
+
+  .col-sm-4
+    - is_member = user.member? ? 'Yes' : 'No'
+    = field_or_none("#{t('users.show.member')}", "#{t(is_member)}",
+                    label_class: 'standard-label',
+                    value_class: is_member)
+  .col-sm-4
+    = expire_date_label_and_value(user)
+
+  .col-sm-4
+    - link = pay_member_fee_link(user)
+    - if link
+      = link
+      %span.glyphicon.glyphicon-info-sign{ title: "#{t('users.show.pay_membership_tooltip')}",
+                                           data: {toggle: 'tooltip'} }
+
+  - if current_user.admin?
+    -# .row
+    .col-sm-8
+      = payment_notes_label_and_value(user)
+
+    .col-sm-4
+      -# NOTE: Capybara cannot find link without 'href' attribute
+      %a.btn.btn-warning.btn-xs(href='#' data-toggle='modal' data-target='#editStatusModal')
+        = t('users.user.edit_member_status')

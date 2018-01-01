@@ -6,17 +6,17 @@ Feature: As an Admin
 
   Background:
     Given the following users exists
-      | email              | is_member | admin |
-      | emma@happymutts.se | true      |       |
-      | hans@bowsers.com   | false     |       |
-      | admin@shf.se       | true      | true  |
+      | email              | admin | member |
+      | emma@happymutts.se |       | true   |
+      | hans@bowsers.com   |       | false  |
+      | admin@shf.se       | true  | false  |
 
 
 
   Scenario: After login, Admin sees new memberships on their landing page
     Given I am logged in as "admin@shf.se"
     When I am on the "landing" page
-    Then I should see t("membership_applications.index.title")
+    Then I should see t("shf_applications.index.title")
 
   Scenario: After login, User sees instructions about applying for membership
     Given I am logged in as "hans@bowsers.com"

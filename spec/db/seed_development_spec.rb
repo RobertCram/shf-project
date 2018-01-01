@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'load business categories, regions, kommuns, users and membershipapplications from ENV in production' do
+RSpec.describe 'load business categories, regions, kommuns, users and applications from ENV in production' do
 
   # seed with a minimum of 4 users to cover: admin, no application, single application, double application
   seed_users = 4
@@ -38,15 +38,15 @@ RSpec.describe 'load business categories, regions, kommuns, users and membership
   end
 
   it "addresses are in the db" do
-    expect(Address.all.size).to eq(MembershipApplication.where(state: :accepted).count)
+    expect(Address.all.size).to eq(ShfApplication.where(state: :accepted).count)
   end
 
   it "companies are in the db" do
-    expect(Company.all.size).to eq(MembershipApplication.where(state: :accepted).count)
+    expect(Company.all.size).to eq(ShfApplication.where(state: :accepted).count)
   end
 
   it "memberships applications are in the db" do
-    expect(MembershipApplication.all.size).to eq(seed_users-1)
+    expect(ShfApplication.all.size).to eq(seed_users-1)
   end
 
 end

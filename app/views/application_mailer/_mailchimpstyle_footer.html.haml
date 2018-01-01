@@ -13,5 +13,5 @@
                       %td.text-content{ valign: 'top' }
 
                         .sent-to
-                          %p= t('application_mailer.footer.text.email_sent_to', email_sent_to: @recipient_email).html_safe
-                          %p= t('application_mailer.footer.text.why_you_are_receiving')
+                          %p= t('mailers.application_mailer.footer.text.email_sent_to', email_sent_to: @recipient_email).html_safe
+                          %p= t('mailers.application_mailer.footer.text.why_you_are_receiving')

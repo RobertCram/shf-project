@@ -20,7 +20,6 @@ class HipsService
     response = HTTParty.post(HIPS_ORDERS_URL,
                   headers: { 'Authorization' => "Token token=#{HIPS_PRIVATE_KEY}",
                              'Content-Type' => 'application/json' },
-                  debug_output: $stdout,
                   body: order_json(user_id, session_id, payment_data,
                                    item_price, urls))
 
@@ -43,8 +42,7 @@ class HipsService
     url = HIPS_ORDERS_URL + "#{hips_id}"
     response = HTTParty.get(url,
                   headers: { 'Authorization' => "Token token=#{HIPS_PRIVATE_KEY}",
-                             'Content-Type' => 'application/json' },
-                  debug_output: $stdout)
+                             'Content-Type' => 'application/json' })
 
     return response.parsed_response if SUCCESS_CODES.include?(response.code)
 
@@ -83,7 +81,7 @@ class HipsService
               items: [ {
                           type: 'fee',
                           sku: payment_data[:type],
-                          name: payment_data[:type],
+                          name: payment_data[:paid_item],
                           quantity: 1,
                           unit_price: item_price
                         }

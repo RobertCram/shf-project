@@ -65,6 +65,8 @@ gem 'nokogiri'         # must explicity require this gem for premailer-rails
 gem 'httparty'
 gem 'jwt'
 
+gem 'exception_notification' # send notifications if there are errors
+gem 'slack-notifier'  # send notifications to Slack
 
 group :development, :test do
   gem 'rspec-rails'
@@ -102,12 +104,6 @@ group :development do
   gem 'bullet'
   gem 'rb-readline'
 
-  # to generate state machine diagrams
-  # ex: for membership_application state machine:
-  #   bundle exec aasm_statecharts -i ./app/models membership_application -t -d ./doc
-  gem 'aasm_statecharts',  '~> 1.1.7', github: 'weedySeaDragon/aasm_statecharts'
-
-
 end
 
 group :test do
@@ -121,5 +117,7 @@ group :test do
 
   gem 'webmock'  # to mock web (HTTP) interactions.  Required by the vcr gem
   gem 'vcr'      # to record and 'playback' (mock) http requests
+
+  gem 'timecop'
 
 end

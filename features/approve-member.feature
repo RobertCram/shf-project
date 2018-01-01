@@ -19,7 +19,7 @@ Feature: As an admin
       | name         | description                     |
       | dog grooming | grooming dogs from head to tail |
       | dog crooning | crooning to dogs                |
-      | rehab        | physcial rehabitation           |
+      | rehab        | physical rehabilitation         |
 
     Given the following regions exist:
       | name         |
@@ -35,71 +35,90 @@ Feature: As an admin
       | hans@happymutts.se    | 5562252998     | dog grooming | under_review |
       | anna@nosnarkybarky.se | 5560360793     | rehab        | under_review |
 
-    And I am logged in as "admin@shf.com"
-
   Scenario: Admin approves, no company exists so one is created
-    Given I am on the "application" page for "emma@happymutts.se"
-    When I click on t("membership_applications.accept_btn")
+    Given I am logged in as "admin@shf.com"
+    And I am on the "application" page for "emma@happymutts.se"
+    When I click on t("shf_applications.accept_btn")
     And I should be on the "edit application" page for "emma@happymutts.se"
-    And I should see t("membership_applications.accept.success")
-    And I should see t("membership_applications.update.enter_member_number")
-    And I fill in t("membership_applications.show.membership_number") with "901"
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.update.success")
-    And I should see t("membership_applications.accepted")
-    And I should see "901"
+    And I should see t("shf_applications.accept.success")
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.success")
+    And I should see t("shf_applications.accepted")
     Then I can go to the company page for "5562252998"
 
-
   Scenario: Admin approves, member is added to existing company
-    Given I am on the "application" page for "anna@nosnarkybarky.se"
-    When I click on t("membership_applications.accept_btn")
+    Given I am in "admin@shf.com" browser
+    And I am logged in as "admin@shf.com"
+    Then I am on the "application" page for "anna@nosnarkybarky.se"
+    When I click on t("shf_applications.accept_btn")
     And I should be on the "edit application" page for "anna@nosnarkybarky.se"
-    And I should see t("membership_applications.update.enter_member_number")
-    And I fill in t("membership_applications.show.membership_number") with "902"
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.update.success")
-    And I should see t("membership_applications.accepted")
-    And I should see "902"
+    And I should see t("shf_applications.show.membership_number")
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.success")
+    And I should see t("shf_applications.accepted")
     And I am on the "all companies" page
     And I should see "No More Snarky Barky"
     And I am Logged out
     And I am on the "landing" page
     And I should see "No More Snarky Barky"
     And I should see "rehab"
+
+    Then I am in "anna@nosnarkybarky.se" browser
     And I am logged in as "anna@nosnarkybarky.se"
-    And I am on the "landing" page
+    And I am on the "user details" page for "anna@nosnarkybarky.se"
+    Then I click on t("menus.nav.members.pay_membership")
+    And I complete the payment
+    And I should see t("payments.success.success")
     Then I should see t("menus.nav.members.manage_company.submenu_title")
     And I am on the "show my application" page for "anna@nosnarkybarky.se"
-    Then I should see t("membership_applications.show.membership_number")
+    Then I should see t("shf_applications.show.membership_number")
+    And I should not see "902"
+
+    Then I am in "admin@shf.com" browser
+    And I am logged in as "admin@shf.com"
+    Then I am on the "application" page for "anna@nosnarkybarky.se"
+    And I click on t("shf_applications.edit_shf_application")
+
+    And I fill in t("shf_applications.show.membership_number") with "902"
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.success")
     And I should see "902"
-    And I am on the "edit my company" page for "anna@nosnarkybarky.se"
-    Then I should see "No More Snarky Barky"
+
+    Then I am in "anna@nosnarkybarky.se" browser
+    And I am on the "application" page for "anna@nosnarkybarky.se"
+    And I should see "902"
 
   Scenario: Admin approves, but then rejects it
-    Given I am on the "application" page for "emma@happymutts.se"
-    When I click on t("membership_applications.accept_btn")
-    And I should be on the "edit application" page for "emma@happymutts.se"
-    And I should see t("membership_applications.update.enter_member_number")
-    And I fill in t("membership_applications.show.membership_number") with "901"
-    And I click on t("membership_applications.edit.submit_button_label")
-    Then I should see t("membership_applications.update.success")
-    And I should see t("membership_applications.accepted")
+    Given I am in "admin@shf.com" browser
+    And I am logged in as "admin@shf.com"
+    And I am on the "application" page for "emma@happymutts.se"
+    When I click on t("shf_applications.accept_btn")
+    And I click on t("shf_applications.edit.submit_button_label")
+
+    Then I am in "emma@happymutts.se" browser
+    And I am logged in as "emma@happymutts.se"
+    And I am on the "user details" page for "emma@happymutts.se"
+    Then I click on t("menus.nav.members.pay_membership")
+    And I complete the payment
+    And I should see t("payments.success.success")
+
+    Then I am in "admin@shf.com" browser
+    And I reload the page
+    And I am on the "edit application" page for "emma@happymutts.se"
+
+    And I fill in t("shf_applications.show.membership_number") with "901"
+    And I click on t("shf_applications.edit.submit_button_label")
+    Then I should see t("shf_applications.update.success")
+
     And I should see "901"
     When I am on the "application" page for "emma@happymutts.se"
-    And I click on t("membership_applications.reject_btn")
-    Then I should see status line with status t("membership_applications.rejected")
+    And I click on t("shf_applications.reject_btn")
+    Then I should see status line with status t("shf_applications.rejected")
     And I am Logged out
     And I am on the "landing" page
     Then I should not see "5562252998"
-    And I am logged in as "emma@happymutts.se"
+
+    Then I am in "emma@happymutts.se" browser
     And I am on the "show my application" page for "emma@happymutts.se"
     Then I should be on "show my application" page
-    And I should not see t("membership_applications.show.membership_number")
-
-
-  Scenario: Member owes money so Admin cannot approve
-    Given I am on the "application" page for "emma@happymutts.se"
-
-
-  Scenario: things go wrong
+    And I should not see t("shf_applications.show.membership_number")

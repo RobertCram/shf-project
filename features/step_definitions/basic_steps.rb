@@ -106,3 +106,7 @@ end
 And(/^show me the page$/) do
   save_and_open_page
 end
+
+Given(/^the date is set to "([^"]*)"$/) do |date|
+  Timecop.freeze(Time.zone.parse(date))
+end

@@ -147,4 +147,10 @@ module ApplicationHelper
     html.empty? ? nil : html + tag(:br)
   end
 
+  def boolean_radio_buttons_collection(text_vals = { true: 'Yes', false: 'No' })
+    # Returns generic collection for radio buttons for a boolean field,
+    # suitable for use in radio button selection fields.  Text values are
+    # translated. Can pass in preferred strings for "true" and "false" text values.
+    [ [true, t(text_vals[:true])], [false, t(text_vals[:false])] ]
+  end
 end

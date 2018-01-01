@@ -4,6 +4,14 @@ module CommonMailUtils
 
   private
 
+  def set_mail_info(method_sym, recipient)
+    set_greeting_name recipient
+    set_recipient_email recipient
+
+    @action_name = method_sym.to_s
+  end
+
+
   def set_greeting_name(record)
 
     if record.respond_to?(:full_name)

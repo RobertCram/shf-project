@@ -40,7 +40,7 @@ Feature: As an admin
     Then I should see error t("activerecord.attributes.business_category.name") t("errors.messages.blank")
 
   Scenario: A non-admin user cannot edit business categories
-    Given I am logged in as "applicant_1@random.com"
+    Given I am logged in as "applicant@random.com"
     And I navigate to the business category edit page for "dog grooming"
     Then I should see t("errors.not_permitted")
 

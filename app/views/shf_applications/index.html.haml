@@ -1,0 +1,24 @@
+%header.entry-header
+  %h1.entry-title= t('.title')
+.post-title-divider
+  %span
+.entry-content
+
+  = render partial: 'administration_panel' if @current_user.admin?
+
+  %p{ style: 'margin-bottom: 30px;' }
+    %button.btn.btn-success.btn-xs.pull-right{ id: 'toggle_search_form',
+                                      href: '#application_search_form',
+                                      style: 'color:black; text-transform:none;' }
+      #{t('toggle.application_search_form.hide')}
+
+  .clearfix
+
+  .panel.panel-default.search-form#application_search_form
+    = render 'search_form'
+
+  - if @shf_applications.empty?
+    %strong
+      #{t('.no_search_results')}
+  - else
+    = render partial: 'shf_applications_list'

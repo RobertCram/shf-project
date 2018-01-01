@@ -16,24 +16,27 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "companies";
-@import "custom-membership-application-state";
+@import "custom-shf-application-state";
 @import "custom";
 @import "maps";
-@import "membership-applications";
+@import "shf-applications";
 @import "pagination";
-@import "shf-documents";
 @import "shf-documents";
 @import "style";
 @import "users";
 @import "member-app-waiting-reason";
 
 
-.yes {
+.yes, .Yes {
   background-color: LightGreen;
 }
 
-.no {
+.maybe, .Maybe {
   background-color: Yellow;
+}
+
+.no, .No {
+  background-color: LightCoral;
 }
 
 .search-form {

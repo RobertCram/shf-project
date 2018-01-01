@@ -1,6 +1,6 @@
 require 'rails_helper'
+require_relative(File.join( SERVICES_PATH, 'hips'))
 
-require_relative(File.join(__dir__, '..', '..', 'app','services','hips'))
 
 RSpec.describe HipsService do
   let(:nil_urls) { {success: nil, error: nil, webhook: nil} }
@@ -16,7 +16,7 @@ RSpec.describe HipsService do
   end
 
   let(:invalid_key) do
-    HIPS_PRIVATE_KEY = '123'
+    HIPS_PRIVATE_KEY = '123' unless defined?(HIPS_PRIVATE_KEY)
   end
 
   let(:fetched_order) do

@@ -10,10 +10,20 @@ The main project documentation is on the [page for this project at the AgileVent
 
 _This is a project of [AgileVentures](http://www.agileventures.org), a non-profit organization dedicated to crowdsourced learning and project development._  
 
-
-Sempahore status: [![Build Status](https://semaphoreci.com/api/v1/lollypop27/shf-project/branches/develop/badge.svg)](https://semaphoreci.com/lollypop27/shf-project)
+Sempahore status: [![Build Status](https://semaphoreci.com/api/v1/shf-project/shf-project/branches/develop/shields_badge.svg)](https://semaphoreci.com/shf-project/shf-project)
 
 Codeclimate: [![Code Climate](https://codeclimate.com/github/AgileVentures/shf-project/badges/gpa.svg)](https://codeclimate.com/github/AgileVentures/shf-project)
+
+## Want to Help?  Here's How to Get Started and Some Info:
+
+- Read the Requirements and Dependencies, and Installation sections below. Be sure to **read the [CONTRIBUTING](https://github.com/AgileVentures/shf-project/blob/develop/CONTRIBUTING.md) document.**  That describes how we work:  where and how we track user stories, issues, bugs, etc.  It describes how we work with GitHub, our style standards, general workflow, etc.  We do try to document things here in the GitHub wiki.  (And we always appreciate feedback on what we can improve.)
+
+- We're often asked: _"The system is for people in Sweden.  Do I have to speak Swedish?"_
+
+   Nope. The development takes place in English.  (So you do need to speak English.)
+   The system uses Rails' I18n and so can be displayed in either Swedish or English.
+   You don't have to be dog owner, either.
+
 
 ## Requirements and Dependencies
 
@@ -23,8 +33,11 @@ This project runs on a Ruby on Rails stack with postgreSQL as the repository.
 - rails 5.1.0 (5.1.0 as of July 04, 2017)
 - Postgresql DB
 - imagemagik https://www.imagemagick.org
-- phantomjs (required for integration tests [cucumber tests]) http://phantomjs.org/
-- chromedriver (https://sites.google.com/a/chromium.org/chromedriver/downloads)
+
+Required for integration tests (cucumber + capybara):
+- chromedriver 2.32.498537 or higher https://sites.google.com/a/chromium.org/chromedriver/downloads
+- phantomjs  http://phantomjs.org/
+
 
 ## Installation
 

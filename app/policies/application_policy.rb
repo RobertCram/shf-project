@@ -22,6 +22,14 @@ class ApplicationPolicy
     update?
   end
 
+  def new?
+    record.is_a?(Class)  # should not be an already instantiated object
+  end
+
+  def create?
+    admin_or_owner?
+  end
+
 
   def destroy?
     user.admin?
@@ -30,7 +38,7 @@ class ApplicationPolicy
   private
 
   def admin_or_owner?
-    user.admin? || record.user == user
+    user.admin? || ( record.respond_to?(:user) &&  record.user == user )
   end
 
 end

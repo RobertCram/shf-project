@@ -1,66 +1,94 @@
 class User < ApplicationRecord
-  has_many :membership_applications
+  include PaymentUtility
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :shf_applications
+
+  has_many :payments
+  accepts_nested_attributes_for :payments
+
   validates_presence_of :first_name, :last_name, unless: Proc.new {!new_record? && !(first_name_changed? || last_name_changed?)}
   validates_uniqueness_of :membership_number, allow_blank: true
 
-  scope :are_members, lambda {
-    User.all.select { | user | user.is_member? }
-  }
+  scope :admins, -> { where(admin: true) }
 
-  scope :are_not_members, lambda {
-    User.all.reject { | user | user.is_member? }
-  }
+  scope :members, -> { where(member: true) }
 
-  def has_membership_application?
-    membership_applications.any?
+  def most_recent_membership_payment
+    most_recent_payment(Payment::PAYMENT_TYPE_MEMBER)
+  end
+
+  def membership_expire_date
+    payment_expire_date(Payment::PAYMENT_TYPE_MEMBER)
+  end
+
+  def membership_payment_notes
+    payment_notes(Payment::PAYMENT_TYPE_MEMBER)
+  end
+
+  def membership_current?
+    membership_expire_date&.future?
+  end
+
+  def self.next_membership_payment_dates(user_id)
+    next_payment_dates(user_id, Payment::PAYMENT_TYPE_MEMBER)
+  end
+
+  def allow_pay_member_fee?
+    # Business rule: user can pay membership fee if:
+    # 1. user == member, or
+    # 2. user has at least one application with status == :accepted
+
+    member? || shf_applications.where(state: :accepted).any?
+  end
+
+  def has_shf_application?
+    shf_applications.any?
+  end
+
+  def check_member_status
+    # Called from Warden after user authentication - see after_sign_in.rb
+    # If member payment has expired, revoke membership status.
+    if member? && ! membership_current?
+      update(member: false)
+    end
   end
 
 
   def has_company?
-    membership_applications.where.not(company_id: nil).count > 0
+    shf_applications.where.not(company_id: nil).count > 0
   end
 
 
-  def membership_application
-    has_membership_application? ? membership_applications.last : nil
+  def shf_application
+    has_shf_application? ? shf_applications.last : nil
   end
 
 
   def company
-    has_company? ? membership_application.company : nil
-  end
-
-
-  def admin?
-    admin
-  end
-
-
-  def is_member?
-    has_membership_application? && (membership_applications.select{|m| m.is_member? }.count > 0 )
+    has_company? ? shf_application.company : nil
   end
 
 
   def is_member_or_admin?
-    admin? || is_member?
+    admin? || member?
   end
 
 
   def is_in_company_numbered?(company_num)
-    is_member? && !(companies.detect { |c| c.company_number == company_num }).nil?
+    member? && !(companies.detect { |c| c.company_number == company_num }).nil?
   end
 
 
   def companies
     if admin?
       Company.all
-    elsif is_member_or_admin? && has_membership_application?
-      cos = membership_applications.reload.map(&:company).compact
+    elsif member? && has_shf_application?
+      cos = shf_applications.reload.map(&:company).compact
       cos.uniq(&:company_number)
     else
       [] # no_companies
@@ -73,15 +101,24 @@ class User < ApplicationRecord
   end
 
 
-  def issue_membership_number
-    self.membership_number = self.membership_number.blank? ? get_next_membership_number : self.membership_number
+  def grant_membership(send_email: true)
+    return if self.member && self.membership_number.present?
+
+    update(member: true, membership_number: issue_membership_number)
+    MemberMailer.membership_granted(self).deliver if send_email
   end
+
 
   ransacker :padded_membership_number do
     Arel.sql("lpad(membership_number, 20, '0')")
   end
 
   private
+
+  def issue_membership_number
+    self.membership_number = self.membership_number.blank? ? get_next_membership_number : self.membership_number
+  end
+
 
   def get_next_membership_number
     self.class.connection.execute("SELECT nextval('membership_number_seq')").getvalue(0,0).to_s

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013141538) do
+ActiveRecord::Schema.define(version: 20171213174816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,11 +41,11 @@ ActiveRecord::Schema.define(version: 20171013141538) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "business_categories_membership_applications", force: :cascade do |t|
-    t.bigint "membership_application_id"
+  create_table "business_categories_shf_applications", force: :cascade do |t|
+    t.bigint "shf_application_id"
     t.bigint "business_category_id"
     t.index ["business_category_id"], name: "index_on_categories"
-    t.index ["membership_application_id"], name: "index_on_applications"
+    t.index ["shf_application_id"], name: "index_on_applications"
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -98,7 +98,29 @@ ActiveRecord::Schema.define(version: 20171013141538) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "membership_applications", force: :cascade do |t|
+  create_table "payments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "company_id"
+    t.string "payment_type"
+    t.string "status"
+    t.string "hips_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "start_date"
+    t.date "expire_date"
+    t.text "notes"
+    t.index ["company_id"], name: "index_payments_on_company_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shf_applications", force: :cascade do |t|
     t.string "company_number"
     t.string "phone_number"
     t.datetime "created_at", null: false
@@ -109,28 +131,9 @@ ActiveRecord::Schema.define(version: 20171013141538) do
     t.string "state", default: "new"
     t.integer "member_app_waiting_reasons_id"
     t.string "custom_reason_text"
-    t.index ["company_id"], name: "index_membership_applications_on_company_id"
-    t.index ["member_app_waiting_reasons_id"], name: "index_membership_applications_on_member_app_waiting_reasons_id"
-    t.index ["user_id"], name: "index_membership_applications_on_user_id"
-  end
-
-  create_table "payments", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "company_id"
-    t.string "payment_type"
-    t.string "status"
-    t.string "hips_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_payments_on_company_id"
-    t.index ["user_id"], name: "index_payments_on_user_id"
-  end
-
-  create_table "regions", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_shf_applications_on_company_id"
+    t.index ["member_app_waiting_reasons_id"], name: "index_shf_applications_on_member_app_waiting_reasons_id"
+    t.index ["user_id"], name: "index_shf_applications_on_user_id"
   end
 
   create_table "shf_documents", force: :cascade do |t|
@@ -153,8 +156,8 @@ ActiveRecord::Schema.define(version: 20171013141538) do
     t.string "actual_file_content_type"
     t.integer "actual_file_file_size"
     t.datetime "actual_file_updated_at"
-    t.bigint "membership_application_id"
-    t.index ["membership_application_id"], name: "index_uploaded_files_on_membership_application_id"
+    t.bigint "shf_application_id"
+    t.index ["shf_application_id"], name: "index_uploaded_files_on_shf_application_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -174,6 +177,7 @@ ActiveRecord::Schema.define(version: 20171013141538) do
     t.string "first_name"
     t.string "last_name"
     t.string "membership_number"
+    t.boolean "member", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["membership_number"], name: "index_users_on_membership_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -182,10 +186,10 @@ ActiveRecord::Schema.define(version: 20171013141538) do
   add_foreign_key "addresses", "kommuns"
   add_foreign_key "addresses", "regions"
   add_foreign_key "ckeditor_assets", "companies"
-  add_foreign_key "membership_applications", "member_app_waiting_reasons", column: "member_app_waiting_reasons_id"
-  add_foreign_key "membership_applications", "users"
   add_foreign_key "payments", "companies"
   add_foreign_key "payments", "users"
+  add_foreign_key "shf_applications", "member_app_waiting_reasons", column: "member_app_waiting_reasons_id"
+  add_foreign_key "shf_applications", "users"
   add_foreign_key "shf_documents", "users", column: "uploader_id"
-  add_foreign_key "uploaded_files", "membership_applications"
+  add_foreign_key "uploaded_files", "shf_applications"
 end

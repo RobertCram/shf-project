@@ -1,0 +1,41 @@
+.modal.fade#edit-branding-modal{ tabindex: '-1', role: 'dialog' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+
+      = form_for company, url: edit_payment_company_path(company),
+                 method: :put, remote: true,
+                 html: { id: 'brandingStatusForm' } do |f|
+
+        .modal-header
+          %button.close{ type: 'button', data: { dismiss: 'modal' } }
+            %span{ 'aria-hidden' => 'true' } &times;
+          %h3.modal-title.text-center
+            = t('companies.show.edit_branding_status')
+
+        .modal-body
+          .container-fluid
+            .form-group
+
+              = fields_for :payment, company.most_recent_branding_payment do |pf|
+                .row
+                  .col-sm-4
+                    %label
+                      #{t('activerecord.attributes.payment.expire_date')}:
+                  .com-sm-8
+                    = pf.date_select(:expire_date,
+                                     { start_year: Time.zone.today.year,
+                                       end_year: Time.zone.today.year + 2},
+                                     { class: 'select-box' })
+                .row
+                  .col-sm-4
+                    = pf.label :notes,
+                               "#{t('activerecord.attributes.payment.notes')}:"
+                  .col-sm-8
+                    = pf.text_area :notes
+
+        .modal-footer
+          = f.submit t('companies.company.submit_button_label'), class: "btn btn-primary",
+                     id: 'editBrandingStatusSubmit'
+
+          %button{ type: 'button', class: 'btn btn-default', data: { dismiss: 'modal' } }
+            = t('cancel')

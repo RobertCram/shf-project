@@ -37,6 +37,8 @@ en:
   search: &search Search
   'yes': &yes 'Yes'
   'no': &no 'No'
+  'Yes': *yes
+  'No': *no
   applications: &applications Applications
   user_activity: User Activity
   none: &none None
@@ -99,7 +101,7 @@ en:
  # Automatic and manual lookup for ActiveRecords:
   activerecord:
     models:
-      membership_application:
+      shf_application:
         one: Membership
         other: Memberships
 
@@ -112,12 +114,16 @@ en:
         other: Companies
 
       shf_document:
-        one: SHF Document
-        other: SHF Documents
+        one: Document
+        other: Documents
 
       payment:
         one: Payment
         other: Payments
+
+      user:
+        one: User
+        other: Users
 
 
     attributes:
@@ -137,17 +143,25 @@ en:
         sign_in_count: &sign_in_count Logins
         created: *created
         reset_password_sent_at: &user_reset_password_sent_at Password reset info sent
+        member: &member Member
 
       payment:
         payment_type: Payment Type
+        start_date: Start Date
+        expire_date: &expire_date Expire Date
+        notes: Notes
 
-      membership_application:
+      shf_application:
         company_number: &company_number Company number
         first_name: *first_name
         last_name: *last_name
         contact_email: &contact_email Contact Email
         state: &state Status
         phone_number: Phone number
+        uploaded_files:
+          one: Uploaded file
+          many: Uploaded files
+
 
       address:
         street: &street Street
@@ -218,7 +232,7 @@ en:
             actual_file:
               file_too_large: 'The uploaded file size must be smaller than %{max}. (Your file is %{value} bytes.)'
 
-        membership_application:
+        shf_application:
           attributes:
             company_number:
               invalid: "%{company_number} is not a valid Swedish company number"
@@ -243,7 +257,7 @@ en:
       branding_fee: Branding Fee
 
  # Automatic and manual lookup for views:
-  membership_applications:
+  shf_applications:
     new:
       title: Apply for a Membership
       instructions: 'To process your application, we need information about you and in which category you are applying as well as documents proving your skills in this/those categories.'
@@ -265,7 +279,7 @@ en:
       upload_files_section: Documents to support your application (certifications, etc.)
       upload_files_instructions: 'The documents are very important for us to assess your application. We use them to authenticate your skills and education. This ensures that our membership standards remain high, which in turn means that the public know that the Swedish dog business is professional and reliable.'
       upload_files: 'Upload files from your computer:'
-      upload_more_files: 'You can upload more files. After you submit your application, you can edit it upload more files on that page.'
+      upload_more_files: 'You can upload more files. After you submit your application, you may still edit the application and upload more files.'
       upload_button: Choose files to upload...
       will_be_uploaded: 'These files will be uploaded when you submit your application:'
 
@@ -300,7 +314,6 @@ en:
       with_categories: Categories
       delete: *delete
       confirm_are_you_sure: *are_you_sure_confirm
-      waiting_for_payment: 'Waiting for payment (Cannot approve the application until the payment has been received.)'
       ready_for_review_instructions: "When you are ready for SHF review your application again, check the checkbox below. When you press the submit button and the checkbox is checked, we will know we need to review it again.\nYou can make changes without checking the 'ready for review' checkbox.  You might do that if you need to save a change and come back and make more changes before you're ready to have it reviewed."
 
     index:
@@ -384,7 +397,6 @@ en:
       new: &status_new New
       under_review: &status_under_review Under Review
       waiting_for_applicant: &status_waiting_for_applicant Waiting for applicant
-      waiting_for_payment: &status_waiting_for_payment Waiting for payment
       ready_for_review: &status_ready_for_review Ready For Review
       accepted: &status_accepted Accepted
       rejected: &status_rejected Rejected
@@ -401,18 +413,15 @@ en:
     waiting_for_applicant: *status_waiting_for_applicant
     applicant_updated_info: &event_applicant_updated_info Applicant Updated Info
     ask_applicant_for_payment_btn: Ask Applicant for Payment
-    cancel_waiting_for_payment_btn: Cancel Waiting for Payment
-    received_payment_btn: Received Payment
-    waiting_for_payment: *status_waiting_for_payment
     ready_for_review: *status_ready_for_review
     start_review_btn: Start Reviewing
 
     awaiting_payment: Awaiting payment
 
-    all_membership_applications: All applications
-    edit_membership_application: Edit application
-    view_membership_application: View application
-    list_all_membership_applications: List all applications
+    all_shf_applications: All applications
+    edit_shf_application: Edit application
+    view_shf_application: View application
+    list_all_shf_applications: List all applications
 
     uploads:
       no_files: You have not uploaded any files for this application.
@@ -471,6 +480,12 @@ en:
       confirm_are_you_sure: '*are_you_sure_confirm you want to delete the company?'
       add_address: 'Add address'
       click_to_edit: 'click to edit'
+      edit_branding_status: Edit Branding Status
+      branding_license: H-Branding License
+      pay_branding_fee_tooltip: Paying H-Branding fee will extend your branding
+                                license for one year
+      branding_fee_expire_date_tooltip: Branding license expires after this date
+      members: Company Members
     index:
       title: Find H-labeled companies
       admin_title: Edit member companies
@@ -494,6 +509,9 @@ en:
       visibility_tooltip: Level of detail as seen by visitor (including maps).
         Set to 'None' for no address visibility.
       org_nr_tooltip: Numbers only (no hyphens)
+
+    company:
+      submit_button_label: Update Status
 
     company_name: Company name
     telephone_number: Phone number
@@ -602,6 +620,10 @@ en:
       re_enter_new_password: Re-Enter the Password
       please_note_new_password: Please record this in a safe and secure place. Once you press the Save button below you will not be able to see the password again and there is no way to display it again.
       submit_new_password: Save the New Password
+      member: *member
+      pay_membership_tooltip: Paying membership fee will extend your membership
+                              for one year
+      membership_expire_date_tooltip: Membership expires after this date
 
     update:
       passwords_dont_match: "The two passwords entered don't match."
@@ -620,6 +642,8 @@ en:
       user_has_never_signed_in: has never logged in.
       'yes': *yes # https://coderwall.com/p/ld65tq/rails-i18n-yes-no-translation
       'no': *no
+      edit_member_status: Edit Member Status
+      submit_button_label: Update Status
 
     users_list:
       membership_number: *membership_number_short
@@ -632,12 +656,13 @@ en:
       member: Member
       applications: *applications
       applications_tooltip: Number of open applications
+      expire_date: *expire_date
 
   payments:
     create:
       page_title: &page_title '%{payment_type} Payment by: %{user_name}'
       title: *page_title
-      something_wrong: Something went wrong - contact the system administrator at member@sverigeshundforetagare.se
+      something_wrong: 'Something went wrong - contact the system administrator at %{admin_email}'
 
     success:
       success: Payment successfully processed - thank you!
@@ -770,22 +795,26 @@ en:
       delete_confirm: "Are you sure you want to delete the reason: %{name_sv} (%{name_en})?"
 
 
-  application_mailer:
-    greeting: &email_greeting "Hello %{greeting_name}"
+  mailers:
+    application_mailer:
+      greeting: &email_greeting "Hello %{greeting_name}"
 
-    trouble_reading_browser: "Having trouble reading this? View it in a browser"
-    email_us: "If you have any questions or suggestions, email us at "
+      email_us: "If you have any questions or suggestions, email us at "
 
-    footer:
-      text:
-        shf_name: *SHF_name
-        shf_motto: KOMPETENS – GLÄDJE – OMTANKE
-        email_sent_to: This email was sent to %{email_sent_to}
-        why_you_are_receiving: You are receiving this email because you are interested in a membership to SVERIGES HUNDFÖRETAGARE or you are a member.
-
-    admin:
-      signoff: Thanks
+      signoff: "Best Regards,"
       signature: &medlemsansvarig Membership Committee
+      signature_url: "http://sverigeshundforetagare.se"
+
+      footer:
+        text:
+          shf_name: *SHF_name
+          shf_motto: KOMPETENS – GLÄDJE – OMTANKE
+          email_sent_to: This email was sent to %{email_sent_to}
+          why_you_are_receiving: You are receiving this email because you are interested in a membership to SVERIGES HUNDFÖRETAGARE or you are a member.
+
+
+    admin_mailer:
+      signoff: Thanks
 
       new_application_received:
         subject: A new SHF Member Application has been received
@@ -796,22 +825,30 @@ en:
           view_app_here: "You can view the membership application here: "
           must_be_logged_in: "(You must be logged in as the administrator to view it.)"
 
-    membership_application:
-      signoff: "Best Regards,"
-      signature: *medlemsansvarig
-      signature_url: "http://sverigeshundforetagare.se"
 
+    shf_application_mailer:
       acknowledge_received:
         subject: Your application to Sveriges Hundföretagare has been received
         message_text: "Your application has been received.  We are all working hard, so it might take a while before we get to it. So do not worry if it takes a while before you hear from us."
 
-      accepted:
-        subject: "Welcome! Your SHF application has been approved"
+      app_approved:
+        subject: Your application to Sveriges Hundföretagare is approved
+        message_text:
+          app_approved_and_next: "Your application is now approved. What is left before you are registered as a member in the system is to pay your membership fee.  Log in to the website and then pay at this link: "
+          h_branding_not_paid: "When this is done you will need to finish your company page and pay your H-branding fee. More information about how to do that will come after you paid your membership fee."
+          thanks:  "Thank you for wanting to be a member and contributing to a Sweden with an ethical dog industry."
+
+
+    member_mailer:
+      membership_granted:
+        subject: &subject_welcome "Welcome to SHF! You're now a member"
         greeting: *email_greeting
         message_text:
-          youre_active: "You have now been activated as a member of the system and can log in and manage your profile and build your business page. Once you are logged in, you can edit your company page here: "
+          welcome:  *subject_welcome
+          youre_active: "Your company is now H-tagged and you have been activated as a member of the system. You can login and manage your profile and build your business page. When you're signed in, you can edit your business page and pay your branding license fee here: "
           access_fb_group: "As a member, you will also have access to our closed Facebook group: "
           and_member_pages: "as well as hidden pages in our member system: "
+
 
 
   devise:
@@ -914,6 +951,7 @@ en:
       users:
         my_application: &my_application My Application
         apply_for_membership: Apply for Membership
+        your_account: View Your Account
 
       members:
         shf_companies: SHF Companies
@@ -925,6 +963,9 @@ en:
           edit_company: Edit My Company
         my_application: *my_application
         pay_membership: Pay Membership Fee
+
+      company:
+        pay_branding_fee: Pay H-Branding Fee
 
       admin:
         shf_main_site: *shf_main_site

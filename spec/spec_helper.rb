@@ -11,6 +11,9 @@ require 'vcr'
 
 # CodeClimate::TestReporter.start
 
+# helper to be used in specs for services
+SERVICES_PATH = File.absolute_path(File.join(__dir__, '..', 'app','services'))
+
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr_cassettes'

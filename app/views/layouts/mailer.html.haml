@@ -42,7 +42,7 @@
                                             %td.text-content{ valign: "top" }
 
                                               .greeting
-                                                %h2= t('application_mailer.greeting', greeting_name: @greeting_name) if @greeting_name
+                                                %h2= t('mailers.application_mailer.greeting', greeting_name: @greeting_name) if @greeting_name
 
                                               = yield
 

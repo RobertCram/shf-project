@@ -38,7 +38,7 @@ Feature: export member information to a CSV file so I can use it in other system
 
 
   Scenario: User can't export
-    Given I am logged in as "new@kats.com"
+    Given I am logged in as "wils@woof.com"
     When I am on the "membership applications" page
     Then I should see t("errors.not_permitted")
 

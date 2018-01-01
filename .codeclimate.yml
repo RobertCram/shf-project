@@ -44,8 +44,13 @@ exclude_paths:
 - "features/"
 - "script/"
 - "spec/"
-- "vendor/"
-- "public/javascripts/"
+- "**/vendor/"
+- "public/"
 - "javascripts/ckeditor/"
 - "docs/"
-- "lib/tasks/cucumber.rake"
+- "lib/"
+- "log/"
+- "tmp/"
+- "vcr_cassettes/"
+
+

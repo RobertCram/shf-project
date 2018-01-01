@@ -15,7 +15,7 @@ module PaginationUtility
     # collection tables (e.g., companies, member_applications).
 
     # It is passed a string that indicates the type of paginated collection,
-    #  e.g. "company", "membership_application".
+    #  e.g. "company", "shf_application".
 
     # It returns:
     #  1) search params hash, for use with ransack gems "ransack" method,
