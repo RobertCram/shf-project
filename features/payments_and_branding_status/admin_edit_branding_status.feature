@@ -16,8 +16,9 @@ Feature: As an admin
       | user_email     | start_date | expire_date | payment_type | status | hips_id | company_number |
       | emma@mutts.com | 2017-10-1  | 2017-12-31  | branding_fee | betald | none    | 2120000142     |
 
-  @selenium
+  @selenium @time_adjust
   Scenario: Admin edits branding status
+    Given the date is set to "2017-10-01"
     Given I am logged in as "admin@shf.se"
     And I am the page for company number "2120000142"
     And I should see t("Yes")
