@@ -39,7 +39,12 @@ module PickRandomHelpers
 
       (random_num_files - app.uploaded_files.count).times do | i |
 
-        file_txt =  File.open(File.join(FIXTURE_DIR, "uploaded-#{i}.txt"), 'w'){ |f| f.puts "temp text file number #{i}"}
+        file_txt =  File.open(File.join(FIXTURE_DIR, "uploaded-#{i}.txt"), 'w') do |f|
+          f.puts "This is a dummy file created to stand in for a file a user has uploaded with their SHF membership application."
+          f.puts "It was created by  #{self.class.name}::#{__method__} [#{__FILE__}  line #{__LINE__}]"
+          f.puts "\nThis can be added to git so that it is another 'uploaded file' that the mail preview and other spec tests can use."
+          f.puts "Or you can safely delete this file. (It will be recreated as needed by spec/mailers/previews/pick_random_helpers.rb )"
+        end
 
         uploaded_file = UploadedFile.create(actual_file: file_txt, shf_application: app, actual_file_file_name:  "uploaded-#{i}.txt")
         app.uploaded_files << uploaded_file

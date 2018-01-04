@@ -3,10 +3,9 @@ require 'rails_helper'
 RSpec.describe PaymentsController, type: :controller do
   let(:user1) { create(:user) }
   let(:user2) { create(:user) }
-
   let(:company) { create(:company) }
-
-  let(:payment) { create(:payment) }
+  let(:payment) { create(:payment, user: user1, company: company) }
+  let(:application) { create(:shf_application, user: user1, company: company) }
 
   let(:webhook_payload) do
     resource = { 'id' => 'hips_id', 'status' => 'successful',
@@ -69,11 +68,18 @@ RSpec.describe PaymentsController, type: :controller do
       post :webhook
       expect(payment.reload.status).to eq 'betald'
     end
+  end
 
-    it 'sets user to be a member and assigns membership number' do
+  describe 'GET #success' do
+
+    it 'calls User#grant_membership if membership payment' do
+      application
+
       expect(payment.user.member).to be false
       expect(payment.user.membership_number).to be_nil
-      post :webhook
+
+      get :success, params: { id: payment, user_id: payment.user.id }
+
       expect(payment.reload.user.member).to be true
       expect(payment.user.membership_number).not_to be_nil
     end

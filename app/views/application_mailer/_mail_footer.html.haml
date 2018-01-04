@@ -1,6 +1,6 @@
 .mail-body-footer
-  %p.shf-name= t('application_mailer.footer.text.shf_name').upcase
-  %p.shf-motto= t('application_mailer.footer.text.shf_motto')
+  %p.shf-name= t('mailers.application_mailer.footer.text.shf_name').upcase
+  %p.shf-motto= t('mailers.application_mailer.footer.text.shf_motto')
 
   -# Could add information to the URL so that it's clear they came to the site via email
   %p= link_to t('shf_home_url'), root_url, target: '_blank', class: 'signature-url'

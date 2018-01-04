@@ -93,7 +93,7 @@ RSpec.describe ApplicationMailer, type: :mailer do
     end
 
     it "should have the correct subject" do
-      expect(@email).to have_subject(I18n.t('application_mailer.greeting', greeting_name: @test_user.full_name))
+      expect(@email).to have_subject(I18n.t('mailers.application_mailer.greeting', greeting_name: @test_user.full_name))
     end
 
     it "default from address is ENV['SHF_NOREPLY_EMAIL']" do
@@ -114,13 +114,13 @@ RSpec.describe ApplicationMailer, type: :mailer do
     it ':en' do
       I18n.locale = :en
       email = ApplicationMailer.test_email(test_user)
-      expect(email).to have_subject(I18n.t('application_mailer.greeting', greeting_name: test_user.full_name, locale: :en))
+      expect(email).to have_subject(I18n.t('mailers.application_mailer.greeting', greeting_name: test_user.full_name, locale: :en))
     end
 
     it ':sv' do
       I18n.locale = :sv
       email = ApplicationMailer.test_email(test_user)
-      expect(email).to have_subject(I18n.t('application_mailer.greeting', greeting_name: test_user.full_name, locale: :sv))
+      expect(email).to have_subject(I18n.t('mailers.application_mailer.greeting', greeting_name: test_user.full_name, locale: :sv))
     end
 
   end

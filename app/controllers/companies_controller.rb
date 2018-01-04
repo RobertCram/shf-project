@@ -4,8 +4,11 @@ class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy, :edit_payment]
   before_action :authorize_company, only: [:update, :show, :edit, :destroy]
 
+
   def index
     authorize Company
+
+    self.params = fix_FB_changed_q_params(self.params)
 
     action_params, @items_count, items_per_page = process_pagination_params('company')
 
@@ -13,11 +16,11 @@ class CompaniesController < ApplicationController
 
     # only select companies that are 'complete'; see the Company.complete scope
 
-    @all_companies =  @search_params.result(distinct: true)
-                          .complete
-                          .includes(:business_categories)
-                          .includes(addresses: [ :region, :kommun ])
-                          .joins(addresses: [ :region, :kommun ])
+    @all_companies = @search_params.result(distinct: true)
+                         .complete
+                         .includes(:business_categories)
+                         .includes(addresses: [:region, :kommun])
+                         .joins(addresses: [:region, :kommun])
     # The last qualifier ("joins") on above statement ("addresses: :region") is
     # to get around a problem with DISTINCT queries used with ransack when also
     # allowing sorting on an associated table column ("region" in this case)
@@ -29,7 +32,7 @@ class CompaniesController < ApplicationController
 
     @all_visible_companies = @all_companies.address_visible
 
-    @all_visible_companies.each { | co | geocode_if_needed co  }
+    @all_visible_companies.each { |co| geocode_if_needed co }
 
     @companies = @all_companies.page(params[:page]).per_page(items_per_page)
 
@@ -54,7 +57,7 @@ class CompaniesController < ApplicationController
     @all_business_categories = BusinessCategory.all
 
     Ckeditor::Picture.images_category = 'company_' + @company.id.to_s
-    Ckeditor::Picture.for_company_id  = @company.id
+    Ckeditor::Picture.for_company_id = @company.id
 
   end
 
@@ -62,7 +65,7 @@ class CompaniesController < ApplicationController
   def create
     authorize Company
 
-    @company = Company.new( sanitize_website(company_params) )
+    @company = Company.new(sanitize_website(company_params))
 
     if @company.save
       redirect_to @company, notice: t('.success')
@@ -74,7 +77,7 @@ class CompaniesController < ApplicationController
 
 
   def update
-    if @company.update( sanitize_website(company_params) )
+    if @company.update(sanitize_website(company_params))
       redirect_to @company, notice: t('.success')
     else
       flash.now[:alert] = t('.error')
@@ -94,6 +97,7 @@ class CompaniesController < ApplicationController
     end
   end
 
+
   def edit_payment
     raise 'Unsupported request' unless request.xhr?
     authorize Company
@@ -108,6 +112,7 @@ class CompaniesController < ApplicationController
            locals: { company: @company, error: t('companies.update.error') }
   end
 
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_company
@@ -119,7 +124,7 @@ class CompaniesController < ApplicationController
   def geocode_if_needed(company)
     needs_geocoding = company.addresses.reject(&:geocoded?)
     needs_geocoding.each(&:geocode_best_possible)
-    company.save!  if needs_geocoding.count > 0
+    company.save! if needs_geocoding.count > 0
   end
 
 
@@ -129,15 +134,16 @@ class CompaniesController < ApplicationController
                                     :email,
                                     :website,
                                     :description,
-        addresses_attributes: [:id,
-                                :street_address,
-                                :post_code,
-                                :kommun_id,
-                                :city,
-                                :region_id,
-                                :country,
-                                :visibility])
+                                    addresses_attributes: [:id,
+                                                           :street_address,
+                                                           :post_code,
+                                                           :kommun_id,
+                                                           :city,
+                                                           :region_id,
+                                                           :country,
+                                                           :visibility])
   end
+
 
   def payment_params
     params.require(:payment).permit(:expire_date, :notes)
@@ -150,7 +156,7 @@ class CompaniesController < ApplicationController
 
 
   def sanitize_website(params)
-    params['website'] = URLSanitizer.sanitize( params.fetch('website','') )
+    params['website'] = URLSanitizer.sanitize(params.fetch('website', ''))
     params
   end
 

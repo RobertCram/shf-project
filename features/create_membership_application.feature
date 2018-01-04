@@ -14,10 +14,11 @@ Feature: Create a new membership application
 
   Background:
     Given the following users exists
-      | email                  | admin |
-      | applicant_1@random.com |       |
-      | applicant_2@random.com |       |
-      | admin@shf.se           | yes   |
+      | email                  | admin | member |
+      | applicant_1@random.com |       |        |
+      | applicant_2@random.com |       |        |
+      | member@random.com      |       | true   |
+      | admin@shf.se           | yes   |        |
 
     And the following business categories exist
       | name         |
@@ -25,7 +26,12 @@ Feature: Create a new membership application
       | Psychologist |
       | Trainer      |
 
+    And the following applications exist:
+      | user_email        | company_number | state    |
+      | member@random.com | 5560360793     | accepted |
+
     And I am logged in as "applicant_1@random.com"
+
 
   Scenario: A user can submit a new Membership Application with 1 category
     Given I am on the "landing" page
@@ -42,12 +48,11 @@ Feature: Create a new membership application
     And the t("shf_applications.new.last_name") field should be set to "Andersson"
     Then "applicant_1@random.com" should receive an email
     And I open the email
-    And I should see t("application_mailer.shf_application.acknowledge_received.subject") in the email subject
+    And I should see t("mailers.shf_application_mailer.acknowledge_received.subject") in the email subject
     And I am logged in as "admin@shf.se"
     Then "admin@shf.se" should receive an email
     And I open the email
-    And I should see t("application_mailer.admin.new_application_received.subject") in the email subject
-
+    And I should see t("mailers.admin_mailer.new_application_received.subject") in the email subject
 
 
   Scenario: A user can submit a new Membership Application with multiple categories
@@ -74,7 +79,7 @@ Feature: Create a new membership application
     And I should see t("shf_applications.create.success", email_address: info@craft.se)
 
 
-  Scenario: Applicant not see membership number when submitting
+  Scenario: Applicant cannot see membership number when submitting
     Given I am on the "landing" page
     And I click on t("menus.nav.users.apply_for_membership")
     Then I should not see t("shf_applications.show.membership_number")
@@ -160,3 +165,34 @@ Feature: Create a new membership application
     And I should not see t("show_in_swedish") image
     And I should not see t("show_in_english") image
     And I should see t("cannot_change_language") image
+
+
+  # Note: this functional integration test passes; it proves that a member can submit a new application.
+  # However, our application does not currently provide a menu option or other way for the Member to do this!
+  Scenario: A member can submit a new application
+    Given I am logged out
+    And I am logged in as "member@random.com"
+    And I am on the "new application" page
+    And I fill in the translated form with data:
+      | shf_applications.new.first_name | shf_applications.new.last_name | shf_applications.new.company_number | shf_applications.new.phone_number | shf_applications.new.contact_email |
+      | Lars                                   | IsaMember                             | 5562252998                                 | 031-1234567                              | member@random.com                         |
+    And I select "Groomer" Category
+    And I click on t("shf_applications.new.submit_button_label")
+    Then I should be on the "landing" page
+    And I should see t("shf_applications.create.success", email_address: member@random.com  )
+    When I click on t("menus.nav.users.my_application")
+    Then the t("shf_applications.new.first_name") field should be set to "Lars"
+    And the t("shf_applications.new.last_name") field should be set to "IsaMember"
+    Then "member@random.com" should receive an email
+    And I open the email
+    And I should see t("mailers.shf_application_mailer.acknowledge_received.subject") in the email subject
+    And I am logged in as "admin@shf.se"
+    Then "admin@shf.se" should receive an email
+    And I open the email
+    And I should see t("mailers.admin_mailer.new_application_received.subject") in the email subject
+
+
+  Scenario: An admin cannot submit a new application because we don't know which User it is for
+    Given I am logged in as "admin@shf.se"
+    And I am on the "new application" page
+    Then I should see t("errors.not_permitted")

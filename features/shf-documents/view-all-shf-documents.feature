@@ -73,7 +73,9 @@ Feature: SHF members (and admins) can views board meeting minutes (SHF documents
      # clicking on a document title will show or download the actual document
 
 
+  @time_adjust
   Scenario: Can sort by title
+    Given the date is set to "2017-10-01"
     Given I am logged in as "admin@shf.se"
     And I am on the "new SHF document" page
     And I fill in the translated form with data:

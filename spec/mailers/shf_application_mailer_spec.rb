@@ -19,16 +19,16 @@ RSpec.describe ShfApplicationMailer, type: :mailer do
 
   describe '#app_approved' do
 
-    let(:approved_text) { 'application_mailer.shf_application.app_approved.message_text' }
+    let(:approved_text) { 'mailers.shf_application_mailer.app_approved.message_text' }
 
 
     let(:accepted_app) { create(:shf_application, :accepted, user: test_user) }
     let(:email_sent) { ShfApplicationMailer.app_approved(accepted_app) }
 
     it_behaves_like 'a successfully created email to a member',
-                    I18n.t('application_mailer.shf_application.app_approved.subject'),
+                    I18n.t('mailers.shf_application_mailer.app_approved.subject'),
                     'user@example.com',
-                    I18n.t('application_mailer.greeting', greeting_name: 'Firstname Lastname') do
+                    'Firstname Lastname' do
       let(:email_created) { email_sent }
     end
 
@@ -119,9 +119,9 @@ RSpec.describe ShfApplicationMailer, type: :mailer do
     let(:email_sent) { ShfApplicationMailer.acknowledge_received(received_app) }
 
     it_behaves_like 'a successfully created email',
-                    I18n.t('application_mailer.shf_application.acknowledge_received.subject'),
+                    I18n.t('mailers.shf_application_mailer.acknowledge_received.subject'),
                     'user@example.com',
-                    I18n.t('application_mailer.greeting', greeting_name: 'Firstname Lastname') do
+                    'Firstname Lastname' do
       let(:email_created) { email_sent }
     end
 

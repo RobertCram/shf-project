@@ -114,11 +114,11 @@ it is not maintained in git - and thus is not pulled down from github. Contact
 one of the project members to get the contents of that file (for example via
 private message in Slack, or general message in the project's Slack channel).
 
-### Step 4: Update the database
+### Step 4: Set up the database
 ```shell
 $ bundle exec rake shf:db_recreate
 ```
-The rake task `db_recreate` creates the development DB, creates the application
+The rake task `shf:db_recreate` creates or recreates the development and test DBs, creates the application
 schema, loads foundation data table (e.g. list of Swedish counties) and then
 runs seed.db to populate the DB with data for development.
 

@@ -146,9 +146,13 @@ Feature: As an admin
     And I should see "emma@bowsers.com"
     And I should see "5560360793"
     And I should see "2120000142"
+    And I should see t("shf_applications.state.accepted")
+    And I should see t("shf_applications.state.new")
+    Then I click on "change-lang-to-english"
+    And I should see t("shf_applications.state.accepted")
+    And I should see t("shf_applications.state.new")
 
   @user
   Scenario: Do not show the membership number when there is none
     When I am on the "user details" page for "nils@personal.se"
     Then I should not see t("users.show.membership_number")
-

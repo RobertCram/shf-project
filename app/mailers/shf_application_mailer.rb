@@ -3,7 +3,7 @@ class ShfApplicationMailer < AbstractMembershipInfoMailer
 
   def acknowledge_received(shf_application)
 
-    send_mail_for __method__, shf_application, t('application_mailer.shf_application.acknowledge_received.subject')
+    send_mail_for __method__, shf_application, t('mailers.shf_application_mailer.acknowledge_received.subject')
 
   end
 
@@ -11,7 +11,7 @@ class ShfApplicationMailer < AbstractMembershipInfoMailer
   def app_approved(shf_application)
     @branding_fee_paid = shf_application.company&.branding_license?
 
-    send_mail_for __method__, shf_application, t('application_mailer.shf_application.app_approved.subject')
+    send_mail_for __method__, shf_application, t('mailers.shf_application_mailer.app_approved.subject')
 
   end
 

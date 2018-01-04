@@ -8,7 +8,8 @@ namespace :shf do
 
   desc 'recreate db (current env): drop, setup, migrate, seed the db.'
   task :db_recreate => [:environment] do
-    tasks = ['db:drop', 'db:create', 'db:migrate',
+    Rake::Task['db:drop'].invoke if database_exists?
+    tasks = ['db:create', 'db:migrate',
              'shf:load_regions', 'shf:load_kommuns', 'db:seed']
     tasks.each { |t| Rake::Task["#{t}"].invoke }
   end
@@ -236,6 +237,15 @@ namespace :shf do
 
 
   # -------------------------------------------------
+
+  def database_exists?
+    ActiveRecord::Base.connection
+  rescue ActiveRecord::NoDatabaseError
+    false
+  else
+    true
+  end
+
 
   def import_a_member_app_csv(row, log)
 

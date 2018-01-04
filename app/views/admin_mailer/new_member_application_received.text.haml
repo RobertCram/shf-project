@@ -1,10 +1,10 @@
 - provide :signoff do
-  = render 'admin_mailer/signoff'
+  = render 'application_mailer/signoff', signoff: t('mailers.admin_mailer.signoff')
 
 
-= t('application_mailer.admin.new_application_received.message_text.new_app_arrived')
+= t('mailers.admin_mailer.new_application_received.message_text.new_app_arrived')
 \
-= t('application_mailer.admin.new_application_received.message_text.from')
+= t('mailers.admin_mailer.new_application_received.message_text.from')
 = '     ' + @shf_app.user.full_name
 = '     ' + I18n.t('activerecord.attributes.shf_application.contact_email') + ': ' + @shf_app.contact_email
 
@@ -17,9 +17,7 @@
 
 
 \
-= t('application_mailer.admin.new_application_received.message_text.view_app_here')
+= t('mailers.admin_mailer.new_application_received.message_text.view_app_here')
 = '     ' + url_for(@shf_app)
 \
-= t('application_mailer.admin.new_application_received.message_text.must_be_logged_in')
-\
-
+= t('mailers.admin_mailer.new_application_received.message_text.must_be_logged_in')

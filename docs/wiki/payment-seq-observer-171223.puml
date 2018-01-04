@@ -1,0 +1,103 @@
+@startuml
+
+!include plantuml-ae-style.iuml
+
+'skinparam ActivityDiamondBackgroundColor white
+
+skinparam note {
+   FontSize 12
+}
+
+title Make a Payment and Update Membership Status\n\nafter refactoring, using MembershipUpdater observer 23 Dec. 2017\n
+
+
+HipsService -> PaymentsController: webhook
+
+
+PaymentsController -> Payment: find(payment.id)
+Payment -> PaymentsController: payment
+PaymentsController -> Payment: order_to_payment_status
+Payment -> PaymentsController: status
+
+...
+
+HipsService -> PaymentsController: success
+activate PaymentsController
+
+
+PaymentsController -> Payment: find(params[:id])
+Payment -> PaymentsController: payment
+
+PaymentsController -> Payment: successfully_completed
+
+activate Payment
+
+Payment -> Payment: update(status: SUCCESSFUL)
+Payment -> Payment: notify_observers(self)
+
+activate MembershipStatusUpdater
+
+Payment -> MembershipStatusUpdater: payment_made(payment)
+
+deactivate Payment
+
+
+MembershipStatusUpdater -> MembershipStatusUpdater: check_requirements_and_act({ user: payment.user })
+
+note right of MembershipStatusUpdater #lightYellow
+ RequirementsForMembership is responsible for knowing if requirements have been met
+end note
+
+
+MembershipStatusUpdater -> RequirementsForMembership: satisfied?(user)
+
+activate RequirementsForMembership
+
+RequirementsForMembership -> User: membership_current?
+RequirementsForMembership -> User: has_approved_shf_application?
+RequirementsForMembership <- RequirementsForMembership: requirements_met?
+deactivate RequirementsForMembership
+
+RequirementsForMembership -> MembershipStatusUpdater: [true | false] (assume true for this example)
+
+
+== update (grant membership) ==
+
+MembershipStatusUpdater -> MembershipStatusUpdater: update_action(args)
+
+note right of MembershipStatusUpdater #lightYellow
+ MembershipStatusUpdater is responsible for knowing what to do to grant membership
+end note
+
+
+MembershipStatusUpdater -> User: update( member: true, membership_number: ...)
+
+User -> User: issue_membership_number
+
+MembershipStatusUpdater -> MemberMailer: membership_granted(user)
+
+== end update (grant membership) ==
+
+deactivate MembershipStatusUpdater
+
+
+PaymentsController -> HipsService: head :ok
+
+deactivate PaymentsController
+
+...
+
+HipsService -> PaymentsController: response.parsed_response
+deactivate HipsService
+
+PaymentsController -> Payment: order_to_payment_status(hips_order['status'])
+Payment -> PaymentsController: status
+
+PaymentsController -> Payment: save!
+
+...
+HipsService -> PaymentsController: success
+
+
+
+@enduml

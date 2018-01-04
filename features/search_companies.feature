@@ -54,7 +54,10 @@ Background:
     | anna@dogsrus.com    | 5562252998     | accepted | Trainer         |
     | emma@weluvdogs.com  | 5569467466     | accepted | Groomer, Walker |
 
-@selenium
+  Given the date is set to "2017-10-01"
+
+
+@selenium @time_adjust
 Scenario: View all companies, sort by columns
   Given I am Logged out
   And I am on the "landing" page
@@ -75,7 +78,7 @@ Scenario: View all companies, sort by columns
   And I should see "Bromölla" before "Laxå"
   And I should see "Laxå" before "Östersund"
 
-@selenium
+@selenium @time_adjust
 Scenario: Search by category
   Given I am Logged out
   And I am on the "landing" page
@@ -94,7 +97,7 @@ Scenario: Search by category
   And I should see "Walker"
   And I should not see "Psychologist"
 
-@selenium
+@selenium @time_adjust
 Scenario: Search by region
   Given I am Logged out
   And I am on the "landing" page
@@ -106,7 +109,7 @@ Scenario: Search by region
   And I should not see "Dogs R Us"
   And I should not see "We Luv Dogs"
 
-@selenium
+@selenium @time_adjust
 Scenario: Search by company
   Given I am Logged out
   And I am on the "landing" page
@@ -118,7 +121,7 @@ Scenario: Search by company
   And I should not see "Barky Boys"
   And I should not see "Dogs R Us"
 
-@selenium
+@selenium @time_adjust
 Scenario: Search by kommun and region
   Given I am Logged out
   And I am on the "landing" page
@@ -139,7 +142,7 @@ Scenario: Search by kommun and region
   And I click on t("search")
   And I should see "Barky Boys"
 
-@selenium
+@selenium @time_adjust
 Scenario: Search by category and region
   Given I am Logged out
   And I am on the "landing" page
@@ -162,7 +165,7 @@ Scenario: Search by category and region
   Then I click on t("toggle.company_search_form.hide")
   And I should see "We Luv Dogs"
 
-@selenium
+@selenium @time_adjust
 Scenario: Search by region
   Given I am Logged out
   And I am on the "landing" page
@@ -174,7 +177,7 @@ Scenario: Search by region
   And I should not see "Dogs R Us"
   And I should not see "We Luv Dogs"
 
-@selenium
+@selenium @time_adjust
 Scenario: Search by company
   Given I am Logged out
   And I am on the "landing" page
@@ -186,7 +189,7 @@ Scenario: Search by company
   And I should not see "Barky Boys"
   And I should not see "Dogs R Us"
 
-@selenium
+@selenium @time_adjust
 Scenario: Search by kommun
   Given I am Logged out
   And I am on the "landing" page
@@ -206,7 +209,7 @@ Scenario: Search by kommun
   And I should see "We Luv Dogs"
   And I should not see "Dogs R Us"
 
-@selenium
+@selenium @time_adjust
 Scenario: Search by category and region 2
   Given I am Logged out
   And I am on the "landing" page
@@ -229,7 +232,7 @@ Scenario: Search by category and region 2
   Then I click on t("toggle.company_search_form.hide")
   And I should see "We Luv Dogs"
 
-@selenium
+@selenium @time_adjust
 Scenario: Toggle Hide/Show search form
   Given I am Logged out
   And I am on the "landing" page

@@ -219,8 +219,6 @@ b, strong {
     font-weight:bold;
 }
 
-dfn, cite, em, i {
-}
 
 blockquote {
     margin:25px 0;
@@ -351,7 +349,7 @@ img {
 
 figure {
     position:relative;
-    margin:0em 0em 1.5em;
+    margin:0 0 1.5em;
     overflow:hidden;
     max-width:100%;
 }
@@ -415,6 +413,7 @@ input[type="submit"] {
     cursor:pointer;
     /* Improves usability and consistency of cursor style between image-type 'input' and others */
     -webkit-appearance:button;
+
     /* Corrects inability to style clickable 'input' types in iOS */
     border-radius:0;
     border:1px solid;
@@ -692,6 +691,10 @@ body.admin-bar #site-navigation.fixed-nav {
     right:15px;
     top:50%;
     -webkit-transform:translateY(-50%);
+    -moz-transform:translateY(-50%);
+    -ms-transform:translateY(-50%);
+    -o-transform:translateY(-50%);
+    transform:translateY(-50%);
     vertical-align:middle;
     font-size:11px;
     line-height:11px;
@@ -1107,8 +1110,8 @@ body.admin-bar #site-navigation.fixed-nav ~ .search-toggle-container {
 /*--------------------------------------------------------------
 5.1 Links
 --------------------------------------------------------------*/
-a {
-}
+
+
 
 /*----------------------
 Logo
@@ -1447,7 +1450,6 @@ Arrows
     width:40px;
     height:40px;
     margin-top:-20px;
-    text-align:center;
     border:none !important;
     background-color:transparent !important;
     z-index:2;
@@ -1484,12 +1486,12 @@ Arrows
 /*--------------------------------------------------------------
 6.1 Featured pages
 --------------------------------------------------------------*/
-.featured-pages-container {
-}
 
-#featured-pages {
 
-}
+
+
+
+
 
 .featured-page {
     margin-bottom:30px;
@@ -2088,8 +2090,8 @@ Pages Widget
 /*---------------------
 RSS Widget
 ---------------------*/
-.widget_rss {
-}
+
+
 
 .widget_rss li {
     padding:15px 0;
@@ -2168,8 +2170,8 @@ Text Widget
 /*---------------------
 Wordchef recent posts
 ---------------------*/
-.wordchef_widget_recent_entries {
-}
+
+
 
 .wordchef-recent-post {
     padding:15px 0;
@@ -2380,9 +2382,9 @@ Wordchef Image Banner
 /*---------------------
 MailChimp Widget
 ---------------------*/
-.widget_mc4wp_widget {
 
-}
+
+
 
 .mc4wp-form {
     text-align:center;
@@ -2471,8 +2473,8 @@ fixed nav padding
     padding-bottom: 100px;
 }
 
-#primary {
-}
+
+
 
 article {
     background-color:#fff;
@@ -2704,8 +2706,8 @@ Grid item
     margin:40px 0 5px;
 }
 
-.grid-item .post-social {
-}
+
+
 
 /*--------------------------------------------------------------
 11.1 Posts and pages
@@ -2725,9 +2727,9 @@ Grid item
 /*----------
 Type page
 ----------*/
-.type-page {
 
-}
+
+
 
 .page-header {
     margin-bottom:30px;
@@ -2858,8 +2860,8 @@ Archive title
 /*--------
 comments
 --------*/
-.post-meta .post-comments {
-}
+
+
 
 /*-------------
 Featured image
@@ -3117,9 +3119,9 @@ post entry content
     text-decoration:underline;
 }
 
-.post-excerpt {
 
-}
+
+
 
 .more-link {
     display:none;
@@ -3241,7 +3243,7 @@ Post footer
 }
 
 .social-share a:hover:before {
-    top:0%;
+    top:0;
 }
 
 /*--------------
@@ -3410,7 +3412,7 @@ Author area
 }
 
 #author-area .author-social-profiles a:hover:before {
-    top:0%;
+    top:0;
 }
 
 #author-area .author-social-profiles a:first-child {
@@ -3520,7 +3522,8 @@ Featured gallery
     width:40px;
     height:40px;
     margin-top:-20px;
-    background-color:rgba(0,0,0,0.1) !important;
+    background-color: #dddddd !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
     border:none !important;
 }
 
@@ -3551,11 +3554,11 @@ Featured video
 /*--------------------------------------------------------------
 11.3 Asides
 --------------------------------------------------------------*/
-#secondary {
-}
 
-aside {
-}
+
+
+
+
 
 .blog .format-aside .entry-title,
 .archive .format-aside .entry-title {
@@ -3820,7 +3823,7 @@ Comment list
 }
 
 .comment-list li {
-    list-stlye:none;
+
     list-style:none;
     margin-left: 0;
 }
@@ -3853,8 +3856,8 @@ Comment avatar
 /*---------------
 Comment metadata
 ---------------*/
-#comments .comment-meta {
-}
+
+
 
 #comments .comment-author {
     display:inline-block;
@@ -3948,12 +3951,12 @@ Comment navigation
 /*--------------------------------------------------------------
 11.6 Footer
 --------------------------------------------------------------*/
-.site-footer {
 
-}
 
-#footer-logo {
-}
+
+
+
+
 
 #footer-logo:after {
     content:'';
@@ -3961,7 +3964,8 @@ Comment navigation
     margin:45px auto;
     width:120px;
     height:1px;
-    background-color:rgba(99,99,99,0.3);
+    background-color: #cccccc;
+    background-color: rgba(99,99,99,0.3);
 }
 
 /*---------------------
@@ -4105,7 +4109,8 @@ object {
     bottom: 0;
     padding:10px;
     color:#fff;
-    background-color:rgba(0,0,0,0.8);
+    background-color: #404040;
+    background-color: rgba(0,0,0,0.8);
     font-size:14px;
     text-align:center;
     -webkit-transform:translateY(100%);
@@ -4135,8 +4140,8 @@ figure:hover img + .wp-caption-text {
     }
 }
 
-.wp-caption, .gallery-caption {
-}
+
+
 
 /*--------------------------------------------------------------
 12.2 Galleries
@@ -4232,7 +4237,7 @@ figure:hover img + .wp-caption-text {
 }
 
 .mfp-content {
-    padding:15px auto !important;
+    padding:15px !important;
 }
 
 .mfp-figure::after {

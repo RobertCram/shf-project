@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'email_spec/rspec'
 
 RSpec.describe User, type: :model do
 
@@ -403,11 +404,17 @@ RSpec.describe User, type: :model do
   describe '#grant_membership' do
 
     it 'sets the member field for the user' do
+      # mock the MemberMailer so we don't try to send emails
+      expect(MemberMailer).to receive(:membership_granted).with(subject).and_return( double('MemberMailer', deliver: true))
+
       subject.grant_membership
       expect(subject.member).to be_truthy
     end
 
     it 'does not overwrite an existing membership_number' do
+      # mock the MemberMailer so we don't try to send emails
+      expect(MemberMailer).to receive(:membership_granted).with(subject).and_return( double('MemberMailer', deliver: true))
+
       existing_number = 'SHF00042'
       subject.membership_number = existing_number
       subject.grant_membership
@@ -415,6 +422,9 @@ RSpec.describe User, type: :model do
     end
 
     it 'generates sequential membership_numbers' do
+      # mock the MemberMailer so we don't try to send emails
+      expect(MemberMailer).to receive(:membership_granted).with(subject).twice.and_return( double('MemberMailer', deliver: true))
+
       subject.grant_membership
       first_number = subject.membership_number.to_i
 
@@ -423,6 +433,21 @@ RSpec.describe User, type: :model do
       second_number = subject.membership_number.to_i
 
       expect(second_number).to eq(first_number+1)
+    end
+
+    it 'sends emails out by default' do
+      expect_any_instance_of(MemberMailer).to receive(:membership_granted).with(subject)
+      subject.grant_membership
+    end
+
+    it 'send_email: true sends email to the member to let them know they are now a member' do
+      expect_any_instance_of(MemberMailer).to receive(:membership_granted).with(subject)
+      subject.grant_membership(send_email:true)
+    end
+
+    it 'send_email: false does not send email to the member to let them know they are now a member' do
+      expect_any_instance_of(MemberMailer).not_to receive(:membership_granted).with(subject)
+      subject.grant_membership(send_email: false)
     end
 
   end

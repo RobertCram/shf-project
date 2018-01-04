@@ -51,7 +51,7 @@ class ApplicationMailer < ActionMailer::Base
     @action_name = __method__.to_s
     @greeting_name = set_greeting_name(user)
 
-    mail to: set_recipient_email(user), subject: t('application_mailer.greeting', greeting_name: @greeting_name)
+    mail to: set_recipient_email(user), subject: t('mailers.application_mailer.greeting', greeting_name: @greeting_name)
 
   end
 

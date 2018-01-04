@@ -1,7 +1,7 @@
 - provide :signoff do
-  = render 'shf_application_mailer/signoff'
+  = render 'application_mailer/signoff'
 
-- message_scope = 'application_mailer.shf_application.app_approved.message_text'
+- message_scope = 'mailers.shf_application_mailer.app_approved.message_text'
 
 = I18n.t('app_approved_and_next', scope: message_scope) + user_url(@shf_app.user)
 

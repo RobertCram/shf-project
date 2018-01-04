@@ -1,6 +1,5 @@
 require 'rails_helper'
-
-require_relative (File.join(__dir__, '..', '..', 'app', 'services', 'address_exporter'))
+require_relative(File.join( SERVICES_PATH, 'address_exporter'))
 
 
 RSpec.describe AddressExporter do

@@ -279,7 +279,7 @@ en:
       upload_files_section: Documents to support your application (certifications, etc.)
       upload_files_instructions: 'The documents are very important for us to assess your application. We use them to authenticate your skills and education. This ensures that our membership standards remain high, which in turn means that the public know that the Swedish dog business is professional and reliable.'
       upload_files: 'Upload files from your computer:'
-      upload_more_files: 'You can upload more files. After you submit your application, you can edit it upload more files on that page.'
+      upload_more_files: 'You can upload more files. After you submit your application, you may still edit the application and upload more files.'
       upload_button: Choose files to upload...
       will_be_uploaded: 'These files will be uploaded when you submit your application:'
 
@@ -795,22 +795,26 @@ en:
       delete_confirm: "Are you sure you want to delete the reason: %{name_sv} (%{name_en})?"
 
 
-  application_mailer:
-    greeting: &email_greeting "Hello %{greeting_name}"
+  mailers:
+    application_mailer:
+      greeting: &email_greeting "Hello %{greeting_name}"
 
-    trouble_reading_browser: "Having trouble reading this? View it in a browser"
-    email_us: "If you have any questions or suggestions, email us at "
+      email_us: "If you have any questions or suggestions, email us at "
 
-    footer:
-      text:
-        shf_name: *SHF_name
-        shf_motto: KOMPETENS – GLÄDJE – OMTANKE
-        email_sent_to: This email was sent to %{email_sent_to}
-        why_you_are_receiving: You are receiving this email because you are interested in a membership to SVERIGES HUNDFÖRETAGARE or you are a member.
-
-    admin:
-      signoff: Thanks
+      signoff: "Best Regards,"
       signature: &medlemsansvarig Membership Committee
+      signature_url: "http://sverigeshundforetagare.se"
+
+      footer:
+        text:
+          shf_name: *SHF_name
+          shf_motto: KOMPETENS – GLÄDJE – OMTANKE
+          email_sent_to: This email was sent to %{email_sent_to}
+          why_you_are_receiving: You are receiving this email because you are interested in a membership to SVERIGES HUNDFÖRETAGARE or you are a member.
+
+
+    admin_mailer:
+      signoff: Thanks
 
       new_application_received:
         subject: A new SHF Member Application has been received
@@ -821,11 +825,8 @@ en:
           view_app_here: "You can view the membership application here: "
           must_be_logged_in: "(You must be logged in as the administrator to view it.)"
 
-    shf_application:
-      signoff: "Best Regards,"
-      signature: *medlemsansvarig
-      signature_url: "http://sverigeshundforetagare.se"
 
+    shf_application_mailer:
       acknowledge_received:
         subject: Your application to Sveriges Hundföretagare has been received
         message_text: "Your application has been received.  We are all working hard, so it might take a while before we get to it. So do not worry if it takes a while before you hear from us."
@@ -834,17 +835,20 @@ en:
         subject: Your application to Sveriges Hundföretagare is approved
         message_text:
           app_approved_and_next: "Your application is now approved. What is left before you are registered as a member in the system is to pay your membership fee.  Log in to the website and then pay at this link: "
-          h_branding_not_paid: "När detta är gjort behöver du göra färdigt din företagssida och betala din H-märkningsvagift. Mer information om hur du gör det kommer i ett mail efter att du betalt din medlemsavgift."
+          h_branding_not_paid: "When this is done you will need to finish your company page and pay your H-branding fee. More information about how to do that will come after you paid your membership fee."
           thanks:  "Thank you for wanting to be a member and contributing to a Sweden with an ethical dog industry."
 
-    user:
-      accepted:
-        subject: "Welcome to SHF! You're now a member"
+
+    member_mailer:
+      membership_granted:
+        subject: &subject_welcome "Welcome to SHF! You're now a member"
         greeting: *email_greeting
         message_text:
-          youre_active: "You have now been activated as a member of the system and can log in and manage your profile and build your business page. Once you are logged in, you can edit your company page here: "
+          welcome:  *subject_welcome
+          youre_active: "Your company is now H-tagged and you have been activated as a member of the system. You can login and manage your profile and build your business page. When you're signed in, you can edit your business page and pay your branding license fee here: "
           access_fb_group: "As a member, you will also have access to our closed Facebook group: "
           and_member_pages: "as well as hidden pages in our member system: "
+
 
 
   devise:
@@ -992,6 +996,7 @@ en:
   # ERRORS
   errors:
     not_permitted: You do not have permission to do this.
+    bad_search_params: "Sorry.  We could not search for %{search_item} with those critera.  Please try again."
     format: "%{attribute} %{message}"
     messages:
       accepted: must be accepted

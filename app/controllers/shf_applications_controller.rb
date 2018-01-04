@@ -2,7 +2,7 @@ class ShfApplicationsController < ApplicationController
   include PaginationUtility
 
   before_action :get_shf_application, except: [:information, :index, :new, :create]
-  before_action :authorize_shf_application, only: [:update, :show, :edit]
+  before_action :authorize_shf_application
   before_action :set_other_waiting_reason, only: [:show, :edit, :update, :need_info]
 
 
@@ -16,20 +16,24 @@ class ShfApplicationsController < ApplicationController
   def index
     authorize ShfApplication
 
+    self.params = fix_FB_changed_q_params(self.params)
+
     session[:shf_application_items_selection] ||= 'All' if current_user.admin?
 
     action_params, @items_count, items_per_page =
-      process_pagination_params('shf_application')
+        process_pagination_params('shf_application')
+
 
     @search_params = ShfApplication.includes(:user).ransack(action_params)
 
     @shf_applications = @search_params
-                                 .result
-                                 .includes(:business_categories)
-                                 .includes(:user)
-                                 .page(params[:page]).per_page(items_per_page)
+                            .result
+                            .includes(:business_categories)
+                            .includes(:user)
+                            .page(params[:page]).per_page(items_per_page)
 
     render partial: 'shf_applications_list' if request.xhr?
+
   end
 
 
@@ -49,7 +53,7 @@ class ShfApplicationsController < ApplicationController
 
     if @shf_application.save
 
-      file_uploads_successful =   new_file_uploaded(params)
+      file_uploads_successful = new_file_uploaded(params)
 
       send_new_app_emails(@shf_application)
 
@@ -110,13 +114,6 @@ class ShfApplicationsController < ApplicationController
       update_error(t('.error'))
     end
 
-  end
-
-
-  def check_and_mark_if_ready_for_review(app_params)
-    if app_params.fetch('marked_ready_for_review', false) && app_params['marked_ready_for_review'] != "0"
-      @shf_application.is_ready_for_review!
-    end
   end
 
 
@@ -184,7 +181,14 @@ class ShfApplicationsController < ApplicationController
 
 
   def authorize_shf_application
-    authorize @shf_application
+    @shf_application.nil? ? (authorize ShfApplication) : (authorize @shf_application)
+  end
+
+
+  def check_and_mark_if_ready_for_review(app_params)
+    if app_params.fetch('marked_ready_for_review', false) && app_params['marked_ready_for_review'] != "0"
+      @shf_application.is_ready_for_review!
+    end
   end
 
 
@@ -252,6 +256,7 @@ class ShfApplicationsController < ApplicationController
     end
 
   end
+
 
   def send_new_app_emails(new_shf_app)
 

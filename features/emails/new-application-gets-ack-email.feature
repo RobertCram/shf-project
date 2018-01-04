@@ -31,8 +31,8 @@ Feature: New Applicant gets an email acknowledging their application
     And I should see t("shf_applications.create.success", email_address: 'emma@happymutts.com')
     Then "emma@happymutts.com" should receive an email
     And I open the email
-    And I should see t("application_mailer.shf_application.acknowledge_received.subject") in the email subject
-    And I should see t("application_mailer.shf_application.acknowledge_received.message_text") in the email body
+    And I should see t("mailers.shf_application_mailer.acknowledge_received.subject") in the email subject
+    And I should see t("mailers.shf_application_mailer.acknowledge_received.message_text") in the email body
 
 
   Scenario: User submits a new application app with bad info so it is not created, so no email sent [SAD PATH]

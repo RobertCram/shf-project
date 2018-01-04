@@ -102,11 +102,9 @@ namespace :deploy do
 
 
 
-  # If removing test files causes problems with the build or deployment,
-  # find out early (not after deploying).
-  #   If removing the files causes problems with bundling or assets or
-  #   publishing, the deployment should fail.
-  before :updated, :remove_test_files
+  # Have to wait until all files are copied and symlinked before trying to remove
+  # these files.  (They won't exist until then.)
+  before :restart, :remove_test_files
 
 
   after  :publishing, :restart

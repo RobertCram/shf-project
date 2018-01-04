@@ -282,7 +282,7 @@ sv:
       upload_files_instructions: 'Dokumenten är mycket viktiga för att vi ska kunna bedöma din ansökan. Vi använder dem för att verifiera dina kunskaper och utbildningar. Detta säkerställer att vår medlemsstandard är fortsatt hög, vilket i förlängningen innebär att allmänheten vet att Sveriges hundföretagare är professionella och att lita på.'
       upload_files: 'Ladda upp filer från datorn'
       upload_more_files: Du kan ladda upp fler filer genom att redigera din ansökan efter att du skickat in den.
-      upload_button: Välj en fil...
+      upload_button: Välj dina filer...
       will_be_uploaded: 'Dessa filer kommer att laddas upp när du skickar in din ansökan:'
 
       submit_button_label: *submit
@@ -398,7 +398,7 @@ sv:
     state:
       new: &status_new Ny
       under_review: &status_under_review Behandlas
-      waiting_for_applicant: &status_waiting_for_applicant  Väntar på sökande
+      waiting_for_applicant: &status_waiting_for_applicant  Avvaktar sökande
       ready_for_review: &status_ready_for_review Redo för granskning
       accepted: &status_accepted Godkänd
       rejected: &status_rejected Avböjd
@@ -418,7 +418,7 @@ sv:
     ready_for_review: *status_ready_for_review
     start_review_btn: Påbörja granskning
 
-    awaiting_payment: Inväntar betalning
+    awaiting_payment: Avvaktar betalning
 
     all_shf_applications: Alla ansökningar
     edit_shf_application: Redigera ansökan
@@ -758,17 +758,17 @@ sv:
   admin_only:
     member_app_waiting_reasons:
       index:
-        title: "Orsaker till varför vi väntar på information"
+        title: "Anledningar till varför vi avvaktar information"
 
       new:
-        title: "Ny orsak"
+        title: "Ny anledning"
 
       create:
-        success: "Orsaken skapades"
-        error: "Det var ett problem att skapa orsaken."
+        success: "Anledning skapades"
+        error: "Det var ett problem att spara anledningen."
 
       show:
-        title: "Väntar på information på grund av: %{name_sv} (%{name_en})"
+        title: "Avvaktar information på grund av: %{name_sv} (%{name_en})"
 
       edit:
         title: "Redigerar: %{name_sv} (%{name_en})"
@@ -776,77 +776,78 @@ sv:
 
 
       update:
-        success: "Orsak uppdaterad."
-        error: "Det gick inte att uppdatera orsaken."
+        success: "Anledning uppdaterad."
+        error: "Det gick inte att uppdatera anledningen."
 
       destroy:
-        success: "Orsak borttagen."
-        error: "Det gick inte att ta bort orsaken."
+        success: "Anledning borttagen."
+        error: "Det gick inte att ta bort anledningen."
 
 
       new_member_app_waiting_reason: &new_app_waiting_reason "Ny orsak"
       all_member_app_waiting_reasons:  &all_app_waiting_reasons "Alla orsaker"
-      view_member_app_waiting_reason: "Visa orsak"
-      edit_member_app_waiting_reason: "Redigera orsak"
-      list_all_member_app_waiting_reasons: "Lista alla orsaker"
+      view_member_app_waiting_reason: "Visa anledning"
+      edit_member_app_waiting_reason: "Redigera anledning"
+      list_all_member_app_waiting_reasons: "Lista alla anledningar"
 
-      other_custom_reason: "Annat (skriv in orsaken)"
+      other_custom_reason: "Annat (skriv in anledningen)"
       other_custom_reason_desc: ""
 
-      delete_confirm: "Är du säker på att du vill radera orsaken: %{name_sv} (%{name_en})?"
+      delete_confirm: "Är du säker på att du vill radera anledningen: %{name_sv} (%{name_en})?"
 
+  mailers:
+    application_mailer:
+      greeting: &email_greeting "Hej %{greeting_name}"
 
-  application_mailer:
-    greeting: &email_greeting "Hej %{greeting_name}"
+      email_us: "Om du har några frågor eller förslag, maila oss på "
 
-    trouble_reading_browser: "Har du problem med att läsa detta? Visa det i en webbläsare"
-
-    email_us: "Om du har några frågor eller förslag, maila oss på "
-
-    footer:
-      text:
-        shf_name: *SHF_name
-        shf_motto: KOMPETENS – GLÄDJE – OMTANKE
-        email_sent_to: Det här mailet skickades till %{email_sent_to}
-        why_you_are_receiving: Du får detta e-postmeddelande eftersom du är intresserad av medlemsskap i SVERIGES HUNDFÖRETAGARE eller du är medlem.
-
-    admin:
-      signoff: Tack
+      signoff: "Med vänliga hälsningar,"
       signature: &medlemsansvarig Medlemsansvarig
+      signature_url: "http://sverigeshundforetagare.se"
+
+      footer:
+        text:
+          shf_name: *SHF_name
+          shf_motto: KOMPETENS – GLÄDJE – OMTANKE
+          email_sent_to: Det här mailet skickades till %{email_sent_to}
+          why_you_are_receiving: Du får detta e-postmeddelande eftersom du är intresserad av medlemsskap i Sveriges Hundföretagare eller för att du redan är medlem.
+
+
+    admin_mailer:
+      signoff: Tack
 
       new_application_received:
-        subject: Ny ansökan i systemet Hej
+        subject: Ny ansökan i systemet
         message_text:
-          new_app_arrived: "En ny ansökan har inkommit som du borde kika på. "
+          new_app_arrived: "En ny ansökan har inkommit som du borde kika på. "
           from: Från
           view_app_here: "Du kan se medlemskapsansökan här: "
           must_be_logged_in: "(Du måste vara inloggad som en administratör för att se det.)"
 
 
-    shf_application:
-      signoff: "Med vänliga hälsningar,"
-      signature: *medlemsansvarig
-      signature_url: "http://sverigeshundforetagare.se"
-
+    shf_application_mailer:
       acknowledge_received:
-        subject: Din ansökan till Sveriges Hundföretagare är mottagen
-        message_text: "Din ansökan är mottagen, på grund av hög arbetsbelastning tar det en stund innan vi kommer till den. Så var inte orolig om det tar en stund innan du hör från oss."
+        subject: Din ansökan till Sveriges Hundföretagare är mottagen
+        message_text: "Din ansökan är mottagen. Vi hanterar den så fort vi kan. Säkerställ att du laddat upp eller mailar in allt relevant underlag."
 
       app_approved:
         subject: Din ansökan till Sveriges Hundföretagare är godkänd.
         message_text:
           app_approved_and_next: "Din ansökan har nu blivit godkänd. Det som är kvar innan du är medlem i systemet är att betala din medlemsavgift. Det gör du via "
-          h_branding_not_paid: "När detta är gjort behöver du göra färdigt din företagssida och betala din H-märkningsvagift. Mer information om hur du gör det kommer i ett mail efter att du betalt din medlemsavgift."
+          h_branding_not_paid: "När detta är gjort behöver du göra färdigt din företagssida och betala din H-märkesavgift. Mer information om hur du gör det kommer i ett mail efter att du betalt din medlemsavgift."
           thanks:  "Tack för att du vill vara medlem och bidrar till ett kvalitetssäkrat hundsverige."
 
-    user:
-      accepted:
-        subject: "Välkommen som medlem i Sveriges Hundföretagare"
+
+    member_mailer:
+      membership_granted:
+        subject: &subject_welcome "Välkommen som medlem i Sveriges Hundföretagare"
         greeting: *email_greeting
         message_text:
-          youre_active: "Du har nu aktiverats som medlem i systemet och kan logga in och hantera din profil och bygga upp din företagssida. När du är inloggad kan du redigera din företagssida här: "
-          access_fb_group: "Som medlem får du även tillgång till vår slutna Facebookgrupp: "
+          welcome:  *subject_welcome
+          youre_active: "Ditt företag är nu H-märkt och du har aktiverats som medlem i systemet. Du kan logga in och hantera din profil och bygga upp din företagssida. När du är inloggad kan du redigera din företagssida och betala din H-märkesavgift här: "
+          access_fb_group: "Som medlem får du även tillgång till vår slutna Facebookgrupp: "
           and_member_pages: "samt dolda sidor i vårt medlemssystem: "
+
 
 
   devise:
@@ -981,7 +982,7 @@ sv:
         applications:
           submenu_title: *applications
           manage_applications: Hantera ansökningar
-          waiting_reasons: "Väntar på information skäl"
+          waiting_reasons: "Anledning för avvaktan"
         users:
           list_users: Användare
 
@@ -994,6 +995,7 @@ sv:
   errors:
     not_permitted: Du har inte behörighet att göra detta.
     format: "%{attribute} %{message}"
+    bad_search_params: "Förlåt. Vi kunde inte söka efter %{search_item} med dessa kriterier. Var god försök igen."
     messages:
       accepted: måste accepteras
       blank: måste anges

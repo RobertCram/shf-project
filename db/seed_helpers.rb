@@ -96,7 +96,8 @@ module SeedHelper
       # make a full company object (instance) for the accepted membership application
       ma.company = make_new_company(ma.company_number)
 
-      user.grant_membership
+      # do not send emails
+      user.grant_membership(send_email: false)
 
       start_date, expire_date = User.next_membership_payment_dates(user.id)
 

@@ -17,7 +17,10 @@ end
 # Attributes and Email components common to _all_ emails sent, whether to admins, members, applicants, etc. .
 # Assumes that 'email_created' exists e.g. via a let(:..) (which might be within a block)
 #   Does *not* include any text about 'email us with questions...'
-RSpec.shared_examples 'a successfully created email' do |subject, recipient, greeting|
+RSpec.shared_examples 'a successfully created email' do |subject, recipient, greeting_name, signoff, signature|
+
+  DEFAULT_SIGNOFF =   I18n.t('mailers.application_mailer.signoff')
+  DEFAULT_SIGNATURE = I18n.t('mailers.application_mailer.signature')
 
   it 'subject is correct' do
     expect(email_created).to have_subject(subject)
@@ -28,14 +31,24 @@ RSpec.shared_examples 'a successfully created email' do |subject, recipient, gre
   end
 
   it 'greeting is correct' do
-    expect(email_created).to have_body_text(greeting)
+    expect(email_created).to have_body_text( I18n.t('mailers.application_mailer.greeting', greeting_name: greeting_name))
+  end
+
+  signoff ||= DEFAULT_SIGNOFF
+  it "signoff is #{signoff}" do
+    expect(email_created).to have_body_text(signoff)
+  end
+
+  signature ||= DEFAULT_SIGNATURE
+  it "signature is #{signature}" do
+    expect(email_created).to have_body_text(signature)
   end
 
   describe 'footer is correct' do
 
     it "has: this email sent to #{recipient}... note" do
       email_created.parts.each do |mail_part|
-        expect(mail_part).to have_body_text(I18n.t('application_mailer.footer.text.email_sent_to', email_sent_to: @recipient_email).html_safe)
+        expect(mail_part).to have_body_text(I18n.t('mailers.application_mailer.footer.text.email_sent_to', email_sent_to: @recipient_email).html_safe)
       end
     end
 

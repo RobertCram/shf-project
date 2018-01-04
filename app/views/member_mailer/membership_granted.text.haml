@@ -1,0 +1,14 @@
+- provide :signoff do
+  = render 'application_mailer/signoff'
+
+- message_scope = 'mailers.member_mailer.membership_granted.message_text'
+
+= render layout: 'layouts/mail_from_membership' do
+  = t('welcome', scope: message_scope) + '.'
+  \
+  = t('youre_active', scope: message_scope)  + edit_company_url(@member.company)
+  \
+  = t('access_fb_group', scope: message_scope)
+  = t('shf_facebook_group_url')
+  \
+  = t('and_member_pages', scope: message_scope) + t('shf_medlemssystem_url')

@@ -47,10 +47,11 @@
             %tr.shf_application
               %td= mail_to(app.contact_email)
               %td
+                - i18n_state = t("shf_applications.state.#{app.state}")
                 - if app.accepted?
-                  %span.yes= app.state
+                  %span.yes= i18n_state
                 - else
-                  %span.maybe= app.state
+                  %span.maybe= i18n_state
               %td= link_to(app.company_number, shf_application_path(app))
               %td= app.company&.name
 

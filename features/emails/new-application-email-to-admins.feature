@@ -37,27 +37,27 @@ Feature: When a new application is received, all admins get an email notificatio
     And I am logged in as "admin1@shf.se"
     Then "admin1@shf.se" should receive an email
     And I open the email
-    And I should see t("application_mailer.admin.new_application_received.subject") in the email subject
-    And I should see t("application_mailer.admin.new_application_received.message_text.new_app_arrived") in the email body
-    And I should see t("application_mailer.admin.new_application_received.message_text.from") in the email body
-    And I should see t("application_mailer.admin.new_application_received.message_text.view_app_here") in the email body
-    And I should see t("application_mailer.admin.new_application_received.message_text.must_be_logged_in") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.subject") in the email subject
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.new_app_arrived") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.from") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.view_app_here") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.must_be_logged_in") in the email body
     And I am logged out
     And I am logged in as "admin2@shf.se"
     Then "admin2@shf.se" should receive an email
     And I open the email
-    And I should see t("application_mailer.admin.new_application_received.subject") in the email subject
-    And I should see t("application_mailer.admin.new_application_received.message_text.new_app_arrived") in the email body
-    And I should see t("application_mailer.admin.new_application_received.message_text.from") in the email body
-    And I should see t("application_mailer.admin.new_application_received.message_text.view_app_here") in the email body
-    And I should see t("application_mailer.admin.new_application_received.message_text.must_be_logged_in") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.subject") in the email subject
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.new_app_arrived") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.from") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.view_app_here") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.must_be_logged_in") in the email body
     Then "admin3@shf.se" should receive an email
     And I open the email
-    And I should see t("application_mailer.admin.new_application_received.subject") in the email subject
-    And I should see t("application_mailer.admin.new_application_received.message_text.new_app_arrived") in the email body
-    And I should see t("application_mailer.admin.new_application_received.message_text.from") in the email body
-    And I should see t("application_mailer.admin.new_application_received.message_text.view_app_here") in the email body
-    And I should see t("application_mailer.admin.new_application_received.message_text.must_be_logged_in") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.subject") in the email subject
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.new_app_arrived") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.from") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.view_app_here") in the email body
+    And I should see t("mailers.admin_mailer.new_application_received.message_text.must_be_logged_in") in the email body
 
 
   Scenario: User submits a new application app with bad info so it is not created, so no email sent [SAD PATH]
