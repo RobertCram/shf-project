@@ -7,11 +7,15 @@ Feature: As a visitor,
       | name         |
       | Stockholm    |
       | Västerbotten |
+      | Norrbotten   |
+      | Uppsala      |
 
     Given the following kommuns exist:
-      | name      |
-      | Alingsås  |
-      | Bromölla  |
+      | name         |
+      | Alingsås     |
+      | Bromölla     |
+      | Alvesta      |
+      | Aneby        |
 
     And the following business categories exist
       | name         |
@@ -48,6 +52,11 @@ Feature: As a visitor,
       | Company27 | 9475077674     | cmpy13@mail.com | Stockholm    | Alingsås|
       | Company28 | 8728875504     | cmpy13@mail.com | Stockholm    | Alingsås|
       | Company29 | 5872150379     | cmpy13@mail.com | Stockholm    | Alingsås|
+
+    And the following company addresses exist:
+      | company_name | region       | kommun  |
+      | Company2     | Norrbotten   | Alvesta |
+      | Company2     | Uppsala      | Aneby   |
 
     And the following users exists
       | email        | admin | member |
@@ -118,7 +127,6 @@ Feature: As a visitor,
       | b@mutts.com | Company28    | accepted | Groomer    |
       | a@mutts.com | Company29    | accepted | Groomer    |
 
-
   @selenium @time_adjust
   Scenario: Visitor sees all companies
     Given the date is set to "2017-10-01"
@@ -130,6 +138,20 @@ Feature: As a visitor,
     And I should see "Company1"
     And I should not see "5560360793"
     And I should not see t("companies.new_company")
+
+  @selenium @time_adjust
+  Scenario: Visitor sees multiple regions and kommuns for a company in the companies list
+    Given the date is set to "2017-10-01"
+    Given I am Logged out
+    And I am on the "landing" page
+    Then I should see t("companies.index.h_companies_listed_below")
+    And I should see "Company2"
+    And I should see "Västerbotten"
+    And I should see "Norrbotten"
+    And I should see "Uppsala"
+    And I should see "Bromölla"
+    And I should see "Alvesta"
+    And I should see "Aneby"
 
   @time_adjust
   Scenario: User sees all the companies

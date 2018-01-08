@@ -25,6 +25,20 @@ And(/^the following kommuns exist:$/) do |table|
   end
 end
 
+And(/^the following company addresses exist:$/) do |table|
+  table.hashes.each do |address|
+    company_name = address.delete('company_name')
+    company = Company.find_by_name(company_name)
+
+    region = address.delete('region') || 'Stockholm'
+    kommun = address.delete('kommun') || 'Stockholm'
+    company.addresses.build(address.merge({
+                                            region: Region.find_by_name(region),
+                                            kommun: Kommun.find_by_name(kommun),
+                                          }))
+  end
+end
+
 And(/^I am (on )*the page for company number "([^"]*)"$/) do |grammar_fix_on, company_number|
   company = Company.find_by_company_number(company_number)
   visit path_with_locale(company_path company)
