@@ -35,6 +35,10 @@ Feature: As an admin
       | Bowsers     | 5560360793     | bark@bowsers.com    | Stockholm    | Bromölla |
       | WOOF        | 5569467466     | woof@woof.com       | Västerbotten | Laxå     |
 
+    And the following payments exist
+      | user_email    | start_date | expire_date | payment_type | status | hips_id | company_number |
+      | wils@woof.com | 2017-01-01 | 2017-12-31  | branding_fee | betald | none    | 5569467466     |
+
 
     And the following applications exist:
       | user_email       | company_number | state        |
@@ -81,8 +85,9 @@ Feature: As an admin
     And I am on the "all companies" page
     And I should see "2120000142"
 
-  @focus
+  @focus @time_adjust
   Scenario: Admin deletes the only membership application associated with a company. Company is deleted
+    Given the date is set to "2017-10-01"
     Given I am logged in as "admin@shf.se"
     And I am on the "all companies" page
     Then I should see "3" companies

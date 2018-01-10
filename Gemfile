@@ -104,6 +104,8 @@ group :development do
   gem 'bullet'
   gem 'rb-readline'
 
+  gem 'rubycritic'   # code quality analysis tools and reports
+
 end
 
 group :test do

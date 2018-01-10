@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_after_action_path, if: :devise_controller?
+  before_action :store_current_location, :unless => :devise_controller?
   before_action :prepare_exception_notifier
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -21,15 +23,25 @@ class ApplicationController < ActionController::Base
     raise 'This is a just a test of the exception notifications to ensure they are working.'
   end
 
-
   protected
 
   def configure_permitted_parameters
-    additional_permissions = [:first_name, :last_name]
+    additional_permissions = [:first_name, :last_name, :member_photo]
     devise_parameter_sanitizer.permit(:sign_up, keys: additional_permissions)
     devise_parameter_sanitizer.permit(:account_update, keys: additional_permissions)
   end
 
+  def store_current_location
+    store_location_for(:user, request.url)
+  end
+
+  def set_after_action_path
+    return unless self.is_a? Devise::RegistrationsController
+
+    def self.after_update_path_for(resource)
+      stored_location_for(resource) || request.referer || root_path
+    end
+  end
 
   private
 
@@ -70,14 +82,52 @@ class ApplicationController < ActionController::Base
   end
 
 
-  # Set data that will be included when an exception notification is sent
-  #  current_user: so we know who was using the application when the error occured
-  #  remote_addr: IP address to help identify bots and webcrawlers
+  # Set data that will be included when an exception notification is sent.
+  # We have all of the data from the incoming *request* to work with and all other
+  # information and objects involved at this point (the current controller, etc.)
+  #
+  # Most information sent to the notification is from
+  # the *request* ActionDispatch::Request
+  #  See that class for more details
+  #
+  # Information sent:
+  #
+  #   * request_original_url: the full URL that is the source of the request
+  #     ex:  https://hitta.sverigeshundforetagare.se/hundforetag/57
+  #
+  #   * request_method:  the HTTP method used for the request
+  #     ex: GET or POST or PUT, etc.
+  #
+  #   * request_path: the portion of the URL specific to the SHF system;
+  #     the +String+ full path including params of the last URL requested
+  #     ex:  get "/articles?page=2"  will return
+  #       "/articles?page=2"
+  #
+  #   * params_to_json: the parameters for the request, converted .to_json
+  #
+  #   * params_inspect: the String returned from params.inspect
+  #     This will include the 'permitted' information, which is not included in the .to_json information
+  #
+  #   * current_user: so we know who was using the application when the error occured
+  #
+  #   * remote_addr: IP address to help identify bots and webcrawlers
+  #
+  #   * request_id: useful for tracking the request in logs
+  #     from ActionDispatch::Request  def request_id :
+  #       This unique ID is useful for tracing a request from end-to-end as part of
+  #       logging or debugging.
+  #
   def prepare_exception_notifier
     request.env["exception_notifier.exception_data"] = {
+        request_original_url: request.original_url,
+        request_method: request.request_method,
+        request_path: request.fullpath,
+        params_as_json: params.as_json,
+        params_inspect: params.inspect,
         current_user: current_user.inspect,
         remote_addr: request.env['REMOTE_ADDR'],
-        browser: request.env['HTTP_USER_AGENT']
+        browser: request.env['HTTP_USER_AGENT'],
+        request_id: request.request_id
 
     }
   end

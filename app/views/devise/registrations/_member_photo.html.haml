@@ -1,0 +1,21 @@
+- if user.member?
+  .col-sm-4
+    = image_tag(user.member_photo.url(:standard))
+    - if user.member_photo
+      .clearfix
+      = user.member_photo_file_name
+    .clearfix
+    .field
+      = f.file_field :member_photo, accept: 'image/png, image/jpeg'
+
+  .col-sm-8
+    #{t('users.update.member_photo.reason')}
+    %br
+    %br
+    #{t('users.update.member_photo.format')}
+    %br
+    %br
+    - if user.member_photo?
+      #{t('users.update.member_photo.replace')}
+    - else
+      #{t('users.update.member_photo.upload')}

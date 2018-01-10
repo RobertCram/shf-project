@@ -42,6 +42,10 @@ Feature: When a new application is received, all admins get an email notificatio
     And I should see t("mailers.admin_mailer.new_application_received.message_text.from") in the email body
     And I should see t("mailers.admin_mailer.new_application_received.message_text.view_app_here") in the email body
     And I should see t("mailers.admin_mailer.new_application_received.message_text.must_be_logged_in") in the email body
+    And I should not see "http://localhost:3000/ansokan/1/redigera" in the email body
+    And I should see "http://localhost:3000/ansokan/1" in the email body
+    When I follow "http://localhost:3000/ansokan/1" in the email
+    Then I should see t("shf_applications.show.title", user_full_name: 'Emma HappyMutts')
     And I am logged out
     And I am logged in as "admin2@shf.se"
     Then "admin2@shf.se" should receive an email
@@ -51,6 +55,10 @@ Feature: When a new application is received, all admins get an email notificatio
     And I should see t("mailers.admin_mailer.new_application_received.message_text.from") in the email body
     And I should see t("mailers.admin_mailer.new_application_received.message_text.view_app_here") in the email body
     And I should see t("mailers.admin_mailer.new_application_received.message_text.must_be_logged_in") in the email body
+    And I should not see "http://localhost:3000/ansokan/1/redigera" in the email body
+    And I should see "http://localhost:3000/ansokan/1" in the email body
+    When I follow "http://localhost:3000/ansokan/1" in the email
+    Then I should see t("shf_applications.show.title", user_full_name: 'Emma HappyMutts')
     Then "admin3@shf.se" should receive an email
     And I open the email
     And I should see t("mailers.admin_mailer.new_application_received.subject") in the email subject
@@ -58,7 +66,10 @@ Feature: When a new application is received, all admins get an email notificatio
     And I should see t("mailers.admin_mailer.new_application_received.message_text.from") in the email body
     And I should see t("mailers.admin_mailer.new_application_received.message_text.view_app_here") in the email body
     And I should see t("mailers.admin_mailer.new_application_received.message_text.must_be_logged_in") in the email body
-
+    And I should not see "http://localhost:3000/ansokan/1/redigera" in the email body
+    And I should see "http://localhost:3000/ansokan/1" in the email body
+    When I follow "http://localhost:3000/ansokan/1" in the email
+    Then I should see t("shf_applications.show.title", user_full_name: 'Emma HappyMutts')
 
   Scenario: User submits a new application app with bad info so it is not created, so no email sent [SAD PATH]
     Given I am logged in as "emma@happymutts.com"

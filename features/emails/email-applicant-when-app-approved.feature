@@ -4,6 +4,7 @@ Feature: Applicant gets an email when the application is approved
   So that I know that SHF has approved the application (still need to pay)
   and so I know what I should expect to happen next,
   I should get an email letting me know the application was approved and now I need to pay
+  And I should see a link to my account in the email so I can pay
 
 
   Background:
@@ -44,5 +45,11 @@ Feature: Applicant gets an email when the application is approved
     And I am logged in as "emma@happymutts.se"
     And I open the email
     And I should see t("mailers.shf_application_mailer.app_approved.subject") in the email subject
-
-
+    # must make sure this is not the edit page; it would also match the pattern for the show user page
+    And I should not see "http://localhost:3000/anvandare/1/redigera" in the email body
+    And I should see "http://localhost:3000/anvandare/1" in the email body
+    When I follow "http://localhost:3000/anvandare/1" in the email
+    Then I should see "Firstname Lastname"
+    And I should see t("users.show.email")
+    And I should see t("applications")
+    And I should not see t("users.show.membership_number")

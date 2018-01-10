@@ -114,6 +114,14 @@ RSpec.describe Company, type: :model do
              company_number: company.company_number, user: user2)
     end
 
+    let(:payment_type) { Payment::PAYMENT_TYPE_BRANDING }
+    let(:brand_pymt1) do
+      create(:payment, company: company, payment_type: payment_type)
+    end
+    let(:brand_pymt2) do
+      create(:payment, company: company, payment_type: payment_type)
+    end
+
     let(:picture1) do
       pic = Ckeditor::Picture.new
       pic.company_id = company.id
@@ -148,6 +156,13 @@ RSpec.describe Company, type: :model do
       picture2
       expect(company.pictures.count).to eq 2
       expect { company.destroy }.to change(Ckeditor::Picture, :count).by(-2)
+    end
+
+    it 'payments' do
+      brand_pymt1
+      brand_pymt2
+      expect(company.payments.count).to eq 2
+      expect { company.destroy }.to change(Payment, :count).by(-2)
     end
   end
 

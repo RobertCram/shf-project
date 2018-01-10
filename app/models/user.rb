@@ -6,10 +6,19 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  before_destroy { self.member_photo = nil } # remove photo file from file system
+
   has_many :shf_applications
 
   has_many :payments
   accepts_nested_attributes_for :payments
+
+  has_attached_file :member_photo, default_url: 'photo_unavailable.png',
+                    styles: { standard: ['250'] }, default_style: :standard
+
+  validates_attachment_content_type :member_photo,
+                                    content_type:  /\Aimage\/.*(jpeg|png)\z/
+  validates_attachment_file_name :member_photo, matches: [/png\z/, /jpe?g\z/]
 
   validates_presence_of :first_name, :last_name, unless: Proc.new {!new_record? && !(first_name_changed? || last_name_changed?)}
   validates_uniqueness_of :membership_number, allow_blank: true
@@ -123,6 +132,5 @@ class User < ApplicationRecord
   def get_next_membership_number
     self.class.connection.execute("SELECT nextval('membership_number_seq')").getvalue(0,0).to_s
   end
-
 
 end

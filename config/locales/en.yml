@@ -224,6 +224,9 @@ en:
           attributes:
             password_confirmation:
               confirmation: doesn't match with the password entered.
+            member_photo:
+              spoofed_media_type: file name (type) does not match the file
+                                  content.  Please use another photo file.
 
         shf_document:
           attributes:
@@ -629,6 +632,15 @@ en:
       passwords_dont_match: "The two passwords entered don't match."
       success: The user was updated.
       error: A problem kept the user from being updated.
+      member_photo:
+        reason: Your photo will be used in your digital "proof of membership".
+        format: Your photo file should be in "PNG" or "JPEG" format, and be
+                approximately the size of a passport photo (or a bit larger)
+                for best results. (This is flexible, however, as we will resize
+                the photo as needed.)
+        upload: Please upload a photo of yourself. Click "Choose File" to do so.
+        replace: Your photo file can be changed by simply selecting another
+                 file. Click "Choose File" to do so.
 
     search_form:
       membership_number: &membership_number_short No.
@@ -841,11 +853,11 @@ en:
 
     member_mailer:
       membership_granted:
-        subject: &subject_welcome "Welcome to SHF! You're now a member"
+        subject: &subject_welcome "Welcome to SHF! You are now a member"
         greeting: *email_greeting
         message_text:
           welcome:  *subject_welcome
-          youre_active: "Your company is now H-tagged and you have been activated as a member of the system. You can login and manage your profile and build your business page. When you're signed in, you can edit your business page and pay your branding license fee here: "
+          youre_active: "Your company is now H-tagged and you have been activated as a member of the system. You can login and manage your profile and build your business page. When you are signed in, you can edit your business page and pay your branding license fee here: "
           access_fb_group: "As a member, you will also have access to our closed Facebook group: "
           and_member_pages: "as well as hidden pages in our member system: "
 

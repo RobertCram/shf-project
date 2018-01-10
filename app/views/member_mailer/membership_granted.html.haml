@@ -8,7 +8,7 @@
 
   %p
     = t('youre_active', scope: message_scope)
-    = link_to(edit_company_url(@member.company),  edit_company_url(@member.company), target: '_blank')
+    = link_to(company_url(@member.company),  company_url(@member.company), target: '_blank')
 
   %p
     = t('access_fb_group', scope: message_scope)

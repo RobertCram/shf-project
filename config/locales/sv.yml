@@ -226,6 +226,9 @@ sv:
           attributes:
             password_confirmation:
               confirmation: stämmer inte med det angivna lösenordet.
+            member_photo:
+              spoofed_media_type: filnamn (typ) matchar inte filinnehållet.
+                                  Vänligen använd en annan bildfil.
 
         shf_document:
           attributes:
@@ -628,6 +631,14 @@ sv:
       passwords_dont_match: De två lösenord du angivit matchar inte.
       success: Användarens information uppdaterad.
       error: Ett problem hindrade användarinformationen från att uppdateras.
+      member_photo:
+        reason: Detta foto används på ditt medlemsbevis.
+        format: Din fotofil ska vara i "PNG" eller "JPEG" -format,
+                och av passfototyp (det vill säga ansiktsbild med neutral bagrund)
+                för bästa resultat.
+        upload: Klicka på "Välj fil" för att ladda upp ditt foto.
+        replace: Ditt foto kan bytas ut genom att helt enkelt välja en annan fil.
+                 Klicka på "Välj fil" för att göra det.
 
     search_form:
       membership_number: &membership_number_short Nr.

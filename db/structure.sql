@@ -578,7 +578,11 @@ CREATE TABLE users (
     first_name character varying,
     last_name character varying,
     membership_number character varying,
-    member boolean DEFAULT false
+    member boolean DEFAULT false,
+    member_photo_file_name character varying,
+    member_photo_content_type character varying,
+    member_photo_file_size integer,
+    member_photo_updated_at timestamp without time zone
 );
 
 
@@ -1091,6 +1095,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171026103648'),
 ('20171109142139'),
 ('20171120170441'),
-('20171213174816');
+('20171213174816'),
+('20180103171241');
 
 

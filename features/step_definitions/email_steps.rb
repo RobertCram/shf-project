@@ -97,12 +97,8 @@ end
 # Inspect the Email Contents
 #
 
-Then /^(?:I|they) should see (t\()?"([^"]*?)"(?:\)) in the email subject$/ do |translate, text|
-  if translate
-    expect(current_email).to have_subject(i18n_content(text))
-  else
-    expect(current_email).to have_subject(text)
-  end
+Then /^(?:I|they) should see #{CAPTURE_STRING} in the email subject$/ do |text|
+  expect(current_email).to have_subject(text)
 end
 
 Then /^(?:I|they) should see \/([^"]*?)\/ in the email subject$/ do |text|
@@ -117,16 +113,12 @@ Then /^(?:I|they) should not see \/([^"]*?)\/ in the email subject$/ do |text|
   expect(current_email).not_to have_subject(Regexp.new(text))
 end
 
-Then /^(?:I|they) should see (t\()?"([^"]*?)"(?:\)) in the email body$/ do |translate, text|
-  if translate
-    expect(current_email.default_part_body.to_s).to include(i18n_content(text))
-  else
+Then /^(?:I|they) should see #{CAPTURE_STRING} in the email body$/ do |text|
     expect(current_email.default_part_body.to_s).to include(text)
-  end
 end
 
-Then /^(?:I|they) should not see "([^"]*?)" in the email body$/ do |text|
-  expect(current_email.default_part_body.to_s).not_to include(text)
+Then /^(?:I|they) should not see #{CAPTURE_STRING} in the email body$/ do |text|
+  expect(current_email.default_part_body.to_s).not_to include(text), "Should not see #{text}\n but did.  \n\nfull text:\n#{current_email.default_part_body}"
 end
 
 Then /^(?:I|they) should see \/([^"]*?)\/ in the email body$/ do |text|
@@ -154,15 +146,15 @@ Then /^(?:I|they) should see \/([^\"]*)\/ in the email "([^"]*?)" header$/ do |t
 end
 
 Then /^I should see it is a multi\-part email$/ do
-    expect(current_email).to be_multipart
+  expect(current_email).to be_multipart
 end
 
 Then /^(?:I|they) should see "([^"]*?)" in the email html part body$/ do |text|
-    expect(current_email.html_part.body.to_s).to include(text)
+  expect(current_email.html_part.body.to_s).to include(text)
 end
 
 Then /^(?:I|they) should see "([^"]*?)" in the email text part body$/ do |text|
-    expect(current_email.text_part.body.to_s).to include(text)
+  expect(current_email.text_part.body.to_s).to include(text)
 end
 
 #
@@ -203,12 +195,8 @@ end
 # Interact with Email Contents
 #
 
-When /^(?:I|they|"([^"]*?)") follows? (t\()?"([^"]*?)"(?:\)) in the email$/ do |address, translate, link|
-  if translate
-    visit_in_email(i18n_content(link), address)
-  else
-    visit_in_email(link, address)
-  end
+When /^(?:I|they|"([^"]*?)") follows? #{CAPTURE_STRING} in the email$/ do |address, link|
+  visit_in_email(link, address)
 end
 
 When /^(?:I|they) click the first link in the email$/ do
