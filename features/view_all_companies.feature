@@ -146,12 +146,13 @@ Feature: As a visitor,
     And I am on the "landing" page
     Then I should see t("companies.index.h_companies_listed_below")
     And I should see "Company2"
-    And I should see "Västerbotten"
-    And I should see "Norrbotten"
-    And I should see "Uppsala"
-    And I should see "Bromölla"
-    And I should see "Alvesta"
-    And I should see "Aneby"
+    And I should see "Västerbotten" in the row for "Company2"
+    And I should see "Norrbotten" in the row for "Company2"
+    And I should see "Uppsala" in the row for "Company2"
+    And I should see "Bromölla" in the row for "Company2"
+    And I should see "Alvesta" in the row for "Company2"
+    And I should see "Aneby" in the row for "Company2"
+    And I should not see "Stockholm" in the row for "Company2"
 
   @time_adjust
   Scenario: User sees all the companies

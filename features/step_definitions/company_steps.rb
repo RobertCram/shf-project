@@ -30,12 +30,9 @@ And(/^the following company addresses exist:$/) do |table|
     company_name = address.delete('company_name')
     company = Company.find_by_name(company_name)
 
-    region = address.delete('region') || 'Stockholm'
-    kommun = address.delete('kommun') || 'Stockholm'
-    company.addresses.build(address.merge({
-                                            region: Region.find_by_name(region),
-                                            kommun: Kommun.find_by_name(kommun),
-                                          }))
+    region = Region.find_by_name(address.delete('region') || 'Stockholm')
+    kommun = Kommun.find_by_name(address.delete('kommun') || 'Stockholm')
+    FactoryGirl.create(:company_address, region: region, kommun: kommun, addressable: company)
   end
 end
 

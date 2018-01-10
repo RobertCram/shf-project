@@ -105,6 +105,12 @@ Then(/^I should see:$/) do |table|
 end
 
 
+Then(/^I should( not)? see #{CAPTURE_STRING} in the row for #{CAPTURE_STRING}$/) do |negate, text, row_identifier|
+  row = find(:xpath, "//tr[td//text()[contains(.,'#{row_identifier}')]]")
+  expect(row).send (negate ? :not_to : :to), have_content(text)
+end
+
+
 Then(/^I should see "([^"]*)" applications$/) do |number|
   expect(page).to have_selector('tr.applicant', count: number)
 end
