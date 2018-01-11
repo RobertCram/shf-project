@@ -178,10 +178,10 @@ ActiveRecord::Schema.define(version: 20180103171241) do
     t.string "last_name"
     t.string "membership_number"
     t.boolean "member", default: false
-    t.string "photo_file_name"
-    t.string "photo_content_type"
-    t.integer "photo_file_size"
-    t.datetime "photo_updated_at"
+    t.string "member_photo_file_name"
+    t.string "member_photo_content_type"
+    t.integer "member_photo_file_size"
+    t.datetime "member_photo_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["membership_number"], name: "index_users_on_membership_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
